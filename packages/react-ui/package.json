@@ -1,0 +1,23 @@
+{
+  "name": "@cryptogate/react-ui",
+  "version": "0.0.1",
+  "description": "Cryptogate Web3 react UI components, contexts and hooks",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Cryptoware",
+  "license": "MIT",
+  "dependencies": {
+    "@solana/wallet-adapter-base": "^0.9.5",
+    "@solana/wallet-adapter-react": "^0.15.4",
+    "@solana/wallet-adapter-wallets": "^0.15.5",
+    "@solana/web3.js": "^1.37.1",
+    "@usedapp/core": "^0.12.9",
+    "@web3-react/ledger-connector": "^6.1.9",
+    "@web3-react/trezor-connector": "^6.1.9",
+    "@web3-react/walletconnect-connector": "^6.2.13",
+    "@web3-react/walletlink-connector": "^6.2.14",
+    "react": "^18.0.0"
+  }
+}
