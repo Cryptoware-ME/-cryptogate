@@ -1,6 +1,6 @@
 {
   "name": "@cryptogate/passport-web3-strategy",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Passport.js Strategy for EVM & Solana Web3 Authentication",
   "main": "index.js",
   "scripts": {
