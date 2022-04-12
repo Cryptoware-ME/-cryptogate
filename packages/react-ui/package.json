@@ -1,6 +1,6 @@
 {
   "name": "@cryptogate/react-ui",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Cryptogate Web3 react UI components, contexts and hooks",
   "main": "index.js",
   "scripts": {
