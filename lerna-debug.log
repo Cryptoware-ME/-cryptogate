@@ -1,8 +1,0 @@
-37 warn complete Waiting for 1 child process to exit. CTRL-C to exit immediately.
-38 error Error: Command failed with exit code 128: git tag @cryptogate/passport-web3-strategy@0.0.2 -m @cryptogate/passport-web3-strategy@0.0.2
-38 error fatal: tag '@cryptogate/passport-web3-strategy@0.0.2' already exists
-38 error     at makeError (C:\Users\Jad\AppData\Roaming\npm\node_modules\lerna\node_modules\execa\lib\error.js:60:11)
-38 error     at handlePromise (C:\Users\Jad\AppData\Roaming\npm\node_modules\lerna\node_modules\execa\index.js:118:26)
-38 error     at processTicksAndRejections (node:internal/process/task_queues:96:5)
-38 error     at async Promise.all (index 0)
-38 error     at async Promise.all (index 0)

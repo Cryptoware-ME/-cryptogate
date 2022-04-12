@@ -22,7 +22,7 @@
     "@web3-react/trezor-connector": "^6.1.9",
     "@web3-react/walletconnect-connector": "^6.2.13",
     "@web3-react/walletlink-connector": "^6.2.14",
-    "react": "^18.0.0"
+    "react": "16.13.1"
   },
   "gitHead": "4e7588c374765236eb36f78f70745b80a39c773c"
 }
