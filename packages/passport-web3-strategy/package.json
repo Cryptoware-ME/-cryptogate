@@ -1,6 +1,7 @@
 {
   "name": "@cryptogate/passport-web3-strategy",
-  "version": "0.0.3",
+  "version": "0.0.4",
+  "private": false,
   "description": "Passport.js Strategy for EVM & Solana Web3 Authentication",
   "main": "index.js",
   "scripts": {
@@ -14,5 +15,6 @@
     "express": "^4.17.3",
     "passport-strategy": "^1.0.0",
     "tweetnacl": "^1.0.3"
-  }
+  },
+  "gitHead": "e46fca9ad0dc3854756b8ad2987aaaf245365cc8"
 }
