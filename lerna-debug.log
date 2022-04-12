@@ -1,0 +1,14 @@
+33 error Error: Command failed with exit code 1: git commit -F C:\Users\Jad\AppData\Local\Temp\7b748ea1-bf61-456c-831f-d6106d261554\lerna-commit.txt
+33 error On branch main
+33 error Your branch is up to date with 'origin/main'.
+33 error
+33 error Changes not staged for commit:
+33 error   (use "git add <file>..." to update what will be committed)
+33 error   (use "git restore <file>..." to discard changes in working directory)
+33 error 	modified:   package.json
+33 error
+33 error no changes added to commit (use "git add" and/or "git commit -a")
+33 error     at makeError (C:\Users\Jad\AppData\Roaming\npm\node_modules\lerna\node_modules\execa\lib\error.js:60:11)
+33 error     at handlePromise (C:\Users\Jad\AppData\Roaming\npm\node_modules\lerna\node_modules\execa\index.js:118:26)
+33 error     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+33 error     at async Promise.all (index 0)

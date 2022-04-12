@@ -1,6 +1,6 @@
 {
   "name": "root",
-  "private": true,
+  "private": false,
   "author": "Cryptoware",
   "devDependencies": {
     "lerna": "^4.0.0"
