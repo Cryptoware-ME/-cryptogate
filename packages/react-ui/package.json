@@ -1,7 +1,7 @@
 {
   "name": "@cryptogate/react-ui",
   "private": false,
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Cryptogate Web3 react UI components, contexts and hooks",
   "main": "index.js",
   "scripts": {
@@ -21,5 +21,5 @@
     "@web3-react/walletlink-connector": "^6.2.14",
     "react": "^18.0.0"
   },
-  "gitHead": "e46fca9ad0dc3854756b8ad2987aaaf245365cc8"
+  "gitHead": "21bdf9028def076b5f020bff0c983cae83dea9b3"
 }
