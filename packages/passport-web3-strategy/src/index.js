@@ -2,7 +2,7 @@ const passport = require("passport-strategy");
 
 const { verifyEthSig, verifySolSig } = require("./verifySignatures");
 
-class Strategy extends passport.Strategy {
+class Web3Strategy extends passport.Strategy {
   constructor(onAuth) {
     if (!onAuth) {
       throw new TypeError("Web3Strategy requires an onAuth callback");
@@ -104,6 +104,6 @@ class Strategy extends passport.Strategy {
 }
 
 /**
- * Expose `Strategy`.
+ * Expose `Web3Strategy`.
  */
-export default Strategy;
+export default Web3Strategy;

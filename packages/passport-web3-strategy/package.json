@@ -6,7 +6,7 @@
   },
   "private": false,
   "description": "Passport.js Strategy for EVM & Solana Web3 Authentication",
-  "main": "index.js",
+  "main": "./src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
