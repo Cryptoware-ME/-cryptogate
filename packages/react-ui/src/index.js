@@ -1,3 +1,7 @@
-export * from './components';
-export * from './providers';
-export * from './hooks';
+import * as providers from './providers';
+import * as hooks from './hooks';
+
+export default {
+    ...providers,
+    ...hooks
+}

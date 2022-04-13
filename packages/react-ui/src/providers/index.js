@@ -3,4 +3,4 @@ export * from "./EthWallets";
 export * from "./EthDapp";
 export * from "./SolDapp";
 export * from "./SolWallets";
-export {MultichainProvider} from "./Multichain";
+export * from "./Multichain";
