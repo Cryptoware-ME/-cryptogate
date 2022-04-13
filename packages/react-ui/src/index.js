@@ -1,8 +1,34 @@
-import * as providers from './providers';
-import * as hooks from './hooks';
+import {
+    EthContractsContext,
+    EthContractsContextProvider,
+    EthDappContext,
+    EthDappContextProvider,
+    EthWalletsContext,
+    EthWalletsContextProvider,
+    SolDappContext,
+    SolDappContextProvider,
+    SolWalletsContext,
+    SolWalletsContextProvider
+} from './providers';
 
-export default {
-    test: {},
-    ...providers,
-    ...hooks
+import {
+    useEthereum,
+    useMultichain,
+    useSolana
+} from './hooks';
+
+export {
+    useEthereum,
+    useMultichain,
+    useSolana,
+    EthContractsContext,
+    EthContractsContextProvider,
+    EthDappContext,
+    EthDappContextProvider,
+    EthWalletsContext,
+    EthWalletsContextProvider,
+    SolDappContext,
+    SolDappContextProvider,
+    SolWalletsContext,
+    SolWalletsContextProvider
 }

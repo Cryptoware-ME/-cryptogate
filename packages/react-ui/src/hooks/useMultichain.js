@@ -4,6 +4,6 @@ import { useSolana } from './useSolana';
 export const useMultichain = () => {
     return {
         ethereum: useEthereum(),
-        solana: useSolana()
+        solana: useSolana() 
     }
 }
