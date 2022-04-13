@@ -16,10 +16,10 @@ export const EthContractsContextProvider = ({ config, children }) => {
         if(c.name && c.address && c.abi){
           const iabi = new utils.Interface(c.abi);
           contracts[c.name] = {
-            address: c.address,
+            address: c.address[network.chainId] || '',
             interface: iabi,
             contract: new Contract(
-              c.address,
+              c.address[network.chainId] || '',
               iabi
             )
           }

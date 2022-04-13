@@ -24,10 +24,12 @@ export const useEthereum = () => {
     const { Wallets } = walletsCtx;
     const { Contracts } = contractsCtx;
 
+    const getContract = name => Contracts[name];
+
     return {
         ...ethereum,
         wallets: Wallets,
-        contracts: Contracts,
+        getContract,
         setEthConfig
     }
 }
