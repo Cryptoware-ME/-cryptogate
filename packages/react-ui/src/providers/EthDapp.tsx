@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { DAppProvider } from "@usedapp/core";
+import { DAppProvider, Config as dConfig } from "@usedapp/core";
 import { EthContractsContextProvider } from "./EthContracts";
-import { EthWalletsContextProvider } from "./EthWallets";
+import { EthWalletsContextProvider, EthWalletsContextProviderProps } from "./EthWallets";
 
-export const EthDappContext = React.createContext();
+export const EthDappContext = React.createContext({});
 
 export const EthDappContextProvider = ({ config, contracts, children }) => {
-  const [Config, setConfig] = useState({});
+
+  const [Config, setConfig] = useState({} as EthWalletsContextProviderProps);
+  const [DappConfig, setDappConfig] = useState({} as dConfig)
 
   useEffect(() => {
     setConfig({
@@ -21,7 +23,7 @@ export const EthDappContextProvider = ({ config, contracts, children }) => {
   }, [config]);
 
   return (
-    <DAppProvider config={Config}>
+    <DAppProvider config={DappConfig}>
       <EthDappContext.Provider value={{ setEthConfig: setConfig }}>
         <EthWalletsContextProvider config={Config}>
           <EthContractsContextProvider config={{ contracts: contracts }}>
