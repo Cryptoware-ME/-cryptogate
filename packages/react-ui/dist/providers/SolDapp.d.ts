@@ -7,6 +7,7 @@ export interface SolDappContextProvider {
     config: {
         env: string;
         autoConnect: boolean;
+        lamportsPerSol?: number;
     };
 }
 export interface SolConfigSetter {

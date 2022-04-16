@@ -3,7 +3,9 @@ import { Contract } from '@ethersproject/contracts';
 import { Interface } from '@ethersproject/abi';
 export interface EthContractConfig {
     name: string;
-    address: string;
+    address: {
+        [chain: number]: string;
+    };
     abi: any;
 }
 export interface EthContracts {

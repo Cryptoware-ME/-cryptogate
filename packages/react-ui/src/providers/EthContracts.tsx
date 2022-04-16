@@ -5,7 +5,9 @@ import { Interface } from '@ethersproject/abi';
 
 export interface EthContractConfig {
   name: string, 
-  address: string, 
+  address: {
+    [chain: number]: string
+  }, 
   abi: any
 }
 

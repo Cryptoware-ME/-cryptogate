@@ -1,6 +1,7 @@
 {
   "name": "@cryptogate/react-ui",
   "private": false,
+  "type":"module",
   "publishConfig": {
     "access": "public"
   },
@@ -14,6 +15,7 @@
   "author": "Cryptoware",
   "license": "MIT",
   "dependencies": {
+    "@ethersproject/contracts": "^5.6.0",
     "@solana/wallet-adapter-base": "^0.9.5",
     "@solana/wallet-adapter-react": "^0.15.4",
     "@solana/wallet-adapter-wallets": "^0.15.5",
