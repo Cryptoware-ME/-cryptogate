@@ -1,39 +1,59 @@
-import React, { useEffect, useState } from "react";
-import { useNetwork } from "@usedapp/core";
-import { Contract, utils } from "ethers";
+import React, { ReactNode, useEffect, useState } from "react";
+import { useEthers, useNetwork } from "@usedapp/core";
+import { Contract } from '@ethersproject/contracts';
+import { Interface } from '@ethersproject/abi';
 
-export const EthContractsContext = React.createContext({});
+export interface EthContractConfig {
+  name: string, 
+  address: string, 
+  abi: any
+}
 
-export const EthContractsContextProvider = ({ config, children }) => {
+export interface EthContracts {
+  [name: string]:{
+    address?: string, 
+    interface?: Interface,
+    contract?: Contract
+  }
+}
+
+export interface EthContractsContextProviderProps {
+  children?: ReactNode;
+  contracts: EthContractConfig[]
+}
+
+export const EthContractsContext = React.createContext({} as EthContracts);
+
+export const EthContractsContextProvider = ({ contracts, children }: EthContractsContextProviderProps) => {
 
   const { network } = useNetwork();
-  const [Contracts, setContracts] = useState({});
+  const { library } = useEthers();
+  const [Contracts, setContracts] = useState({} as EthContracts);
 
   useEffect(() => {
-    if (network.chainId && config.contracts) {
-      let contracts = {};
-      config.contracts.forEach(c => {
+    let ethContracts: EthContracts = {};
+    if (network.chainId && contracts && library) {
+      contracts.forEach(c => {
         if (c.name && c.address && c.abi) {
-          const iabi = new utils.Interface(c.abi);
-          contracts[c.name] = {
-            address: c.address[network.chainId] || '',
-            interface: iabi,
+          const interfaceABI = new Interface(c.abi);
+          ethContracts[c.name] = {
+            address: network.chainId ? c.address[network.chainId] : '',
+            interface: interfaceABI,
             contract: new Contract(
-              c.address[network.chainId] || '',
-              iabi,
-              null
+              network.chainId ? c.address[network.chainId] : '',
+              interfaceABI,
             )
           }
         }
       });
-      if (contracts !== {}) {
-        setContracts(contracts);
+      if (!ethContracts && ethContracts !== {} && ethContracts !== null) {
+        setContracts(ethContracts);
       }
     }
-  }, [network, config]);
+  }, [network, contracts]);
 
   return (
-    <EthContractsContext.Provider value={{ Contracts }}>
+    <EthContractsContext.Provider value={{ ...Contracts }}>
       {children}
     </EthContractsContext.Provider>
   );

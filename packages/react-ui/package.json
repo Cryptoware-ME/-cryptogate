@@ -6,8 +6,9 @@
   },
   "version": "0.0.15",
   "description": "Cryptogate Web3 react UI components, contexts and hooks",
-  "main": "./src/index.js",
+  "main": "./dist/index.js",
   "scripts": {
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Cryptoware",
@@ -22,7 +23,7 @@
     "@web3-react/trezor-connector": "^6.1.9",
     "@web3-react/walletconnect-connector": "^6.2.13",
     "@web3-react/walletlink-connector": "^6.2.14",
-    "react": "16.13.1",
+    "react": "^16.13.1",
     "typescript": "^4.6.3"
   },
   "gitHead": "4e7588c374765236eb36f78f70745b80a39c773c"
