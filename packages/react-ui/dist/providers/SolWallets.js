@@ -1,3 +1,4 @@
+"use strict";
 var __assign = (this && this.__assign) || function () {
     __assign = Object.assign || function(t) {
         for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -9,22 +10,48 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
-import React, { useEffect, useState } from "react";
-import { PhantomWalletAdapter, SlopeWalletAdapter, SolflareWalletAdapter, SolletExtensionWalletAdapter } from "@solana/wallet-adapter-wallets";
-export var SolWalletsContext = React.createContext({});
-export var SolWalletsContextProvider = function (_a) {
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+exports.__esModule = true;
+exports.SolWalletsContextProvider = exports.SolWalletsContext = void 0;
+var react_1 = __importStar(require("react"));
+var wallet_adapter_wallets_1 = require("@solana/wallet-adapter-wallets");
+exports.SolWalletsContext = react_1["default"].createContext({});
+var SolWalletsContextProvider = function (_a) {
     var network = _a.network, children = _a.children;
-    var _b = useState({}), Wallets = _b[0], setWallets = _b[1];
-    useEffect(function () {
+    var _b = (0, react_1.useState)({}), Wallets = _b[0], setWallets = _b[1];
+    (0, react_1.useEffect)(function () {
         if (network) {
             setWallets({
-                Phantom: new PhantomWalletAdapter(),
-                Slope: new SlopeWalletAdapter(),
-                Solflare: new SolflareWalletAdapter({ network: network }),
-                Sollet: new SolletExtensionWalletAdapter({ network: network })
+                Phantom: new wallet_adapter_wallets_1.PhantomWalletAdapter(),
+                Slope: new wallet_adapter_wallets_1.SlopeWalletAdapter(),
+                Solflare: new wallet_adapter_wallets_1.SolflareWalletAdapter({ network: network }),
+                Sollet: new wallet_adapter_wallets_1.SolletExtensionWalletAdapter({ network: network })
             });
         }
     }, [network]);
-    return (React.createElement(SolWalletsContext.Provider, { value: __assign({}, Wallets) }, children));
+    return (react_1["default"].createElement(exports.SolWalletsContext.Provider, { value: __assign({}, Wallets) }, children));
 };
+exports.SolWalletsContextProvider = SolWalletsContextProvider;
 //# sourceMappingURL=SolWallets.js.map
