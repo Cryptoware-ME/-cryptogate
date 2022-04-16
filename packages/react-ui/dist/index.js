@@ -1,3 +1,3 @@
-export * from './providers';
-export * from './hooks';
+export * from './providers/index';
+export * from './hooks/index';
 //# sourceMappingURL=index.js.map
