@@ -1,3 +1,3 @@
-export { EthContractsContext, EthContractsContextProvider, EthDappContext, EthDappContextProvider, EthWalletsContext, EthWalletsContextProvider, SolDappContext, SolDappContextProvider, SolWalletsContext, SolWalletsContextProvider, defaultConfig, solDefaultConfig, MultichainProvider, } from "./providers";
-export { useEthereum, useSolana, useMultichain } from "./hooks";
+export { EthContractsContext, EthContractsContextProvider, EthDappContext, EthDappContextProvider, EthWalletsContext, EthWalletsContextProvider, SolDappContext, SolDappContextProvider, SolWalletsContext, SolWalletsContextProvider, defaultConfig, solDefaultConfig, MultichainProvider, } from "./providers/index";
+export { useEthereum, useSolana, useMultichain } from "./hooks/index";
 //# sourceMappingURL=index.js.map

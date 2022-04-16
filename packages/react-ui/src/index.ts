@@ -23,6 +23,6 @@ export {
   solDefaultConfig,
   MultichainProvider,
   MultichainProviderProps,
-} from "./providers";
+} from "./providers/index";
 
-export { useEthereum, useSolana, useMultichain } from "./hooks";
+export { useEthereum, useSolana, useMultichain } from "./hooks/index";
