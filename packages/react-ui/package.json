@@ -1,11 +1,11 @@
 {
   "name": "@cryptogate/react-ui",
   "private": false,
-  "type":"module",
+  "type": "module",
   "publishConfig": {
     "access": "public"
   },
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "Cryptogate Web3 react UI components, contexts and hooks",
   "main": "./dist/index.js",
   "scripts": {
