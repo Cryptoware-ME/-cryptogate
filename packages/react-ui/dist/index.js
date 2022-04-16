@@ -1,3 +1,3 @@
-export * from './providers/index';
-export * from './hooks/index';
+export { EthContractsContext, EthContractsContextProvider, EthDappContext, EthDappContextProvider, EthWalletsContext, EthWalletsContextProvider, SolDappContext, SolDappContextProvider, SolWalletsContext, SolWalletsContextProvider, defaultConfig, solDefaultConfig, MultichainProvider, } from "./providers";
+export { useEthereum, useSolana, useMultichain } from "./hooks";
 //# sourceMappingURL=index.js.map

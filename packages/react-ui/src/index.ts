@@ -1,2 +1,28 @@
-export * from './providers/index';
-export * from './hooks/index';
+export {
+  EthConfigSetter,
+  EthContractConfig,
+  EthContracts,
+  EthContractsContext,
+  EthContractsContextProvider,
+  EthContractsContextProviderProps,
+  EthDappContext,
+  EthDappContextProvider,
+  EthDappContextProviderProps,
+  EthWallets,
+  EthWalletsContext,
+  EthWalletsContextProvider,
+  EthWalletsContextProviderProps,
+  SolConfigSetter,
+  SolDappContext,
+  SolDappContextProvider,
+  SolWallets,
+  SolWalletsContext,
+  SolWalletsContextProvider,
+  SolWalletsContextProviderProps,
+  defaultConfig,
+  solDefaultConfig,
+  MultichainProvider,
+  MultichainProviderProps,
+} from "./providers";
+
+export { useEthereum, useSolana, useMultichain } from "./hooks";
