@@ -5,7 +5,7 @@ import { Contract } from '@ethersproject/contracts';
 import * as _ethersproject_abi from '@ethersproject/abi';
 import { Interface } from '@ethersproject/abi';
 import * as _usedapp_core from '@usedapp/core';
-import { NodeUrls } from '@usedapp/core';
+import { NodeUrls, Chain } from '@usedapp/core';
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector';
 import { LedgerConnector } from '@web3-react/ledger-connector';
 import { TrezorConnector } from '@web3-react/trezor-connector';
@@ -47,6 +47,7 @@ interface EthWalletsContextProviderProps {
         appUrl: string;
         appLogo: string;
         pollingInterval: number;
+        networks: Chain[];
     };
 }
 interface EthWallets {
@@ -89,6 +90,7 @@ interface EthDappContextProviderProps {
         appUrl: string;
         appLogo: string;
         pollingInterval: number;
+        networks: Chain[];
     };
 }
 interface EthConfigSetter {
@@ -99,6 +101,7 @@ interface EthConfigSetter {
         appUrl: string;
         appLogo: string;
         pollingInterval: number;
+        networks: Chain[];
     }) => void;
 }
 declare const EthDappContext: React.Context<EthConfigSetter>;
@@ -130,6 +133,7 @@ interface MultichainProviderProps {
         appUrl: string;
         appLogo: string;
         pollingInterval: number;
+        networks: Chain[];
     };
     ethContracts: EthContractConfig[];
     solConfig: SolDappContextProvider;
@@ -150,6 +154,7 @@ declare const useEthereum: () => {
         appUrl: string;
         appLogo: string;
         pollingInterval: number;
+        networks: _usedapp_core.Chain[];
     }) => void;
     activate: (provider: _ethersproject_providers.JsonRpcProvider | _ethersproject_providers.ExternalProvider | {
         getProvider: () => any;
@@ -210,6 +215,7 @@ declare const useMultichain: () => {
             appUrl: string;
             appLogo: string;
             pollingInterval: number;
+            networks: _usedapp_core.Chain[];
         }) => void;
         activate: (provider: _ethersproject_providers.JsonRpcProvider | _ethersproject_providers.ExternalProvider | {
             getProvider: () => any;

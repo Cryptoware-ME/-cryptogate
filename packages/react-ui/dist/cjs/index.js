@@ -74,10 +74,16 @@ var EthContractsContextProvider = function (_a) {
 var EthWalletsContext = React__default["default"].createContext({});
 var EthWalletsContextProvider = function (_a) {
     var config = _a.config, children = _a.children;
-    var network = core.useNetwork().network;
-    var _b = React.useState({}), Wallets = _b[0], setWallets = _b[1];
+    var _b = core.useNetwork(), network = _b.network, updateNetwork = _b.update;
+    var _c = React.useState({}), Wallets = _c[0], setWallets = _c[1];
+    React.useEffect(function () {
+        if (config) {
+            updateNetwork({ chainId: config.networks[0].chainId });
+        }
+    }, [config]);
     console.log(network);
     console.log(config);
+    console.log(config.networks[0].chainId);
     React.useEffect(function () {
         var _a;
         if (network.chainId && config) {

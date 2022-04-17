@@ -1,5 +1,5 @@
 import React, { ReactNode, useEffect, useState } from "react";
-import { NodeUrls, useNetwork } from "@usedapp/core";
+import { Chain, NodeUrls, useNetwork } from "@usedapp/core";
 import { WalletConnectConnector } from "@web3-react/walletconnect-connector";
 import { LedgerConnector } from "@web3-react/ledger-connector";
 import { TrezorConnector } from "@web3-react/trezor-connector";
@@ -13,7 +13,8 @@ export interface EthWalletsContextProviderProps {
     appEmail: string,
     appUrl: string,
     appLogo: string,
-    pollingInterval: number
+    pollingInterval: number,
+    networks: Chain[]
   }
 }
 
@@ -27,11 +28,20 @@ export interface EthWallets {
 export const EthWalletsContext = React.createContext({} as EthWallets);
 
 export const EthWalletsContextProvider = ({ config, children }: EthWalletsContextProviderProps) => {
-  const { network } = useNetwork();
+  const { network, update: updateNetwork } = useNetwork();
 
   const [Wallets, setWallets] = useState({} as EthWallets);
+
+  useEffect(() => {
+    if(config){
+      updateNetwork({ chainId: config.networks[0].chainId });
+    }
+  }, [config]);
+
   console.log(network);
   console.log(config);
+  console.log(config.networks[0].chainId);
+
   useEffect(() => {
     if (network.chainId && config) {
       setWallets({

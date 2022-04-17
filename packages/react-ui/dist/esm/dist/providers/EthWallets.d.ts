@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { NodeUrls } from "@usedapp/core";
+import { Chain, NodeUrls } from "@usedapp/core";
 import { WalletConnectConnector } from "@web3-react/walletconnect-connector";
 import { LedgerConnector } from "@web3-react/ledger-connector";
 import { TrezorConnector } from "@web3-react/trezor-connector";
@@ -13,6 +13,7 @@ export interface EthWalletsContextProviderProps {
         appUrl: string;
         appLogo: string;
         pollingInterval: number;
+        networks: Chain[];
     };
 }
 export interface EthWallets {

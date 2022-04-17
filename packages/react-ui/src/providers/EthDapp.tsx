@@ -1,5 +1,5 @@
 import React, { ReactNode, useCallback, useEffect, useState } from "react";
-import { DAppProvider, Config as dappConfig, NodeUrls } from "@usedapp/core";
+import { DAppProvider, Config as dappConfig, NodeUrls, Chain } from "@usedapp/core";
 import { EthContractConfig, EthContractsContextProvider } from "./EthContracts";
 import { EthWalletsContextProvider } from "./EthWallets";
 
@@ -21,7 +21,8 @@ export interface EthDappContextProviderProps {
     appEmail: string,
     appUrl: string,
     appLogo: string,
-    pollingInterval: number
+    pollingInterval: number,
+    networks: Chain[]
   }
 }
 
@@ -32,7 +33,8 @@ export interface EthConfigSetter {
     appEmail: string,
     appUrl: string,
     appLogo: string,
-    pollingInterval: number
+    pollingInterval: number,
+    networks: Chain[]
   }) => void
 }
 
@@ -46,7 +48,8 @@ export const EthDappContextProvider = ({ config, contracts, children }: EthDappC
     appEmail: string,
     appUrl: string,
     appLogo: string,
-    pollingInterval: number
+    pollingInterval: number,
+    networks: Chain[]
   });
   const [DappConfig, setDappConfig] = useState({} as dappConfig);
   const [Contracts, setContracts] = useState({} as EthContractConfig[]);
@@ -58,7 +61,8 @@ export const EthDappContextProvider = ({ config, contracts, children }: EthDappC
       appEmail: string,
       appUrl: string,
       appLogo: string,
-      pollingInterval: number
+      pollingInterval: number,
+      networks: Chain[]
     }) => {
       if(conf){
         setConfig({

@@ -1,4 +1,4 @@
-import { NodeUrls } from "@usedapp/core";
+import { Chain, NodeUrls } from "@usedapp/core";
 import React, { ReactNode } from "react";
 import { EthContractConfig } from "./EthContracts";
 import { EthDappContextProvider } from "./EthDapp";
@@ -12,7 +12,8 @@ export interface MultichainProviderProps {
     appEmail: string,
     appUrl: string,
     appLogo: string,
-    pollingInterval: number
+    pollingInterval: number,
+    networks: Chain[]
   },
   ethContracts: EthContractConfig[],
   solConfig: SolDappContextProvider

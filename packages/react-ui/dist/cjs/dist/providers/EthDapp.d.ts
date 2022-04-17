@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { NodeUrls } from "@usedapp/core";
+import { NodeUrls, Chain } from "@usedapp/core";
 import { EthContractConfig } from "./EthContracts";
 export declare const defaultConfig: {
     pollingInterval: number;
@@ -19,6 +19,7 @@ export interface EthDappContextProviderProps {
         appUrl: string;
         appLogo: string;
         pollingInterval: number;
+        networks: Chain[];
     };
 }
 export interface EthConfigSetter {
@@ -29,6 +30,7 @@ export interface EthConfigSetter {
         appUrl: string;
         appLogo: string;
         pollingInterval: number;
+        networks: Chain[];
     }) => void;
 }
 export declare const EthDappContext: React.Context<EthConfigSetter>;
