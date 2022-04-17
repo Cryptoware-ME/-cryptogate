@@ -264,7 +264,8 @@ var useSolana = function () {
 };
 
 var useMultichain = function () {
-    var account = core.useEthers().account;
+    var account = useEthereum().account;
+    console.log(account);
     return {
         network: core.useNetwork() || 'Solana',
         ethereum: useEthereum(),

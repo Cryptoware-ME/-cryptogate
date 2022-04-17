@@ -1,9 +1,10 @@
-import { useEtherBalance, useEthers, useNetwork } from '@usedapp/core';
+import { useEtherBalance, useNetwork } from '@usedapp/core';
 import { useEthereum } from './useEthereum';
 import { useSolana } from './useSolana';
 
 export const useMultichain = () => {
-    const { account } = useEthers();
+    const { account } = useEthereum();
+    console.log(account);
     return {
         network: useNetwork() || 'Solana',
         ethereum: useEthereum(),
