@@ -157,6 +157,9 @@ var EthDappContextProvider = function (_a) {
             setContracts(contracts);
         }
     }, [contracts]);
+    console.log(Config);
+    console.log(DappConfig);
+    console.log(Config.config);
     return (React.createElement(DAppProvider, { config: DappConfig },
         React.createElement(EthDappContext.Provider, { value: { setEthConfig: concatConfig } },
             React.createElement(EthWalletsContextProvider, { config: Config.config },

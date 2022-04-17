@@ -61,7 +61,9 @@ export const EthDappContextProvider = ({ config, contracts, children }: EthDappC
       setContracts(contracts);
     }
   }, [contracts]);
-
+  console.log(Config);
+  console.log(DappConfig);
+  console.log(Config.config);
   return (
     <DAppProvider config={DappConfig}>
       <EthDappContext.Provider value={{ setEthConfig: concatConfig }}>
