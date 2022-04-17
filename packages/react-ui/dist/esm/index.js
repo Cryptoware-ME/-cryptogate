@@ -139,7 +139,7 @@ var EthDappContextProvider = function (_a) {
     var _d = useState({}), Contracts = _d[0], setContracts = _d[1];
     var concatConfig = useCallback(function (conf) {
         if (conf) {
-            setConfig(__assign(__assign(__assign({}, Config), defaultConfig), conf.config));
+            setConfig(__assign(__assign(__assign({}, defaultConfig), Config), conf.config));
         }
     }, [Config]);
     useEffect(function () {
@@ -148,8 +148,8 @@ var EthDappContextProvider = function (_a) {
         }
     }, [config]);
     useEffect(function () {
-        if (Config.config) {
-            setDappConfig(Config.config);
+        if (Config) {
+            setDappConfig(Config);
         }
     }, [Config]);
     useEffect(function () {
@@ -159,10 +159,9 @@ var EthDappContextProvider = function (_a) {
     }, [contracts]);
     console.log(Config);
     console.log(DappConfig);
-    console.log(Config.config);
     return (React.createElement(DAppProvider, { config: DappConfig },
         React.createElement(EthDappContext.Provider, { value: { setEthConfig: concatConfig } },
-            React.createElement(EthWalletsContextProvider, { config: Config.config },
+            React.createElement(EthWalletsContextProvider, __assign({}, Config),
                 React.createElement(EthContractsContextProvider, { contracts: Contracts }, children)))));
 };
 

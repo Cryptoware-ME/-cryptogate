@@ -34,8 +34,8 @@ export const EthDappContextProvider = ({ config, contracts, children }: EthDappC
     useCallback((conf: EthWalletsContextProviderProps) => {
       if(conf){
         setConfig({
-          ...Config,
           ...defaultConfig,
+          ...Config,
           ...conf.config
         });
       }
@@ -51,8 +51,8 @@ export const EthDappContextProvider = ({ config, contracts, children }: EthDappC
   }, [config]);
 
   useEffect(() => {
-    if(Config.config){
-      setDappConfig(Config.config);
+    if(Config){
+      setDappConfig(Config as dappConfig);
     }
   }, [Config]);
 
@@ -63,11 +63,11 @@ export const EthDappContextProvider = ({ config, contracts, children }: EthDappC
   }, [contracts]);
   console.log(Config);
   console.log(DappConfig);
-  console.log(Config.config);
+
   return (
     <DAppProvider config={DappConfig}>
       <EthDappContext.Provider value={{ setEthConfig: concatConfig }}>
-        <EthWalletsContextProvider config={Config.config}>
+        <EthWalletsContextProvider {...Config}>
           <EthContractsContextProvider contracts={Contracts}>
             {children}
           </EthContractsContextProvider>

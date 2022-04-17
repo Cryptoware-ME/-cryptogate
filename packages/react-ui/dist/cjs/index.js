@@ -147,7 +147,7 @@ var EthDappContextProvider = function (_a) {
     var _d = React.useState({}), Contracts = _d[0], setContracts = _d[1];
     var concatConfig = React.useCallback(function (conf) {
         if (conf) {
-            setConfig(__assign(__assign(__assign({}, Config), defaultConfig), conf.config));
+            setConfig(__assign(__assign(__assign({}, defaultConfig), Config), conf.config));
         }
     }, [Config]);
     React.useEffect(function () {
@@ -156,8 +156,8 @@ var EthDappContextProvider = function (_a) {
         }
     }, [config]);
     React.useEffect(function () {
-        if (Config.config) {
-            setDappConfig(Config.config);
+        if (Config) {
+            setDappConfig(Config);
         }
     }, [Config]);
     React.useEffect(function () {
@@ -167,10 +167,9 @@ var EthDappContextProvider = function (_a) {
     }, [contracts]);
     console.log(Config);
     console.log(DappConfig);
-    console.log(Config.config);
     return (React__default["default"].createElement(core.DAppProvider, { config: DappConfig },
         React__default["default"].createElement(EthDappContext.Provider, { value: { setEthConfig: concatConfig } },
-            React__default["default"].createElement(EthWalletsContextProvider, { config: Config.config },
+            React__default["default"].createElement(EthWalletsContextProvider, __assign({}, Config),
                 React__default["default"].createElement(EthContractsContextProvider, { contracts: Contracts }, children)))));
 };
 
