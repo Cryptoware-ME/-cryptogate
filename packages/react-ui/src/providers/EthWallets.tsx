@@ -40,7 +40,7 @@ export const EthWalletsContextProvider = ({ config, children }: EthWalletsContex
 
   console.log(network);
   console.log(config);
-  console.log(config.networks[0].chainId);
+  console.log(config && config.networks ? config.networks[0].chainId : '');
 
   useEffect(() => {
     if (network.chainId && config) {

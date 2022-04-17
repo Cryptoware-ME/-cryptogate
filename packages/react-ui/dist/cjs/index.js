@@ -83,7 +83,7 @@ var EthWalletsContextProvider = function (_a) {
     }, [config]);
     console.log(network);
     console.log(config);
-    console.log(config.networks[0].chainId);
+    console.log(config && config.networks ? config.networks[0].chainId : '');
     React.useEffect(function () {
         var _a;
         if (network.chainId && config) {
