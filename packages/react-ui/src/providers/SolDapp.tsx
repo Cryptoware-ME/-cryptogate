@@ -65,7 +65,7 @@ export const SolDappContextProvider = ({ config, children }: SolDappContextProvi
 
   useEffect(() => {
     setNetwork(
-      Config.config.env === "mainnet"
+      Config && Config.config && Config.config.env === "mainnet"
       ? WalletAdapterNetwork.Mainnet
       : config.env === "staging"
       ? WalletAdapterNetwork.Testnet
