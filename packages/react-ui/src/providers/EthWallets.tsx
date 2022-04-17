@@ -32,7 +32,7 @@ export const EthWalletsContextProvider = ({ config, children }: EthWalletsContex
   const [Wallets, setWallets] = useState({} as EthWallets);
 
   useEffect(() => {
-    if (network.chainId) {
+    if (network.chainId && config) {
       setWallets({
         WalletConnect: new WalletConnectConnector({
           rpc: {
@@ -64,7 +64,7 @@ export const EthWalletsContextProvider = ({ config, children }: EthWalletsContex
         }),
       });
     }
-  }, [network]);
+  }, [network, config]);
 
   return (
     <EthWalletsContext.Provider value={{ ...Wallets }}>

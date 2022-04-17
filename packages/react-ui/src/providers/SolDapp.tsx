@@ -29,13 +29,15 @@ export const SolDappContextProvider = ({ config, children }: SolDappContextProvi
 
   const concatConfig =
     useCallback((conf: SolDappContextProvider) => {
-      setConfig({
-        config: {
-          ...Config,
-          ...solDefaultConfig,
-          ...conf.config
-        }
-      });
+      if(conf){
+        setConfig({
+          config: {
+            ...Config,
+            ...solDefaultConfig,
+            ...conf.config
+          }
+        });
+      }
     }, [Config]);
 
   const onError = useCallback(
@@ -56,7 +58,9 @@ export const SolDappContextProvider = ({ config, children }: SolDappContextProvi
   )
 
   useEffect(() => {
-    setConfig({ config: { ...solDefaultConfig, ...config } });
+    if(config){
+      setConfig({ config: { ...solDefaultConfig, ...config } });
+    }
   }, [config]);
 
   useEffect(() => {
@@ -77,7 +81,7 @@ export const SolDappContextProvider = ({ config, children }: SolDappContextProvi
             {(Wallets: SolWallets) => (
               <WalletProvider
                 wallets={mapWallets(Wallets)}
-                autoConnect={Config.config.autoConnect || false}
+                autoConnect={(Config && Config.config) ? Config.config.autoConnect : false}
                 onError={onError}
               >
                 {children}

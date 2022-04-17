@@ -1,5 +1,5 @@
 import React, { ReactNode, useEffect, useState } from "react";
-import { useEthers, useNetwork } from "@usedapp/core";
+import { useNetwork } from "@usedapp/core";
 import { Contract } from '@ethersproject/contracts';
 import { Interface } from '@ethersproject/abi';
 
@@ -29,12 +29,11 @@ export const EthContractsContext = React.createContext({} as EthContracts);
 export const EthContractsContextProvider = ({ contracts, children }: EthContractsContextProviderProps) => {
 
   const { network } = useNetwork();
-  const { library } = useEthers();
   const [Contracts, setContracts] = useState({} as EthContracts);
 
   useEffect(() => {
     let ethContracts: EthContracts = {};
-    if (network.chainId && contracts && library) {
+    if (network.chainId && contracts) {
       contracts.forEach(c => {
         if (c.name && c.address && c.abi) {
           const interfaceABI = new Interface(c.abi);

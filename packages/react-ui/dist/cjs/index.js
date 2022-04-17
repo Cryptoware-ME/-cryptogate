@@ -49,11 +49,10 @@ var EthContractsContext = React__default["default"].createContext({});
 var EthContractsContextProvider = function (_a) {
     var contracts$1 = _a.contracts, children = _a.children;
     var network = core.useNetwork().network;
-    var library = core.useEthers().library;
     var _b = React.useState({}), Contracts = _b[0], setContracts = _b[1];
     React.useEffect(function () {
         var ethContracts = {};
-        if (network.chainId && contracts$1 && library) {
+        if (network.chainId && contracts$1) {
             contracts$1.forEach(function (c) {
                 if (c.name && c.address && c.abi) {
                     var interfaceABI = new abi.Interface(c.abi);
@@ -79,7 +78,7 @@ var EthWalletsContextProvider = function (_a) {
     var _b = React.useState({}), Wallets = _b[0], setWallets = _b[1];
     React.useEffect(function () {
         var _a;
-        if (network.chainId) {
+        if (network.chainId && config) {
             setWallets({
                 WalletConnect: new walletconnectConnector.WalletConnectConnector({
                     rpc: (_a = {},
@@ -111,7 +110,7 @@ var EthWalletsContextProvider = function (_a) {
                 }),
             });
         }
-    }, [network]);
+    }, [network, config]);
     return (React__default["default"].createElement(EthWalletsContext.Provider, { value: __assign({}, Wallets) }, children));
 };
 
@@ -147,16 +146,24 @@ var EthDappContextProvider = function (_a) {
     var _c = React.useState({}), DappConfig = _c[0], setDappConfig = _c[1];
     var _d = React.useState({}), Contracts = _d[0], setContracts = _d[1];
     var concatConfig = React.useCallback(function (conf) {
-        setConfig(__assign(__assign(__assign({}, Config), defaultConfig), conf.config));
+        if (conf) {
+            setConfig(__assign(__assign(__assign({}, Config), defaultConfig), conf.config));
+        }
     }, [Config]);
     React.useEffect(function () {
-        setConfig(__assign(__assign({}, defaultConfig), config));
+        if (config) {
+            setConfig(__assign(__assign({}, defaultConfig), config));
+        }
     }, [config]);
     React.useEffect(function () {
-        setDappConfig(Config.config);
+        if (Config.config) {
+            setDappConfig(Config.config);
+        }
     }, [Config]);
     React.useEffect(function () {
-        setContracts(contracts);
+        if (contracts && contracts.length > 0) {
+            setContracts(contracts);
+        }
     }, [contracts]);
     return (React__default["default"].createElement(core.DAppProvider, { config: DappConfig },
         React__default["default"].createElement(EthDappContext.Provider, { value: { setEthConfig: concatConfig } },
@@ -173,9 +180,11 @@ var SolDappContextProvider = function (_a) {
     var _b = React.useState({}), Config = _b[0], setConfig = _b[1];
     var _c = React.useState(walletAdapterBase.WalletAdapterNetwork.Devnet), network = _c[0], setNetwork = _c[1];
     var concatConfig = React.useCallback(function (conf) {
-        setConfig({
-            config: __assign(__assign(__assign({}, Config), solDefaultConfig), conf.config)
-        });
+        if (conf) {
+            setConfig({
+                config: __assign(__assign(__assign({}, Config), solDefaultConfig), conf.config)
+            });
+        }
     }, [Config]);
     var onError = React.useCallback(function (error) {
         throw error;
@@ -187,7 +196,9 @@ var SolDappContextProvider = function (_a) {
         wallets.Sollet
     ]); }, []);
     React.useEffect(function () {
-        setConfig({ config: __assign(__assign({}, solDefaultConfig), config) });
+        if (config) {
+            setConfig({ config: __assign(__assign({}, solDefaultConfig), config) });
+        }
     }, [config]);
     React.useEffect(function () {
         setNetwork(Config.config.env === "mainnet"
@@ -199,7 +210,7 @@ var SolDappContextProvider = function (_a) {
     return (React__default["default"].createElement(SolDappContext.Provider, { value: { setSolConfig: concatConfig } },
         React__default["default"].createElement(walletAdapterReact.ConnectionProvider, { endpoint: web3_js.clusterApiUrl(network) },
             React__default["default"].createElement(SolWalletsContextProvider, { network: network },
-                React__default["default"].createElement(SolWalletsContext.Consumer, null, function (Wallets) { return (React__default["default"].createElement(walletAdapterReact.WalletProvider, { wallets: mapWallets(Wallets), autoConnect: Config.config.autoConnect || false, onError: onError }, children)); })))));
+                React__default["default"].createElement(SolWalletsContext.Consumer, null, function (Wallets) { return (React__default["default"].createElement(walletAdapterReact.WalletProvider, { wallets: mapWallets(Wallets), autoConnect: (Config && Config.config) ? Config.config.autoConnect : false, onError: onError }, children)); })))));
 };
 
 var MultichainProvider = function (_a) {
