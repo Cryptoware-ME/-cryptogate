@@ -42,6 +42,7 @@ var EthContractsContextProvider = function (_a) {
     var contracts = _a.contracts, children = _a.children;
     var network = useNetwork().network;
     var _b = useState({}), Contracts = _b[0], setContracts = _b[1];
+    console.log(contracts);
     useEffect(function () {
         var ethContracts = {};
         if (network.chainId && contracts) {
@@ -73,9 +74,6 @@ var EthWalletsContextProvider = function (_a) {
             updateNetwork({ chainId: config.networks[0].chainId || 4 });
         }
     }, [config]);
-    console.log(network);
-    console.log(config);
-    console.log(config && config.networks ? config.networks[0].chainId : '');
     useEffect(function () {
         var _a;
         if (network.chainId && config) {

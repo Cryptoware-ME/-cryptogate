@@ -30,7 +30,7 @@ export const EthContractsContextProvider = ({ contracts, children }: EthContract
 
   const { network } = useNetwork();
   const [Contracts, setContracts] = useState({} as EthContracts);
-
+  console.log(contracts);
   useEffect(() => {
     let ethContracts: EthContracts = {};
     if (network.chainId && contracts) {

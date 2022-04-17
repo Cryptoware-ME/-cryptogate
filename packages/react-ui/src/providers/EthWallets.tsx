@@ -38,10 +38,6 @@ export const EthWalletsContextProvider = ({ config, children }: EthWalletsContex
     }
   }, [config]);
 
-  console.log(network);
-  console.log(config);
-  console.log(config && config.networks ? config.networks[0].chainId : '');
-
   useEffect(() => {
     if (network.chainId && config) {
       setWallets({
