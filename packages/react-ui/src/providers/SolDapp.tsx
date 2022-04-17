@@ -64,13 +64,15 @@ export const SolDappContextProvider = ({ config, children }: SolDappContextProvi
   }, [config]);
 
   useEffect(() => {
-    setNetwork(
-      Config && Config.config && Config.config.env === "mainnet"
-      ? WalletAdapterNetwork.Mainnet
-      : Config.config.env === "staging"
-      ? WalletAdapterNetwork.Testnet
-      : WalletAdapterNetwork.Devnet
-    );
+    if(Config && Config.config){
+      setNetwork(
+        Config.config.env === "mainnet"
+        ? WalletAdapterNetwork.Mainnet
+        : Config.config.env === "staging"
+        ? WalletAdapterNetwork.Testnet
+        : WalletAdapterNetwork.Devnet
+      );
+    }
   }, [Config]);
 
   return (

@@ -193,11 +193,13 @@ var SolDappContextProvider = function (_a) {
         }
     }, [config]);
     useEffect(function () {
-        setNetwork(Config && Config.config && Config.config.env === "mainnet"
-            ? WalletAdapterNetwork.Mainnet
-            : Config.config.env === "staging"
-                ? WalletAdapterNetwork.Testnet
-                : WalletAdapterNetwork.Devnet);
+        if (Config && Config.config) {
+            setNetwork(Config.config.env === "mainnet"
+                ? WalletAdapterNetwork.Mainnet
+                : Config.config.env === "staging"
+                    ? WalletAdapterNetwork.Testnet
+                    : WalletAdapterNetwork.Devnet);
+        }
     }, [Config]);
     return (React.createElement(SolDappContext.Provider, { value: { setSolConfig: concatConfig } },
         React.createElement(ConnectionProvider, { endpoint: clusterApiUrl(network) },

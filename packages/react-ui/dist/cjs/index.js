@@ -201,11 +201,13 @@ var SolDappContextProvider = function (_a) {
         }
     }, [config]);
     React.useEffect(function () {
-        setNetwork(Config && Config.config && Config.config.env === "mainnet"
-            ? walletAdapterBase.WalletAdapterNetwork.Mainnet
-            : Config.config.env === "staging"
-                ? walletAdapterBase.WalletAdapterNetwork.Testnet
-                : walletAdapterBase.WalletAdapterNetwork.Devnet);
+        if (Config && Config.config) {
+            setNetwork(Config.config.env === "mainnet"
+                ? walletAdapterBase.WalletAdapterNetwork.Mainnet
+                : Config.config.env === "staging"
+                    ? walletAdapterBase.WalletAdapterNetwork.Testnet
+                    : walletAdapterBase.WalletAdapterNetwork.Devnet);
+        }
     }, [Config]);
     return (React__default["default"].createElement(SolDappContext.Provider, { value: { setSolConfig: concatConfig } },
         React__default["default"].createElement(walletAdapterReact.ConnectionProvider, { endpoint: web3_js.clusterApiUrl(network) },
