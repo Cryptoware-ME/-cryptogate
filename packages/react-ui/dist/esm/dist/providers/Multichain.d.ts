@@ -1,10 +1,17 @@
+import { NodeUrls } from "@usedapp/core";
 import { ReactNode } from "react";
 import { EthContractConfig } from "./EthContracts";
-import { EthWalletsContextProviderProps } from "./EthWallets";
 import { SolDappContextProvider } from "./SolDapp";
 export interface MultichainProviderProps {
     children?: ReactNode;
-    ethConfig: EthWalletsContextProviderProps;
+    ethConfig: {
+        readOnlyUrls: NodeUrls;
+        appName: string;
+        appEmail: string;
+        appUrl: string;
+        appLogo: string;
+        pollingInterval: number;
+    };
     ethContracts: EthContractConfig[];
     solConfig: SolDappContextProvider;
 }

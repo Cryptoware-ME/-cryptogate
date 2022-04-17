@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
+import { NodeUrls } from "@usedapp/core";
 import { EthContractConfig } from "./EthContracts";
-import { EthWalletsContextProviderProps } from "./EthWallets";
 export declare const defaultConfig: {
     pollingInterval: number;
     notifications: {
@@ -12,10 +12,24 @@ export declare const defaultConfig: {
 export interface EthDappContextProviderProps {
     children?: ReactNode;
     contracts: EthContractConfig[];
-    config: EthWalletsContextProviderProps;
+    config: {
+        readOnlyUrls: NodeUrls;
+        appName: string;
+        appEmail: string;
+        appUrl: string;
+        appLogo: string;
+        pollingInterval: number;
+    };
 }
 export interface EthConfigSetter {
-    setEthConfig: (conf: EthWalletsContextProviderProps) => void;
+    setEthConfig: (conf: {
+        readOnlyUrls: NodeUrls;
+        appName: string;
+        appEmail: string;
+        appUrl: string;
+        appLogo: string;
+        pollingInterval: number;
+    }) => void;
 }
 export declare const EthDappContext: React.Context<EthConfigSetter>;
 export declare const EthDappContextProvider: ({ config, contracts, children }: EthDappContextProviderProps) => JSX.Element;

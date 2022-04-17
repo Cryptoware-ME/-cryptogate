@@ -82,10 +82,24 @@ declare const defaultConfig: {
 interface EthDappContextProviderProps {
     children?: ReactNode;
     contracts: EthContractConfig[];
-    config: EthWalletsContextProviderProps;
+    config: {
+        readOnlyUrls: NodeUrls;
+        appName: string;
+        appEmail: string;
+        appUrl: string;
+        appLogo: string;
+        pollingInterval: number;
+    };
 }
 interface EthConfigSetter {
-    setEthConfig: (conf: EthWalletsContextProviderProps) => void;
+    setEthConfig: (conf: {
+        readOnlyUrls: NodeUrls;
+        appName: string;
+        appEmail: string;
+        appUrl: string;
+        appLogo: string;
+        pollingInterval: number;
+    }) => void;
 }
 declare const EthDappContext: React.Context<EthConfigSetter>;
 declare const EthDappContextProvider: ({ config, contracts, children }: EthDappContextProviderProps) => JSX.Element;
@@ -109,7 +123,14 @@ declare const SolDappContextProvider: ({ config, children }: SolDappContextProvi
 
 interface MultichainProviderProps {
     children?: ReactNode;
-    ethConfig: EthWalletsContextProviderProps;
+    ethConfig: {
+        readOnlyUrls: NodeUrls;
+        appName: string;
+        appEmail: string;
+        appUrl: string;
+        appLogo: string;
+        pollingInterval: number;
+    };
     ethContracts: EthContractConfig[];
     solConfig: SolDappContextProvider;
 }
@@ -122,7 +143,14 @@ declare const useEthereum: () => {
         interface?: _ethersproject_abi.Interface | undefined;
         contract?: _ethersproject_contracts.Contract | undefined;
     };
-    setEthConfig: (conf: EthWalletsContextProviderProps) => void;
+    setEthConfig: (conf: {
+        readOnlyUrls: _usedapp_core.NodeUrls;
+        appName: string;
+        appEmail: string;
+        appUrl: string;
+        appLogo: string;
+        pollingInterval: number;
+    }) => void;
     activate: (provider: _ethersproject_providers.JsonRpcProvider | _ethersproject_providers.ExternalProvider | {
         getProvider: () => any;
         activate: () => Promise<any>;
@@ -175,7 +203,14 @@ declare const useMultichain: () => {
             interface?: _ethersproject_abi.Interface | undefined;
             contract?: _ethersproject_contracts.Contract | undefined;
         };
-        setEthConfig: (conf: EthWalletsContextProviderProps) => void;
+        setEthConfig: (conf: {
+            readOnlyUrls: _usedapp_core.NodeUrls;
+            appName: string;
+            appEmail: string;
+            appUrl: string;
+            appLogo: string;
+            pollingInterval: number;
+        }) => void;
         activate: (provider: _ethersproject_providers.JsonRpcProvider | _ethersproject_providers.ExternalProvider | {
             getProvider: () => any;
             activate: () => Promise<any>;

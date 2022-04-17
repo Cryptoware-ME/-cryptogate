@@ -1,7 +1,7 @@
 import React, { ReactNode, useCallback, useEffect, useState } from "react";
-import { DAppProvider, Config as dappConfig } from "@usedapp/core";
+import { DAppProvider, Config as dappConfig, NodeUrls } from "@usedapp/core";
 import { EthContractConfig, EthContractsContextProvider } from "./EthContracts";
-import { EthWalletsContextProvider, EthWalletsContextProviderProps } from "./EthWallets";
+import { EthWalletsContextProvider } from "./EthWallets";
 
 export const defaultConfig = {
   pollingInterval: 1000,
@@ -15,28 +15,56 @@ export const defaultConfig = {
 export interface EthDappContextProviderProps {
   children?: ReactNode;
   contracts: EthContractConfig[],
-  config: EthWalletsContextProviderProps
+  config: {
+    readOnlyUrls: NodeUrls,
+    appName: string,
+    appEmail: string,
+    appUrl: string,
+    appLogo: string,
+    pollingInterval: number
+  }
 }
 
 export interface EthConfigSetter {
-  setEthConfig: (conf: EthWalletsContextProviderProps) => void
+  setEthConfig: (conf: {
+    readOnlyUrls: NodeUrls,
+    appName: string,
+    appEmail: string,
+    appUrl: string,
+    appLogo: string,
+    pollingInterval: number
+  }) => void
 }
 
 export const EthDappContext = React.createContext({} as EthConfigSetter);
 
 export const EthDappContextProvider = ({ config, contracts, children }: EthDappContextProviderProps) => {
 
-  const [Config, setConfig] = useState({} as EthWalletsContextProviderProps);
+  const [Config, setConfig] = useState({} as {
+    readOnlyUrls: NodeUrls,
+    appName: string,
+    appEmail: string,
+    appUrl: string,
+    appLogo: string,
+    pollingInterval: number
+  });
   const [DappConfig, setDappConfig] = useState({} as dappConfig);
   const [Contracts, setContracts] = useState({} as EthContractConfig[]);
 
   const concatConfig = 
-    useCallback((conf: EthWalletsContextProviderProps) => {
+    useCallback((conf: {
+      readOnlyUrls: NodeUrls,
+      appName: string,
+      appEmail: string,
+      appUrl: string,
+      appLogo: string,
+      pollingInterval: number
+    }) => {
       if(conf){
         setConfig({
           ...defaultConfig,
           ...Config,
-          ...conf.config
+          ...conf
         });
       }
     }, [Config]);
@@ -61,13 +89,11 @@ export const EthDappContextProvider = ({ config, contracts, children }: EthDappC
       setContracts(contracts);
     }
   }, [contracts]);
-  console.log(Config);
-  console.log(DappConfig);
 
   return (
     <DAppProvider config={DappConfig}>
       <EthDappContext.Provider value={{ setEthConfig: concatConfig }}>
-        <EthWalletsContextProvider {...Config}>
+        <EthWalletsContextProvider config={Config}>
           <EthContractsContextProvider contracts={Contracts}>
             {children}
           </EthContractsContextProvider>

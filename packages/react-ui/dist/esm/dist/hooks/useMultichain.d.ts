@@ -16,7 +16,14 @@ export declare const useMultichain: () => {
             interface?: import("@ethersproject/abi").Interface | undefined;
             contract?: import("@ethersproject/contracts").Contract | undefined;
         };
-        setEthConfig: (conf: import("..").EthWalletsContextProviderProps) => void;
+        setEthConfig: (conf: {
+            readOnlyUrls: import("@usedapp/core").NodeUrls;
+            appName: string;
+            appEmail: string;
+            appUrl: string;
+            appLogo: string;
+            pollingInterval: number;
+        }) => void;
         activate: (provider: import("@ethersproject/providers").JsonRpcProvider | import("@ethersproject/providers").ExternalProvider | {
             getProvider: () => any;
             activate: () => Promise<any>;
