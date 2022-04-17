@@ -74,7 +74,7 @@ export const SolDappContextProvider = ({ config, children }: SolDappContextProvi
       <ConnectionProvider endpoint={clusterApiUrl(network)}>
         <SolWalletsContextProvider network={network}>
           <SolWalletsContext.Consumer>
-            {(Wallets) => (
+            {(Wallets: SolWallets) => (
               <WalletProvider
                 wallets={mapWallets(Wallets)}
                 autoConnect={Config.config.autoConnect || false}

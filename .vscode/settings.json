@@ -6,6 +6,7 @@
         "ethersproject",
         "lamports",
         "Multichain",
+        "nodenext",
         "qrcode",
         "solana",
         "Solflare",

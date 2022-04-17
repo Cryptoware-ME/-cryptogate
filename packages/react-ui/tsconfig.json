@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
-    "outDir": "dist",
-    "module": "CommonJS",
+    "outDir": "./dist",
+    "declarationDir": "./dist",
+    "rootDir": "./src",
+    "module": "esnext",
     "lib": [
       "dom",
       "esnext"
@@ -14,13 +16,14 @@
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "noImplicitAny": true,
+    "target": "es5",
     "strictNullChecks": true,
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "allowSyntheticDefaultImports": true,
-    //"resolveJsonModule": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "strict": true
   },
   "include": [
     "src"
