@@ -45,7 +45,7 @@ var EthContractsContextProvider = function (_a) {
     console.log(contracts);
     useEffect(function () {
         var ethContracts = {};
-        if (network.chainId && contracts) {
+        if (network.chainId && contracts && contracts.length > 0) {
             contracts.forEach(function (c) {
                 if (c.name && c.address && c.abi) {
                     var interfaceABI = new Interface(c.abi);
@@ -143,6 +143,7 @@ var EthDappContextProvider = function (_a) {
     var _b = useState({}), Config = _b[0], setConfig = _b[1];
     var _c = useState({}), DappConfig = _c[0], setDappConfig = _c[1];
     var _d = useState({}), Contracts = _d[0], setContracts = _d[1];
+    console.log(contracts);
     var concatConfig = useCallback(function (conf) {
         if (conf) {
             setConfig(__assign(__assign(__assign({}, defaultConfig), Config), conf));

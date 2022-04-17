@@ -33,7 +33,7 @@ export const EthContractsContextProvider = ({ contracts, children }: EthContract
   console.log(contracts);
   useEffect(() => {
     let ethContracts: EthContracts = {};
-    if (network.chainId && contracts) {
+    if (network.chainId && contracts && contracts.length > 0) {
       contracts.forEach(c => {
         if (c.name && c.address && c.abi) {
           const interfaceABI = new Interface(c.abi);
