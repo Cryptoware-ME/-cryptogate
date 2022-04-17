@@ -2,11 +2,13 @@
   "name": "@cryptogate/react-ui",
   "private": false,
   "types": "dist/index.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "publishConfig": {
     "access": "public"
   },
-  "version": "0.0.21",
+  "version": "0.0.22",
   "description": "Cryptogate Web3 react UI components, contexts and hooks",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
