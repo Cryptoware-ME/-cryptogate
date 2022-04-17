@@ -4,6 +4,7 @@ import json from "@rollup/plugin-json";
 import typescript from "@rollup/plugin-typescript";
 import external from "rollup-plugin-peer-deps-external";
 import svg from "rollup-plugin-svg";
+import dts from 'rollup-plugin-dts';
 
 const packageJson = require("./package.json");
 
@@ -34,5 +35,11 @@ export default [
       commonjs(),
       svg(),
     ],
+  },
+  {
+      input: 'dist/esm/dist/index.d.ts',
+      output: [{ file: 'dist/index.d.ts', format: "esm" }],
+      external: [/\.scss$/],
+      plugins: [dts()],
   },
 ];
