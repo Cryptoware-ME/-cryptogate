@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { useNetwork, DAppProvider, useEthers } from '@usedapp/core';
+import { useNetwork, DAppProvider, useEthers, useEtherBalance } from '@usedapp/core';
 import { Contract } from '@ethersproject/contracts';
 import { Interface } from '@ethersproject/abi';
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector';
@@ -143,7 +143,6 @@ var EthDappContextProvider = function (_a) {
     var _b = useState({}), Config = _b[0], setConfig = _b[1];
     var _c = useState({}), DappConfig = _c[0], setDappConfig = _c[1];
     var _d = useState({}), Contracts = _d[0], setContracts = _d[1];
-    console.log(contracts);
     var concatConfig = useCallback(function (conf) {
         if (conf) {
             setConfig(__assign(__assign(__assign({}, defaultConfig), Config), conf));
@@ -257,10 +256,12 @@ var useSolana = function () {
 };
 
 var useMultichain = function () {
+    var account = useEthers().account;
     return {
         network: useNetwork() || 'Solana',
         ethereum: useEthereum(),
-        solana: useSolana()
+        solana: useSolana(),
+        etherBalance: useEtherBalance(account)
     };
 };
 

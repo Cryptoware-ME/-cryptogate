@@ -151,7 +151,6 @@ var EthDappContextProvider = function (_a) {
     var _b = React.useState({}), Config = _b[0], setConfig = _b[1];
     var _c = React.useState({}), DappConfig = _c[0], setDappConfig = _c[1];
     var _d = React.useState({}), Contracts = _d[0], setContracts = _d[1];
-    console.log(contracts);
     var concatConfig = React.useCallback(function (conf) {
         if (conf) {
             setConfig(__assign(__assign(__assign({}, defaultConfig), Config), conf));
@@ -265,10 +264,12 @@ var useSolana = function () {
 };
 
 var useMultichain = function () {
+    var account = core.useEthers().account;
     return {
         network: core.useNetwork() || 'Solana',
         ethereum: useEthereum(),
-        solana: useSolana()
+        solana: useSolana(),
+        etherBalance: core.useEtherBalance(account)
     };
 };
 

@@ -16,6 +16,7 @@ import { PhantomWalletAdapter, SlopeWalletAdapter, SolflareWalletAdapter, Sollet
 import * as _ethersproject_providers from '@ethersproject/providers';
 import * as _solana_wallet_adapter_react from '@solana/wallet-adapter-react';
 import * as _solana_web3_js from '@solana/web3.js';
+import * as _ethersproject_bignumber from '@ethersproject/bignumber';
 
 interface EthContractConfig {
     name: string;
@@ -250,6 +251,7 @@ declare const useMultichain: () => {
         signAllTransactions: ((transaction: _solana_web3_js.Transaction[]) => Promise<_solana_web3_js.Transaction[]>) | undefined;
         signMessage: ((message: Uint8Array) => Promise<Uint8Array>) | undefined;
     };
+    etherBalance: _ethersproject_bignumber.BigNumber | undefined;
 };
 
 export { EthConfigSetter, EthContractConfig, EthContracts, EthContractsContext, EthContractsContextProvider, EthContractsContextProviderProps, EthDappContext, EthDappContextProvider, EthDappContextProviderProps, EthWallets, EthWalletsContext, EthWalletsContextProvider, EthWalletsContextProviderProps, MultichainProvider, MultichainProviderProps, SolConfigSetter, SolDappContext, SolDappContextProvider, SolWallets, SolWalletsContext, SolWalletsContextProvider, SolWalletsContextProviderProps, defaultConfig, solDefaultConfig, useEthereum, useMultichain, useSolana };

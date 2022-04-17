@@ -58,4 +58,5 @@ export declare const useMultichain: () => {
         signAllTransactions: ((transaction: import("@solana/web3.js").Transaction[]) => Promise<import("@solana/web3.js").Transaction[]>) | undefined;
         signMessage: ((message: Uint8Array) => Promise<Uint8Array>) | undefined;
     };
+    etherBalance: import("@ethersproject/bignumber").BigNumber | undefined;
 };

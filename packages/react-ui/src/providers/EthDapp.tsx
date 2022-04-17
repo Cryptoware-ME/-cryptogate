@@ -53,7 +53,7 @@ export const EthDappContextProvider = ({ config, contracts, children }: EthDappC
   });
   const [DappConfig, setDappConfig] = useState({} as dappConfig);
   const [Contracts, setContracts] = useState({} as EthContractConfig[]);
-  console.log(contracts);
+
   const concatConfig = 
     useCallback((conf: {
       readOnlyUrls: NodeUrls,
