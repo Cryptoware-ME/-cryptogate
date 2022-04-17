@@ -8,6 +8,12 @@ import dts from 'rollup-plugin-dts';
 
 const packageJson = require("./package.json");
 
+const EXTERNALS = [
+  'react',
+  'react-dom',
+  'child-process'
+]
+
 export default [
   {
     inlineDynamicImports: true,
@@ -17,17 +23,21 @@ export default [
         file: packageJson.main,
         format: "cjs",
         sourcemap: true,
+        //dir: "dist/cjs/",
         name: "@cryptogate/react-ui",
       },
       {
         file: packageJson.module,
         format: "esm",
+        //dir: "dist/esm/",
         sourcemap: true,
       },
     ],
     plugins: [       
-      external(),
-      resolve(),
+      // external(),
+      // resolve({
+      //   skip: EXTERNALS
+      // }),
       json(),
       typescript({
         tsconfig: "./tsconfig.json"
