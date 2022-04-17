@@ -68,6 +68,8 @@ var EthWalletsContextProvider = function (_a) {
     var config = _a.config, children = _a.children;
     var network = useNetwork().network;
     var _b = useState({}), Wallets = _b[0], setWallets = _b[1];
+    console.log(network);
+    console.log(config);
     useEffect(function () {
         var _a;
         if (network.chainId && config) {

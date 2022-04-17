@@ -30,7 +30,8 @@ export const EthWalletsContextProvider = ({ config, children }: EthWalletsContex
   const { network } = useNetwork();
 
   const [Wallets, setWallets] = useState({} as EthWallets);
-
+  console.log(network);
+  console.log(config);
   useEffect(() => {
     if (network.chainId && config) {
       setWallets({
