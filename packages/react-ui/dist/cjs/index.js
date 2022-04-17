@@ -201,7 +201,7 @@ var SolDappContextProvider = function (_a) {
         }
     }, [config]);
     React.useEffect(function () {
-        setNetwork(Config.config.env === "mainnet"
+        setNetwork(Config && Config.config && Config.config.env === "mainnet"
             ? walletAdapterBase.WalletAdapterNetwork.Mainnet
             : config.env === "staging"
                 ? walletAdapterBase.WalletAdapterNetwork.Testnet
