@@ -202,7 +202,7 @@ var SolDappContextProvider = function (_a) {
     return (React.createElement(SolDappContext.Provider, { value: { setSolConfig: concatConfig } },
         React.createElement(ConnectionProvider, { endpoint: clusterApiUrl(network) },
             React.createElement(SolWalletsContextProvider, { network: network },
-                React.createElement(SolWalletsContext.Consumer, null, function (Wallets) { return (React.createElement(WalletProvider, { wallets: mapWallets(Wallets), autoConnect: (Config && Config.config) ? Config.config.autoConnect : false, onError: onError }, children)); })))));
+                React.createElement(SolWalletsContext.Consumer, null, function (Wallets) { return Wallets && Wallets.Phantom && (React.createElement(WalletProvider, { wallets: mapWallets(Wallets), autoConnect: (Config && Config.config) ? Config.config.autoConnect : false, onError: onError }, children)); })))));
 };
 
 var MultichainProvider = function (_a) {
