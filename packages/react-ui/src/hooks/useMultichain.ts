@@ -8,8 +8,8 @@ export const useMultichain = () => {
 
   const ethereum = useEthereum();
   const { account, getEthBalance } = ethereum;
-  const etherBalance = getEthBalance(account);
-  const multicallAddress = useMulticallAddress();
+  const etherBalance = getEthBalance(account, {});
+  const multicallAddress = useMulticallAddress({});
   const solana = useSolana();
   const { publicKey, connected, connection } = solana;
   const [solBalance, setSolbalance] = useState(0);

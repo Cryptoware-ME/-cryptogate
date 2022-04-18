@@ -295,8 +295,8 @@ var useSolana = function () {
 var useMultichain = function () {
     var ethereum = useEthereum();
     var account = ethereum.account, getEthBalance = ethereum.getEthBalance;
-    var etherBalance = getEthBalance(account);
-    var multicallAddress = useMulticallAddress();
+    var etherBalance = getEthBalance(account, {});
+    var multicallAddress = useMulticallAddress({});
     var solana = useSolana();
     var publicKey = solana.publicKey, connected = solana.connected, connection = solana.connection;
     var _a = useState(0), solBalance = _a[0], setSolbalance = _a[1];
