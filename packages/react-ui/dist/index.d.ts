@@ -5,7 +5,7 @@ import { Contract } from '@ethersproject/contracts';
 import * as _ethersproject_abi from '@ethersproject/abi';
 import { Interface } from '@ethersproject/abi';
 import * as _usedapp_core from '@usedapp/core';
-import { NodeUrls, Chain } from '@usedapp/core';
+import { NodeUrls, Chain, useEtherBalance } from '@usedapp/core';
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector';
 import { LedgerConnector } from '@web3-react/ledger-connector';
 import { TrezorConnector } from '@web3-react/trezor-connector';
@@ -149,6 +149,7 @@ declare const useEthereum: () => {
         interface?: _ethersproject_abi.Interface | undefined;
         contract?: _ethersproject_contracts.Contract | undefined;
     };
+    getEthBalance: typeof useEtherBalance;
     setEthConfig: (conf: {
         readOnlyUrls: _usedapp_core.NodeUrls;
         appName: string;
@@ -211,6 +212,7 @@ declare const useMultichain: () => {
             interface?: _ethersproject_abi.Interface | undefined;
             contract?: _ethersproject_contracts.Contract | undefined;
         };
+        getEthBalance: typeof _usedapp_core.useEtherBalance;
         setEthConfig: (conf: {
             readOnlyUrls: _usedapp_core.NodeUrls;
             appName: string;

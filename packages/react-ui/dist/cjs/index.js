@@ -88,7 +88,6 @@ var EthContractsContextProvider = function (_a) {
     var contracts$1 = _a.contracts, children = _a.children;
     var network = core.useNetwork().network;
     var _b = React.useState({}), Contracts = _b[0], setContracts = _b[1];
-    console.log('contracts', contracts$1);
     React.useEffect(function () {
         var ethContracts = {};
         if (network.chainId && contracts$1 && contracts$1.length > 0) {
@@ -282,7 +281,7 @@ var useEthereum = function () {
     var setEthConfig = dappCtx.setEthConfig;
     var Wallets = walletsCtx;
     var getContract = function (name) { return contractsCtx[name]; };
-    return __assign(__assign({}, ethereum), { wallets: Wallets, getContract: getContract, setEthConfig: setEthConfig });
+    return __assign(__assign({}, ethereum), { wallets: Wallets, getContract: getContract, getEthBalance: core.useEtherBalance, setEthConfig: setEthConfig });
 };
 
 var useSolana = function () {
@@ -302,21 +301,20 @@ var useSolana = function () {
 };
 
 var useMultichain = function () {
-    var account = useEthereum().account;
-    var _a = walletAdapterReact.useWallet(), publicKey = _a.publicKey, connected = _a.connected;
-    var connection = walletAdapterReact.useConnection().connection;
-    var _b = React.useState(0), solBalance = _b[0], setSolbalance = _b[1];
-    var etherBalance = core.useEtherBalance(account);
+    var ethereum = useEthereum();
+    var account = ethereum.account, getEthBalance = ethereum.getEthBalance;
+    var etherBalance = getEthBalance(account);
+    var solana = useSolana();
+    var publicKey = solana.publicKey, connected = solana.connected, connection = solana.connection;
+    var _a = React.useState(0), solBalance = _a[0], setSolbalance = _a[1];
     var getUserSOLBalance = function (publicKey, connection) { return __awaiter(void 0, void 0, void 0, function () {
-        var balance, e_1;
+        var e_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
                     return [4 /*yield*/, connection.getBalance(publicKey, "confirmed")];
-                case 1:
-                    balance = _a.sent();
-                    return [2 /*return*/, balance];
+                case 1: return [2 /*return*/, _a.sent()];
                 case 2:
                     e_1 = _a.sent();
                     console.log("error getting balance: ", e_1);
@@ -326,16 +324,17 @@ var useMultichain = function () {
         });
     }); };
     React.useEffect(function () {
-        if (!solBalance && publicKey && connection && connected) {
+        if (publicKey && connection && connected) {
             getUserSOLBalance(publicKey, connection).then(setSolbalance);
         }
     }, [publicKey, connection]);
+    console.log("accounts", account, publicKey);
     console.log("balances", etherBalance, solBalance);
     return {
         network: core.useNetwork() || "Solana",
         account: account || publicKey || "",
-        ethereum: useEthereum(),
-        solana: useSolana(),
+        ethereum: ethereum,
+        solana: solana,
         etherBalance: etherBalance,
         solBalance: solBalance,
     };

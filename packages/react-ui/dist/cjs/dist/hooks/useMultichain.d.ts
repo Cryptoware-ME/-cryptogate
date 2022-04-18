@@ -17,6 +17,7 @@ export declare const useMultichain: () => {
             interface?: import("@ethersproject/abi").Interface | undefined;
             contract?: import("@ethersproject/contracts").Contract | undefined;
         };
+        getEthBalance: typeof import("@usedapp/core").useEtherBalance;
         setEthConfig: (conf: {
             readOnlyUrls: import("@usedapp/core").NodeUrls;
             appName: string;
