@@ -5,6 +5,7 @@
         "Devnet",
         "ethersproject",
         "lamports",
+        "multicall",
         "Multichain",
         "nodenext",
         "qrcode",
