@@ -16,6 +16,7 @@ import { PhantomWalletAdapter, SlopeWalletAdapter, SolflareWalletAdapter, Sollet
 import * as _ethersproject_providers from '@ethersproject/providers';
 import * as _solana_wallet_adapter_react from '@solana/wallet-adapter-react';
 import * as _solana_web3_js from '@solana/web3.js';
+import { PublicKey, Connection } from '@solana/web3.js';
 import * as _ethersproject_bignumber from '@ethersproject/bignumber';
 
 interface EthContractConfig {
@@ -202,6 +203,7 @@ declare const useMultichain: () => {
         activateBrowserWallet: () => void;
         isLoading: boolean;
     };
+    account: string | PublicKey;
     ethereum: {
         wallets: EthWallets;
         getContract: (name: string) => {
@@ -236,22 +238,23 @@ declare const useMultichain: () => {
     solana: {
         wallets: SolWallets;
         setSolConfig: (conf: SolDappContextProvider) => void;
-        connection: _solana_web3_js.Connection;
+        connection: Connection;
         autoConnect: boolean;
         wallet: _solana_wallet_adapter_react.Wallet | null;
-        publicKey: _solana_web3_js.PublicKey | null;
+        publicKey: PublicKey | null;
         connecting: boolean;
         connected: boolean;
         disconnecting: boolean;
         select(walletName: _solana_wallet_adapter_base.WalletName): void;
         connect(): Promise<void>;
         disconnect(): Promise<void>;
-        sendTransaction(transaction: _solana_web3_js.Transaction, connection: _solana_web3_js.Connection, options?: _solana_wallet_adapter_base.SendTransactionOptions | undefined): Promise<string>;
+        sendTransaction(transaction: _solana_web3_js.Transaction, connection: Connection, options?: _solana_wallet_adapter_base.SendTransactionOptions | undefined): Promise<string>;
         signTransaction: ((transaction: _solana_web3_js.Transaction) => Promise<_solana_web3_js.Transaction>) | undefined;
         signAllTransactions: ((transaction: _solana_web3_js.Transaction[]) => Promise<_solana_web3_js.Transaction[]>) | undefined;
         signMessage: ((message: Uint8Array) => Promise<Uint8Array>) | undefined;
     };
     etherBalance: _ethersproject_bignumber.BigNumber | undefined;
+    solBalance: number;
 };
 
 export { EthConfigSetter, EthContractConfig, EthContracts, EthContractsContext, EthContractsContextProvider, EthContractsContextProviderProps, EthDappContext, EthDappContextProvider, EthDappContextProviderProps, EthWallets, EthWalletsContext, EthWalletsContextProvider, EthWalletsContextProviderProps, MultichainProvider, MultichainProviderProps, SolConfigSetter, SolDappContext, SolDappContextProvider, SolWallets, SolWalletsContext, SolWalletsContextProvider, SolWalletsContextProviderProps, defaultConfig, solDefaultConfig, useEthereum, useMultichain, useSolana };

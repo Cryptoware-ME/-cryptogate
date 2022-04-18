@@ -1,4 +1,4 @@
-/// <reference types="@solana/web3.js" />
+import { Connection, PublicKey } from "@solana/web3.js";
 export declare const useMultichain: () => {
     network: {
         update: (network: Partial<import("@usedapp/core").Network>) => void;
@@ -9,6 +9,7 @@ export declare const useMultichain: () => {
         activateBrowserWallet: () => void;
         isLoading: boolean;
     };
+    account: string | PublicKey;
     ethereum: {
         wallets: import("..").EthWallets;
         getContract: (name: string) => {
@@ -43,20 +44,21 @@ export declare const useMultichain: () => {
     solana: {
         wallets: import("..").SolWallets;
         setSolConfig: (conf: import("..").SolDappContextProvider) => void;
-        connection: import("@solana/web3.js").Connection;
+        connection: Connection;
         autoConnect: boolean;
         wallet: import("@solana/wallet-adapter-react").Wallet | null;
-        publicKey: import("@solana/web3.js").PublicKey | null;
+        publicKey: PublicKey | null;
         connecting: boolean;
         connected: boolean;
         disconnecting: boolean;
         select(walletName: import("@solana/wallet-adapter-base").WalletName): void;
         connect(): Promise<void>;
         disconnect(): Promise<void>;
-        sendTransaction(transaction: import("@solana/web3.js").Transaction, connection: import("@solana/web3.js").Connection, options?: import("@solana/wallet-adapter-base").SendTransactionOptions | undefined): Promise<string>;
+        sendTransaction(transaction: import("@solana/web3.js").Transaction, connection: Connection, options?: import("@solana/wallet-adapter-base").SendTransactionOptions | undefined): Promise<string>;
         signTransaction: ((transaction: import("@solana/web3.js").Transaction) => Promise<import("@solana/web3.js").Transaction>) | undefined;
         signAllTransactions: ((transaction: import("@solana/web3.js").Transaction[]) => Promise<import("@solana/web3.js").Transaction[]>) | undefined;
         signMessage: ((message: Uint8Array) => Promise<Uint8Array>) | undefined;
     };
     etherBalance: import("@ethersproject/bignumber").BigNumber | undefined;
+    solBalance: number;
 };
