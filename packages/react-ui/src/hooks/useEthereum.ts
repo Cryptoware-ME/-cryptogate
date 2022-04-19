@@ -2,6 +2,7 @@ import React from 'react';
 import { useEthers } from '@usedapp/core';
 import { EthDappContext } from '../providers/EthDapp';
 import { EthContractsContext } from '../providers/EthContracts';
+import { EthWalletsContext } from '../providers';
 
 export const useEthereum = () => {
     const ethereum = useEthers();
@@ -21,10 +22,8 @@ export const useEthereum = () => {
     }
 
     const { setEthConfig } = dappCtx;
-    const { Wallets } = walletsCtx;
-    const { Contracts } = contractsCtx;
-
-    const getContract = name => Contracts[name];
+    const Wallets = walletsCtx;
+    const getContract = (name: string) => contractsCtx[name];
 
     return {
         ...ethereum,

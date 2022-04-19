@@ -17,12 +17,19 @@ export interface EthWalletsContextProviderProps {
   }
 }
 
-export const EthWalletsContext = React.createContext({});
+export interface EthWallets {
+  WalletConnect?: WalletConnectConnector,
+  Coinbase?: WalletLinkConnector,
+  Ledger?: LedgerConnector,
+  Trezor?: TrezorConnector
+}
+
+export const EthWalletsContext = React.createContext({} as EthWallets);
 
 export const EthWalletsContextProvider = ({ config, children }: EthWalletsContextProviderProps) => {
   const { network } = useNetwork();
 
-  const [Wallets, setWallets] = useState({});
+  const [Wallets, setWallets] = useState({} as EthWallets);
 
   useEffect(() => {
     if (network.chainId) {
@@ -60,7 +67,7 @@ export const EthWalletsContextProvider = ({ config, children }: EthWalletsContex
   }, [network]);
 
   return (
-    <EthWalletsContext.Provider value={{ Wallets }}>
+    <EthWalletsContext.Provider value={{ ...Wallets }}>
       {children}
     </EthWalletsContext.Provider>
   );

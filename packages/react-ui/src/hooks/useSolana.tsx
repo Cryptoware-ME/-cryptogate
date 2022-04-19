@@ -3,7 +3,7 @@ import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { SolDappContext } from '../providers/SolDapp';
 import { SolWalletsContext } from '../providers/SolWallets';
 
-export const useSolana= () => {
+export const useSolana = () => {
     const wallet = useWallet();
     const connection = useConnection();
 
@@ -11,14 +11,14 @@ export const useSolana= () => {
     const walletsCtx = React.useContext(SolWalletsContext);
 
     if (dappCtx === undefined) {
-        throw new Error('useEthereum must be used within a EthDappContext')
+        throw new Error('useSolana must be used within a SolDappContext')
     }
     if (walletsCtx === undefined) {
-        throw new Error('useEthereum must be used within a EthWalletsContext')
+        throw new Error('useSolana must be used within a SolDappContext')
     }
 
     const { setSolConfig } = dappCtx;
-    const { Wallets } = walletsCtx;
+    const Wallets = walletsCtx;
 
     return {
         ...wallet,
