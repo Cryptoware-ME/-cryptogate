@@ -1,0 +1,38 @@
+.connect-container {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  margin-right: 15px;
+  cursor: pointer;
+}
+
+
+.d-flex {
+  display: flex;
+}
+
+.end {
+  place-content: end;
+}
+
+.jazzicon {
+  border-radius: 50%;
+  border: 2px solid #fff;
+  height: 45px;
+  width: 46px;
+  padding-left: 0.05rem;
+  padding-top: 0.03rem;
+
+  @media (max-width: 768px) {
+    height: 35px;
+    width: 36px;
+  }
+}
+
+.connect_btn {
+
+  @media (max-width: 768px) {
+    font-size: 12px !important;
+    padding: 6px 6px 6px 6px !important;
+  }
+}

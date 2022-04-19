@@ -1,0 +1,18 @@
+.slick-slide img {
+  margin: auto;
+}
+
+.slick-prev:before, .slick-next:before {
+  color: #c4c4c4;
+}
+
+.NFTContainer {
+  border-radius: 11px;
+  margin: 0px 5px;
+  &.clickable{
+    cursor: pointer;
+  }
+  &.doubleRow {
+    margin: 5px;
+  }
+}
