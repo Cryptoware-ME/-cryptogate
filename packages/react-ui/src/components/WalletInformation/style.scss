@@ -1,0 +1,23 @@
+.d-flex {
+  display: flex;
+
+  &.between {
+    place-content: space-between;
+  }
+
+  &.center {
+    place-content: center;
+    place-items: center;
+  }
+}
+
+.address {
+  color: #c4c4c4;
+}
+
+.disconnect {
+  height: 22px;
+  width: 22px;
+  margin-left: 10px;
+  cursor: pointer;
+}
