@@ -1,0 +1,31 @@
+.menuItemText {
+  margin: 0;
+  padding: 0;
+  color: white;
+}
+
+.menuDivision {
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 10px;
+  max-height: 100%;
+  overflow-y: auto;
+}
+
+.menuDivision p {
+  font-size: 14px;
+  color: white;
+}
+
+.sidebarHeading {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.sidebarHeadingUserCircle {
+  padding-right: 8px;
+  width: 32px;
+}
