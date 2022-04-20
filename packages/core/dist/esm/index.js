@@ -2,7 +2,7 @@ import sigUtil from '@metamask/eth-sig-util';
 import { sign } from 'tweetnacl';
 import { PublicKey } from '@solana/web3.js';
 
-var ethSignatures = (function (address, credentials) {
+var verifyEthSig = function (address, credentials) {
     return new Promise(function (resolve, reject) {
         try {
             var recovered = sigUtil.recoverPersonalSignature(credentials);
@@ -15,14 +15,9 @@ var ethSignatures = (function (address, credentials) {
             reject(e);
         }
     });
-});
+};
 
-var ethSignatures$1 = /*#__PURE__*/Object.freeze({
-    __proto__: null,
-    'default': ethSignatures
-});
-
-var solSignatures = (function (address, credentials) {
+var verifySolSig = function (address, credentials) {
     return new Promise(function (resolve, reject) {
         try {
             var message = new TextEncoder().encode(credentials.data.toString());
@@ -37,12 +32,7 @@ var solSignatures = (function (address, credentials) {
             reject(e);
         }
     });
-});
+};
 
-var solSignatures$1 = /*#__PURE__*/Object.freeze({
-    __proto__: null,
-    'default': solSignatures
-});
-
-export { ethSignatures$1 as verifyEthSig, solSignatures$1 as verifySolSig };
+export { verifyEthSig, verifySolSig };
 //# sourceMappingURL=index.js.map

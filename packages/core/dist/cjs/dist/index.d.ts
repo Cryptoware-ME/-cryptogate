@@ -1,2 +1,2 @@
-export * as verifyEthSig from './verifySignatures/ethSignatures';
-export * as verifySolSig from './verifySignatures/solSignatures';
+export { verifyEthSig } from './verifySignatures/ethSignatures';
+export { verifySolSig } from './verifySignatures/solSignatures';

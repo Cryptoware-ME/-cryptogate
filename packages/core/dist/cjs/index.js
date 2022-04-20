@@ -10,7 +10,7 @@ function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'defau
 
 var sigUtil__default = /*#__PURE__*/_interopDefaultLegacy(sigUtil);
 
-var ethSignatures = (function (address, credentials) {
+var verifyEthSig = function (address, credentials) {
     return new Promise(function (resolve, reject) {
         try {
             var recovered = sigUtil__default["default"].recoverPersonalSignature(credentials);
@@ -23,14 +23,9 @@ var ethSignatures = (function (address, credentials) {
             reject(e);
         }
     });
-});
+};
 
-var ethSignatures$1 = /*#__PURE__*/Object.freeze({
-    __proto__: null,
-    'default': ethSignatures
-});
-
-var solSignatures = (function (address, credentials) {
+var verifySolSig = function (address, credentials) {
     return new Promise(function (resolve, reject) {
         try {
             var message = new TextEncoder().encode(credentials.data.toString());
@@ -45,13 +40,8 @@ var solSignatures = (function (address, credentials) {
             reject(e);
         }
     });
-});
+};
 
-var solSignatures$1 = /*#__PURE__*/Object.freeze({
-    __proto__: null,
-    'default': solSignatures
-});
-
-exports.verifyEthSig = ethSignatures$1;
-exports.verifySolSig = solSignatures$1;
+exports.verifyEthSig = verifyEthSig;
+exports.verifySolSig = verifySolSig;
 //# sourceMappingURL=index.js.map

@@ -1,7 +1,7 @@
 import { sign } from "tweetnacl";
 import { PublicKey } from "@solana/web3.js";
 
-export default (address: string, credentials: { data: any, signature: string }) =>
+export const verifySolSig = (address: string, credentials: { data: any, signature: string }) =>
   new Promise((resolve, reject) => {
     try {
       const message = new TextEncoder().encode(credentials.data.toString());

@@ -1,6 +1,6 @@
 import sigUtil from "@metamask/eth-sig-util";
 
-export default (address: string, credentials: {data: any, signature: string}) =>
+export const verifyEthSig = (address: string, credentials: {data: any, signature: string}) =>
   new Promise((resolve, reject) => {
     try {
       const recovered = sigUtil.recoverPersonalSignature(credentials);
