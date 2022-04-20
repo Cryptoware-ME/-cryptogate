@@ -8,6 +8,7 @@
   "description": "Passport.js Strategy for EVM & Solana Web3 Authentication",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "yarn clean && rollup -c rollup.config.js",
     "clean": "rimraf dist"
