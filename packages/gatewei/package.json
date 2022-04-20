@@ -1,6 +1,10 @@
 {
   "name": "@cryptogate/gatewei",
   "version": "0.0.2",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "",
   "main": "truffle-config.js",
   "directories": {
