@@ -4,6 +4,7 @@
         "Cryptoware",
         "Devnet",
         "ethersproject",
+        "gatewei",
         "isevm",
         "lamports",
         "multicall",
