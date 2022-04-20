@@ -10,7 +10,7 @@ declare namespace ethSignatures_d {
 }
 
 declare const _default: (address: string, credentials: {
-    data: string;
+    data: any;
     signature: string;
 }) => Promise<unknown>;
 

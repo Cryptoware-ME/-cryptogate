@@ -6,15 +6,13 @@
   },
   "private": false,
   "description": "Passport.js Strategy for EVM & Solana Web3 Authentication",
-  "main": "./src/index.js",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "yarn clean && rollup -c rollup.config.js",
+    "clean": "rimraf dist"
   },
   "author": "Cryptoware",
   "license": "MIT",
-  "dependencies": {
-    "express": "^4.17.3",
-    "passport-strategy": "^1.0.0"
-  },
   "gitHead": "4e7588c374765236eb36f78f70745b80a39c773c"
 }

@@ -25,7 +25,7 @@ var ethSignatures$1 = /*#__PURE__*/Object.freeze({
 var solSignatures = (function (address, credentials) {
     return new Promise(function (resolve, reject) {
         try {
-            var message = new TextEncoder().encode(credentials.data);
+            var message = new TextEncoder().encode(credentials.data.toString());
             var signature = Buffer.from(JSON.parse(credentials.signature));
             var pubKey = new PublicKey(address);
             if (!sign.detached.verify(message, signature, pubKey.toBytes())) {
