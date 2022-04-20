@@ -4,7 +4,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Cryptogate core libraries",
   "types": "dist/index.d.ts",
   "main": "dist/cjs/index.js",
