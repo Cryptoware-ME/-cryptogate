@@ -1,28 +1,25 @@
 {
-    "name": "@cryptogate/react-ui",
-    "private": false,
-    "types": "dist/index.d.ts",
-    "files": [
-      "dist"
-    ],
-    "publishConfig": {
-      "access": "public"
-    },
-    "version": "0.0.46",
-    "description": "Cryptogate Web3 UI Component",
-    "main": "dist/cjs/index.js",
-    "module": "dist/esm/index.js",
-    "scripts": {
-      "build": "yarn clean && rollup -c rollup.config.js",
-      "clean": "rimraf dist"
-    },
-    "author": "Cryptoware",
-    "license": "MIT",
-    "peerDependencies": {
-      "react": "^18.0.0"
-    },
-    "devDependencies": {
-    },
-    "gitHead": "4e7588c374765236eb36f78f70745b80a39c773c"
-  }
-  
+  "name": "@cryptogate/react-ui",
+  "private": false,
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "version": "0.0.47",
+  "description": "Cryptogate Web3 UI Component",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "scripts": {
+    "build": "yarn clean && rollup -c rollup.config.js",
+    "clean": "rimraf dist"
+  },
+  "author": "Cryptoware",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": "^18.0.0"
+  },
+  "gitHead": "4e7588c374765236eb36f78f70745b80a39c773c"
+}
