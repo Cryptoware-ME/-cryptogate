@@ -1,18 +1,10 @@
-import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import json from "@rollup/plugin-json";
 import typescript from "@rollup/plugin-typescript";
-import external from "rollup-plugin-peer-deps-external";
 import svg from "rollup-plugin-svg";
 import dts from 'rollup-plugin-dts';
 
 const packageJson = require("./package.json");
-
-const EXTERNALS = [
-  'react',
-  'react-dom',
-  'child-process'
-]
 
 export default [
   {
@@ -23,21 +15,15 @@ export default [
         file: packageJson.main,
         format: "cjs",
         sourcemap: true,
-        //dir: "dist/cjs/",
-        name: "@cryptogate/react-ui",
+        name: "@cryptogate/react-providers",
       },
       {
         file: packageJson.module,
         format: "esm",
-        //dir: "dist/esm/",
         sourcemap: true,
       },
     ],
-    plugins: [       
-      // external(),
-      // resolve({
-      //   skip: EXTERNALS
-      // }),
+    plugins: [      
       json(),
       typescript({
         tsconfig: "./tsconfig.json"

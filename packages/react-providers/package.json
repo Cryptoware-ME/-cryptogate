@@ -1,0 +1,59 @@
+{
+  "name": "@cryptogate/react-providers",
+  "private": false,
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "version": "0.0.1",
+  "description": "Cryptogate Web3 react providers & hooks",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "scripts": {
+    "build": "yarn clean && rollup -c rollup.config.js",
+    "clean": "rimraf dist"
+  },
+  "author": "Cryptoware",
+  "license": "MIT",
+  "peerDependencies": {
+    "@ethersproject/contracts": "^5.6.0",
+    "@solana/wallet-adapter-base": "^0.9.5",
+    "@solana/wallet-adapter-react": "^0.15.4",
+    "@solana/wallet-adapter-wallets": "^0.15.5",
+    "@solana/web3.js": "^1.37.1",
+    "@usedapp/core": "^0.12.9",
+    "@web3-react/ledger-connector": "^6.1.9",
+    "@web3-react/trezor-connector": "^6.1.9",
+    "@web3-react/walletconnect-connector": "^6.2.13",
+    "@web3-react/walletlink-connector": "^6.2.14",
+    "react": "^18.0.0"
+  },
+  "devDependencies": {
+    "@ethersproject/contracts": "^5.6.0",
+    "@rollup/plugin-commonjs": "^21.1.0",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^13.2.1",
+    "@rollup/plugin-typescript": "^8.3.2",
+    "@solana/wallet-adapter-base": "^0.9.5",
+    "@solana/wallet-adapter-react": "^0.15.4",
+    "@solana/wallet-adapter-wallets": "^0.15.5",
+    "@solana/web3.js": "^1.37.1",
+    "@usedapp/core": "^0.12.9",
+    "@web3-react/ledger-connector": "^6.1.9",
+    "@web3-react/trezor-connector": "^6.1.9",
+    "@web3-react/walletconnect-connector": "^6.2.13",
+    "@web3-react/walletlink-connector": "^6.2.14",
+    "autoprefixer": "^10.4.4",
+    "react": "^18.0.0",
+    "rollup": "^2.70.2",
+    "rollup-plugin-dts": "^4.2.1",
+    "rollup-plugin-ignore": "^1.0.10",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-svg": "^2.0.0",
+    "typescript": "^4.7.0-dev.20220416"
+  },
+  "gitHead": "4e7588c374765236eb36f78f70745b80a39c773c"
+}
