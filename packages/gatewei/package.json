@@ -13,9 +13,12 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
+  "author": "Cryptoware",
+  "license": "MIT",
+  "peerDependencies": {
+    "@openzeppelin/contracts": "^4.5.0"
+  },
+  "devDependencies": {
     "@openzeppelin/contracts": "^4.5.0"
   }
 }

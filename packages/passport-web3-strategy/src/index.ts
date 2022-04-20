@@ -1,14 +1,9 @@
-const passport = require("passport-strategy");
-
-const { verifyEthSig, verifySolSig } = require("./verifySignatures");
-
-import { Strategy } from 'passport-strategy';
+import { Strategy } from 'passport';
 import { verifyEthSig, verifySolSig } from '@cryptogate/core';
 
-export default class Web3Strategy<T> extends Strategy {
+export default class Web3Strategy extends Strategy {
 
-  private onAuth: (data: T) => void;
-  private fail: (err: {}, status: number) => void;
+  private onAuth: (data: { address: string, msg: string, signed: string, chain: string, isevm: boolean }) => void;
   public name: string;
 
   constructor() {
@@ -61,7 +56,7 @@ export default class Web3Strategy<T> extends Strategy {
     };
 
     try {
-      this._onAuth(address, chain, done, req);
+      this.onAuth({address, chain, done, req} as T);
     } catch (ex) {
       return this.error(ex);
     }
@@ -109,7 +104,7 @@ export default class Web3Strategy<T> extends Strategy {
   /**
    * sets the onAuth listener
    */
-  async setOnAuth(fnOnAuth: (data: T) => void){
+  async setOnAuth(fnOnAuth){
     this.onAuth = fnOnAuth;
   }
 }
