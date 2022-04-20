@@ -4,7 +4,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Cryptogate core libraries",
   "types": "dist/index.d.ts",
   "main": "dist/cjs/index.js",
@@ -24,9 +24,9 @@
     "@rollup/plugin-commonjs": "^21.1.0",
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-typescript": "^8.3.2",
+    "@types/node": "^17.0.25",
     "rollup-plugin-dts": "^4.2.1",
     "tslib": "^2.3.1",
-    "typescript": "^4.6.3",
-    "@types/node": "^17.0.25"
+    "typescript": "^4.6.3"
   }
 }
