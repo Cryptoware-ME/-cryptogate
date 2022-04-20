@@ -11,7 +11,7 @@
   "version": "0.0.2",
   "description": "Cryptogate Web3 react providers & hooks",
   "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
+  "module": "dist/esm/index.js", 
   "scripts": {
     "build": "yarn clean && rollup -c rollup.config.js",
     "clean": "rimraf dist"
