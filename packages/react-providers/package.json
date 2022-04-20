@@ -8,10 +8,10 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Cryptogate Web3 react providers & hooks",
   "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js", 
+  "module": "dist/esm/index.js",
   "scripts": {
     "build": "yarn clean && rollup -c rollup.config.js",
     "clean": "rimraf dist"
