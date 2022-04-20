@@ -13,11 +13,8 @@
   "author": "Cryptoware",
   "license": "MIT",
   "dependencies": {
-    "@metamask/eth-sig-util": "^4.0.0",
-    "@solana/web3.js": "^1.37.1",
     "express": "^4.17.3",
-    "passport-strategy": "^1.0.0",
-    "tweetnacl": "^1.0.3"
+    "passport-strategy": "^1.0.0"
   },
   "gitHead": "4e7588c374765236eb36f78f70745b80a39c773c"
 }

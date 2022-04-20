@@ -2,13 +2,17 @@ const passport = require("passport-strategy");
 
 const { verifyEthSig, verifySolSig } = require("./verifySignatures");
 
-class Web3Strategy extends passport.Strategy {
-  constructor(onAuth) {
-    if (!onAuth) {
-      throw new TypeError("Web3Strategy requires an onAuth callback");
-    }
+import { Strategy } from 'passport-strategy';
+import { verifyEthSig, verifySolSig } from '@cryptogate/core';
+
+export default class Web3Strategy<T> extends Strategy {
+
+  private onAuth: (data: T) => void;
+  private fail: (err: {}, status: number) => void;
+  public name: string;
+
+  constructor() {
     super();
-    this._onAuth = onAuth;
     this.name = "web3";
   }
 
@@ -101,9 +105,11 @@ class Web3Strategy extends passport.Strategy {
 
     return null;
   }
-}
 
-/**
- * Expose `Web3Strategy`.
- */
-export default Web3Strategy;
+  /**
+   * sets the onAuth listener
+   */
+  async setOnAuth(fnOnAuth: (data: T) => void){
+    this.onAuth = fnOnAuth;
+  }
+}

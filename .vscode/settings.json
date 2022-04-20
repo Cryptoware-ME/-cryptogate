@@ -4,6 +4,7 @@
         "Cryptoware",
         "Devnet",
         "ethersproject",
+        "isevm",
         "lamports",
         "multicall",
         "Multichain",
@@ -13,6 +14,7 @@
         "Solbalance",
         "Solflare",
         "Sollet",
+        "tweetnacl",
         "usedapp",
         "walletconnect",
         "walletlink"
