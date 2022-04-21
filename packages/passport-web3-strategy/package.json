@@ -1,6 +1,6 @@
 {
   "name": "@cryptogate/passport-web3-strategy",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "publishConfig": {
     "access": "public"
   },
@@ -20,7 +20,7 @@
     "passport": "^0.5.2"
   },
   "devDependencies": {
-    "@cryptogate/core": "^0.0.6",
+    "@cryptogate/core": "^0.0.7",
     "@rollup/plugin-commonjs": "^21.1.0",
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-typescript": "^8.3.2",
