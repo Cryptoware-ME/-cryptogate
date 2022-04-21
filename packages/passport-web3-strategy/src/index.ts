@@ -1,25 +1,54 @@
-import { Strategy } from 'passport';
-import { verifyEthSig, verifySolSig } from '@cryptogate/core';
+import { Strategy } from "passport";
+import { verifyEthSig, verifySolSig } from "@cryptogate/core";
 
 export class Web3Strategy extends Strategy {
-
-  private onAuth: (data: { address: string, msg: string, signed: string, chain: string, isevm: boolean, done: (err: Error | null, user: any, info: any) => void, req: any }) => void;
+  private onAuth: (data: {
+    address: string;
+    msg: string;
+    signed: string;
+    chain: string;
+    isevm: boolean;
+    done: (err: Error | null, user: any, info: any) => void;
+    req: any;
+  }) => void;
   public name: string;
 
-  constructor(_onAuth: (data: { address: string, msg: string, signed: string, chain: string, isevm: boolean, done: (err: Error | null, user: any, info: any) => void, req: any }) => void | undefined) {
+  constructor(
+    _onAuth: (data: {
+      address: string;
+      msg: string;
+      signed: string;
+      chain: string;
+      isevm: boolean;
+      done: (err: Error | null, user: any, info: any) => void;
+      req: any;
+    }) => void | undefined
+  ) {
     super();
-    if(_onAuth){
-      this.onAuth = _onAuth
+    if (_onAuth) {
+      this.onAuth = _onAuth;
     } else {
-      this.onAuth = (data: { address: string, msg: string, signed: string, chain: string, isevm: boolean, done: (err: Error | null, user: any, info: any) => void, req: any }) => {
-        data.done(null, {
-          address: data.address,
-          msg: data.msg,
-          signed: data.signed,
-          chain: data.chain,
-          isevm: data.isevm
-        }, '')
-      }
+      this.onAuth = (data: {
+        address: string;
+        msg: string;
+        signed: string;
+        chain: string;
+        isevm: boolean;
+        done: (err: Error | null, user: any, info: any) => void;
+        req: any;
+      }) => {
+        data.done(
+          null,
+          {
+            address: data.address,
+            msg: data.msg,
+            signed: data.signed,
+            chain: data.chain,
+            isevm: data.isevm,
+          },
+          ""
+        );
+      };
     }
     this.name = "web3";
   }
@@ -66,7 +95,7 @@ export class Web3Strategy extends Strategy {
     };
 
     try {
-      this.onAuth({ address, msg, signed, chain, isevm, done, req});
+      this.onAuth({ address, msg, signed, chain, isevm, done, req });
     } catch (ex) {
       return this.error(ex);
     }
@@ -114,7 +143,17 @@ export class Web3Strategy extends Strategy {
   /**
    * sets the onAuth listener
    */
-  async setOnAuth(fnOnAuth: (data: { address: string, msg: string, signed: string, chain: string, isevm: boolean, done: (err: Error | null, user: any, info: any) => void, req: any }) => void){
+  async setOnAuth(
+    fnOnAuth: (data: {
+      address: string;
+      msg: string;
+      signed: string;
+      chain: string;
+      isevm: boolean;
+      done: (err: Error | null, user: any, info: any) => void;
+      req: any;
+    }) => void
+  ) {
     this.onAuth = fnOnAuth;
   }
 }

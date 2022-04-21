@@ -1,8 +1,9 @@
 import commonjs from "@rollup/plugin-commonjs";
 import json from "@rollup/plugin-json";
 import typescript from "@rollup/plugin-typescript";
+import nodeResolve from "@rollup/plugin-node-resolve";
 import svg from "rollup-plugin-svg";
-import dts from 'rollup-plugin-dts';
+import dts from "rollup-plugin-dts";
 
 const packageJson = require("./package.json");
 
@@ -23,19 +24,20 @@ export default [
         sourcemap: true,
       },
     ],
-    plugins: [      
+    plugins: [
+      nodeResolve(),
       json(),
       typescript({
-        tsconfig: "./tsconfig.json"
+        tsconfig: "./tsconfig.json",
       }),
       commonjs(),
       svg(),
     ],
   },
   {
-      input: 'dist/esm/dist/index.d.ts',
-      output: [{ file: 'dist/index.d.ts', format: "esm" }],
-      external: [/\.scss$/],
-      plugins: [dts()],
+    input: "dist/esm/dist/index.d.ts",
+    output: [{ file: "dist/index.d.ts", format: "esm" }],
+    external: [/\.scss$/],
+    plugins: [dts()],
   },
 ];
