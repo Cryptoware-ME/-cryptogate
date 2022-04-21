@@ -2,7 +2,7 @@ import React, { ReactNode } from "react";
 export declare const solDefaultConfig: {
     lamportsPerSol: number;
 };
-export interface SolDappContextProvider {
+export interface SolDappContextProviderProps {
     children?: ReactNode;
     config: {
         env: string;
@@ -11,7 +11,7 @@ export interface SolDappContextProvider {
     };
 }
 export interface SolConfigSetter {
-    setSolConfig: (conf: SolDappContextProvider) => void;
+    setSolConfig: (conf: SolDappContextProviderProps) => void;
 }
 export declare const SolDappContext: React.Context<SolConfigSetter>;
-export declare const SolDappContextProvider: ({ config, children }: SolDappContextProvider) => JSX.Element;
+export declare const SolDappContextProvider: ({ config, children }: SolDappContextProviderProps) => JSX.Element;

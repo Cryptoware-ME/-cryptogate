@@ -1,7 +1,7 @@
 import { Chain, NodeUrls } from "@usedapp/core";
 import { ReactNode } from "react";
 import { EthContractConfig } from "./EthContracts";
-import { SolDappContextProvider } from "./SolDapp";
+import { SolDappContextProviderProps } from "./SolDapp";
 export interface MultichainProviderProps {
     children?: ReactNode;
     ethConfig: {
@@ -14,6 +14,6 @@ export interface MultichainProviderProps {
         networks: Chain[];
     };
     ethContracts: EthContractConfig[];
-    solConfig: SolDappContextProvider;
+    solConfig: SolDappContextProviderProps;
 }
 export declare const MultichainProvider: ({ ethConfig, solConfig, ethContracts, children }: MultichainProviderProps) => JSX.Element;

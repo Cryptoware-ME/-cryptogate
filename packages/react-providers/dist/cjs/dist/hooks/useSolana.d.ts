@@ -1,7 +1,7 @@
 /// <reference types="@solana/web3.js" />
 export declare const useSolana: () => {
     wallets: import("../providers/SolWallets").SolWallets;
-    setSolConfig: (conf: import("../providers/SolDapp").SolDappContextProvider) => void;
+    setSolConfig: (conf: import("../providers/SolDapp").SolDappContextProviderProps) => void;
     connection: import("@solana/web3.js").Connection;
     autoConnect: boolean;
     wallet: import("@solana/wallet-adapter-react").Wallet | null;

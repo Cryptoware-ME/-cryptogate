@@ -44,7 +44,7 @@ export declare const useMultichain: () => {
     };
     solana: {
         wallets: import("..").SolWallets;
-        setSolConfig: (conf: import("..").SolDappContextProvider) => void;
+        setSolConfig: (conf: import("..").SolDappContextProviderProps) => void;
         connection: Connection;
         autoConnect: boolean;
         wallet: import("@solana/wallet-adapter-react").Wallet | null;

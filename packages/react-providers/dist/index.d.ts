@@ -112,11 +112,7 @@ declare const EthDappContextProvider: ({ config, contracts, children }: EthDappC
 declare const solDefaultConfig: {
     lamportsPerSol: number;
 };
-interface SolConfigSetter {
-    setSolConfig: (conf: SolDappContextProvider) => void;
-}
-declare const SolDappContext: React.Context<SolConfigSetter>;
-interface SolDappContextProvider {
+interface SolDappContextProviderProps {
     children?: ReactNode;
     config: {
         env: string;
@@ -124,7 +120,11 @@ interface SolDappContextProvider {
         lamportsPerSol?: number;
     };
 }
-declare const SolDappContextProvider: ({ config, children }: SolDappContextProvider) => JSX.Element;
+interface SolConfigSetter {
+    setSolConfig: (conf: SolDappContextProviderProps) => void;
+}
+declare const SolDappContext: React.Context<SolConfigSetter>;
+declare const SolDappContextProvider: ({ config, children }: SolDappContextProviderProps) => JSX.Element;
 
 interface MultichainProviderProps {
     children?: ReactNode;
@@ -138,7 +138,7 @@ interface MultichainProviderProps {
         networks: Chain[];
     };
     ethContracts: EthContractConfig[];
-    solConfig: SolDappContextProvider;
+    solConfig: SolDappContextProviderProps;
 }
 declare const MultichainProvider: ({ ethConfig, solConfig, ethContracts, children }: MultichainProviderProps) => JSX.Element;
 
@@ -177,7 +177,7 @@ declare const useEthereum: () => {
 
 declare const useSolana: () => {
     wallets: SolWallets;
-    setSolConfig: (conf: SolDappContextProvider) => void;
+    setSolConfig: (conf: SolDappContextProviderProps) => void;
     connection: _solana_web3_js.Connection;
     autoConnect: boolean;
     wallet: _solana_wallet_adapter_react.Wallet | null;
@@ -239,7 +239,7 @@ declare const useMultichain: () => {
     };
     solana: {
         wallets: SolWallets;
-        setSolConfig: (conf: SolDappContextProvider) => void;
+        setSolConfig: (conf: SolDappContextProviderProps) => void;
         connection: Connection;
         autoConnect: boolean;
         wallet: _solana_wallet_adapter_react.Wallet | null;
@@ -259,4 +259,4 @@ declare const useMultichain: () => {
     solBalance: number;
 };
 
-export { EthConfigSetter, EthContractConfig, EthContracts, EthContractsContext, EthContractsContextProvider, EthContractsContextProviderProps, EthDappContext, EthDappContextProvider, EthDappContextProviderProps, EthWallets, EthWalletsContext, EthWalletsContextProvider, EthWalletsContextProviderProps, MultichainProvider, MultichainProviderProps, SolConfigSetter, SolDappContext, SolDappContextProvider, SolWallets, SolWalletsContext, SolWalletsContextProvider, SolWalletsContextProviderProps, defaultConfig, solDefaultConfig, useEthereum, useMultichain, useSolana };
+export { EthConfigSetter, EthContractConfig, EthContracts, EthContractsContext, EthContractsContextProvider, EthContractsContextProviderProps, EthDappContext, EthDappContextProvider, EthDappContextProviderProps, EthWallets, EthWalletsContext, EthWalletsContextProvider, EthWalletsContextProviderProps, MultichainProvider, MultichainProviderProps, SolConfigSetter, SolDappContext, SolDappContextProvider, SolDappContextProviderProps, SolWallets, SolWalletsContext, SolWalletsContextProvider, SolWalletsContextProviderProps, defaultConfig, solDefaultConfig, useEthereum, useMultichain, useSolana };
