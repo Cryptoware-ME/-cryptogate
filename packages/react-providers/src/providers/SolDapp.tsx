@@ -8,7 +8,7 @@ export const solDefaultConfig = {
   lamportsPerSol: 1000000000
 }
 
-export interface SolDappContextProvider {
+export interface SolDappContextProviderProps {
   children?: ReactNode,
   config: {
     env: string,
@@ -18,17 +18,17 @@ export interface SolDappContextProvider {
 }
 
 export interface SolConfigSetter {
-  setSolConfig: (conf: SolDappContextProvider) => void
+  setSolConfig: (conf: SolDappContextProviderProps) => void
 }
 
 export const SolDappContext = React.createContext({} as SolConfigSetter);
 
-export const SolDappContextProvider = ({ config, children }: SolDappContextProvider) => {
-  const [Config, setConfig] = useState({} as SolDappContextProvider);
+export const SolDappContextProvider = ({ config, children }: SolDappContextProviderProps) => {
+  const [Config, setConfig] = useState({} as SolDappContextProviderProps);
   const [network, setNetwork] = useState(WalletAdapterNetwork.Devnet);
 
   const concatConfig =
-    useCallback((conf: SolDappContextProvider) => {
+    useCallback((conf: SolDappContextProviderProps) => {
       if(conf){
         setConfig({
           config: {

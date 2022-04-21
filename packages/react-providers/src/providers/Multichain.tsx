@@ -2,7 +2,7 @@ import { Chain, NodeUrls } from "@usedapp/core";
 import React, { ReactNode } from "react";
 import { EthContractConfig } from "./EthContracts";
 import { EthDappContextProvider } from "./EthDapp";
-import { SolDappContextProvider } from "./SolDapp";
+import { SolDappContextProvider, SolDappContextProviderProps } from "./SolDapp";
 
 export interface MultichainProviderProps {
   children?: ReactNode,
@@ -16,7 +16,7 @@ export interface MultichainProviderProps {
     networks: Chain[]
   },
   ethContracts: EthContractConfig[],
-  solConfig: SolDappContextProvider
+  solConfig: SolDappContextProviderProps
 }
 
 export const MultichainProvider = ({ ethConfig, solConfig, ethContracts, children }: MultichainProviderProps) => {
