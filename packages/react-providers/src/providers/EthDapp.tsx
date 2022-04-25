@@ -62,7 +62,7 @@ export const EthDappContextProvider = ({
     }
   );
   const [DappConfig, setDappConfig] = useState({} as dappConfig);
-  const [Contracts, setContracts] = useState({} as EthContractConfig[]);
+  const [Contracts, setContracts] = useState([] as EthContractConfig[]);
 
   const concatConfig = useCallback(
     (conf: {
@@ -101,14 +101,7 @@ export const EthDappContextProvider = ({
   }, [Config]);
 
   useEffect(() => {
-    // ! .length returns undefined
-    // if (contracts && contracts.length > 0) {
-    //   setContracts(contracts);
-    // }
-
-    console.log("Contracts: ", contracts);
-    console.log("Length: ",  Object.keys(contracts).length > 0);
-    
+    console.log(contracts);
     if (contracts && Object.keys(contracts).length > 0) {
       setContracts(contracts);
     }

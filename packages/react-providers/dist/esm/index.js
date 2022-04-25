@@ -82,17 +82,14 @@ var EthContractsContextProvider = function (_a) {
     var _b = useState({}), Contracts = _b[0], setContracts = _b[1];
     useEffect(function () {
         var ethContracts = {};
-        // ! .length returns undefined
-        // if (network.chainId && contracts && contracts.length > 0) 
         if (network.chainId && contracts && Object.keys(contracts).length > 0) {
-            contracts.forEach(function (c) {
-                console.log('Condition2:', c.name && c.address && c.abi);
-                if (c.name && c.address && c.abi) {
-                    var interfaceABI = new Interface(c.abi);
-                    ethContracts[c.name] = {
-                        address: network.chainId ? c.address[network.chainId] : '',
+            Object.keys(contracts).forEach(function (c) {
+                if (contracts[c].name && contracts[c].address && contracts[c].abi) {
+                    var interfaceABI = new Interface(contracts[c].abi);
+                    ethContracts[contracts[c].name] = {
+                        address: network.chainId ? contracts[c].address[network.chainId] : '',
                         interface: interfaceABI,
-                        contract: new Contract(network.chainId ? c.address[network.chainId] : '', interfaceABI)
+                        contract: new Contract(network.chainId ? contracts[c].address[network.chainId] : '', interfaceABI)
                     };
                 }
             });
@@ -184,7 +181,7 @@ var EthDappContextProvider = function (_a) {
     var config = _a.config, contracts = _a.contracts, children = _a.children;
     var _b = useState({}), Config = _b[0], setConfig = _b[1];
     var _c = useState({}), DappConfig = _c[0], setDappConfig = _c[1];
-    var _d = useState({}), Contracts = _d[0], setContracts = _d[1];
+    var _d = useState([]), Contracts = _d[0], setContracts = _d[1];
     var concatConfig = useCallback(function (conf) {
         if (conf) {
             setConfig(__assign(__assign(__assign({}, defaultConfig), Config), conf));
@@ -201,12 +198,7 @@ var EthDappContextProvider = function (_a) {
         }
     }, [Config]);
     useEffect(function () {
-        // ! .length returns undefined
-        // if (contracts && contracts.length > 0) {
-        //   setContracts(contracts);
-        // }
-        console.log("Contracts: ", contracts);
-        console.log("Length: ", Object.keys(contracts).length > 0);
+        console.log(contracts);
         if (contracts && Object.keys(contracts).length > 0) {
             setContracts(contracts);
         }
