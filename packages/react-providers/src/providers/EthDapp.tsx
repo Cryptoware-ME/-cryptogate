@@ -95,7 +95,7 @@ export const EthDappContextProvider = ({ config, contracts, children }: EthDappC
       console.log("Entered");
       setContracts(contracts);
     }
-  }, [contracts]);
+  }, []);
 
   return (
     <DAppProvider config={DappConfig}>

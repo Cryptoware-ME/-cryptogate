@@ -212,7 +212,7 @@ var EthDappContextProvider = function (_a) {
             console.log("Entered");
             setContracts(contracts);
         }
-    }, [contracts]);
+    }, []);
     return (React__default["default"].createElement(core.DAppProvider, { config: DappConfig },
         React__default["default"].createElement(EthDappContext.Provider, { value: { setEthConfig: concatConfig } },
             React__default["default"].createElement(EthWalletsContextProvider, { config: Config },
