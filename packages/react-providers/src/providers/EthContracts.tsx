@@ -36,8 +36,8 @@ export const EthContractsContextProvider = ({ contracts, children }: EthContract
 
     // ! .length returns undefined
     // if (network.chainId && contracts && contracts.length > 0) 
-    
-    if (network.chainId && contracts) {
+
+    if (network.chainId && contracts && Object.keys(contracts).length > 0) {
       contracts.forEach(c => {
         console.log('Condition2:', c.name && c.address && c.abi);
         if (c.name && c.address && c.abi) {

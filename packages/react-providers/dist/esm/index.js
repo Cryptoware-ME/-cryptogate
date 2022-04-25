@@ -84,7 +84,7 @@ var EthContractsContextProvider = function (_a) {
         var ethContracts = {};
         // ! .length returns undefined
         // if (network.chainId && contracts && contracts.length > 0) 
-        if (network.chainId && contracts) {
+        if (network.chainId && contracts && Object.keys(contracts).length > 0) {
             contracts.forEach(function (c) {
                 console.log('Condition2:', c.name && c.address && c.abi);
                 if (c.name && c.address && c.abi) {
@@ -205,9 +205,9 @@ var EthDappContextProvider = function (_a) {
         // if (contracts && contracts.length > 0) {
         //   setContracts(contracts);
         // }
-        console.log("Contracts: ", typeof (contracts));
         console.log("Contracts: ", contracts);
-        if (contracts) {
+        console.log("Length: ", Object.keys(contracts).length > 0);
+        if (contracts && Object.keys(contracts).length > 0) {
             setContracts(contracts);
         }
     }, [contracts]);

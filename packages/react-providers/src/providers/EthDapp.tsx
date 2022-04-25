@@ -106,10 +106,10 @@ export const EthDappContextProvider = ({
     //   setContracts(contracts);
     // }
 
-    console.log("Contracts: ", typeof(contracts));
     console.log("Contracts: ", contracts);
+    console.log("Length: ",  Object.keys(contracts).length > 0);
     
-    if (contracts) {
+    if (contracts && Object.keys(contracts).length > 0) {
       setContracts(contracts);
     }
   }, [contracts]);
