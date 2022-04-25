@@ -175,7 +175,7 @@ var defaultConfig = {
         checkInterval: 1000,
         expirationPeriod: 10000,
     },
-    autoConnect: false
+    autoConnect: false,
 };
 var EthDappContext = React.createContext({});
 var EthDappContextProvider = function (_a) {
@@ -199,12 +199,16 @@ var EthDappContextProvider = function (_a) {
         }
     }, [Config]);
     useEffect(function () {
-        console.log('&: ', contracts);
+        console.log("&: ", contracts);
         if (contracts && contracts.length > 0) {
             console.log("Entered");
             setContracts(contracts);
         }
-    }, []);
+    }, [contracts]);
+    // ! -----------
+    useEffect(function () {
+        console.log("Changed: ", Contracts);
+    }, [Contracts]);
     return (React.createElement(DAppProvider, { config: DappConfig },
         React.createElement(EthDappContext.Provider, { value: { setEthConfig: concatConfig } },
             React.createElement(EthWalletsContextProvider, { config: Config },

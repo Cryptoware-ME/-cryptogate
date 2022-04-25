@@ -34,4 +34,4 @@ export interface EthConfigSetter {
     }) => void;
 }
 export declare const EthDappContext: React.Context<EthConfigSetter>;
-export declare const EthDappContextProvider: ({ config, contracts, children }: EthDappContextProviderProps) => JSX.Element;
+export declare const EthDappContextProvider: ({ config, contracts, children, }: EthDappContextProviderProps) => JSX.Element;

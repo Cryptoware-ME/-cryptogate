@@ -107,7 +107,7 @@ interface EthConfigSetter {
     }) => void;
 }
 declare const EthDappContext: React.Context<EthConfigSetter>;
-declare const EthDappContextProvider: ({ config, contracts, children }: EthDappContextProviderProps) => JSX.Element;
+declare const EthDappContextProvider: ({ config, contracts, children, }: EthDappContextProviderProps) => JSX.Element;
 
 declare const solDefaultConfig: {
     lamportsPerSol: number;

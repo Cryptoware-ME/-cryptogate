@@ -1,5 +1,10 @@
 import React, { ReactNode, useCallback, useEffect, useState } from "react";
-import { DAppProvider, Config as dappConfig, NodeUrls, Chain } from "@usedapp/core";
+import {
+  DAppProvider,
+  Config as dappConfig,
+  NodeUrls,
+  Chain,
+} from "@usedapp/core";
 import { EthContractConfig, EthContractsContextProvider } from "./EthContracts";
 import { EthWalletsContextProvider } from "./EthWallets";
 
@@ -9,93 +14,105 @@ export const defaultConfig = {
     checkInterval: 1000,
     expirationPeriod: 10000,
   },
-  autoConnect: false
-}
+  autoConnect: false,
+};
 
 export interface EthDappContextProviderProps {
   children?: ReactNode;
-  contracts: EthContractConfig[],
+  contracts: EthContractConfig[];
   config: {
-    readOnlyUrls: NodeUrls,
-    appName: string,
-    appEmail: string,
-    appUrl: string,
-    appLogo: string,
-    pollingInterval: number,
-    networks: (Chain | undefined)[]
-  }
+    readOnlyUrls: NodeUrls;
+    appName: string;
+    appEmail: string;
+    appUrl: string;
+    appLogo: string;
+    pollingInterval: number;
+    networks: (Chain | undefined)[];
+  };
 }
 
 export interface EthConfigSetter {
   setEthConfig: (conf: {
-    readOnlyUrls: NodeUrls,
-    appName: string,
-    appEmail: string,
-    appUrl: string,
-    appLogo: string,
-    pollingInterval: number,
-    networks: (Chain | undefined)[]
-  }) => void
+    readOnlyUrls: NodeUrls;
+    appName: string;
+    appEmail: string;
+    appUrl: string;
+    appLogo: string;
+    pollingInterval: number;
+    networks: (Chain | undefined)[];
+  }) => void;
 }
 
 export const EthDappContext = React.createContext({} as EthConfigSetter);
 
-export const EthDappContextProvider = ({ config, contracts, children }: EthDappContextProviderProps) => {
-
-  const [Config, setConfig] = useState({} as {
-    readOnlyUrls: NodeUrls,
-    appName: string,
-    appEmail: string,
-    appUrl: string,
-    appLogo: string,
-    pollingInterval: number,
-    networks: (Chain | undefined)[]
-  });
+export const EthDappContextProvider = ({
+  config,
+  contracts,
+  children,
+}: EthDappContextProviderProps) => {
+  const [Config, setConfig] = useState(
+    {} as {
+      readOnlyUrls: NodeUrls;
+      appName: string;
+      appEmail: string;
+      appUrl: string;
+      appLogo: string;
+      pollingInterval: number;
+      networks: (Chain | undefined)[];
+    }
+  );
   const [DappConfig, setDappConfig] = useState({} as dappConfig);
   const [Contracts, setContracts] = useState({} as EthContractConfig[]);
 
-  const concatConfig = 
-    useCallback((conf: {
-      readOnlyUrls: NodeUrls,
-      appName: string,
-      appEmail: string,
-      appUrl: string,
-      appLogo: string,
-      pollingInterval: number,
-      networks: (Chain | undefined)[]
+  const concatConfig = useCallback(
+    (conf: {
+      readOnlyUrls: NodeUrls;
+      appName: string;
+      appEmail: string;
+      appUrl: string;
+      appLogo: string;
+      pollingInterval: number;
+      networks: (Chain | undefined)[];
     }) => {
-      if(conf){
+      if (conf) {
         setConfig({
           ...defaultConfig,
           ...Config,
-          ...conf
+          ...conf,
         });
       }
-    }, [Config]);
+    },
+    [Config]
+  );
 
   useEffect(() => {
-    if(config){
+    if (config) {
       setConfig({
         ...defaultConfig,
-        ...config
+        ...config,
       });
     }
   }, [config]);
 
   useEffect(() => {
-    if(Config){
+    if (Config) {
       setDappConfig(Config as dappConfig);
     }
   }, [Config]);
 
   useEffect(() => {
-    console.log('&: ', contracts);
-    
-    if(contracts && contracts.length > 0){
+    console.log("&: ", contracts);
+
+    if (contracts && contracts.length > 0) {
       console.log("Entered");
       setContracts(contracts);
     }
-  }, []);
+  }, [contracts]);
+
+  // ! -----------
+  useEffect(() => {
+    console.log("Changed: ", Contracts);
+  }, [Contracts]);
 
   return (
     <DAppProvider config={DappConfig}>
