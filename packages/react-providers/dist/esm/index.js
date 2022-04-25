@@ -82,7 +82,7 @@ var EthContractsContextProvider = function (_a) {
     var _b = useState({}), Contracts = _b[0], setContracts = _b[1];
     useEffect(function () {
         var ethContracts = {};
-        console.log(contracts);
+        console.log('1:', contracts);
         if (network.chainId && contracts && contracts.length > 0) {
             contracts.forEach(function (c) {
                 if (c.name && c.address && c.abi) {
@@ -96,7 +96,6 @@ var EthContractsContextProvider = function (_a) {
             });
             console.log('eth contracts', ethContracts);
             if (ethContracts && ethContracts !== {} && ethContracts !== null) {
-                console.log('eth contracts', ethContracts);
                 setContracts(ethContracts);
             }
         }
@@ -256,6 +255,7 @@ var SolDappContextProvider = function (_a) {
 
 var MultichainProvider = function (_a) {
     var ethConfig = _a.ethConfig, solConfig = _a.solConfig, ethContracts = _a.ethContracts, children = _a.children;
+    console.log("#: ", ethContracts);
     return (React.createElement(EthDappContextProvider, { config: ethConfig, contracts: ethContracts },
         React.createElement(SolDappContextProvider, __assign({}, solConfig), children)));
 };
@@ -275,9 +275,8 @@ var useEthereum = function () {
         throw new Error('useEthereum must be used within a EthContractsContext');
     }
     var setEthConfig = dappCtx.setEthConfig;
-    var Wallets = walletsCtx;
     var getContract = function (name) { return contractsCtx[name]; };
-    return __assign(__assign({}, ethereum), { wallets: Wallets, contracts: contractsCtx, getContract: getContract, getEthBalance: useEtherBalance, setEthConfig: setEthConfig });
+    return __assign(__assign({}, ethereum), { wallets: walletsCtx, contracts: contractsCtx, getContract: getContract, getEthBalance: useEtherBalance, setEthConfig: setEthConfig });
 };
 
 var useSolana = function () {

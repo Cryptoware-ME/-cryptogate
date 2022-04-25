@@ -140,7 +140,7 @@ interface MultichainProviderProps {
     ethContracts: EthContractConfig[];
     solConfig: SolDappContextProviderProps;
 }
-declare const MultichainProvider: ({ ethConfig, solConfig, ethContracts, children }: MultichainProviderProps) => JSX.Element;
+declare const MultichainProvider: ({ ethConfig, solConfig, ethContracts, children, }: MultichainProviderProps) => JSX.Element;
 
 declare const useEthereum: () => {
     wallets: EthWallets;

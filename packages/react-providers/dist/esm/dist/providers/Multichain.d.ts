@@ -16,4 +16,4 @@ export interface MultichainProviderProps {
     ethContracts: EthContractConfig[];
     solConfig: SolDappContextProviderProps;
 }
-export declare const MultichainProvider: ({ ethConfig, solConfig, ethContracts, children }: MultichainProviderProps) => JSX.Element;
+export declare const MultichainProvider: ({ ethConfig, solConfig, ethContracts, children, }: MultichainProviderProps) => JSX.Element;
