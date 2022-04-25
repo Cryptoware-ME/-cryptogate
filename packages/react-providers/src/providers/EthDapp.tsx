@@ -89,6 +89,8 @@ export const EthDappContextProvider = ({ config, contracts, children }: EthDappC
   }, [Config]);
 
   useEffect(() => {
+    console.log('&: ', contracts);
+    
     if(contracts && contracts.length > 0){
       setContracts(contracts);
     }
