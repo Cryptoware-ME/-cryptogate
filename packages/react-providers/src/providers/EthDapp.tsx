@@ -102,17 +102,14 @@ export const EthDappContextProvider = ({
 
   useEffect(() => {
     console.log("&: ", contracts);
+    console.log("Condition: ", contracts && contracts.length > 0);
+    
 
     if (contracts && contracts.length > 0) {
       console.log("Entered");
       setContracts(contracts);
     }
   }, [contracts]);
-
-  // ! -----------
-  useEffect(() => {
-    console.log("Changed: ", Contracts);
-  }, [Contracts]);
 
   return (
     <DAppProvider config={DappConfig}>
