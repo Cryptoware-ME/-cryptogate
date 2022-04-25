@@ -1,5 +1,5 @@
 import { Connection, PublicKey } from "@solana/web3.js";
-import { useMulticallAddress, useNetwork } from "@usedapp/core";
+import { useNetwork } from "@usedapp/core";
 import { useEffect, useState } from "react";
 import { useEthereum } from "./useEthereum";
 import { useSolana } from "./useSolana";
@@ -9,7 +9,6 @@ export const useMultichain = () => {
   const ethereum = useEthereum();
   const { account, getEthBalance } = ethereum;
   const etherBalance = getEthBalance(account, {});
-  const multicallAddress = useMulticallAddress({});
   const solana = useSolana();
   const { publicKey, connected, connection } = solana;
   const [solBalance, setSolbalance] = useState(0);
@@ -31,10 +30,6 @@ export const useMultichain = () => {
       getUserSOLBalance(publicKey, connection).then(setSolbalance);
     }
   }, [publicKey, connection]);
-
-  console.log(multicallAddress);
-  console.log("accounts", account, publicKey);
-  console.log("balances", etherBalance, solBalance);
 
   return {
     network: useNetwork() || "Solana",

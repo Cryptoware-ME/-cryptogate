@@ -144,6 +144,7 @@ declare const MultichainProvider: ({ ethConfig, solConfig, ethContracts, childre
 
 declare const useEthereum: () => {
     wallets: EthWallets;
+    contracts: EthContracts;
     getContract: (name: string) => {
         address?: string | undefined;
         interface?: _ethersproject_abi.Interface | undefined;
@@ -207,6 +208,7 @@ declare const useMultichain: () => {
     account: string | PublicKey;
     ethereum: {
         wallets: EthWallets;
+        contracts: EthContracts;
         getContract: (name: string) => {
             address?: string | undefined;
             interface?: _ethersproject_abi.Interface | undefined;

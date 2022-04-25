@@ -12,6 +12,7 @@ export declare const useMultichain: () => {
     account: string | PublicKey;
     ethereum: {
         wallets: import("..").EthWallets;
+        contracts: import("..").EthContracts;
         getContract: (name: string) => {
             address?: string | undefined;
             interface?: import("@ethersproject/abi").Interface | undefined;

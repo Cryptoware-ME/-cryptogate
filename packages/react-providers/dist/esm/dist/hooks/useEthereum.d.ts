@@ -1,6 +1,7 @@
 import { useEtherBalance } from '@usedapp/core';
 export declare const useEthereum: () => {
     wallets: import("../providers").EthWallets;
+    contracts: import("../providers").EthContracts;
     getContract: (name: string) => {
         address?: string | undefined;
         interface?: import("@ethersproject/abi").Interface | undefined;

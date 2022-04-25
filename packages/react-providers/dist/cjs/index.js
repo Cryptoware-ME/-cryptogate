@@ -101,7 +101,8 @@ var EthContractsContextProvider = function (_a) {
                     };
                 }
             });
-            if (!ethContracts && ethContracts !== {} && ethContracts !== null) {
+            if (ethContracts && ethContracts !== {} && ethContracts !== null) {
+                console.log('eth contracts', ethContracts);
                 setContracts(ethContracts);
             }
         }
@@ -281,9 +282,8 @@ var useEthereum = function () {
     }
     var setEthConfig = dappCtx.setEthConfig;
     var Wallets = walletsCtx;
-    console.log('ctx', contractsCtx);
     var getContract = function (name) { return contractsCtx[name]; };
-    return __assign(__assign({}, ethereum), { wallets: Wallets, getContract: getContract, getEthBalance: core.useEtherBalance, setEthConfig: setEthConfig });
+    return __assign(__assign({}, ethereum), { wallets: Wallets, contracts: contractsCtx, getContract: getContract, getEthBalance: core.useEtherBalance, setEthConfig: setEthConfig });
 };
 
 var useSolana = function () {
@@ -306,7 +306,6 @@ var useMultichain = function () {
     var ethereum = useEthereum();
     var account = ethereum.account, getEthBalance = ethereum.getEthBalance;
     var etherBalance = getEthBalance(account, {});
-    var multicallAddress = core.useMulticallAddress({});
     var solana = useSolana();
     var publicKey = solana.publicKey, connected = solana.connected, connection = solana.connection;
     var _a = React.useState(0), solBalance = _a[0], setSolbalance = _a[1];
@@ -331,9 +330,6 @@ var useMultichain = function () {
             getUserSOLBalance(publicKey, connection).then(setSolbalance);
         }
     }, [publicKey, connection]);
-    console.log(multicallAddress);
-    console.log("accounts", account, publicKey);
-    console.log("balances", etherBalance, solBalance);
     return {
         network: core.useNetwork() || "Solana",
         account: account || publicKey || "",

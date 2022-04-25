@@ -47,7 +47,8 @@ export const EthContractsContextProvider = ({ contracts, children }: EthContract
           }
         }
       });
-      if (!ethContracts && ethContracts !== {} && ethContracts !== null) {
+      if (ethContracts && ethContracts !== {} && ethContracts !== null) {
+        console.log('eth contracts', ethContracts);
         setContracts(ethContracts);
       }
     }
