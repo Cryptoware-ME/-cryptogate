@@ -25,8 +25,6 @@ export const MultichainProvider = ({
   ethContracts,
   children,
 }: MultichainProviderProps) => {
-  console.log("#: ", ethContracts);
-
   return (
     <EthDappContextProvider config={ethConfig} contracts={ethContracts}>
       <SolDappContextProvider {...solConfig}>{children}</SolDappContextProvider>

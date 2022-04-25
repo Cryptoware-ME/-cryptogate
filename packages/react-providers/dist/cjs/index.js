@@ -91,8 +91,10 @@ var EthContractsContextProvider = function (_a) {
     React.useEffect(function () {
         var ethContracts = {};
         console.log('1:', contracts$1);
+        console.log('Condition1:', network.chainId && contracts$1 && contracts$1.length > 0);
         if (network.chainId && contracts$1 && contracts$1.length > 0) {
             contracts$1.forEach(function (c) {
+                console.log('Condition2:', c.name && c.address && c.abi);
                 if (c.name && c.address && c.abi) {
                     var interfaceABI = new abi.Interface(c.abi);
                     ethContracts[c.name] = {
@@ -207,10 +209,7 @@ var EthDappContextProvider = function (_a) {
         }
     }, [Config]);
     React.useEffect(function () {
-        console.log("&: ", contracts);
-        console.log("Condition: ", contracts);
         if (contracts) {
-            console.log("Entered");
             setContracts(contracts);
         }
     }, [contracts]);
@@ -266,7 +265,6 @@ var SolDappContextProvider = function (_a) {
 
 var MultichainProvider = function (_a) {
     var ethConfig = _a.ethConfig, solConfig = _a.solConfig, ethContracts = _a.ethContracts, children = _a.children;
-    console.log("#: ", ethContracts);
     return (React__default["default"].createElement(EthDappContextProvider, { config: ethConfig, contracts: ethContracts },
         React__default["default"].createElement(SolDappContextProvider, __assign({}, solConfig), children)));
 };
