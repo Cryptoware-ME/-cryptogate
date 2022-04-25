@@ -99,7 +99,7 @@ export const EthDappContextProvider = ({
       setDappConfig(Config as dappConfig);
     }
   }, [Config]);
-
+ 
   useEffect(() => {
     console.log(contracts);
     if (contracts && Object.keys(contracts).length > 0) {
