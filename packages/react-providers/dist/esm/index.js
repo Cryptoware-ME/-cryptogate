@@ -273,6 +273,7 @@ var useEthereum = function () {
     }
     var setEthConfig = dappCtx.setEthConfig;
     var Wallets = walletsCtx;
+    console.log('ctx', contractsCtx);
     var getContract = function (name) { return contractsCtx[name]; };
     return __assign(__assign({}, ethereum), { wallets: Wallets, getContract: getContract, getEthBalance: useEtherBalance, setEthConfig: setEthConfig });
 };

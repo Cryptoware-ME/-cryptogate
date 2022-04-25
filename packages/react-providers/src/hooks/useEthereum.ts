@@ -23,6 +23,7 @@ export const useEthereum = () => {
 
     const { setEthConfig } = dappCtx;
     const Wallets = walletsCtx;
+    console.log('ctx', contractsCtx);
     const getContract = (name: string) => contractsCtx[name];
 
     return {
