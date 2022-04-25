@@ -213,6 +213,7 @@ var EthDappContextProvider = function (_a) {
         // if (contracts && contracts.length > 0) {
         //   setContracts(contracts);
         // }
+        console.log("Contracts: ", typeof (contracts));
         console.log("Contracts: ", contracts);
         if (contracts) {
             setContracts(contracts);
