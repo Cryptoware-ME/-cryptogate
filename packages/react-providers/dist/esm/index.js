@@ -82,6 +82,8 @@ var EthContractsContextProvider = function (_a) {
     var _b = useState({}), Contracts = _b[0], setContracts = _b[1];
     useEffect(function () {
         var ethContracts = {};
+        // ! .length returns undefined
+        // if (network.chainId && contracts && contracts.length > 0) 
         if (network.chainId && contracts) {
             contracts.forEach(function (c) {
                 console.log('Condition2:', c.name && c.address && c.abi);
@@ -199,6 +201,11 @@ var EthDappContextProvider = function (_a) {
         }
     }, [Config]);
     useEffect(function () {
+        // ! .length returns undefined
+        // if (contracts && contracts.length > 0) {
+        //   setContracts(contracts);
+        // }
+        console.log("Contracts: ", contracts);
         if (contracts) {
             setContracts(contracts);
         }
