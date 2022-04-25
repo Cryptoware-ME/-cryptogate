@@ -11,7 +11,7 @@ export interface MultichainProviderProps {
         appUrl: string;
         appLogo: string;
         pollingInterval: number;
-        networks: Chain[];
+        networks: (Chain | undefined)[];
     };
     ethContracts: EthContractConfig[];
     solConfig: SolDappContextProviderProps;

@@ -14,7 +14,7 @@ export interface EthWalletsContextProviderProps {
     appUrl: string,
     appLogo: string,
     pollingInterval: number,
-    networks: Chain[]
+    networks: (Chain | undefined)[]
   }
 }
 
@@ -34,7 +34,7 @@ export const EthWalletsContextProvider = ({ config, children }: EthWalletsContex
 
   useEffect(() => {
     if(config && config.networks){
-      updateNetwork({ chainId: config.networks[0].chainId || 4});
+      updateNetwork({ chainId: config.networks[0]?.chainId || 4});
     }
   }, [config]);
 

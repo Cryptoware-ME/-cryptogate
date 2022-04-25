@@ -19,7 +19,7 @@ export interface EthDappContextProviderProps {
         appUrl: string;
         appLogo: string;
         pollingInterval: number;
-        networks: Chain[];
+        networks: (Chain | undefined)[];
     };
 }
 export interface EthConfigSetter {
@@ -30,7 +30,7 @@ export interface EthConfigSetter {
         appUrl: string;
         appLogo: string;
         pollingInterval: number;
-        networks: Chain[];
+        networks: (Chain | undefined)[];
     }) => void;
 }
 export declare const EthDappContext: React.Context<EthConfigSetter>;

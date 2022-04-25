@@ -49,7 +49,7 @@ interface EthWalletsContextProviderProps {
         appUrl: string;
         appLogo: string;
         pollingInterval: number;
-        networks: Chain[];
+        networks: (Chain | undefined)[];
     };
 }
 interface EthWallets {
@@ -92,7 +92,7 @@ interface EthDappContextProviderProps {
         appUrl: string;
         appLogo: string;
         pollingInterval: number;
-        networks: Chain[];
+        networks: (Chain | undefined)[];
     };
 }
 interface EthConfigSetter {
@@ -103,7 +103,7 @@ interface EthConfigSetter {
         appUrl: string;
         appLogo: string;
         pollingInterval: number;
-        networks: Chain[];
+        networks: (Chain | undefined)[];
     }) => void;
 }
 declare const EthDappContext: React.Context<EthConfigSetter>;
@@ -135,7 +135,7 @@ interface MultichainProviderProps {
         appUrl: string;
         appLogo: string;
         pollingInterval: number;
-        networks: Chain[];
+        networks: (Chain | undefined)[];
     };
     ethContracts: EthContractConfig[];
     solConfig: SolDappContextProviderProps;
@@ -157,7 +157,7 @@ declare const useEthereum: () => {
         appUrl: string;
         appLogo: string;
         pollingInterval: number;
-        networks: _usedapp_core.Chain[];
+        networks: (_usedapp_core.Chain | undefined)[];
     }) => void;
     activate: (provider: _ethersproject_providers.JsonRpcProvider | _ethersproject_providers.ExternalProvider | {
         getProvider: () => any;
@@ -220,7 +220,7 @@ declare const useMultichain: () => {
             appUrl: string;
             appLogo: string;
             pollingInterval: number;
-            networks: _usedapp_core.Chain[];
+            networks: (_usedapp_core.Chain | undefined)[];
         }) => void;
         activate: (provider: _ethersproject_providers.JsonRpcProvider | _ethersproject_providers.ExternalProvider | {
             getProvider: () => any;

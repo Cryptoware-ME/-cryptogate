@@ -22,7 +22,7 @@ export interface EthDappContextProviderProps {
     appUrl: string,
     appLogo: string,
     pollingInterval: number,
-    networks: Chain[]
+    networks: (Chain | undefined)[]
   }
 }
 
@@ -34,7 +34,7 @@ export interface EthConfigSetter {
     appUrl: string,
     appLogo: string,
     pollingInterval: number,
-    networks: Chain[]
+    networks: (Chain | undefined)[]
   }) => void
 }
 
@@ -49,7 +49,7 @@ export const EthDappContextProvider = ({ config, contracts, children }: EthDappC
     appUrl: string,
     appLogo: string,
     pollingInterval: number,
-    networks: Chain[]
+    networks: (Chain | undefined)[]
   });
   const [DappConfig, setDappConfig] = useState({} as dappConfig);
   const [Contracts, setContracts] = useState({} as EthContractConfig[]);
@@ -62,7 +62,7 @@ export const EthDappContextProvider = ({ config, contracts, children }: EthDappC
       appUrl: string,
       appLogo: string,
       pollingInterval: number,
-      networks: Chain[]
+      networks: (Chain | undefined)[]
     }) => {
       if(conf){
         setConfig({

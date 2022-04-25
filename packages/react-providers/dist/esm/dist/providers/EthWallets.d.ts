@@ -13,7 +13,7 @@ export interface EthWalletsContextProviderProps {
         appUrl: string;
         appLogo: string;
         pollingInterval: number;
-        networks: Chain[];
+        networks: (Chain | undefined)[];
     };
 }
 export interface EthWallets {
