@@ -33,6 +33,7 @@ export const EthContractsContextProvider = ({ contracts, children }: EthContract
 
   useEffect(() => {
     let ethContracts: EthContracts = {};
+    console.log(contracts);
     if (network.chainId && contracts && contracts.length > 0) {
       contracts.forEach(c => {
         if (c.name && c.address && c.abi) {
@@ -47,6 +48,7 @@ export const EthContractsContextProvider = ({ contracts, children }: EthContract
           }
         }
       });
+      console.log('eth contracts', ethContracts);
       if (ethContracts && ethContracts !== {} && ethContracts !== null) {
         console.log('eth contracts', ethContracts);
         setContracts(ethContracts);
