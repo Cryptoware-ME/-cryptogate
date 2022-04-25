@@ -102,10 +102,10 @@ export const EthDappContextProvider = ({
 
   useEffect(() => {
     console.log("&: ", contracts);
-    console.log("Condition: ", contracts && contracts.length > 0);
+    console.log("Condition: ", contracts);
     
 
-    if (contracts && contracts.length > 0) {
+    if (contracts) {
       console.log("Entered");
       setContracts(contracts);
     }
