@@ -90,7 +90,6 @@ var EthContractsContextProvider = function (_a) {
     var _b = React.useState({}), Contracts = _b[0], setContracts = _b[1];
     React.useEffect(function () {
         var ethContracts = {};
-        console.log(contracts$1);
         if (network.chainId && contracts$1 && contracts$1.length > 0) {
             contracts$1.forEach(function (c) {
                 if (c.name && c.address && c.abi) {
@@ -102,7 +101,6 @@ var EthContractsContextProvider = function (_a) {
                     };
                 }
             });
-            console.log('eth contracts', ethContracts);
             if (ethContracts && ethContracts !== {} && ethContracts !== null) {
                 setContracts(ethContracts);
             }
