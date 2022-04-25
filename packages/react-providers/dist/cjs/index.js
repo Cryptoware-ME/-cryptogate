@@ -90,11 +90,7 @@ var EthContractsContextProvider = function (_a) {
     var _b = React.useState({}), Contracts = _b[0], setContracts = _b[1];
     React.useEffect(function () {
         var ethContracts = {};
-        console.log('contracts: ', contracts$1);
-        console.log('network.chainId: ', network.chainId);
-        console.log('contracts.length: ', contracts$1.length);
-        console.log('Condition1:', network.chainId && contracts$1 && contracts$1.length > 0);
-        if (network.chainId && contracts$1 && contracts$1.length > 0) {
+        if (network.chainId && contracts$1) {
             contracts$1.forEach(function (c) {
                 console.log('Condition2:', c.name && c.address && c.abi);
                 if (c.name && c.address && c.abi) {
@@ -211,9 +207,7 @@ var EthDappContextProvider = function (_a) {
         }
     }, [Config]);
     React.useEffect(function () {
-        console.log('length: ', contracts.length);
         if (contracts) {
-            console.log("Entered");
             setContracts(contracts);
         }
     }, [contracts]);

@@ -101,11 +101,7 @@ export const EthDappContextProvider = ({
   }, [Config]);
 
   useEffect(() => {
-    console.log('length: ', contracts.length);
-    
     if (contracts) {
-      console.log("Entered");
-      
       setContracts(contracts);
     }
   }, [contracts]);
