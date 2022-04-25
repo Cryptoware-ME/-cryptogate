@@ -92,6 +92,7 @@ export const EthDappContextProvider = ({ config, contracts, children }: EthDappC
     console.log('&: ', contracts);
     
     if(contracts && contracts.length > 0){
+      console.log("Entered");
       setContracts(contracts);
     }
   }, [contracts]);

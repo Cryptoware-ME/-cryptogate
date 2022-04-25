@@ -201,6 +201,7 @@ var EthDappContextProvider = function (_a) {
     useEffect(function () {
         console.log('&: ', contracts);
         if (contracts && contracts.length > 0) {
+            console.log("Entered");
             setContracts(contracts);
         }
     }, [contracts]);
