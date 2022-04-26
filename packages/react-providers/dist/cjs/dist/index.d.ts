@@ -1,3 +1,3 @@
 export * from "./providers";
 export * from "./hooks";
-export * from "@usedapp/core";
+export * as useDapp from "@usedapp/core";

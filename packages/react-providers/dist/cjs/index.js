@@ -17,7 +17,26 @@ var walletAdapterReact = require('@solana/wallet-adapter-react');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
+function _interopNamespace(e) {
+    if (e && e.__esModule) return e;
+    var n = Object.create(null);
+    if (e) {
+        Object.keys(e).forEach(function (k) {
+            if (k !== 'default') {
+                var d = Object.getOwnPropertyDescriptor(e, k);
+                Object.defineProperty(n, k, d.get ? d : {
+                    enumerable: true,
+                    get: function () { return e[k]; }
+                });
+            }
+        });
+    }
+    n["default"] = e;
+    return Object.freeze(n);
+}
+
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
+var core__namespace = /*#__PURE__*/_interopNamespace(core);
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation.
@@ -338,6 +357,7 @@ var useMultichain = function () {
     };
 };
 
+exports.useDapp = core__namespace;
 exports.EthContractsContext = EthContractsContext;
 exports.EthContractsContextProvider = EthContractsContextProvider;
 exports.EthDappContext = EthDappContext;
@@ -354,10 +374,4 @@ exports.solDefaultConfig = solDefaultConfig;
 exports.useEthereum = useEthereum;
 exports.useMultichain = useMultichain;
 exports.useSolana = useSolana;
-Object.keys(core).forEach(function (k) {
-    if (k !== 'default' && !exports.hasOwnProperty(k)) Object.defineProperty(exports, k, {
-        enumerable: true,
-        get: function () { return core[k]; }
-    });
-});
 //# sourceMappingURL=index.js.map

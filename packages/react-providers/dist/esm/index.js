@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNetwork, DAppProvider, useEthers, useEtherBalance } from '@usedapp/core';
-export * from '@usedapp/core';
+import * as core from '@usedapp/core';
+export { core as useDapp };
 import { Contract } from '@ethersproject/contracts';
 import { Interface } from '@ethersproject/abi';
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector';

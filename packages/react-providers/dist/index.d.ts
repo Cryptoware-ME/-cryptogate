@@ -6,7 +6,7 @@ import * as _ethersproject_abi from '@ethersproject/abi';
 import { Interface } from '@ethersproject/abi';
 import * as _usedapp_core from '@usedapp/core';
 import { NodeUrls, Chain, useEtherBalance } from '@usedapp/core';
-export * from '@usedapp/core';
+export { _usedapp_core as useDapp };
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector';
 import { LedgerConnector } from '@web3-react/ledger-connector';
 import { TrezorConnector } from '@web3-react/trezor-connector';
