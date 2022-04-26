@@ -9,7 +9,7 @@
     "access": "public"
   },
   "version": "0.0.48",
-  "description": "Cryptogate Web3 UI Component",
+  "description": "Cryptogate Web3 UI Components",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "scripts": {
@@ -21,5 +21,11 @@
   "peerDependencies": {
     "react": "^18.0.0"
   },
-  "gitHead": "4e7588c374765236eb36f78f70745b80a39c773c"
+  "gitHead": "4e7588c374765236eb36f78f70745b80a39c773c",
+  "dependencies": {
+    "@cryptogate/react-providers": "^0.0.27",
+    "@metamask/detect-provider": "^1.2.0",
+    "react-jazzicon": "^1.0.3",
+    "react-device-detect": "^2.2.2"
+  }
 }

@@ -1,36 +1,37 @@
-import React from 'react';
-import { useEtherBalance, useEthers } from '@usedapp/core';
-import { EthDappContext } from '../providers/EthDapp';
-import { EthContractsContext } from '../providers/EthContracts';
-import { EthWalletsContext } from '../providers';
+import React from "react";
+import { useEtherBalance, useEthers, ChainId } from "@usedapp/core";
+import { EthDappContext } from "../providers/EthDapp";
+import { EthContractsContext } from "../providers/EthContracts";
+import { EthWalletsContext } from "../providers";
 
 export const useEthereum = () => {
-    const ethereum = useEthers();
+  const ethereum = useEthers();
 
-    const dappCtx = React.useContext(EthDappContext);
-    const walletsCtx = React.useContext(EthWalletsContext);
-    const contractsCtx = React.useContext(EthContractsContext);
+  const dappCtx = React.useContext(EthDappContext);
+  const walletsCtx = React.useContext(EthWalletsContext);
+  const contractsCtx = React.useContext(EthContractsContext);
 
-    if (dappCtx === undefined) {
-        throw new Error('useEthereum must be used within a EthDappContext')
-    }
-    if (walletsCtx === undefined) {
-        throw new Error('useEthereum must be used within a EthWalletsContext')
-    }
-    if (contractsCtx === undefined) {
-        throw new Error('useEthereum must be used within a EthContractsContext')
-    }
+  if (dappCtx === undefined) {
+    throw new Error("useEthereum must be used within a EthDappContext");
+  }
+  if (walletsCtx === undefined) {
+    throw new Error("useEthereum must be used within a EthWalletsContext");
+  }
+  if (contractsCtx === undefined) {
+    throw new Error("useEthereum must be used within a EthContractsContext");
+  }
 
-    const { setEthConfig } = dappCtx;
-    
-    const getContract = (name: string) => contractsCtx[name];
+  const { setEthConfig } = dappCtx;
 
-    return {
-        ...ethereum,
-        wallets: walletsCtx,
-        contracts: contractsCtx,
-        getContract,
-        getEthBalance: useEtherBalance,
-        setEthConfig
-    }
-}
+  const getContract = (name: string) => contractsCtx[name];
+
+  return {
+    ...ethereum,
+    wallets: walletsCtx,
+    contracts: contractsCtx,
+    getContract,
+    getEthBalance: useEtherBalance,
+    setEthConfig,
+    ChainId,
+  };
+};

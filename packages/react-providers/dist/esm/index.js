@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { useNetwork, DAppProvider, useEthers, useEtherBalance } from '@usedapp/core';
+import { useNetwork, DAppProvider, useEthers, useEtherBalance, ChainId } from '@usedapp/core';
 import { Contract } from '@ethersproject/contracts';
 import { Interface } from '@ethersproject/abi';
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector';
@@ -263,17 +263,17 @@ var useEthereum = function () {
     var walletsCtx = React.useContext(EthWalletsContext);
     var contractsCtx = React.useContext(EthContractsContext);
     if (dappCtx === undefined) {
-        throw new Error('useEthereum must be used within a EthDappContext');
+        throw new Error("useEthereum must be used within a EthDappContext");
     }
     if (walletsCtx === undefined) {
-        throw new Error('useEthereum must be used within a EthWalletsContext');
+        throw new Error("useEthereum must be used within a EthWalletsContext");
     }
     if (contractsCtx === undefined) {
-        throw new Error('useEthereum must be used within a EthContractsContext');
+        throw new Error("useEthereum must be used within a EthContractsContext");
     }
     var setEthConfig = dappCtx.setEthConfig;
     var getContract = function (name) { return contractsCtx[name]; };
-    return __assign(__assign({}, ethereum), { wallets: walletsCtx, contracts: contractsCtx, getContract: getContract, getEthBalance: useEtherBalance, setEthConfig: setEthConfig });
+    return __assign(__assign({}, ethereum), { wallets: walletsCtx, contracts: contractsCtx, getContract: getContract, getEthBalance: useEtherBalance, setEthConfig: setEthConfig, ChainId: ChainId });
 };
 
 var useSolana = function () {

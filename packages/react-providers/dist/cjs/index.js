@@ -271,17 +271,17 @@ var useEthereum = function () {
     var walletsCtx = React__default["default"].useContext(EthWalletsContext);
     var contractsCtx = React__default["default"].useContext(EthContractsContext);
     if (dappCtx === undefined) {
-        throw new Error('useEthereum must be used within a EthDappContext');
+        throw new Error("useEthereum must be used within a EthDappContext");
     }
     if (walletsCtx === undefined) {
-        throw new Error('useEthereum must be used within a EthWalletsContext');
+        throw new Error("useEthereum must be used within a EthWalletsContext");
     }
     if (contractsCtx === undefined) {
-        throw new Error('useEthereum must be used within a EthContractsContext');
+        throw new Error("useEthereum must be used within a EthContractsContext");
     }
     var setEthConfig = dappCtx.setEthConfig;
     var getContract = function (name) { return contractsCtx[name]; };
-    return __assign(__assign({}, ethereum), { wallets: walletsCtx, contracts: contractsCtx, getContract: getContract, getEthBalance: core.useEtherBalance, setEthConfig: setEthConfig });
+    return __assign(__assign({}, ethereum), { wallets: walletsCtx, contracts: contractsCtx, getContract: getContract, getEthBalance: core.useEtherBalance, setEthConfig: setEthConfig, ChainId: core.ChainId });
 };
 
 var useSolana = function () {
