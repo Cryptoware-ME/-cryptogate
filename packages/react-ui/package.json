@@ -19,13 +19,14 @@
   "author": "Cryptoware",
   "license": "MIT",
   "peerDependencies": {
-    "react": "^18.0.0"
   },
   "gitHead": "4e7588c374765236eb36f78f70745b80a39c773c",
   "dependencies": {
+    "@usedapp/core": "^0.10.0",
     "@cryptogate/react-providers": "^0.0.30",
     "@metamask/detect-provider": "^1.2.0",
     "react-device-detect": "^2.2.2",
-    "react-jazzicon": "^1.0.3"
+    "react-jazzicon": "^1.0.3",
+    "react": "^18.0.0"
   }
 }

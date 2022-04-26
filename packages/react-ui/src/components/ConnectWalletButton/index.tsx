@@ -1,14 +1,14 @@
 import { useMultichain } from "@cryptogate/react-providers";
 import Identicon from "../Identicon";
-import styles from "./connectwalletbutton.module.css";
+const styles = require("./connectwalletbutton.module.css");
 
 const defaultStyle = {
   backgroundColor: "#0d0d0d",
   color: "white",
   padding: "4px 10px",
   borderWidth: 1,
-  borderRadius: '5px',
-  height: 'auto'
+  borderRadius: "5px",
+  height: "auto",
 };
 
 const index = ({ btnStyle = defaultStyle, setOpenOptions }) => {

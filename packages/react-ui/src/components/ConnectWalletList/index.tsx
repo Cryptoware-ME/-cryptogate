@@ -1,4 +1,4 @@
-import styles from "./connectwalletlist.module.css";
+const styles = require("./connectwalletlist.module.css");
 import EthWalletList from "../EthWalletList";
 import SolWalletList from "../SolWalletList";
 

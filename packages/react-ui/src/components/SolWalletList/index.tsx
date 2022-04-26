@@ -1,4 +1,4 @@
-import styles from "./walletlist.module.css";
+const styles = require("./walletlist.module.css");
 
 const SolWalletList = ({ SolWallets }) => {
   return (

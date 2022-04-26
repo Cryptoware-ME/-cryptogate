@@ -9,7 +9,7 @@ const Identicon = () => {
     <Jazzicon
       diameter={isMobile ? 30 : 40}
       seed={jsNumberForAddress(account?.toString() || '')}
-      className="jazzicon"
+      // className="jazzicon"
     />
   );
 };

@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { useMultichain } from "@cryptogate/react-providers";
-import styles from "./walletlist.module.css";
+const styles = require("./walletlist.module.css");
 import WalletListing from "./WalletListing";
-import DCBMetamask from "../../assets/images/wallets/dcb-metamask-icon.svg";
-import DCBWalletconnect from "../../assets/images/wallets/dcb-walletconnect.svg";
-import DCBFortmatic from "../../assets/images/wallets/dcb-fortmatic.svg";
-import DCBCoinbase from "../../assets/images/wallets/dcb-coinbase.png";
+const DCBMetamask = require("../../assets/images/wallets/dcb-metamask-icon.svg");
+const DCBWalletconnect = require("../../assets/images/wallets/dcb-walletconnect.svg");
+const DCBFortmatic = require("../../assets/images/wallets/dcb-fortmatic.svg");
+const DCBCoinbase = require("../../assets/images/wallets/dcb-coinbase.png");
 import detectEthereumProvider from "@metamask/detect-provider";
 import { isMobile } from "react-device-detect";
 
@@ -59,13 +59,13 @@ const EthWalletList = ({ EthWallets }) => {
           onWalletCall={() => regHandle("Coinbase Wallet", wallets.Coinbase)}
         />
       )}
-      {EthWallets.fortmatic && (
+      {/* {EthWallets.fortmatic && (
         <WalletListing
           heading="Fortmatic"
           iconSrc={DCBFortmatic}
           onWalletCall={() => regHandle("Fortmatic", wallets.fortmatic)}
         />
-      )}
+      )} */}
       {EthWallets.walletConnect && (
         <WalletListing
           noBottomBorder={true}
