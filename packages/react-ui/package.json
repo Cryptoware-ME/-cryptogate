@@ -8,7 +8,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "0.0.50-alpha.0",
+  "version": "0.0.50",
   "description": "Cryptogate Web3 UI Components",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -23,7 +23,7 @@
   },
   "gitHead": "4e7588c374765236eb36f78f70745b80a39c773c",
   "dependencies": {
-    "@cryptogate/react-providers": "^0.0.30",
+    "@cryptogate/react-providers": "^0.0.31",
     "@metamask/detect-provider": "^1.2.0",
     "react-device-detect": "^2.2.2",
     "react-jazzicon": "^1.0.3"
