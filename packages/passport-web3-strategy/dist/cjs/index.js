@@ -76,10 +76,10 @@ function __generator(thisArg, body) {
 
 var Web3Strategy = /** @class */ (function (_super) {
     __extends(Web3Strategy, _super);
-    function Web3Strategy(_onAuth) {
+    function Web3Strategy(options, verify) {
         var _this = _super.call(this) || this;
-        if (_onAuth) {
-            _this.onAuth = _onAuth;
+        if (verify) {
+            _this.onAuth = verify;
         }
         else {
             _this.onAuth = function (data) {
@@ -88,11 +88,11 @@ var Web3Strategy = /** @class */ (function (_super) {
                     msg: data.msg,
                     signed: data.signed,
                     chain: data.chain,
-                    isevm: data.isevm
-                }, '');
+                    isevm: data.isevm,
+                }, "");
             };
         }
-        _this.name = "web3";
+        _this.name = (options === null || options === void 0 ? void 0 : options.name) || "web3";
         return _this;
     }
     /**
@@ -191,17 +191,6 @@ var Web3Strategy = /** @class */ (function (_super) {
             };
         }
         return null;
-    };
-    /**
-     * sets the onAuth listener
-     */
-    Web3Strategy.prototype.setOnAuth = function (fnOnAuth) {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                this.onAuth = fnOnAuth;
-                return [2 /*return*/];
-            });
-        });
     };
     return Web3Strategy;
 }(passport.Strategy));

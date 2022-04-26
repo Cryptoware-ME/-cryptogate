@@ -1,42 +1,29 @@
 import { Strategy } from "passport";
 import { verifyEthSig, verifySolSig } from "@cryptogate/core";
 
+export interface onAuthSignature {
+  address: string;
+  msg: string;
+  signed: string;
+  chain: string;
+  isevm: boolean;
+  done: (err: Error | null, user: any, info: any) => void;
+  req: any;
+}
+
 export class Web3Strategy extends Strategy {
-  private onAuth: (data: {
-    address: string;
-    msg: string;
-    signed: string;
-    chain: string;
-    isevm: boolean;
-    done: (err: Error | null, user: any, info: any) => void;
-    req: any;
-  }) => void;
+  private onAuth: (data: onAuthSignature) => void;
   public name: string;
 
   constructor(
-    _onAuth: (data: {
-      address: string;
-      msg: string;
-      signed: string;
-      chain: string;
-      isevm: boolean;
-      done: (err: Error | null, user: any, info: any) => void;
-      req: any;
-    }) => void | undefined
+    options: any,
+    verify: (data: onAuthSignature) => void | undefined
   ) {
     super();
-    if (_onAuth) {
-      this.onAuth = _onAuth;
+    if (verify) {
+      this.onAuth = verify;
     } else {
-      this.onAuth = (data: {
-        address: string;
-        msg: string;
-        signed: string;
-        chain: string;
-        isevm: boolean;
-        done: (err: Error | null, user: any, info: any) => void;
-        req: any;
-      }) => {
+      this.onAuth = (data: onAuthSignature) => {
         data.done(
           null,
           {
@@ -50,7 +37,7 @@ export class Web3Strategy extends Strategy {
         );
       };
     }
-    this.name = "web3";
+    this.name = options?.name || "web3";
   }
 
   /**
@@ -138,22 +125,5 @@ export class Web3Strategy extends Strategy {
     }
 
     return null;
-  }
-
-  /**
-   * sets the onAuth listener
-   */
-  async setOnAuth(
-    fnOnAuth: (data: {
-      address: string;
-      msg: string;
-      signed: string;
-      chain: string;
-      isevm: boolean;
-      done: (err: Error | null, user: any, info: any) => void;
-      req: any;
-    }) => void
-  ) {
-    this.onAuth = fnOnAuth;
   }
 }

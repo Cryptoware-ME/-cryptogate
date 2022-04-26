@@ -1,17 +1,18 @@
 import { Strategy } from 'passport';
 
+interface onAuthSignature {
+    address: string;
+    msg: string;
+    signed: string;
+    chain: string;
+    isevm: boolean;
+    done: (err: Error | null, user: any, info: any) => void;
+    req: any;
+}
 declare class Web3Strategy extends Strategy {
     private onAuth;
     name: string;
-    constructor(_onAuth: (data: {
-        address: string;
-        msg: string;
-        signed: string;
-        chain: string;
-        isevm: boolean;
-        done: (err: Error | null, user: any, info: any) => void;
-        req: any;
-    }) => void | undefined);
+    constructor(options: any, verify: (data: onAuthSignature) => void | undefined);
     /**
      * Authenticate request based on the contents of a form submission.
      *
@@ -26,18 +27,6 @@ declare class Web3Strategy extends Strategy {
      * @return {Object}
      */
     getCredentials(req: any): any;
-    /**
-     * sets the onAuth listener
-     */
-    setOnAuth(fnOnAuth: (data: {
-        address: string;
-        msg: string;
-        signed: string;
-        chain: string;
-        isevm: boolean;
-        done: (err: Error | null, user: any, info: any) => void;
-        req: any;
-    }) => void): Promise<void>;
 }
 
-export { Web3Strategy };
+export { Web3Strategy, onAuthSignature };
