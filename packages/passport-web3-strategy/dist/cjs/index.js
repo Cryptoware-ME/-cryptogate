@@ -5,7 +5,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 var passport = require('passport');
 var core = require('@cryptogate/core');
 
-/*! *****************************************************************************
+/******************************************************************************
 Copyright (c) Microsoft Corporation.
 
 Permission to use, copy, modify, and/or distribute this software for any
@@ -77,21 +77,16 @@ function __generator(thisArg, body) {
 var Web3Strategy = /** @class */ (function (_super) {
     __extends(Web3Strategy, _super);
     function Web3Strategy(options, verify) {
-        var _this = _super.call(this) || this;
-        if (verify) {
-            _this.onAuth = verify;
+        var _this = this;
+        if (typeof options == "function") {
+            verify = options;
+            options = {};
         }
-        else {
-            _this.onAuth = function (data) {
-                data.done(null, {
-                    address: data.address,
-                    msg: data.msg,
-                    signed: data.signed,
-                    chain: data.chain,
-                    isevm: data.isevm,
-                }, "");
-            };
+        if (!verify) {
+            throw new TypeError("LocalStrategy requires a verify callback");
         }
+        _this = _super.call(this) || this;
+        _this.onAuth = verify;
         _this.name = (options === null || options === void 0 ? void 0 : options.name) || "web3";
         return _this;
     }
@@ -143,7 +138,12 @@ var Web3Strategy = /** @class */ (function (_super) {
                             _this.success(user, info);
                         };
                         try {
-                            this.onAuth({ address: address, msg: msg, signed: signed, chain: chain, isevm: isevm, done: done, req: req });
+                            if (this.onAuth) {
+                                this.onAuth({ address: address, msg: msg, signed: signed, chain: chain, isevm: isevm, done: done, req: req });
+                            }
+                            else {
+                                this.error("onAuth callback is not defined");
+                            }
                         }
                         catch (ex) {
                             return [2 /*return*/, this.error(ex)];

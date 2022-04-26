@@ -17,10 +17,11 @@
   "license": "MIT",
   "peerDependencies": {
     "@cryptogate/core": "^0.0.6",
-    "passport": "^0.5.2"
+    "passport": "^0.5.2",
+    "passport-local": "^1.0.0"
   },
   "devDependencies": {
-    "@cryptogate/core": "^0.0.7",
+    "@cryptogate/core": "^0.0.6",
     "@rollup/plugin-commonjs": "^21.1.0",
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-typescript": "^8.3.2",
@@ -29,7 +30,8 @@
     "passport": "^0.5.2",
     "rollup-plugin-dts": "^4.2.1",
     "tslib": "^2.3.1",
-    "typescript": "^4.6.3"
+    "typescript": "^4.6.3",
+    "passport-local": "^1.0.0"
   },
   "gitHead": "4e7588c374765236eb36f78f70745b80a39c773c"
 }

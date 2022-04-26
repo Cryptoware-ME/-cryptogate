@@ -19,24 +19,18 @@ export class Web3Strategy extends Strategy {
     options: any,
     verify: (data: onAuthSignature) => void | undefined
   ) {
-    super();
-    if (verify) {
-      this.onAuth = verify;
-    } else {
-      this.onAuth = (data: onAuthSignature) => {
-        data.done(
-          null,
-          {
-            address: data.address,
-            msg: data.msg,
-            signed: data.signed,
-            chain: data.chain,
-            isevm: data.isevm,
-          },
-          ""
-        );
-      };
+    if (typeof options == "function") {
+      verify = options;
+      options = {};
     }
+
+    if (!verify) {
+      throw new TypeError("LocalStrategy requires a verify callback");
+    }
+
+    super();
+
+    this.onAuth = verify;
     this.name = options?.name || "web3";
   }
 
@@ -82,7 +76,11 @@ export class Web3Strategy extends Strategy {
     };
 
     try {
-      this.onAuth({ address, msg, signed, chain, isevm, done, req });
+      if (this.onAuth) {
+        this.onAuth({ address, msg, signed, chain, isevm, done, req });
+      } else {
+        this.error("onAuth callback is not defined");
+      }
     } catch (ex) {
       return this.error(ex);
     }
