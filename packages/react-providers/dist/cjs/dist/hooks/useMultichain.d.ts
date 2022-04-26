@@ -28,7 +28,6 @@ export declare const useMultichain: () => {
             pollingInterval: number;
             networks: (import("@usedapp/core").Chain | undefined)[];
         }) => void;
-        ChainId: typeof import("@usedapp/core").ChainId;
         activate: (provider: import("@ethersproject/providers").JsonRpcProvider | import("@ethersproject/providers").ExternalProvider | {
             getProvider: () => any;
             activate: () => Promise<any>;

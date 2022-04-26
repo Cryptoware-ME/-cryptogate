@@ -5,7 +5,8 @@ import { Contract } from '@ethersproject/contracts';
 import * as _ethersproject_abi from '@ethersproject/abi';
 import { Interface } from '@ethersproject/abi';
 import * as _usedapp_core from '@usedapp/core';
-import { NodeUrls, Chain, useEtherBalance, ChainId } from '@usedapp/core';
+import { NodeUrls, Chain, useEtherBalance } from '@usedapp/core';
+export * from '@usedapp/core';
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector';
 import { LedgerConnector } from '@web3-react/ledger-connector';
 import { TrezorConnector } from '@web3-react/trezor-connector';
@@ -160,7 +161,6 @@ declare const useEthereum: () => {
         pollingInterval: number;
         networks: (_usedapp_core.Chain | undefined)[];
     }) => void;
-    ChainId: typeof ChainId;
     activate: (provider: _ethersproject_providers.JsonRpcProvider | _ethersproject_providers.ExternalProvider | {
         getProvider: () => any;
         activate: () => Promise<any>;
@@ -225,7 +225,6 @@ declare const useMultichain: () => {
             pollingInterval: number;
             networks: (_usedapp_core.Chain | undefined)[];
         }) => void;
-        ChainId: typeof _usedapp_core.ChainId;
         activate: (provider: _ethersproject_providers.JsonRpcProvider | _ethersproject_providers.ExternalProvider | {
             getProvider: () => any;
             activate: () => Promise<any>;

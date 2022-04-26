@@ -1,5 +1,5 @@
 import React from "react";
-import { useEtherBalance, useEthers, ChainId } from "@usedapp/core";
+import { useEtherBalance, useEthers } from "@usedapp/core";
 import { EthDappContext } from "../providers/EthDapp";
 import { EthContractsContext } from "../providers/EthContracts";
 import { EthWalletsContext } from "../providers";
@@ -31,7 +31,6 @@ export const useEthereum = () => {
     contracts: contractsCtx,
     getContract,
     getEthBalance: useEtherBalance,
-    setEthConfig,
-    ChainId,
+    setEthConfig
   };
 };

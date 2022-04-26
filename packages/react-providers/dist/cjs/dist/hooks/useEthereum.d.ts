@@ -1,4 +1,4 @@
-import { useEtherBalance, ChainId } from "@usedapp/core";
+import { useEtherBalance } from "@usedapp/core";
 export declare const useEthereum: () => {
     wallets: import("../providers").EthWallets;
     contracts: import("../providers").EthContracts;
@@ -17,7 +17,6 @@ export declare const useEthereum: () => {
         pollingInterval: number;
         networks: (import("@usedapp/core").Chain | undefined)[];
     }) => void;
-    ChainId: typeof ChainId;
     activate: (provider: import("@ethersproject/providers").JsonRpcProvider | import("@ethersproject/providers").ExternalProvider | {
         getProvider: () => any;
         activate: () => Promise<any>;

@@ -281,7 +281,7 @@ var useEthereum = function () {
     }
     var setEthConfig = dappCtx.setEthConfig;
     var getContract = function (name) { return contractsCtx[name]; };
-    return __assign(__assign({}, ethereum), { wallets: walletsCtx, contracts: contractsCtx, getContract: getContract, getEthBalance: core.useEtherBalance, setEthConfig: setEthConfig, ChainId: core.ChainId });
+    return __assign(__assign({}, ethereum), { wallets: walletsCtx, contracts: contractsCtx, getContract: getContract, getEthBalance: core.useEtherBalance, setEthConfig: setEthConfig });
 };
 
 var useSolana = function () {
@@ -354,4 +354,10 @@ exports.solDefaultConfig = solDefaultConfig;
 exports.useEthereum = useEthereum;
 exports.useMultichain = useMultichain;
 exports.useSolana = useSolana;
+Object.keys(core).forEach(function (k) {
+    if (k !== 'default' && !exports.hasOwnProperty(k)) Object.defineProperty(exports, k, {
+        enumerable: true,
+        get: function () { return core[k]; }
+    });
+});
 //# sourceMappingURL=index.js.map
