@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { useMultichain } from "@cryptogate/react-providers";
 import WalletListing from "./WalletListing";
-const DCBMetamask = require("../../assets/images/wallets/dcb-metamask-icon.svg");
-const DCBWalletconnect = require("../../assets/images/wallets/dcb-walletconnect.svg");
-// const DCBFortmatic = require("../../assets/images/wallets/dcb-fortmatic.svg");
-const DCBCoinbase = require("../../assets/images/wallets/dcb-coinbase.png");
 import detectEthereumProvider from "@metamask/detect-provider";
 import { isMobile } from "react-device-detect";
+var DCBMetamask = "";
+var DCBWalletconnect = "";
+var DCBFortmatic = "";
+var DCBCoinbase = "";
 
 const EthWalletList = ({ EthWallets }: { EthWallets: any }) => {
   const { ethereum } = useMultichain();

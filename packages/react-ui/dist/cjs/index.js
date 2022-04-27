@@ -113,10 +113,9 @@ var WalletListing = function (_a) {
                 } }, { children: heading }))] })));
 };
 
-var DCBMetamask = require("../../assets/images/wallets/dcb-metamask-icon.svg");
-var DCBWalletconnect = require("../../assets/images/wallets/dcb-walletconnect.svg");
-// const DCBFortmatic = require("../../assets/images/wallets/dcb-fortmatic.svg");
-var DCBCoinbase = require("../../assets/images/wallets/dcb-coinbase.png");
+var DCBMetamask = "";
+var DCBWalletconnect = "";
+var DCBCoinbase = "";
 var EthWalletList = function (_a) {
     var EthWallets = _a.EthWallets;
     var ethereum = reactProviders.useMultichain().ethereum;
