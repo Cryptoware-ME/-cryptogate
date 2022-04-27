@@ -2,26 +2,28 @@ import ConnectWalletButton from "../ConnectWalletButton";
 import ConnectWalletList from "../ConnectWalletList";
 import { useState } from "react";
 
-export const ConnectWalletComponent = () => {
+export const ConnectWalletComponent = ({
+  toSign,
+  message,
+  onSign,
+  EthWallets,
+  SolWallets,
+}: {
+  toSign: boolean;
+  message: string;
+  onSign: any;
+  EthWallets: any;
+  SolWallets: any;
+}) => {
   const [openOptions, setOpenOptions] = useState(false);
-  const EthWallets = {
-    metamask: true,
-    coinbase: true,
-    fortmatic: true,
-    walletConnect: true,
-  };
-  const SolWallets = {
-    phantom: true,
-    slope: true,
-    solflare: true,
-  };
 
   return (
     <>
       <ConnectWalletButton
         setOpenOptions={setOpenOptions}
-        toSign={true}
-        onSign={(key: any) => console.log("This is from sign function: " + key)}
+        toSign={toSign}
+        message={message}
+        onSign={onSign}
       />
       {openOptions ? (
         <ConnectWalletList

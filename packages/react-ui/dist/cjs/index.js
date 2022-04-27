@@ -215,7 +215,7 @@ var signingMessage = function (key, account, provider, message) { return __await
     });
 }); };
 var index = function (_a) {
-    var setOpenOptions = _a.setOpenOptions, toSign = _a.toSign, onSign = _a.onSign;
+    var setOpenOptions = _a.setOpenOptions, toSign = _a.toSign, onSign = _a.onSign, message = _a.message;
     var _b = react.useState(false), openMenu = _b[0], setOpenMenu = _b[1];
     var ethereum = reactProviders.useMultichain().ethereum;
     var account = ethereum.account, library = ethereum.library;
@@ -227,7 +227,7 @@ var index = function (_a) {
                     console.log(key);
                 }
                 else {
-                    signingMessage(key, account, library, "Test Message").then(function (key) {
+                    signingMessage(key, account, library, message).then(function (key) {
                         return onSign(key);
                     });
                 }
@@ -398,20 +398,10 @@ var ConnectWalletList = function (_a) {
                 }, onClick: function () { return setOpenOptions(false); } }))] }));
 };
 
-var ConnectWalletComponent = function () {
-    var _a = react.useState(false), openOptions = _a[0], setOpenOptions = _a[1];
-    var EthWallets = {
-        metamask: true,
-        coinbase: true,
-        fortmatic: true,
-        walletConnect: true,
-    };
-    var SolWallets = {
-        phantom: true,
-        slope: true,
-        solflare: true,
-    };
-    return (jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [jsxRuntime.jsx(index, { setOpenOptions: setOpenOptions, toSign: true, onSign: function (key) { return console.log("This is from sign function: " + key); } }), openOptions ? (jsxRuntime.jsx(ConnectWalletList, { openOptions: openOptions, setOpenOptions: setOpenOptions, EthWallets: EthWallets, SolWallets: SolWallets })) : (jsxRuntime.jsx(jsxRuntime.Fragment, {}))] }));
+var ConnectWalletComponent = function (_a) {
+    var toSign = _a.toSign, message = _a.message, onSign = _a.onSign, EthWallets = _a.EthWallets, SolWallets = _a.SolWallets;
+    var _b = react.useState(false), openOptions = _b[0], setOpenOptions = _b[1];
+    return (jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [jsxRuntime.jsx(index, { setOpenOptions: setOpenOptions, toSign: toSign, message: message, onSign: onSign }), openOptions ? (jsxRuntime.jsx(ConnectWalletList, { openOptions: openOptions, setOpenOptions: setOpenOptions, EthWallets: EthWallets, SolWallets: SolWallets })) : (jsxRuntime.jsx(jsxRuntime.Fragment, {}))] }));
 };
 
 exports.ConnectWalletComponent = ConnectWalletComponent;

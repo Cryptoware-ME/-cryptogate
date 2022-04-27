@@ -41,10 +41,12 @@ const index = ({
   setOpenOptions,
   toSign,
   onSign,
+  message,
 }: {
   setOpenOptions: any;
   toSign: boolean;
   onSign: any;
+  message: string;
 }) => {
   const [openMenu, setOpenMenu] = useState(false);
   const { ethereum } = useMultichain();
@@ -57,7 +59,7 @@ const index = ({
         if (key) {
           console.log(key);
         } else {
-          signingMessage(key, account, library, "Test Message").then((key) =>
+          signingMessage(key, account, library, message).then((key) =>
             onSign(key)
           );
         }
