@@ -7,6 +7,11 @@ const ConnectWalletList = ({
   setOpenOptions,
   EthWallets,
   SolWallets,
+}: {
+  openOptions: boolean;
+  setOpenOptions: any;
+  EthWallets: any;
+  SolWallets: any;
 }) => {
   return (
     <>

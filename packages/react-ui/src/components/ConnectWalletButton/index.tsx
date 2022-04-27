@@ -11,7 +11,7 @@ const defaultStyle = {
   height: "auto",
 };
 
-const index = ({ btnStyle = defaultStyle, setOpenOptions }) => {
+const index = ({ setOpenOptions }: { setOpenOptions: any }) => {
   const { ethereum } = useMultichain();
   const { account } = ethereum;
 
@@ -26,7 +26,7 @@ const index = ({ btnStyle = defaultStyle, setOpenOptions }) => {
     </div>
   ) : (
     <button
-      style={btnStyle}
+      style={defaultStyle}
       className={styles.connectBtn}
       onClick={() => {
         setOpenOptions(true);

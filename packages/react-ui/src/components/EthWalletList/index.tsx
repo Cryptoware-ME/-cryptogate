@@ -4,12 +4,12 @@ const styles = require("./walletlist.module.css");
 import WalletListing from "./WalletListing";
 const DCBMetamask = require("../../assets/images/wallets/dcb-metamask-icon.svg");
 const DCBWalletconnect = require("../../assets/images/wallets/dcb-walletconnect.svg");
-const DCBFortmatic = require("../../assets/images/wallets/dcb-fortmatic.svg");
+// const DCBFortmatic = require("../../assets/images/wallets/dcb-fortmatic.svg");
 const DCBCoinbase = require("../../assets/images/wallets/dcb-coinbase.png");
 import detectEthereumProvider from "@metamask/detect-provider";
 import { isMobile } from "react-device-detect";
 
-const EthWalletList = ({ EthWallets }) => {
+const EthWalletList = ({ EthWallets }: { EthWallets: any }) => {
   const { ethereum } = useMultichain();
   const { activateBrowserWallet, activate, wallets } = ethereum;
   const [openMetamaskAllow, setOpenMetamaskAllow] = useState(false);
@@ -39,7 +39,7 @@ const EthWalletList = ({ EthWallets }) => {
     }
   };
 
-  const regHandle = (name, connector) => {
+  const regHandle = (name: String, connector: any) => {
     activate(connector);
   };
 
@@ -47,6 +47,8 @@ const EthWalletList = ({ EthWallets }) => {
     <div className={styles.walletListWrapper}>
       {EthWallets.metamask && (
         <WalletListing
+          isWhite={false}
+          noBottomBorder={false}
           heading="Metamask"
           iconSrc={DCBMetamask}
           onWalletCall={injectedHandle}
@@ -54,6 +56,8 @@ const EthWalletList = ({ EthWallets }) => {
       )}
       {EthWallets.coinbase && (
         <WalletListing
+          isWhite={false}
+          noBottomBorder={false}
           heading="Coinbase"
           iconSrc={DCBCoinbase}
           onWalletCall={() => regHandle("Coinbase Wallet", wallets.Coinbase)}
@@ -68,6 +72,7 @@ const EthWalletList = ({ EthWallets }) => {
       )} */}
       {EthWallets.walletConnect && (
         <WalletListing
+          isWhite={false}
           noBottomBorder={true}
           heading="WalletConnect"
           iconSrc={DCBWalletconnect}

@@ -2,7 +2,7 @@ import ConnectWalletButton from "../ConnectWalletButton";
 import ConnectWalletList from "../ConnectWalletList";
 import { useState } from "react";
 
-const ConnectWalletComponent = () => {
+export const ConnectWalletComponent = () => {
   const [openOptions, setOpenOptions] = useState(false);
   const EthWallets = {
     metamask: true,
@@ -32,5 +32,3 @@ const ConnectWalletComponent = () => {
     </>
   );
 };
-
-export default ConnectWalletComponent;

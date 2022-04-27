@@ -1,4 +1,4 @@
-import styles from "./walletlisting.module.css";
+const styles = require("./walletlisting.module.css");
 
 const WalletListing = ({
   iconSrc,
@@ -6,6 +6,12 @@ const WalletListing = ({
   onWalletCall,
   isWhite = false,
   noBottomBorder = false,
+}: {
+  iconSrc: any;
+  heading: any;
+  onWalletCall: any;
+  isWhite: boolean;
+  noBottomBorder: boolean;
 }) => {
   return (
     <div

@@ -1,6 +1,6 @@
 const styles = require("./walletlist.module.css");
 
-const SolWalletList = ({ SolWallets }) => {
+const SolWalletList = ({ SolWallets }: { SolWallets: any }) => {
   return (
     <div className={styles.walletListWrapper}>
       {SolWallets.phantom && (
