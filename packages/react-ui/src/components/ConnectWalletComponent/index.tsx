@@ -18,7 +18,11 @@ export const ConnectWalletComponent = () => {
 
   return (
     <>
-      <ConnectWalletButton setOpenOptions={setOpenOptions} />
+      <ConnectWalletButton
+        setOpenOptions={setOpenOptions}
+        toSign={true}
+        onSign={(key: any) => console.log("This is from sign function: " + key)}
+      />
       {openOptions ? (
         <ConnectWalletList
           openOptions={openOptions}
