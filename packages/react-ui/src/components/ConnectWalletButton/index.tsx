@@ -1,6 +1,5 @@
 import { useMultichain } from "@cryptogate/react-providers";
 import Identicon from "../Identicon";
-const styles = require("./connectwalletbutton.module.css");
 
 const defaultStyle = {
   backgroundColor: "#0d0d0d",
@@ -16,9 +15,24 @@ const index = ({ setOpenOptions }: { setOpenOptions: any }) => {
   const { account } = ethereum;
 
   return account ? (
-    <div className={styles.connectContainer}>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "flex-end",
+        alignItems: "center",
+        marginRight: "15px",
+        cursor: "pointer",
+      }}
+    >
       <div
-        className={styles.jazzicon}
+        style={{
+          borderRadius: "50%",
+          border: "2px solid #fff",
+          height: "45px",
+          width: "46px",
+          paddingLeft: "0.05rem",
+          paddingTop: "0.03rem",
+        }}
         // onClick={openMenu}
       >
         <Identicon />
@@ -27,7 +41,6 @@ const index = ({ setOpenOptions }: { setOpenOptions: any }) => {
   ) : (
     <button
       style={defaultStyle}
-      className={styles.connectBtn}
       onClick={() => {
         setOpenOptions(true);
       }}

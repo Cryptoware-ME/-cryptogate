@@ -1,8 +1,12 @@
-const styles = require("./walletlist.module.css");
-
 const SolWalletList = ({ SolWallets }: { SolWallets: any }) => {
   return (
-    <div className={styles.walletListWrapper}>
+    <div
+      style={{
+        border: "black 1px solid",
+        borderRadius: "8px",
+        marginBottom: "20px",
+      }}
+    >
       {SolWallets.phantom && (
         // <WalletListing
         //   heading="Metamask"

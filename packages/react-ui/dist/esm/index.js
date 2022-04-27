@@ -37,7 +37,6 @@ var Identicon = function () {
     return (jsx(Jazzicon, { diameter: isMobile ? 30 : 40, seed: jsNumberForAddress((account === null || account === void 0 ? void 0 : account.toString()) || '') }));
 };
 
-var styles$4 = require("./connectwalletbutton.module.css");
 var defaultStyle = {
     backgroundColor: "#0d0d0d",
     color: "white",
@@ -50,18 +49,61 @@ var index = function (_a) {
     var setOpenOptions = _a.setOpenOptions;
     var ethereum = useMultichain().ethereum;
     var account = ethereum.account;
-    return account ? (jsx("div", __assign({ className: styles$4.connectContainer }, { children: jsx("div", __assign({ className: styles$4.jazzicon }, { children: jsx(Identicon, {}) })) }))) : (jsx("button", __assign({ style: defaultStyle, className: styles$4.connectBtn, onClick: function () {
+    return account ? (jsx("div", __assign({ style: {
+            display: "flex",
+            justifyContent: "flex-end",
+            alignItems: "center",
+            marginRight: "15px",
+            cursor: "pointer",
+        } }, { children: jsx("div", __assign({ style: {
+                borderRadius: "50%",
+                border: "2px solid #fff",
+                height: "45px",
+                width: "46px",
+                paddingLeft: "0.05rem",
+                paddingTop: "0.03rem",
+            } }, { children: jsx(Identicon, {}) })) }))) : (jsx("button", __assign({ style: defaultStyle, onClick: function () {
             setOpenOptions(true);
         } }, { children: "Connect Wallet" })));
 };
 
-var styles$3 = require("./walletlisting.module.css");
 var WalletListing = function (_a) {
     _a.iconSrc; var heading = _a.heading, onWalletCall = _a.onWalletCall, _b = _a.isWhite, isWhite = _b === void 0 ? false : _b, _c = _a.noBottomBorder, noBottomBorder = _c === void 0 ? false : _c;
-    return (jsxs("div", __assign({ style: noBottomBorder ? { borderBottom: "0" } : {}, className: styles$3.walletListingWrapper, onClick: onWalletCall }, { children: [isWhite && (jsx(Fragment, { children: jsx("div", { className: styles$3.walletIconBackground }) })), !isWhite && (jsx(Fragment, {})), jsx("h6", __assign({ className: styles$3.walletListingName }, { children: heading }))] })));
+    return (jsxs("div", __assign({ style: noBottomBorder
+            ? {
+                cursor: "pointer",
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                borderBottom: "0",
+                padding: "15px",
+            }
+            : {
+                cursor: "pointer",
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                borderBottom: "black 1px solid",
+                padding: "15px",
+            }, onClick: onWalletCall }, { children: [isWhite && (jsx(Fragment, { children: jsx("div", { style: {
+                        backgroundColor: "black",
+                        borderRadius: "50%",
+                        width: "30px",
+                        height: "30px",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        marginRight: "15px",
+                        position: "relative",
+                        left: "-5px",
+                    } }) })), !isWhite && (jsx(Fragment, {})), jsx("h6", __assign({ style: {
+                    margin: "0",
+                    padding: "0",
+                    color: "black",
+                    fontSize: "15px",
+                } }, { children: heading }))] })));
 };
 
-var styles$2 = require("./walletlist.module.css");
 var DCBMetamask = require("../../assets/images/wallets/dcb-metamask-icon.svg");
 var DCBWalletconnect = require("../../assets/images/wallets/dcb-walletconnect.svg");
 // const DCBFortmatic = require("../../assets/images/wallets/dcb-fortmatic.svg");
@@ -96,15 +138,22 @@ var EthWalletList = function (_a) {
     var regHandle = function (name, connector) {
         activate(connector);
     };
-    return (jsxs("div", __assign({ className: styles$2.walletListWrapper }, { children: [EthWallets.metamask && (jsx(WalletListing, { isWhite: false, noBottomBorder: false, heading: "Metamask", iconSrc: DCBMetamask, onWalletCall: injectedHandle })), EthWallets.coinbase && (jsx(WalletListing, { isWhite: false, noBottomBorder: false, heading: "Coinbase", iconSrc: DCBCoinbase, onWalletCall: function () { return regHandle("Coinbase Wallet", wallets.Coinbase); } })), EthWallets.walletConnect && (jsx(WalletListing, { isWhite: false, noBottomBorder: true, heading: "WalletConnect", iconSrc: DCBWalletconnect, onWalletCall: function () {
+    return (jsxs("div", __assign({ style: {
+            border: "black 1px solid",
+            borderRadius: "8px",
+            marginBottom: "20px",
+        } }, { children: [EthWallets.metamask && (jsx(WalletListing, { isWhite: false, noBottomBorder: false, heading: "Metamask", iconSrc: DCBMetamask, onWalletCall: injectedHandle })), EthWallets.coinbase && (jsx(WalletListing, { isWhite: false, noBottomBorder: false, heading: "Coinbase", iconSrc: DCBCoinbase, onWalletCall: function () { return regHandle("Coinbase Wallet", wallets.Coinbase); } })), EthWallets.walletConnect && (jsx(WalletListing, { isWhite: false, noBottomBorder: true, heading: "WalletConnect", iconSrc: DCBWalletconnect, onWalletCall: function () {
                     return regHandle("Wallet Connect API", wallets.WalletConnect);
                 } }))] })));
 };
 
-var styles$1 = require("./walletlist.module.css");
 var SolWalletList = function (_a) {
     var SolWallets = _a.SolWallets;
-    return (jsxs("div", __assign({ className: styles$1.walletListWrapper }, { children: [SolWallets.phantom && (
+    return (jsxs("div", __assign({ style: {
+            border: "black 1px solid",
+            borderRadius: "8px",
+            marginBottom: "20px",
+        } }, { children: [SolWallets.phantom && (
             // <WalletListing
             //   heading="Metamask"
             //   iconSrc={DCBMetamask}
@@ -125,7 +174,6 @@ var SolWalletList = function (_a) {
             jsx(Fragment, {}))] })));
 };
 
-var styles = require("./connectwalletlist.module.css");
 var ConnectWalletList = function (_a) {
     var openOptions = _a.openOptions, setOpenOptions = _a.setOpenOptions, EthWallets = _a.EthWallets, SolWallets = _a.SolWallets;
     return (jsxs(Fragment, { children: [jsx("div", __assign({ style: {
@@ -142,11 +190,19 @@ var ConnectWalletList = function (_a) {
                     borderTopLeftRadius: "5px",
                     borderBottomLeftRadius: "5px",
                     boxShadow: "1px 1px 2px 2px #888888",
-                } }, { children: jsx("div", __assign({ className: styles.menuDivision, style: {
+                } }, { children: jsx("div", __assign({ style: {
                         display: "flex",
                         justifyContent: "space-between",
                         alignItems: "flex-start",
-                    }, onClick: function () { return setOpenOptions(false); } }, { children: jsxs("div", __assign({ style: { marginRight: 10 } }, { children: [jsx("p", { children: "Connect with one of the available wallet providers." }), jsx("br", {}), jsx(EthWalletList, { EthWallets: EthWallets }), jsx("br", {}), jsx(SolWalletList, { SolWallets: SolWallets })] })) })) })), openOptions && (jsx("div", { style: {
+                        paddingLeft: "15px",
+                        paddingRight: "15px",
+                        paddingTop: "10px",
+                        maxHeight: "100%",
+                        overflowY: "auto",
+                    }, onClick: function () { return setOpenOptions(false); } }, { children: jsxs("div", __assign({ style: { marginRight: 10 } }, { children: [jsx("p", __assign({ style: {
+                                    fontSize: "14px",
+                                    color: "black",
+                                } }, { children: "Connect with one of the available wallet providers." })), jsx("br", {}), jsx(EthWalletList, { EthWallets: EthWallets }), jsx("br", {}), jsx(SolWalletList, { SolWallets: SolWallets })] })) })) })), openOptions && (jsx("div", { style: {
                     width: "100%",
                     height: "100%",
                     background: "transparent",

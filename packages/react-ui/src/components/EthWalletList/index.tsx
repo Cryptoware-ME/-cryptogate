@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useMultichain } from "@cryptogate/react-providers";
-const styles = require("./walletlist.module.css");
 import WalletListing from "./WalletListing";
 const DCBMetamask = require("../../assets/images/wallets/dcb-metamask-icon.svg");
 const DCBWalletconnect = require("../../assets/images/wallets/dcb-walletconnect.svg");
@@ -44,7 +43,13 @@ const EthWalletList = ({ EthWallets }: { EthWallets: any }) => {
   };
 
   return (
-    <div className={styles.walletListWrapper}>
+    <div
+      style={{
+        border: "black 1px solid",
+        borderRadius: "8px",
+        marginBottom: "20px",
+      }}
+    >
       {EthWallets.metamask && (
         <WalletListing
           isWhite={false}

@@ -1,5 +1,3 @@
-const styles = require("./walletlisting.module.css");
-
 const WalletListing = ({
   iconSrc,
   heading,
@@ -15,17 +13,50 @@ const WalletListing = ({
 }) => {
   return (
     <div
-      style={noBottomBorder ? { borderBottom: "0" } : {}}
-      className={styles.walletListingWrapper}
+      style={
+        noBottomBorder
+          ? {
+              cursor: "pointer",
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              borderBottom: "0",
+              padding: "15px",
+            }
+          : {
+              cursor: "pointer",
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              borderBottom: "black 1px solid",
+              padding: "15px",
+            }
+      }
       onClick={onWalletCall}
     >
       {isWhite && (
         <>
-          <div className={styles.walletIconBackground}>
+          <div
+            style={{
+              backgroundColor: "black",
+              borderRadius: "50%",
+              width: "30px",
+              height: "30px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              marginRight: "15px",
+              position: "relative",
+              left: "-5px",
+            }}
+          >
             {/* <img
               src={iconSrc}
               alt={heading}
-              className={styles.walletListingIcon}
+              style={{
+                paddingRight: "15px",
+                width: "32px",
+              }}
             /> */}
           </div>
         </>
@@ -34,14 +65,26 @@ const WalletListing = ({
       {!isWhite && (
         <>
           {/* <img
-            src={iconSrc}
-            alt={heading}
-            className={styles.walletListingIcon}
-          /> */}
+              src={iconSrc}
+              alt={heading}
+              style={{
+                paddingRight: "15px",
+                width: "32px",
+              }}
+            /> */}
         </>
       )}
 
-      <h6 className={styles.walletListingName}>{heading}</h6>
+      <h6
+        style={{
+          margin: "0",
+          padding: "0",
+          color: "black",
+          fontSize: "15px",
+        }}
+      >
+        {heading}
+      </h6>
     </div>
   );
 };
