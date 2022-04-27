@@ -18,9 +18,8 @@
   },
   "author": "Cryptoware",
   "license": "MIT",
-  "peerDependencies": {},
   "gitHead": "4e7588c374765236eb36f78f70745b80a39c773c",
-  "dependencies": {
+  "peerDependencies": {
     "@cryptogate/react-providers": "^0.0.31",
     "@metamask/detect-provider": "^1.2.0",
     "@types/node": "^17.0.29",
@@ -28,5 +27,25 @@
     "react": "^18.0.0",
     "react-device-detect": "^2.2.2",
     "react-jazzicon": "^1.0.3"
+  },  
+  "devDependencies": {
+    "@cryptogate/react-providers": "^0.0.31",
+    "@metamask/detect-provider": "^1.2.0",
+    "@types/node": "^17.0.29",
+    "@types/react": "^18.0.8",
+    "react-device-detect": "^2.2.2",
+    "react-jazzicon": "^1.0.3",
+    "@rollup/plugin-commonjs": "^21.1.0",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^13.2.1",
+    "@rollup/plugin-typescript": "^8.3.2",
+    "autoprefixer": "^10.4.4",
+    "react": "^18.0.0",
+    "rollup": "^2.70.2",
+    "rollup-plugin-dts": "^4.2.1",
+    "rollup-plugin-ignore": "^1.0.10",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-svg": "^2.0.0",
+    "typescript": "^4.7.0-dev.20220416"
   }
 }
