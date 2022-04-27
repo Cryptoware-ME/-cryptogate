@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@cryptogate/react-providers@^0.0.30":
-  version "0.0.30"
-  resolved "https://registry.yarnpkg.com/@cryptogate/react-providers/-/react-providers-0.0.30.tgz#2e896b1daeec440faf40a631197a59baefca98c2"
-  integrity sha512-J28kUQtCX+lLsVQe1E5rHsxkfVI+lB2LuipsnGTmBOtseXNWfdxgjnIuGJe04Ot8Jmc8/woU7DXcyBKMqaHPCQ==
+"@cryptogate/react-providers@^0.0.31":
+  version "0.0.31"
+  resolved "https://registry.yarnpkg.com/@cryptogate/react-providers/-/react-providers-0.0.31.tgz#b0ee6ba12ba880d567142a9ba9fd7a8e80677ae9"
+  integrity sha512-qdjn3liQYdimbVc7DBQiVp9EVu9SQD8kSd9YXLISpamsbYjQyilwNGUoYLyB5YbCNdL2pAhhis325H9syuuTmQ==
 
 "@metamask/detect-provider@^1.2.0":
   version "1.2.0"
@@ -73,9 +73,9 @@ react-jazzicon@^1.0.3:
     mersenne-twister "^1.1.0"
 
 react@^18.0.0:
-  version "18.0.0"
-  resolved "https://registry.yarnpkg.com/react/-/react-18.0.0.tgz#b468736d1f4a5891f38585ba8e8fb29f91c3cb96"
-  integrity sha512-x+VL6wbT4JRVPm7EGxXhZ8w8LTROaxPXOqhlGyVSrv0sB1jkyFGgXxJ8LVoPRLvPR6/CIZGFmfzqUa2NYeMr2A==
+  version "18.1.0"
+  resolved "https://registry.yarnpkg.com/react/-/react-18.1.0.tgz#6f8620382decb17fdc5cc223a115e2adbf104890"
+  integrity sha512-4oL8ivCz5ZEPyclFQXaNksK3adutVS8l2xzZU0cqEFrE9Sb7fC0EFK5uEk74wIreL1DERyjvsU915j1pcT2uEQ==
   dependencies:
     loose-envify "^1.1.0"
 

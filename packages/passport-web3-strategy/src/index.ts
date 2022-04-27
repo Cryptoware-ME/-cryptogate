@@ -2,55 +2,42 @@ import { Strategy } from "passport";
 import { verifyEthSig, verifySolSig } from "@cryptogate/core";
 
 export class Web3Strategy extends Strategy {
-  private onAuth: (data: {
-    address: string;
-    msg: string;
-    signed: string;
-    chain: string;
-    isevm: boolean;
-    done: (err: Error | null, user: any, info: any) => void;
-    req: any;
-  }) => void;
+  private _verify: (
+    req: any,
+    address: string,
+    msg: string,
+    signed: string,
+    chain: string,
+    isevm: boolean,
+    done: (err: Error | null, user: any, info: any) => void
+  ) => void;
   public name: string;
 
   constructor(
-    _onAuth: (data: {
-      address: string;
-      msg: string;
-      signed: string;
-      chain: string;
-      isevm: boolean;
-      done: (err: Error | null, user: any, info: any) => void;
-      req: any;
-    }) => void | undefined
+    options: any,
+    verify: (
+      req: any,
+      address: string,
+      msg: string,
+      signed: string,
+      chain: string,
+      isevm: boolean,
+      done: (err: Error | null, user: any, info: any) => void
+    ) => void | undefined
   ) {
-    super();
-    if (_onAuth) {
-      this.onAuth = _onAuth;
-    } else {
-      this.onAuth = (data: {
-        address: string;
-        msg: string;
-        signed: string;
-        chain: string;
-        isevm: boolean;
-        done: (err: Error | null, user: any, info: any) => void;
-        req: any;
-      }) => {
-        data.done(
-          null,
-          {
-            address: data.address,
-            msg: data.msg,
-            signed: data.signed,
-            chain: data.chain,
-            isevm: data.isevm,
-          },
-          ""
-        );
-      };
+    if (typeof options == "function") {
+      verify = options;
+      options = {};
     }
-    this.name = "web3";
+
+    if (!verify) {
+      throw new TypeError("Web3Strategy requires a verify callback");
+    }
+
+    super();
+
+    this._verify = verify;
+    this.name = options?.name || "web3";
   }
 
   /**
@@ -95,7 +82,11 @@ export class Web3Strategy extends Strategy {
     };
 
     try {
-      this.onAuth({ address, msg, signed, chain, isevm, done, req });
+      if (this._verify) {
+        this._verify(req, address, msg, signed, chain, isevm, done);
+      } else {
+        this.error("Verify callback is not defined");
+      }
     } catch (ex) {
       return this.error(ex);
     }
@@ -138,22 +129,5 @@ export class Web3Strategy extends Strategy {
     }
 
     return null;
-  }
-
-  /**
-   * sets the onAuth listener
-   */
-  async setOnAuth(
-    fnOnAuth: (data: {
-      address: string;
-      msg: string;
-      signed: string;
-      chain: string;
-      isevm: boolean;
-      done: (err: Error | null, user: any, info: any) => void;
-      req: any;
-    }) => void
-  ) {
-    this.onAuth = fnOnAuth;
   }
 }

@@ -5,7 +5,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 var passport = require('passport');
 var core = require('@cryptogate/core');
 
-/*! *****************************************************************************
+/******************************************************************************
 Copyright (c) Microsoft Corporation.
 
 Permission to use, copy, modify, and/or distribute this software for any
@@ -76,23 +76,18 @@ function __generator(thisArg, body) {
 
 var Web3Strategy = /** @class */ (function (_super) {
     __extends(Web3Strategy, _super);
-    function Web3Strategy(_onAuth) {
-        var _this = _super.call(this) || this;
-        if (_onAuth) {
-            _this.onAuth = _onAuth;
+    function Web3Strategy(options, verify) {
+        var _this = this;
+        if (typeof options == "function") {
+            verify = options;
+            options = {};
         }
-        else {
-            _this.onAuth = function (data) {
-                data.done(null, {
-                    address: data.address,
-                    msg: data.msg,
-                    signed: data.signed,
-                    chain: data.chain,
-                    isevm: data.isevm
-                }, '');
-            };
+        if (!verify) {
+            throw new TypeError("Web3Strategy requires a verify callback");
         }
-        _this.name = "web3";
+        _this = _super.call(this) || this;
+        _this._verify = verify;
+        _this.name = (options === null || options === void 0 ? void 0 : options.name) || "web3";
         return _this;
     }
     /**
@@ -143,7 +138,12 @@ var Web3Strategy = /** @class */ (function (_super) {
                             _this.success(user, info);
                         };
                         try {
-                            this.onAuth({ address: address, msg: msg, signed: signed, chain: chain, isevm: isevm, done: done, req: req });
+                            if (this._verify) {
+                                this._verify(req, address, msg, signed, chain, isevm, done);
+                            }
+                            else {
+                                this.error("Verify callback is not defined");
+                            }
                         }
                         catch (ex) {
                             return [2 /*return*/, this.error(ex)];
@@ -191,17 +191,6 @@ var Web3Strategy = /** @class */ (function (_super) {
             };
         }
         return null;
-    };
-    /**
-     * sets the onAuth listener
-     */
-    Web3Strategy.prototype.setOnAuth = function (fnOnAuth) {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                this.onAuth = fnOnAuth;
-                return [2 /*return*/];
-            });
-        });
     };
     return Web3Strategy;
 }(passport.Strategy));
