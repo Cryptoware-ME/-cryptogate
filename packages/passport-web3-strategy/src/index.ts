@@ -1,23 +1,29 @@
 import { Strategy } from "passport";
 import { verifyEthSig, verifySolSig } from "@cryptogate/core";
 
-export interface onAuthSignature {
-  address: string;
-  msg: string;
-  signed: string;
-  chain: string;
-  isevm: boolean;
-  done: (err: Error | null, user: any, info: any) => void;
-  req: any;
-}
-
 export class Web3Strategy extends Strategy {
-  private _verify: (data: onAuthSignature) => void;
+  private _verify: (
+    req: any,
+    address: string,
+    msg: string,
+    signed: string,
+    chain: string,
+    isevm: boolean,
+    done: (err: Error | null, user: any, info: any) => void
+  ) => void;
   public name: string;
 
   constructor(
     options: any,
-    verify: (data: onAuthSignature) => void | undefined
+    verify: (
+      req: any,
+      address: string,
+      msg: string,
+      signed: string,
+      chain: string,
+      isevm: boolean,
+      done: (err: Error | null, user: any, info: any) => void
+    ) => void | undefined
   ) {
     if (typeof options == "function") {
       verify = options;
@@ -77,7 +83,7 @@ export class Web3Strategy extends Strategy {
 
     try {
       if (this._verify) {
-        this._verify({ address, msg, signed, chain, isevm, done, req });
+        this._verify(req, address, msg, signed, chain, isevm, done);
       } else {
         this.error("Verify callback is not defined");
       }

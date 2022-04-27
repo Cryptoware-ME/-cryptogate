@@ -139,7 +139,7 @@ var Web3Strategy = /** @class */ (function (_super) {
                         };
                         try {
                             if (this._verify) {
-                                this._verify({ address: address, msg: msg, signed: signed, chain: chain, isevm: isevm, done: done, req: req });
+                                this._verify(req, address, msg, signed, chain, isevm, done);
                             }
                             else {
                                 this.error("Verify callback is not defined");

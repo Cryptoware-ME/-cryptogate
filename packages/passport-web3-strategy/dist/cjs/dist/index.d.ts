@@ -1,17 +1,8 @@
 import { Strategy } from "passport";
-export interface onAuthSignature {
-    address: string;
-    msg: string;
-    signed: string;
-    chain: string;
-    isevm: boolean;
-    done: (err: Error | null, user: any, info: any) => void;
-    req: any;
-}
 export declare class Web3Strategy extends Strategy {
     private _verify;
     name: string;
-    constructor(options: any, verify: (data: onAuthSignature) => void | undefined);
+    constructor(options: any, verify: (req: any, address: string, msg: string, signed: string, chain: string, isevm: boolean, done: (err: Error | null, user: any, info: any) => void) => void | undefined);
     /**
      * Authenticate request based on the contents of a form submission.
      *
