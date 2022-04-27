@@ -10,7 +10,7 @@ interface onAuthSignature {
     req: any;
 }
 declare class Web3Strategy extends Strategy {
-    private onAuth;
+    private _verify;
     name: string;
     constructor(options: any, verify: (data: onAuthSignature) => void | undefined);
     /**

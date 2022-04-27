@@ -12,7 +12,7 @@ export interface onAuthSignature {
 }
 
 export class Web3Strategy extends Strategy {
-  private onAuth: (data: onAuthSignature) => void;
+  private _verify: (data: onAuthSignature) => void;
   public name: string;
 
   constructor(
@@ -25,12 +25,12 @@ export class Web3Strategy extends Strategy {
     }
 
     if (!verify) {
-      throw new TypeError("LocalStrategy requires a verify callback");
+      throw new TypeError("Web3Strategy requires a verify callback");
     }
 
     super();
 
-    this.onAuth = verify;
+    this._verify = verify;
     this.name = options?.name || "web3";
   }
 
@@ -76,10 +76,10 @@ export class Web3Strategy extends Strategy {
     };
 
     try {
-      if (this.onAuth) {
-        this.onAuth({ address, msg, signed, chain, isevm, done, req });
+      if (this._verify) {
+        this._verify({ address, msg, signed, chain, isevm, done, req });
       } else {
-        this.error("onAuth callback is not defined");
+        this.error("Verify callback is not defined");
       }
     } catch (ex) {
       return this.error(ex);

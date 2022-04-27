@@ -83,10 +83,10 @@ var Web3Strategy = /** @class */ (function (_super) {
             options = {};
         }
         if (!verify) {
-            throw new TypeError("LocalStrategy requires a verify callback");
+            throw new TypeError("Web3Strategy requires a verify callback");
         }
         _this = _super.call(this) || this;
-        _this.onAuth = verify;
+        _this._verify = verify;
         _this.name = (options === null || options === void 0 ? void 0 : options.name) || "web3";
         return _this;
     }
@@ -138,11 +138,11 @@ var Web3Strategy = /** @class */ (function (_super) {
                             _this.success(user, info);
                         };
                         try {
-                            if (this.onAuth) {
-                                this.onAuth({ address: address, msg: msg, signed: signed, chain: chain, isevm: isevm, done: done, req: req });
+                            if (this._verify) {
+                                this._verify({ address: address, msg: msg, signed: signed, chain: chain, isevm: isevm, done: done, req: req });
                             }
                             else {
-                                this.error("onAuth callback is not defined");
+                                this.error("Verify callback is not defined");
                             }
                         }
                         catch (ex) {
