@@ -1,5 +1,7 @@
 import { useMultichain } from "@cryptogate/react-providers";
+import { useState } from "react";
 import Identicon from "../Identicon";
+import ConnectMenu from "../ConnectMenu";
 
 const defaultStyle = {
   backgroundColor: "#0d0d0d",
@@ -11,33 +13,42 @@ const defaultStyle = {
 };
 
 const index = ({ setOpenOptions }: { setOpenOptions: any }) => {
+  const [openMenu, setOpenMenu] = useState(false);
   const { ethereum } = useMultichain();
   const { account } = ethereum;
 
   return account ? (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "flex-end",
-        alignItems: "center",
-        marginRight: "15px",
-        cursor: "pointer",
-      }}
-    >
+    <>
       <div
         style={{
-          borderRadius: "50%",
-          border: "2px solid #fff",
-          height: "45px",
-          width: "46px",
-          paddingLeft: "0.05rem",
-          paddingTop: "0.03rem",
+          display: "flex",
+          justifyContent: "flex-end",
+          alignItems: "center",
+          marginRight: "15px",
+          cursor: "pointer",
         }}
-        // onClick={openMenu}
       >
-        <Identicon />
+        <div
+          style={{
+            borderRadius: "50%",
+            border: "2px solid #fff",
+            height: "45px",
+            width: "46px",
+            paddingLeft: "0.05rem",
+            paddingTop: "0.03rem",
+          }}
+          onClick={() => setOpenMenu(!openMenu)}
+        >
+          <Identicon />
+        </div>
       </div>
-    </div>
+      <ConnectMenu
+        onClose={() => {
+          setOpenMenu(false);
+        }}
+        isOpen={openMenu}
+      />
+    </>
   ) : (
     <button
       style={defaultStyle}

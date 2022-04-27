@@ -4,9 +4,10 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 var jsxRuntime = require('react/jsx-runtime');
 var reactProviders = require('@cryptogate/react-providers');
+var react = require('react');
 var Jazzicon = require('react-jazzicon');
 var reactDeviceDetect = require('react-device-detect');
-var react = require('react');
+var ethers = require('ethers');
 var detectEthereumProvider = require('@metamask/detect-provider');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
@@ -46,6 +47,57 @@ var Identicon = function () {
     return (jsxRuntime.jsx(Jazzicon__default["default"], { diameter: reactDeviceDetect.isMobile ? 30 : 40, seed: Jazzicon.jsNumberForAddress((account === null || account === void 0 ? void 0 : account.toString()) || '') }));
 };
 
+var WalletInformation = function (_a) {
+    var onClose = _a.onClose;
+    var ethereum = reactProviders.useMultichain().ethereum;
+    var getEthBalance = ethereum.getEthBalance, account = ethereum.account, deactivate = ethereum.deactivate;
+    var etherBalance = getEthBalance(account);
+    var handleDisconnect = function () {
+        account && deactivate();
+        onClose();
+    };
+    return (jsxRuntime.jsxs("div", __assign({ style: {
+            display: "flex",
+            placeContent: "space-between",
+        } }, { children: [jsxRuntime.jsxs("div", { children: [jsxRuntime.jsx("p", { children: "Total Balance" }), jsxRuntime.jsxs("h5", { children: [etherBalance &&
+                                account &&
+                                ethers.utils.formatEther(etherBalance).slice(0, 7), " ", "ETH"] })] }), jsxRuntime.jsxs("div", __assign({ style: {
+                    display: "flex",
+                    placeContent: "center",
+                } }, { children: [jsxRuntime.jsxs("p", __assign({ style: { color: "#c4c4c4" } }, { children: [account === null || account === void 0 ? void 0 : account.slice(0, 6), "...", account === null || account === void 0 ? void 0 : account.slice(-3)] })), jsxRuntime.jsx("p", __assign({ onClick: handleDisconnect }, { children: "Disconnect" }))] }))] })));
+};
+
+var ConnectMenu = function (_a) {
+    var onClose = _a.onClose, isOpen = _a.isOpen;
+    return (jsxRuntime.jsxs("div", __assign({ style: {
+            position: "fixed",
+            top: "0",
+            bottom: 0,
+            left: 0,
+            right: "0",
+            zIndex: "1000",
+            visibility: isOpen ? "visible" : "hidden",
+        } }, { children: [jsxRuntime.jsx("div", { style: { width: "100%", height: "100%" }, onClick: function () {
+                    onClose();
+                } }), jsxRuntime.jsx("div", __assign({ style: {
+                    backgroundColor: "#ffffff",
+                    boxShadow: "0 15px 15px rgba(0, 0, 0, 0.2)",
+                    opacity: isOpen ? "1" : "0",
+                    display: "block",
+                    position: "absolute",
+                    top: "80px",
+                    right: "40px",
+                    borderRadius: "10px",
+                    border: "1px solid #666666",
+                    boxSizing: "border-box",
+                    transform: isOpen ? "translateY(0)" : "translateY(-100%)",
+                    transition: "all 0.2s ease-in-out",
+                    height: "auto",
+                    padding: "20px 20px 20px 20px",
+                    width: "450px",
+                } }, { children: jsxRuntime.jsx(WalletInformation, { onClose: onClose }) }))] })));
+};
+
 var defaultStyle = {
     backgroundColor: "#0d0d0d",
     color: "white",
@@ -56,22 +108,25 @@ var defaultStyle = {
 };
 var index = function (_a) {
     var setOpenOptions = _a.setOpenOptions;
+    var _b = react.useState(false), openMenu = _b[0], setOpenMenu = _b[1];
     var ethereum = reactProviders.useMultichain().ethereum;
     var account = ethereum.account;
-    return account ? (jsxRuntime.jsx("div", __assign({ style: {
-            display: "flex",
-            justifyContent: "flex-end",
-            alignItems: "center",
-            marginRight: "15px",
-            cursor: "pointer",
-        } }, { children: jsxRuntime.jsx("div", __assign({ style: {
-                borderRadius: "50%",
-                border: "2px solid #fff",
-                height: "45px",
-                width: "46px",
-                paddingLeft: "0.05rem",
-                paddingTop: "0.03rem",
-            } }, { children: jsxRuntime.jsx(Identicon, {}) })) }))) : (jsxRuntime.jsx("button", __assign({ style: defaultStyle, onClick: function () {
+    return account ? (jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [jsxRuntime.jsx("div", __assign({ style: {
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    alignItems: "center",
+                    marginRight: "15px",
+                    cursor: "pointer",
+                } }, { children: jsxRuntime.jsx("div", __assign({ style: {
+                        borderRadius: "50%",
+                        border: "2px solid #fff",
+                        height: "45px",
+                        width: "46px",
+                        paddingLeft: "0.05rem",
+                        paddingTop: "0.03rem",
+                    }, onClick: function () { return setOpenMenu(!openMenu); } }, { children: jsxRuntime.jsx(Identicon, {}) })) })), jsxRuntime.jsx(ConnectMenu, { onClose: function () {
+                    setOpenMenu(false);
+                }, isOpen: openMenu })] })) : (jsxRuntime.jsx("button", __assign({ style: defaultStyle, onClick: function () {
             setOpenOptions(true);
         } }, { children: "Connect Wallet" })));
 };
