@@ -2,9 +2,7 @@ import { useMultichain } from "@cryptogate/react-providers";
 import { useState, useEffect } from "react";
 import Identicon from "../Identicon";
 import ConnectMenu from "../ConnectMenu";
-import { signMessage } from "../../utils/helpers";
-import { getWithExpiry } from "../../utils/localstorage/getWithExpire";
-import { setWithExpiry } from "../../utils/localstorage/setWithExpire";
+import {signEthMessage, getWithExpiry} from "@cryptogate/core"
 
 const defaultStyle = {
   backgroundColor: "#0d0d0d",
@@ -13,28 +11,6 @@ const defaultStyle = {
   borderWidth: 1,
   borderRadius: "5px",
   height: "auto",
-};
-
-const signingMessage = async (
-  key: any,
-  account: any,
-  provider: any,
-  message: string
-) => {
-  return new Promise((resolve, reject) => {
-    signMessage({
-      account,
-      provider,
-      message: `${message}. Wallet address: ${account} ts-${Date.now()}`,
-    })
-      .then((sig) => {
-        setWithExpiry(`sig-${account.toLowerCase()}`, sig, 43200000);
-        resolve(getWithExpiry(`sig-${account.toLowerCase()}`));
-      })
-      .catch((e) => {
-        reject(e);
-      });
-  });
 };
 
 const index = ({
@@ -57,7 +33,7 @@ const index = ({
         if (key) {
           onSign(key);
         } else {
-          signingMessage(key, account, library, message).then((key) =>
+          signEthMessage(account, library, message).then((key) =>
             onSign(key)
           );
         }
