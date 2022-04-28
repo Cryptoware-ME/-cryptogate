@@ -1,4 +1,6 @@
-const SolWalletList = ({ SolWallets }: { SolWallets: any }) => {
+import { SolWallets } from "../ConnectWalletComponent";
+
+const SolWalletList = ({ SolWalletList }: { SolWalletList: SolWallets[] }) => {
   return (
     <div
       style={{
@@ -7,7 +9,7 @@ const SolWalletList = ({ SolWallets }: { SolWallets: any }) => {
         marginBottom: "20px",
       }}
     >
-      {SolWallets.phantom && (
+      {(SolWalletList.indexOf(SolWallets.all) > -1 || SolWalletList.indexOf(SolWallets.phantom) > -1) && (
         // <WalletListing
         //   heading="Metamask"
         //   iconSrc={DCBMetamask}
@@ -15,7 +17,7 @@ const SolWalletList = ({ SolWallets }: { SolWallets: any }) => {
         // />
         <></>
       )}
-      {SolWallets.slope && (
+      {(SolWalletList.indexOf(SolWallets.all) > -1 || SolWalletList.indexOf(SolWallets.slope) > -1) && (
         // <WalletListing
         //   heading="Coinbase"
         //   iconSrc={DCBCoinbase}
@@ -23,7 +25,7 @@ const SolWalletList = ({ SolWallets }: { SolWallets: any }) => {
         // />
         <></>
       )}
-      {SolWallets.solflare && (
+      {(SolWalletList.indexOf(SolWallets.all) > -1 || SolWalletList.indexOf(SolWallets.solflare) > -1) && (
         // <WalletListing
         //   heading="Fortmatic"
         //   iconSrc={DCBFortmatic}

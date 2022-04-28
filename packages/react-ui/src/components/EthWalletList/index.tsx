@@ -3,18 +3,23 @@ import { useMultichain } from "@cryptogate/react-providers";
 import WalletListing from "./WalletListing";
 import detectEthereumProvider from "@metamask/detect-provider";
 import { isMobile } from "react-device-detect";
+import { EthWallets } from "../ConnectWalletComponent";
 var DCBMetamask = "";
 var DCBWalletconnect = "";
 var DCBFortmatic = "";
 var DCBCoinbase = "";
 
-const EthWalletList = ({ EthWallets }: { EthWallets: any }) => {
+const EthWalletListComp = ({
+  EthWalletList,
+}: {
+  EthWalletList: EthWallets[];
+}) => {
   const { ethereum } = useMultichain();
   const { activateBrowserWallet, activate, wallets } = ethereum;
   const [openMetamaskAllow, setOpenMetamaskAllow] = useState(false);
 
   useEffect(() => {
-    detectEthereumProvider().then((provider) => {
+    detectEthereumProvider().then((provider: any) => {
       setOpenMetamaskAllow(!!provider);
     });
   }, []);
@@ -50,35 +55,47 @@ const EthWalletList = ({ EthWallets }: { EthWallets: any }) => {
         marginBottom: "20px",
       }}
     >
-      {EthWallets.metamask && (
+      {(EthWalletList.indexOf(EthWallets.all) > -1 ||
+        EthWalletList.indexOf(EthWallets.metamask) > -1) && (
         <WalletListing
           isWhite={false}
-          noBottomBorder={false}
+          noBottomBorder={
+            EthWalletList.indexOf(EthWallets.metamask) ==
+            EthWalletList.length - 1
+              ? true
+              : false
+          }
           heading="Metamask"
           iconSrc={DCBMetamask}
           onWalletCall={injectedHandle}
         />
       )}
-      {EthWallets.coinbase && (
+      {(EthWalletList.indexOf(EthWallets.all) > -1 ||
+        EthWalletList.indexOf(EthWallets.coinbase) > -1) && (
         <WalletListing
           isWhite={false}
-          noBottomBorder={false}
+          noBottomBorder={
+            EthWalletList.indexOf(EthWallets.coinbase) ==
+            EthWalletList.length - 1
+              ? true
+              : false
+          }
           heading="Coinbase"
           iconSrc={DCBCoinbase}
           onWalletCall={() => regHandle("Coinbase Wallet", wallets.Coinbase)}
         />
       )}
-      {/* {EthWallets.fortmatic && (
-        <WalletListing
-          heading="Fortmatic"
-          iconSrc={DCBFortmatic}
-          onWalletCall={() => regHandle("Fortmatic", wallets.fortmatic)}
-        />
-      )} */}
-      {EthWallets.walletConnect && (
+      {(EthWalletList.indexOf(EthWallets.all) > -1 ||
+        EthWalletList.indexOf(EthWallets.walletConnect) > -1) && (
         <WalletListing
           isWhite={false}
-          noBottomBorder={true}
+          noBottomBorder={
+            EthWalletList.indexOf(EthWallets.all) > -1 ||
+            EthWalletList.indexOf(EthWallets.walletConnect) ==
+              EthWalletList.length - 1
+              ? true
+              : false
+          }
           heading="WalletConnect"
           iconSrc={DCBWalletconnect}
           onWalletCall={() =>
@@ -90,4 +107,4 @@ const EthWalletList = ({ EthWallets }: { EthWallets: any }) => {
   );
 };
 
-export default EthWalletList;
+export default EthWalletListComp;

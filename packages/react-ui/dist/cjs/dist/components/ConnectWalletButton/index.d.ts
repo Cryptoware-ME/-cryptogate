@@ -1,6 +1,5 @@
-declare const index: ({ setOpenOptions, toSign, onSign, message, }: {
+declare const index: ({ setOpenOptions, onSign, message, }: {
     setOpenOptions: any;
-    toSign: boolean;
     onSign: any;
     message: string;
 }) => JSX.Element;

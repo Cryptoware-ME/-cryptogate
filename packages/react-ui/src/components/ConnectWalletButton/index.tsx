@@ -39,12 +39,10 @@ const signingMessage = async (
 
 const index = ({
   setOpenOptions,
-  toSign,
   onSign,
   message,
 }: {
   setOpenOptions: any;
-  toSign: boolean;
   onSign: any;
   message: string;
 }) => {
@@ -54,10 +52,10 @@ const index = ({
 
   useEffect(() => {
     if (account && library) {
-      if (toSign) {
+      if (onSign) {
         let key = getWithExpiry(`sig-${account.toLowerCase()}`);
         if (key) {
-          console.log(key);
+          onSign(key);
         } else {
           signingMessage(key, account, library, message).then((key) =>
             onSign(key)

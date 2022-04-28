@@ -215,16 +215,16 @@ var signingMessage = function (key, account, provider, message) { return __await
     });
 }); };
 var index = function (_a) {
-    var setOpenOptions = _a.setOpenOptions, toSign = _a.toSign, onSign = _a.onSign, message = _a.message;
+    var setOpenOptions = _a.setOpenOptions, onSign = _a.onSign, message = _a.message;
     var _b = react.useState(false), openMenu = _b[0], setOpenMenu = _b[1];
     var ethereum = reactProviders.useMultichain().ethereum;
     var account = ethereum.account, library = ethereum.library;
     react.useEffect(function () {
         if (account && library) {
-            if (toSign) {
+            if (onSign) {
                 var key = getWithExpiry("sig-".concat(account.toLowerCase()));
                 if (key) {
-                    console.log(key);
+                    onSign(key);
                 }
                 else {
                     signingMessage(key, account, library, message).then(function (key) {
@@ -294,8 +294,8 @@ var WalletListing = function (_a) {
 var DCBMetamask = "";
 var DCBWalletconnect = "";
 var DCBCoinbase = "";
-var EthWalletList = function (_a) {
-    var EthWallets = _a.EthWallets;
+var EthWalletListComp = function (_a) {
+    var EthWalletList = _a.EthWalletList;
     var ethereum = reactProviders.useMultichain().ethereum;
     var activateBrowserWallet = ethereum.activateBrowserWallet, activate = ethereum.activate, wallets = ethereum.wallets;
     var _b = react.useState(false), openMetamaskAllow = _b[0], setOpenMetamaskAllow = _b[1];
@@ -328,30 +328,43 @@ var EthWalletList = function (_a) {
             border: "black 1px solid",
             borderRadius: "8px",
             marginBottom: "20px",
-        } }, { children: [EthWallets.metamask && (jsxRuntime.jsx(WalletListing, { isWhite: false, noBottomBorder: false, heading: "Metamask", iconSrc: DCBMetamask, onWalletCall: injectedHandle })), EthWallets.coinbase && (jsxRuntime.jsx(WalletListing, { isWhite: false, noBottomBorder: false, heading: "Coinbase", iconSrc: DCBCoinbase, onWalletCall: function () { return regHandle("Coinbase Wallet", wallets.Coinbase); } })), EthWallets.walletConnect && (jsxRuntime.jsx(WalletListing, { isWhite: false, noBottomBorder: true, heading: "WalletConnect", iconSrc: DCBWalletconnect, onWalletCall: function () {
+        } }, { children: [(EthWalletList.indexOf(exports.EthWallets.all) > -1 ||
+                EthWalletList.indexOf(exports.EthWallets.metamask) > -1) && (jsxRuntime.jsx(WalletListing, { isWhite: false, noBottomBorder: EthWalletList.indexOf(exports.EthWallets.metamask) ==
+                    EthWalletList.length - 1
+                    ? true
+                    : false, heading: "Metamask", iconSrc: DCBMetamask, onWalletCall: injectedHandle })), (EthWalletList.indexOf(exports.EthWallets.all) > -1 ||
+                EthWalletList.indexOf(exports.EthWallets.coinbase) > -1) && (jsxRuntime.jsx(WalletListing, { isWhite: false, noBottomBorder: EthWalletList.indexOf(exports.EthWallets.coinbase) ==
+                    EthWalletList.length - 1
+                    ? true
+                    : false, heading: "Coinbase", iconSrc: DCBCoinbase, onWalletCall: function () { return regHandle("Coinbase Wallet", wallets.Coinbase); } })), (EthWalletList.indexOf(exports.EthWallets.all) > -1 ||
+                EthWalletList.indexOf(exports.EthWallets.walletConnect) > -1) && (jsxRuntime.jsx(WalletListing, { isWhite: false, noBottomBorder: EthWalletList.indexOf(exports.EthWallets.all) > -1 ||
+                    EthWalletList.indexOf(exports.EthWallets.walletConnect) ==
+                        EthWalletList.length - 1
+                    ? true
+                    : false, heading: "WalletConnect", iconSrc: DCBWalletconnect, onWalletCall: function () {
                     return regHandle("Wallet Connect API", wallets.WalletConnect);
                 } }))] })));
 };
 
 var SolWalletList = function (_a) {
-    var SolWallets = _a.SolWallets;
+    var SolWalletList = _a.SolWalletList;
     return (jsxRuntime.jsxs("div", __assign({ style: {
             border: "black 1px solid",
             borderRadius: "8px",
             marginBottom: "20px",
-        } }, { children: [SolWallets.phantom && (
+        } }, { children: [(SolWalletList.indexOf(exports.SolWallets.all) > -1 || SolWalletList.indexOf(exports.SolWallets.phantom) > -1) && (
             // <WalletListing
             //   heading="Metamask"
             //   iconSrc={DCBMetamask}
             //   onWalletCall={injectedHandle}
             // />
-            jsxRuntime.jsx(jsxRuntime.Fragment, {})), SolWallets.slope && (
+            jsxRuntime.jsx(jsxRuntime.Fragment, {})), (SolWalletList.indexOf(exports.SolWallets.all) > -1 || SolWalletList.indexOf(exports.SolWallets.slope) > -1) && (
             // <WalletListing
             //   heading="Coinbase"
             //   iconSrc={DCBCoinbase}
             //   onWalletCall={() => regHandle("Coinbase Wallet", wallets.Coinbase)}
             // />
-            jsxRuntime.jsx(jsxRuntime.Fragment, {})), SolWallets.solflare && (
+            jsxRuntime.jsx(jsxRuntime.Fragment, {})), (SolWalletList.indexOf(exports.SolWallets.all) > -1 || SolWalletList.indexOf(exports.SolWallets.solflare) > -1) && (
             // <WalletListing
             //   heading="Fortmatic"
             //   iconSrc={DCBFortmatic}
@@ -361,7 +374,7 @@ var SolWalletList = function (_a) {
 };
 
 var ConnectWalletList = function (_a) {
-    var openOptions = _a.openOptions, setOpenOptions = _a.setOpenOptions, EthWallets = _a.EthWallets, SolWallets = _a.SolWallets;
+    var openOptions = _a.openOptions, setOpenOptions = _a.setOpenOptions, EthWalletList = _a.EthWalletList, SolWalletList$1 = _a.SolWalletList;
     return (jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [jsxRuntime.jsx("div", __assign({ style: {
                     width: 270,
                     backgroundColor: "white",
@@ -388,7 +401,7 @@ var ConnectWalletList = function (_a) {
                     }, onClick: function () { return setOpenOptions(false); } }, { children: jsxRuntime.jsxs("div", __assign({ style: { marginRight: 10 } }, { children: [jsxRuntime.jsx("p", __assign({ style: {
                                     fontSize: "14px",
                                     color: "black",
-                                } }, { children: "Connect with one of the available wallet providers." })), jsxRuntime.jsx("br", {}), jsxRuntime.jsx(EthWalletList, { EthWallets: EthWallets }), jsxRuntime.jsx("br", {}), jsxRuntime.jsx(SolWalletList, { SolWallets: SolWallets })] })) })) })), openOptions && (jsxRuntime.jsx("div", { style: {
+                                } }, { children: "Connect with one of the available wallet providers." })), jsxRuntime.jsx("br", {}), EthWalletList.length > 0 && jsxRuntime.jsx(EthWalletListComp, { EthWalletList: EthWalletList }), jsxRuntime.jsx("br", {}), SolWalletList$1.length > 0 && jsxRuntime.jsx(SolWalletList, { SolWalletList: SolWalletList$1 })] })) })) })), openOptions && (jsxRuntime.jsx("div", { style: {
                     width: "100%",
                     height: "100%",
                     background: "transparent",
@@ -398,10 +411,24 @@ var ConnectWalletList = function (_a) {
                 }, onClick: function () { return setOpenOptions(false); } }))] }));
 };
 
+exports.EthWallets = void 0;
+(function (EthWallets) {
+    EthWallets["all"] = "all";
+    EthWallets["metamask"] = "metamask";
+    EthWallets["walletConnect"] = "walletConnect";
+    EthWallets["coinbase"] = "coinbase";
+})(exports.EthWallets || (exports.EthWallets = {}));
+exports.SolWallets = void 0;
+(function (SolWallets) {
+    SolWallets["all"] = "all";
+    SolWallets["phantom"] = "phantom";
+    SolWallets["slope"] = "slope";
+    SolWallets["solflare"] = "solflare";
+})(exports.SolWallets || (exports.SolWallets = {}));
 var ConnectWalletComponent = function (_a) {
-    var toSign = _a.toSign, message = _a.message, onSign = _a.onSign, EthWallets = _a.EthWallets, SolWallets = _a.SolWallets;
-    var _b = react.useState(false), openOptions = _b[0], setOpenOptions = _b[1];
-    return (jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [jsxRuntime.jsx(index, { setOpenOptions: setOpenOptions, toSign: toSign, message: message, onSign: onSign }), openOptions ? (jsxRuntime.jsx(ConnectWalletList, { openOptions: openOptions, setOpenOptions: setOpenOptions, EthWallets: EthWallets, SolWallets: SolWallets })) : (jsxRuntime.jsx(jsxRuntime.Fragment, {}))] }));
+    var _b = _a.message, message = _b === void 0 ? "This is the default message provided by Cryptogate when signing a message" : _b, onSign = _a.onSign, EthWalletList = _a.EthWalletList, SolWalletList = _a.SolWalletList;
+    var _c = react.useState(false), openOptions = _c[0], setOpenOptions = _c[1];
+    return (jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [jsxRuntime.jsx(index, { setOpenOptions: setOpenOptions, message: message, onSign: onSign }), openOptions ? (jsxRuntime.jsx(ConnectWalletList, { openOptions: openOptions, setOpenOptions: setOpenOptions, EthWalletList: EthWalletList, SolWalletList: SolWalletList })) : (jsxRuntime.jsx(jsxRuntime.Fragment, {}))] }));
 };
 
 exports.ConnectWalletComponent = ConnectWalletComponent;

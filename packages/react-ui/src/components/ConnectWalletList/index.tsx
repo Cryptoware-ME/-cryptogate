@@ -1,16 +1,17 @@
-import EthWalletList from "../EthWalletList";
-import SolWalletList from "../SolWalletList";
+import { EthWallets, SolWallets } from "../ConnectWalletComponent";
+import EthWalletListComp from "../EthWalletList";
+import SolWalletListComp from "../SolWalletList";
 
 const ConnectWalletList = ({
   openOptions,
   setOpenOptions,
-  EthWallets,
-  SolWallets,
+  EthWalletList,
+  SolWalletList,
 }: {
   openOptions: boolean;
   setOpenOptions: any;
-  EthWallets: any;
-  SolWallets: any;
+  EthWalletList: EthWallets[];
+  SolWalletList: SolWallets[];
 }) => {
   return (
     <>
@@ -54,9 +55,9 @@ const ConnectWalletList = ({
               Connect with one of the available wallet providers.
             </p>
             <br />
-            <EthWalletList EthWallets={EthWallets} />
+            {EthWalletList.length > 0 && <EthWalletListComp EthWalletList={EthWalletList} />}
             <br />
-            <SolWalletList SolWallets={SolWallets} />
+            {SolWalletList.length > 0 && <SolWalletListComp SolWalletList={SolWalletList} />}
           </div>
         </div>
       </div>

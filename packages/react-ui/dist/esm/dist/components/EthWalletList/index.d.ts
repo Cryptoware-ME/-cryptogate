@@ -1,4 +1,5 @@
-declare const EthWalletList: ({ EthWallets }: {
-    EthWallets: any;
+import { EthWallets } from "../ConnectWalletComponent";
+declare const EthWalletListComp: ({ EthWalletList, }: {
+    EthWalletList: EthWallets[];
 }) => JSX.Element;
-export default EthWalletList;
+export default EthWalletListComp;

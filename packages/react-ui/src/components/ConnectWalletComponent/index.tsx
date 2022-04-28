@@ -2,18 +2,30 @@ import ConnectWalletButton from "../ConnectWalletButton";
 import ConnectWalletList from "../ConnectWalletList";
 import { useState } from "react";
 
+export enum EthWallets {
+  all = "all",
+  metamask = "metamask",
+  walletConnect = "walletConnect",
+  coinbase = "coinbase",
+}
+
+export enum SolWallets {
+  all = "all",
+  phantom = "phantom",
+  slope = "slope",
+  solflare = "solflare",
+}
+
 export const ConnectWalletComponent = ({
-  toSign,
-  message,
+  message = "This is the default message provided by Cryptogate when signing a message",
   onSign,
-  EthWallets,
-  SolWallets,
+  EthWalletList,
+  SolWalletList,
 }: {
-  toSign: boolean;
-  message: string;
-  onSign: any;
-  EthWallets: any;
-  SolWallets: any;
+  message?: string;
+  onSign?: any;
+  EthWalletList: EthWallets[];
+  SolWalletList: SolWallets[];
 }) => {
   const [openOptions, setOpenOptions] = useState(false);
 
@@ -21,7 +33,6 @@ export const ConnectWalletComponent = ({
     <>
       <ConnectWalletButton
         setOpenOptions={setOpenOptions}
-        toSign={toSign}
         message={message}
         onSign={onSign}
       />
@@ -29,8 +40,8 @@ export const ConnectWalletComponent = ({
         <ConnectWalletList
           openOptions={openOptions}
           setOpenOptions={setOpenOptions}
-          EthWallets={EthWallets}
-          SolWallets={SolWallets}
+          EthWalletList={EthWalletList}
+          SolWalletList={SolWalletList}
         />
       ) : (
         <></>

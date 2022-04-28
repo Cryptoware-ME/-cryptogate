@@ -1,9 +1,20 @@
-declare const ConnectWalletComponent: ({ toSign, message, onSign, EthWallets, SolWallets, }: {
-    toSign: boolean;
-    message: string;
-    onSign: any;
-    EthWallets: any;
-    SolWallets: any;
+declare enum EthWallets {
+    all = "all",
+    metamask = "metamask",
+    walletConnect = "walletConnect",
+    coinbase = "coinbase"
+}
+declare enum SolWallets {
+    all = "all",
+    phantom = "phantom",
+    slope = "slope",
+    solflare = "solflare"
+}
+declare const ConnectWalletComponent: ({ message, onSign, EthWalletList, SolWalletList, }: {
+    message?: string | undefined;
+    onSign?: any;
+    EthWalletList: EthWallets[];
+    SolWalletList: SolWallets[];
 }) => JSX.Element;
 
-export { ConnectWalletComponent };
+export { ConnectWalletComponent, EthWallets, SolWallets };
