@@ -1,6 +1,8 @@
 # Cryptogate - Your go-to Web 3.0 Development Package
 
-<img src="https://raw.githubusercontent.com/Cryptoware-ME/-cryptogate/main/cryptogate.png" alt="Cryptogate Logo" width="200"/>
+<p align="center">
+    <img src="https://raw.githubusercontent.com/Cryptoware-ME/-cryptogate/main/cryptogate_logo.png" alt="Cryptogate Logo" width="200"/>
+</p>
 
 ## Cryptogate/core:
 
