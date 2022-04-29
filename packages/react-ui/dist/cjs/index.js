@@ -385,6 +385,7 @@ var ConnectWalletList = function (_a) {
                 }, onClick: function () { return setOpenOptions(false); } }))] }));
 };
 
+reactProviders.useDapp.ChainId;
 exports.EthWallets = void 0;
 (function (EthWallets) {
     EthWallets["all"] = "all";
@@ -402,7 +403,7 @@ exports.SolWallets = void 0;
 var ConnectWalletComponent = function (_a) {
     var _b = _a.message, message = _b === void 0 ? "This is the default message provided by Cryptogate when signing a message" : _b, onSign = _a.onSign, EthWalletList = _a.EthWalletList, SolWalletList = _a.SolWalletList;
     var _c = react.useState(false), openOptions = _c[0], setOpenOptions = _c[1];
-    return (jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [jsxRuntime.jsx(index, { setOpenOptions: setOpenOptions, message: message, onSign: onSign }), openOptions ? (jsxRuntime.jsx(ConnectWalletList, { openOptions: openOptions, setOpenOptions: setOpenOptions, EthWalletList: EthWalletList, SolWalletList: SolWalletList })) : (jsxRuntime.jsx(jsxRuntime.Fragment, {}))] }));
+    return (jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [jsxRuntime.jsx(index, { setOpenOptions: setOpenOptions, message: message, onSign: onSign }), openOptions ? (jsxRuntime.jsx(ConnectWalletList, { openOptions: openOptions, setOpenOptions: setOpenOptions, EthWalletList: EthWalletList ? EthWalletList : [], SolWalletList: SolWalletList ? SolWalletList : [] })) : (jsxRuntime.jsx(jsxRuntime.Fragment, {}))] }));
 };
 
 exports.ConnectWalletComponent = ConnectWalletComponent;

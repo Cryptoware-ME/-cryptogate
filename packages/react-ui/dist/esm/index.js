@@ -1,5 +1,5 @@
 import { jsx, jsxs, Fragment } from 'react/jsx-runtime';
-import { useMultichain } from '@cryptogate/react-providers';
+import { useMultichain, useDapp } from '@cryptogate/react-providers';
 import { useState, useEffect } from 'react';
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
 import { isMobile } from 'react-device-detect';
@@ -376,6 +376,7 @@ var ConnectWalletList = function (_a) {
                 }, onClick: function () { return setOpenOptions(false); } }))] }));
 };
 
+useDapp.ChainId;
 var EthWallets;
 (function (EthWallets) {
     EthWallets["all"] = "all";
@@ -393,7 +394,7 @@ var SolWallets;
 var ConnectWalletComponent = function (_a) {
     var _b = _a.message, message = _b === void 0 ? "This is the default message provided by Cryptogate when signing a message" : _b, onSign = _a.onSign, EthWalletList = _a.EthWalletList, SolWalletList = _a.SolWalletList;
     var _c = useState(false), openOptions = _c[0], setOpenOptions = _c[1];
-    return (jsxs(Fragment, { children: [jsx(index, { setOpenOptions: setOpenOptions, message: message, onSign: onSign }), openOptions ? (jsx(ConnectWalletList, { openOptions: openOptions, setOpenOptions: setOpenOptions, EthWalletList: EthWalletList, SolWalletList: SolWalletList })) : (jsx(Fragment, {}))] }));
+    return (jsxs(Fragment, { children: [jsx(index, { setOpenOptions: setOpenOptions, message: message, onSign: onSign }), openOptions ? (jsx(ConnectWalletList, { openOptions: openOptions, setOpenOptions: setOpenOptions, EthWalletList: EthWalletList ? EthWalletList : [], SolWalletList: SolWalletList ? SolWalletList : [] })) : (jsx(Fragment, {}))] }));
 };
 
 export { ConnectWalletComponent, EthWallets, SolWallets, getWithExpiry, setWithExpiry };

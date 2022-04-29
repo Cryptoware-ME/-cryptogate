@@ -13,7 +13,12 @@ export declare enum SolWallets {
 }
 export declare const ConnectWalletComponent: ({ message, onSign, EthWalletList, SolWalletList, }: {
     message?: string | undefined;
-    onSign?: any;
-    EthWalletList: EthWallets[];
-    SolWalletList: SolWallets[];
+    onSign?: ((key: {
+        address: string;
+        message: string;
+        signature: string;
+        chain: any;
+    }) => void) | undefined;
+    EthWalletList?: EthWallets[] | undefined;
+    SolWalletList?: SolWallets[] | undefined;
 }) => JSX.Element;

@@ -1,6 +1,9 @@
 import ConnectWalletButton from "../ConnectWalletButton";
 import ConnectWalletList from "../ConnectWalletList";
 import { useState } from "react";
+import { useDapp } from "@cryptogate/react-providers";
+
+const { ChainId } = useDapp;
 
 export enum EthWallets {
   all = "all",
@@ -23,9 +26,14 @@ export const ConnectWalletComponent = ({
   SolWalletList,
 }: {
   message?: string;
-  onSign?: any;
-  EthWalletList: EthWallets[];
-  SolWalletList: SolWallets[];
+  onSign?: (key: {
+    address: string;
+    message: string;
+    signature: string;
+    chain: typeof ChainId;
+  }) => void;
+  EthWalletList?: EthWallets[];
+  SolWalletList?: SolWallets[];
 }) => {
   const [openOptions, setOpenOptions] = useState(false);
 
@@ -40,8 +48,8 @@ export const ConnectWalletComponent = ({
         <ConnectWalletList
           openOptions={openOptions}
           setOpenOptions={setOpenOptions}
-          EthWalletList={EthWalletList}
-          SolWalletList={SolWalletList}
+          EthWalletList={EthWalletList ? EthWalletList : []}
+          SolWalletList={SolWalletList ? SolWalletList : []}
         />
       ) : (
         <></>
