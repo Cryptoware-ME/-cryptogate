@@ -49,5 +49,8 @@
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-svg": "^2.0.0",
     "typescript": "^4.7.0-dev.20220416"
+  },
+  "dependencies": {
+    "@cryptogate/core": "^0.0.8"
   }
 }

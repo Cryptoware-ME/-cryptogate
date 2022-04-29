@@ -8,10 +8,10 @@ declare const verifySolSig: (address: string, credentials: {
     signature: string;
 }) => Promise<unknown>;
 
-declare const signEthMessage: (account: any, provider: any, message: string) => Promise<unknown>;
+declare const ethSignMessage: ({ account, signer, message, }: {
+    account: any;
+    signer: any;
+    message: string;
+}) => Promise<unknown>;
 
-declare const setWithExpiry: (key: any, value: any, ttl: any) => void;
-
-declare const getWithExpiry: (key: any) => any;
-
-export { getWithExpiry, setWithExpiry, signEthMessage, verifyEthSig, verifySolSig };
+export { ethSignMessage, verifyEthSig, verifySolSig };
