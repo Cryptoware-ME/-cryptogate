@@ -2,7 +2,9 @@ import { useMultichain } from "@cryptogate/react-providers";
 import { useState, useEffect } from "react";
 import Identicon from "../Identicon";
 import ConnectMenu from "../ConnectMenu";
-import {signEthMessage, getWithExpiry} from "@cryptogate/core"
+import { ethSignMessage } from "@cryptogate/core";
+import { setWithExpiry } from "../../localStorage/setWithExpire";
+import { getWithExpiry } from "../../localStorage/getWithExpire";
 
 const defaultStyle = {
   backgroundColor: "#0d0d0d",
@@ -11,6 +13,23 @@ const defaultStyle = {
   borderWidth: 1,
   borderRadius: "5px",
   height: "auto",
+};
+
+const signingMessage = async (account: any, signer: any, message: string) => {
+  return new Promise((resolve, reject) => {
+    ethSignMessage({
+      account,
+      signer,
+      message,
+    })
+      .then((sig) => {
+        setWithExpiry(`sig-${account.toLowerCase()}`, sig, 43200000);
+        resolve(getWithExpiry(`sig-${account.toLowerCase()}`));
+      })
+      .catch((e) => {
+        reject(e);
+      });
+  });
 };
 
 const index = ({
@@ -33,9 +52,7 @@ const index = ({
         if (key) {
           onSign(key);
         } else {
-          signEthMessage(account, library, message).then((key) =>
-            onSign(key)
-          );
+          signingMessage(account, library, message).then((key) => onSign(key));
         }
       }
     }

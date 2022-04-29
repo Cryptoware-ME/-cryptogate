@@ -1,3 +1,4 @@
+/// <reference types="react" />
 import { SolWallets } from "../ConnectWalletComponent";
 declare const SolWalletList: ({ SolWalletList }: {
     SolWalletList: SolWallets[];

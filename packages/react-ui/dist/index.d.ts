@@ -1,3 +1,4 @@
+/// <reference types="react" />
 declare enum EthWallets {
     all = "all",
     metamask = "metamask",
@@ -17,4 +18,8 @@ declare const ConnectWalletComponent: ({ message, onSign, EthWalletList, SolWall
     SolWalletList: SolWallets[];
 }) => JSX.Element;
 
-export { ConnectWalletComponent, EthWallets, SolWallets };
+declare const getWithExpiry: (key: any) => any;
+
+declare const setWithExpiry: (key: any, value: any, ttl: any) => void;
+
+export { ConnectWalletComponent, EthWallets, SolWallets, getWithExpiry, setWithExpiry };

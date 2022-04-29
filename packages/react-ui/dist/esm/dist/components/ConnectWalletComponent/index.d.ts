@@ -1,3 +1,4 @@
+/// <reference types="react" />
 export declare enum EthWallets {
     all = "all",
     metamask = "metamask",

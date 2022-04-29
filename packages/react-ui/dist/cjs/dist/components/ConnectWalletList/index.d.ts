@@ -1,3 +1,4 @@
+/// <reference types="react" />
 import { EthWallets, SolWallets } from "../ConnectWalletComponent";
 declare const ConnectWalletList: ({ openOptions, setOpenOptions, EthWalletList, SolWalletList, }: {
     openOptions: boolean;

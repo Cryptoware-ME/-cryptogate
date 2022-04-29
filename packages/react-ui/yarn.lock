@@ -23,6 +23,16 @@
     chalk "^2.0.0"
     js-tokens "^4.0.0"
 
+"@cryptogate/core@^0.0.9":
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/@cryptogate/core/-/core-0.0.9.tgz#3c83788e08d6f499aec123c8270022f8f3c8bbdd"
+  integrity sha512-ozkJzHoeOZfvKVATk6Sv9gzwRfyMjpcdqqiG+4H73QkmSYS2o65GgIeIClFvGUaDwpD/3Aoiszqp4GETb4CQPw==
+
+"@cryptogate/react-providers@^0.0.33":
+  version "0.0.33"
+  resolved "https://registry.yarnpkg.com/@cryptogate/react-providers/-/react-providers-0.0.33.tgz#4eaddfb95a72aa8f8ff57b87b470f456df9f6f78"
+  integrity sha512-sxtBxSu6V4CkCP+14kSr3PwxDQtNwWoaksJj9ipCD2YoabGmjt7jqwpMZZT1PWUnUH0kijly1AVFjrNBoW3KaA==
+
 "@ethersproject/abi@5.6.1", "@ethersproject/abi@^5.6.0":
   version "5.6.1"
   resolved "https://registry.yarnpkg.com/@ethersproject/abi/-/abi-5.6.1.tgz#f7de888edeb56b0a657b672bdd1b3a1135cd14f7"
