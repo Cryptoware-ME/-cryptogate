@@ -5,7 +5,7 @@
     "access": "public"
   },
   "private": false,
-  "description": "Passport.js Strategy for EVM & Solana Web3 Authentication",
+  "description": "Cryptogte's passport.js Strategy for EVM & Solana Web3 Authentication",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/index.d.ts",

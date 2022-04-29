@@ -5,10 +5,10 @@ import { useEthereum } from "./useEthereum";
 import { useSolana } from "./useSolana";
 
 export const useMultichain = () => {
-
   const ethereum = useEthereum();
   const { account, getEthBalance } = ethereum;
   const etherBalance = getEthBalance(account, {});
+
   const solana = useSolana();
   const { publicKey, connected, connection } = solana;
   const [solBalance, setSolbalance] = useState(0);
