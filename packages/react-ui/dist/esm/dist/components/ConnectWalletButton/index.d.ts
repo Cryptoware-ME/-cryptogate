@@ -1,4 +1,3 @@
-/// <reference types="react" />
 declare const index: ({ setOpenOptions, onSign, message, }: {
     setOpenOptions: any;
     onSign: any;

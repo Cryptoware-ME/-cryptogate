@@ -1,4 +1,5 @@
-/// <reference types="react" />
+import { useDapp } from '@cryptogate/react-providers';
+
 declare enum EthWallets {
     all = "all",
     metamask = "metamask",
@@ -17,7 +18,7 @@ declare const ConnectWalletComponent: ({ message, onSign, EthWalletList, SolWall
         address: string;
         message: string;
         signature: string;
-        chain: any;
+        chain: typeof useDapp.ChainId;
     }) => void) | undefined;
     EthWalletList?: EthWallets[] | undefined;
     SolWalletList?: SolWallets[] | undefined;

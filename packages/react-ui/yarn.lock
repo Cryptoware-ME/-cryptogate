@@ -23,16 +23,6 @@
     chalk "^2.0.0"
     js-tokens "^4.0.0"
 
-"@cryptogate/core@^0.0.9":
-  version "0.0.9"
-  resolved "https://registry.yarnpkg.com/@cryptogate/core/-/core-0.0.9.tgz#3c83788e08d6f499aec123c8270022f8f3c8bbdd"
-  integrity sha512-ozkJzHoeOZfvKVATk6Sv9gzwRfyMjpcdqqiG+4H73QkmSYS2o65GgIeIClFvGUaDwpD/3Aoiszqp4GETb4CQPw==
-
-"@cryptogate/react-providers@^0.0.33":
-  version "0.0.33"
-  resolved "https://registry.yarnpkg.com/@cryptogate/react-providers/-/react-providers-0.0.33.tgz#4eaddfb95a72aa8f8ff57b87b470f456df9f6f78"
-  integrity sha512-sxtBxSu6V4CkCP+14kSr3PwxDQtNwWoaksJj9ipCD2YoabGmjt7jqwpMZZT1PWUnUH0kijly1AVFjrNBoW3KaA==
-
 "@ethersproject/abi@5.6.1", "@ethersproject/abi@^5.6.0":
   version "5.6.1"
   resolved "https://registry.yarnpkg.com/@ethersproject/abi/-/abi-5.6.1.tgz#f7de888edeb56b0a657b672bdd1b3a1135cd14f7"
@@ -943,9 +933,9 @@ supports-preserve-symlinks-flag@^1.0.0:
   integrity sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==
 
 typescript@^4.7.0-dev.20220416:
-  version "4.7.0-dev.20220428"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.7.0-dev.20220428.tgz#7d9ece191ef811bd9c2f302ca827b9a16b043446"
-  integrity sha512-72LpPWZxXbshZdxGwmvF95l0dBy00niR4vMkRDTE7VC29NOpSl9mMAWrfmATztVUh+kEMBRKW1l+4pTmIWSptA==
+  version "4.7.0-dev.20220429"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.7.0-dev.20220429.tgz#f31e3edc406b6bd9f137f8f8b6befcd2563a929f"
+  integrity sha512-RpltV2YSqWFVLLsBLW6gAPnYBLC4KQpxtPcuwTx0PmYVFpwzYRtsR8iemeEFr3yBALG21cxbm2a0xF3GRrihsg==
 
 ua-parser-js@^1.0.2:
   version "1.0.2"

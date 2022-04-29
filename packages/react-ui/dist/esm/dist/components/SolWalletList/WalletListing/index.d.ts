@@ -1,4 +1,3 @@
-/// <reference types="react" />
 declare const WalletListing: ({ iconSrc, heading, onWalletCall, isWhite, noBottomBorder, }: {
     iconSrc: any;
     heading: any;
