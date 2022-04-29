@@ -2,7 +2,7 @@ declare const WalletListing: ({ iconSrc, heading, onWalletCall, isWhite, noBotto
     iconSrc: any;
     heading: any;
     onWalletCall: any;
-    isWhite: boolean;
+    isWhite?: boolean | undefined;
     noBottomBorder: boolean;
 }) => JSX.Element;
 export default WalletListing;

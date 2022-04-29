@@ -1,3 +1,4 @@
+
 const WalletListing = ({
   iconSrc,
   heading,
@@ -8,7 +9,7 @@ const WalletListing = ({
   iconSrc: any;
   heading: any;
   onWalletCall: any;
-  isWhite: boolean;
+  isWhite?: boolean;
   noBottomBorder: boolean;
 }) => {
   return (
@@ -34,7 +35,7 @@ const WalletListing = ({
       }
       onClick={onWalletCall}
     >
-      {isWhite && (
+      {/* {isWhite && (
         <>
           <div
             style={{
@@ -50,29 +51,17 @@ const WalletListing = ({
               left: "-5px",
             }}
           >
-            {/* <img
-              src={iconSrc}
-              alt={heading}
-              style={{
-                paddingRight: "15px",
-                width: "32px",
-              }}
-            /> */}
+            <span style={{paddingRight: '15px'}}>
+              <Image src={iconSrc} alt={heading} width="25px" height="25px" />
+            </span>
           </div>
         </>
-      )}
+      )} */}
 
       {!isWhite && (
-        <>
-          {/* <img
-              src={iconSrc}
-              alt={heading}
-              style={{
-                paddingRight: "15px",
-                width: "32px",
-              }}
-            /> */}
-        </>
+        <span style={{ paddingRight: "15px" }}>
+          <img src={iconSrc} alt={heading} width="25px" height="25px" />
+        </span>
       )}
 
       <h6

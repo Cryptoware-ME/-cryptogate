@@ -36,13 +36,13 @@ const ConnectMenu = ({
           top: "80px",
           right: "40px",
           borderRadius: "10px",
-          border: "1px solid #666666",
+          border: "1px solid #c4c4c4",
           boxSizing: "border-box",
           transform: isOpen ? "translateY(0)" : "translateY(-100%)",
           transition: "all 0.2s ease-in-out",
           height: "auto",
           padding: "20px 20px 20px 20px",
-          width: "450px",
+          width: "auto",
         }}
       >
         <WalletInformation onClose={onClose}/>

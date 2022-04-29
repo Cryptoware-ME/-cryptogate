@@ -4,10 +4,10 @@ import WalletListing from "./WalletListing";
 import detectEthereumProvider from "@metamask/detect-provider";
 import { isMobile } from "react-device-detect";
 import { EthWallets } from "../ConnectWalletComponent";
-var DCBMetamask = "";
-var DCBWalletconnect = "";
-var DCBFortmatic = "";
-var DCBCoinbase = "";
+import DCBMetamask from "../../assets/images/wallets/dcb-metamask-icon.svg";
+import DCBWalletconnect from "../../assets/images/wallets/dcb-walletconnect.svg";
+// import DCBCoinbase from "../../assets/images/wallets/dcb-coinbase.png";
+const DCBCoinbase = "";
 
 const EthWalletListComp = ({
   EthWalletList,
@@ -58,7 +58,6 @@ const EthWalletListComp = ({
       {(EthWalletList.indexOf(EthWallets.all) > -1 ||
         EthWalletList.indexOf(EthWallets.metamask) > -1) && (
         <WalletListing
-          isWhite={false}
           noBottomBorder={
             EthWalletList.indexOf(EthWallets.metamask) ==
             EthWalletList.length - 1
@@ -73,7 +72,6 @@ const EthWalletListComp = ({
       {(EthWalletList.indexOf(EthWallets.all) > -1 ||
         EthWalletList.indexOf(EthWallets.coinbase) > -1) && (
         <WalletListing
-          isWhite={false}
           noBottomBorder={
             EthWalletList.indexOf(EthWallets.coinbase) ==
             EthWalletList.length - 1
@@ -88,7 +86,6 @@ const EthWalletListComp = ({
       {(EthWalletList.indexOf(EthWallets.all) > -1 ||
         EthWalletList.indexOf(EthWallets.walletConnect) > -1) && (
         <WalletListing
-          isWhite={false}
           noBottomBorder={
             EthWalletList.indexOf(EthWallets.all) > -1 ||
             EthWalletList.indexOf(EthWallets.walletConnect) ==
