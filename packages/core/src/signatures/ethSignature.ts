@@ -1,14 +1,15 @@
 export const ethSignMessage = ({
   account,
-  signer,
+  provider,
   message,
 }: {
   account: any;
-  signer: any;
+  provider: any;
   message: string;
 }) => {
   return new Promise((resolve, reject) => {
-    if (!signer) reject("No crypto wallet connected.");
+    if (!provider) reject("No crypto wallet connected.");
+    const signer = provider.getSigner();
     signer
       .signMessage(message)
       .then((signature: object) => {

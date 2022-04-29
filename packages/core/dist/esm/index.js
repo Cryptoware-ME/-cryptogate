@@ -35,10 +35,11 @@ var verifySolSig = function (address, credentials) {
 };
 
 var ethSignMessage = function (_a) {
-    var account = _a.account, signer = _a.signer, message = _a.message;
+    var account = _a.account, provider = _a.provider, message = _a.message;
     return new Promise(function (resolve, reject) {
-        if (!signer)
+        if (!provider)
             reject("No crypto wallet connected.");
+        var signer = provider.getSigner();
         signer
             .signMessage(message)
             .then(function (signature) {

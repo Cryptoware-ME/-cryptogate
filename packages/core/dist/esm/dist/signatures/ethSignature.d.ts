@@ -1,5 +1,5 @@
-export declare const ethSignMessage: ({ account, signer, message, }: {
+export declare const ethSignMessage: ({ account, provider, message, }: {
     account: any;
-    signer: any;
+    provider: any;
     message: string;
 }) => Promise<unknown>;

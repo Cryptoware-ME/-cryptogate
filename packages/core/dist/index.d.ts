@@ -8,9 +8,9 @@ declare const verifySolSig: (address: string, credentials: {
     signature: string;
 }) => Promise<unknown>;
 
-declare const ethSignMessage: ({ account, signer, message, }: {
+declare const ethSignMessage: ({ account, provider, message, }: {
     account: any;
-    signer: any;
+    provider: any;
     message: string;
 }) => Promise<unknown>;
 

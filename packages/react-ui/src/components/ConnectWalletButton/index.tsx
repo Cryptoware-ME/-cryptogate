@@ -6,11 +6,11 @@ import { ethSignMessage } from "@cryptogate/core";
 import { setWithExpiry } from "../../localStorage/setWithExpire";
 import { getWithExpiry } from "../../localStorage/getWithExpire";
 
-const signingMessage = async (account: any, signer: any, message: string) => {
+const signingMessage = async (account: any, library: any, message: string) => {
   return new Promise((resolve, reject) => {
     ethSignMessage({
       account,
-      signer,
+      library,
       message,
     })
       .then((sig) => {
