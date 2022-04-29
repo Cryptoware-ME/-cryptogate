@@ -43,7 +43,7 @@ yarn add @Cryptogate/react-providers
 
 ### Required Dependecies:
 
-- "@cryptogate/react-providers": "^0.0.31"<br/>
+- "@cryptogate/react-providers": "^0.0.33"<br/>
 - "@cryptogate/core": "^0.0.9"<br/>
 - "@metamask/detect-provider": "^1.2.0"<br/>
 - "ethers": "^5.6.4"<br/>
