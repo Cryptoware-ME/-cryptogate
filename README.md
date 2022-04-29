@@ -1,5 +1,4 @@
 # Cryptogate - Your go-to Web 3.0 Development Package
-
 ## Cryptogate/core:
 
 ### Required Dependecies:
