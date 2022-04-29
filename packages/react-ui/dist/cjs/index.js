@@ -173,12 +173,12 @@ var getWithExpiry = function (key) {
     return item.value;
 };
 
-var signingMessage = function (account, signer, message) { return __awaiter(void 0, void 0, void 0, function () {
+var signingMessage = function (account, library, message) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         return [2 /*return*/, new Promise(function (resolve, reject) {
                 core.ethSignMessage({
                     account: account,
-                    signer: signer,
+                    provider: library,
                     message: message,
                 })
                     .then(function (sig) {

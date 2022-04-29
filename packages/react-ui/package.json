@@ -20,7 +20,7 @@
   "license": "MIT",
   "gitHead": "4e7588c374765236eb36f78f70745b80a39c773c",
   "peerDependencies": {
-    "@cryptogate/core": "^0.0.9",
+    "@cryptogate/core": "^0.0.10",
     "@cryptogate/react-providers": "^0.0.31",
     "@metamask/detect-provider": "^1.2.0",
     "@types/node": "^17.0.29",

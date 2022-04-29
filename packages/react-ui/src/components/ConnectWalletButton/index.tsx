@@ -10,7 +10,7 @@ const signingMessage = async (account: any, library: any, message: string) => {
   return new Promise((resolve, reject) => {
     ethSignMessage({
       account,
-      library,
+      provider: library,
       message,
     })
       .then((sig) => {
