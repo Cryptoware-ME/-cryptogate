@@ -7,18 +7,20 @@ const ConnectWalletList = ({
   setOpenOptions,
   EthWalletList,
   SolWalletList,
+  WalletListBG,
 }: {
   openOptions: boolean;
   setOpenOptions: any;
   EthWalletList: EthWallets[];
   SolWalletList: SolWallets[];
+  WalletListBG: string;
 }) => {
   return (
     <>
       <div
         style={{
           width: 270,
-          backgroundColor: "white",
+          backgroundColor: WalletListBG,
           transition: "0.5s",
           zIndex: 10001,
           position: "fixed",
@@ -55,9 +57,13 @@ const ConnectWalletList = ({
               Connect with one of the available wallet providers.
             </p>
             <br />
-            {EthWalletList.length > 0 && <EthWalletListComp EthWalletList={EthWalletList} />}
+            {EthWalletList.length > 0 && (
+              <EthWalletListComp EthWalletList={EthWalletList} />
+            )}
             <br />
-            {SolWalletList.length > 0 && <SolWalletListComp SolWalletList={SolWalletList} />}
+            {SolWalletList.length > 0 && (
+              <SolWalletListComp SolWalletList={SolWalletList} />
+            )}
           </div>
         </div>
       </div>

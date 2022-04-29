@@ -164,14 +164,6 @@ var getWithExpiry = function (key) {
     return item.value;
 };
 
-var defaultStyle = {
-    backgroundColor: "#0d0d0d",
-    color: "white",
-    padding: "4px 10px",
-    borderWidth: 1,
-    borderRadius: "5px",
-    height: "auto",
-};
 var signingMessage = function (account, signer, message) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         return [2 /*return*/, new Promise(function (resolve, reject) {
@@ -191,7 +183,7 @@ var signingMessage = function (account, signer, message) { return __awaiter(void
     });
 }); };
 var index = function (_a) {
-    var setOpenOptions = _a.setOpenOptions, onSign = _a.onSign, message = _a.message;
+    var setOpenOptions = _a.setOpenOptions, onSign = _a.onSign, message = _a.message, btnClass = _a.btnClass, btnText = _a.btnText;
     var _b = react.useState(false), openMenu = _b[0], setOpenMenu = _b[1];
     var ethereum = reactProviders.useMultichain().ethereum;
     var account = ethereum.account, library = ethereum.library;
@@ -223,9 +215,9 @@ var index = function (_a) {
                         paddingTop: "0.03rem",
                     }, onClick: function () { return setOpenMenu(!openMenu); } }, { children: jsxRuntime.jsx(Identicon, {}) })) })), jsxRuntime.jsx(ConnectMenu, { onClose: function () {
                     setOpenMenu(false);
-                }, isOpen: openMenu })] })) : (jsxRuntime.jsx("button", __assign({ style: defaultStyle, onClick: function () {
+                }, isOpen: openMenu })] })) : (jsxRuntime.jsx("button", __assign({ className: btnClass, onClick: function () {
             setOpenOptions(true);
-        } }, { children: "Connect Wallet" })));
+        } }, { children: btnText })));
 };
 
 var WalletListing = function (_a) {
@@ -348,10 +340,10 @@ var SolWalletList = function (_a) {
 };
 
 var ConnectWalletList = function (_a) {
-    var openOptions = _a.openOptions, setOpenOptions = _a.setOpenOptions, EthWalletList = _a.EthWalletList, SolWalletList$1 = _a.SolWalletList;
+    var openOptions = _a.openOptions, setOpenOptions = _a.setOpenOptions, EthWalletList = _a.EthWalletList, SolWalletList$1 = _a.SolWalletList, WalletListBG = _a.WalletListBG;
     return (jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [jsxRuntime.jsx("div", __assign({ style: {
                     width: 270,
-                    backgroundColor: "white",
+                    backgroundColor: WalletListBG,
                     transition: "0.5s",
                     zIndex: 10001,
                     position: "fixed",
@@ -375,7 +367,7 @@ var ConnectWalletList = function (_a) {
                     }, onClick: function () { return setOpenOptions(false); } }, { children: jsxRuntime.jsxs("div", __assign({ style: { marginRight: 10 } }, { children: [jsxRuntime.jsx("p", __assign({ style: {
                                     fontSize: "14px",
                                     color: "black",
-                                } }, { children: "Connect with one of the available wallet providers." })), jsxRuntime.jsx("br", {}), EthWalletList.length > 0 && jsxRuntime.jsx(EthWalletListComp, { EthWalletList: EthWalletList }), jsxRuntime.jsx("br", {}), SolWalletList$1.length > 0 && jsxRuntime.jsx(SolWalletList, { SolWalletList: SolWalletList$1 })] })) })) })), openOptions && (jsxRuntime.jsx("div", { style: {
+                                } }, { children: "Connect with one of the available wallet providers." })), jsxRuntime.jsx("br", {}), EthWalletList.length > 0 && (jsxRuntime.jsx(EthWalletListComp, { EthWalletList: EthWalletList })), jsxRuntime.jsx("br", {}), SolWalletList$1.length > 0 && (jsxRuntime.jsx(SolWalletList, { SolWalletList: SolWalletList$1 }))] })) })) })), openOptions && (jsxRuntime.jsx("div", { style: {
                     width: "100%",
                     height: "100%",
                     background: "transparent",
@@ -401,9 +393,9 @@ exports.SolWallets = void 0;
     SolWallets["solflare"] = "solflare";
 })(exports.SolWallets || (exports.SolWallets = {}));
 var ConnectWalletComponent = function (_a) {
-    var _b = _a.message, message = _b === void 0 ? "This is the default message provided by Cryptogate when signing a message" : _b, onSign = _a.onSign, EthWalletList = _a.EthWalletList, SolWalletList = _a.SolWalletList;
+    var _b = _a.message, message = _b === void 0 ? "This is the default message provided by Cryptogate when signing a message" : _b, onSign = _a.onSign, EthWalletList = _a.EthWalletList, SolWalletList = _a.SolWalletList, WalletListBG = _a.WalletListBG, ConnectWalletButtonClass = _a.ConnectWalletButtonClass, ConnectWalletButtonText = _a.ConnectWalletButtonText;
     var _c = react.useState(false), openOptions = _c[0], setOpenOptions = _c[1];
-    return (jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [jsxRuntime.jsx(index, { setOpenOptions: setOpenOptions, message: message, onSign: onSign }), openOptions ? (jsxRuntime.jsx(ConnectWalletList, { openOptions: openOptions, setOpenOptions: setOpenOptions, EthWalletList: EthWalletList ? EthWalletList : [], SolWalletList: SolWalletList ? SolWalletList : [] })) : (jsxRuntime.jsx(jsxRuntime.Fragment, {}))] }));
+    return (jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [jsxRuntime.jsx(index, { setOpenOptions: setOpenOptions, message: message, onSign: onSign, btnClass: ConnectWalletButtonClass ? ConnectWalletButtonClass : "", btnText: ConnectWalletButtonText ? ConnectWalletButtonText : "Connect Wallet" }), openOptions ? (jsxRuntime.jsx(ConnectWalletList, { openOptions: openOptions, setOpenOptions: setOpenOptions, EthWalletList: EthWalletList ? EthWalletList : [], SolWalletList: SolWalletList ? SolWalletList : [], WalletListBG: WalletListBG ? WalletListBG : "white" })) : (jsxRuntime.jsx(jsxRuntime.Fragment, {}))] }));
 };
 
 exports.ConnectWalletComponent = ConnectWalletComponent;

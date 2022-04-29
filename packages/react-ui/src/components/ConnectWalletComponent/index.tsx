@@ -24,6 +24,9 @@ export const ConnectWalletComponent = ({
   onSign,
   EthWalletList,
   SolWalletList,
+  WalletListBG,
+  ConnectWalletButtonClass,
+  ConnectWalletButtonText,
 }: {
   message?: string;
   onSign?: (key: {
@@ -34,6 +37,9 @@ export const ConnectWalletComponent = ({
   }) => void;
   EthWalletList?: EthWallets[];
   SolWalletList?: SolWallets[];
+  WalletListBG?: string;
+  ConnectWalletButtonClass?: string;
+  ConnectWalletButtonText?: string;
 }) => {
   const [openOptions, setOpenOptions] = useState(false);
 
@@ -43,6 +49,10 @@ export const ConnectWalletComponent = ({
         setOpenOptions={setOpenOptions}
         message={message}
         onSign={onSign}
+        btnClass={ConnectWalletButtonClass ? ConnectWalletButtonClass : ""}
+        btnText={
+          ConnectWalletButtonText ? ConnectWalletButtonText : "Connect Wallet"
+        }
       />
       {openOptions ? (
         <ConnectWalletList
@@ -50,6 +60,7 @@ export const ConnectWalletComponent = ({
           setOpenOptions={setOpenOptions}
           EthWalletList={EthWalletList ? EthWalletList : []}
           SolWalletList={SolWalletList ? SolWalletList : []}
+          WalletListBG={WalletListBG ? WalletListBG : "white"}
         />
       ) : (
         <></>

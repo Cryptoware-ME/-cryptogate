@@ -6,15 +6,6 @@ import { ethSignMessage } from "@cryptogate/core";
 import { setWithExpiry } from "../../localStorage/setWithExpire";
 import { getWithExpiry } from "../../localStorage/getWithExpire";
 
-const defaultStyle = {
-  backgroundColor: "#0d0d0d",
-  color: "white",
-  padding: "4px 10px",
-  borderWidth: 1,
-  borderRadius: "5px",
-  height: "auto",
-};
-
 const signingMessage = async (account: any, signer: any, message: string) => {
   return new Promise((resolve, reject) => {
     ethSignMessage({
@@ -36,10 +27,14 @@ const index = ({
   setOpenOptions,
   onSign,
   message,
+  btnClass,
+  btnText,
 }: {
   setOpenOptions: any;
   onSign: any;
   message: string;
+  btnClass: string;
+  btnText: string;
 }) => {
   const [openMenu, setOpenMenu] = useState(false);
   const { ethereum } = useMultichain();
@@ -92,12 +87,12 @@ const index = ({
     </>
   ) : (
     <button
-      style={defaultStyle}
+      className={btnClass}
       onClick={() => {
         setOpenOptions(true);
       }}
     >
-      Connect Wallet
+      {btnText}
     </button>
   );
 };
