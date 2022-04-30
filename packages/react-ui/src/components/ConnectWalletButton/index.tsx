@@ -23,18 +23,18 @@ const signingMessage = async (account: any, library: any, message: string) => {
   });
 };
 
-const index = ({
+export const ConnectWalletButton = ({
   setOpenOptions,
   onSign,
-  message,
+  message = "This is the default message provided by Cryptogate when signing a message",
   btnClass,
   btnText,
 }: {
   setOpenOptions: any;
-  onSign: any;
-  message: string;
-  btnClass: string;
-  btnText: string;
+  onSign?: any;
+  message?: string;
+  btnClass?: string;
+  btnText?: string;
 }) => {
   const [openMenu, setOpenMenu] = useState(false);
   const { ethereum } = useMultichain();
@@ -96,5 +96,3 @@ const index = ({
     </button>
   );
 };
-
-export default index;

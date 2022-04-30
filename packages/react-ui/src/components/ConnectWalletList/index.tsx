@@ -2,31 +2,32 @@ import { EthWallets, SolWallets } from "../ConnectWalletComponent";
 import EthWalletListComp from "../EthWalletList";
 import SolWalletListComp from "../SolWalletList";
 
-const ConnectWalletList = ({
+export const ConnectWalletList = ({
   openOptions,
   setOpenOptions,
-  EthWalletList,
-  SolWalletList,
-  WalletListBG,
+  EthWalletList = [],
+  SolWalletList = [],
+  WalletListStyle,
 }: {
   openOptions: boolean;
   setOpenOptions: any;
-  EthWalletList: EthWallets[];
-  SolWalletList: SolWallets[];
-  WalletListBG: string;
+  EthWalletList?: EthWallets[];
+  SolWalletList?: SolWallets[];
+  WalletListStyle?: any;
 }) => {
   return (
     <>
       <div
         style={{
           width: 270,
-          backgroundColor: WalletListBG,
+          top: WalletListStyle.top ? WalletListStyle.top : 0,
+          backgroundColor: WalletListStyle.background
+            ? WalletListStyle.background
+            : "white",
           transition: "0.5s",
           zIndex: 10001,
           position: "fixed",
           right: !openOptions ? -270 : 0,
-          marginTop: 50,
-          height: "auto",
           maxHeight: "100%",
           overflowY: "auto",
           borderTopLeftRadius: "5px",
@@ -61,7 +62,7 @@ const ConnectWalletList = ({
               <EthWalletListComp EthWalletList={EthWalletList} />
             )}
             <br />
-            {SolWalletList.length > 0 && (
+            {SolWalletList?.length > 0 && (
               <SolWalletListComp SolWalletList={SolWalletList} />
             )}
           </div>
@@ -83,5 +84,3 @@ const ConnectWalletList = ({
     </>
   );
 };
-
-export default ConnectWalletList;

@@ -1,9 +1,8 @@
 import { EthWallets, SolWallets } from "../ConnectWalletComponent";
-declare const ConnectWalletList: ({ openOptions, setOpenOptions, EthWalletList, SolWalletList, WalletListBG, }: {
+export declare const ConnectWalletList: ({ openOptions, setOpenOptions, EthWalletList, SolWalletList, WalletListStyle, }: {
     openOptions: boolean;
     setOpenOptions: any;
-    EthWalletList: EthWallets[];
-    SolWalletList: SolWallets[];
-    WalletListBG: string;
+    EthWalletList?: EthWallets[] | undefined;
+    SolWalletList?: SolWallets[] | undefined;
+    WalletListStyle?: any;
 }) => JSX.Element;
-export default ConnectWalletList;

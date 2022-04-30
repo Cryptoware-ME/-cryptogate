@@ -11,7 +11,7 @@ export declare enum SolWallets {
     slope = "slope",
     solflare = "solflare"
 }
-export declare const ConnectWalletComponent: ({ message, onSign, EthWalletList, SolWalletList, WalletListBG, ConnectWalletButtonClass, ConnectWalletButtonText, }: {
+export declare const ConnectWalletComponent: ({ message, onSign, EthWalletList, SolWalletList, WalletListStyle, ConnectWalletButtonClass, ConnectWalletButtonText, }: {
     message?: string | undefined;
     onSign?: ((key: {
         address: string;
@@ -21,7 +21,10 @@ export declare const ConnectWalletComponent: ({ message, onSign, EthWalletList, 
     }) => void) | undefined;
     EthWalletList?: EthWallets[] | undefined;
     SolWalletList?: SolWallets[] | undefined;
-    WalletListBG?: string | undefined;
+    WalletListStyle?: {
+        background?: string | undefined;
+        marginTop?: any;
+    } | undefined;
     ConnectWalletButtonClass?: string | undefined;
     ConnectWalletButtonText?: string | undefined;
 }) => JSX.Element;

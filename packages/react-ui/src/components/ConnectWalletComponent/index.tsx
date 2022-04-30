@@ -1,5 +1,5 @@
-import ConnectWalletButton from "../ConnectWalletButton";
-import ConnectWalletList from "../ConnectWalletList";
+import { ConnectWalletButton } from "../ConnectWalletButton";
+import { ConnectWalletList } from "../ConnectWalletList";
 import { useState } from "react";
 import { useDapp } from "@cryptogate/react-providers";
 
@@ -24,7 +24,7 @@ export const ConnectWalletComponent = ({
   onSign,
   EthWalletList,
   SolWalletList,
-  WalletListBG,
+  WalletListStyle,
   ConnectWalletButtonClass,
   ConnectWalletButtonText,
 }: {
@@ -37,7 +37,10 @@ export const ConnectWalletComponent = ({
   }) => void;
   EthWalletList?: EthWallets[];
   SolWalletList?: SolWallets[];
-  WalletListBG?: string;
+  WalletListStyle?: {
+    background?: string;
+    marginTop?: any;
+  };
   ConnectWalletButtonClass?: string;
   ConnectWalletButtonText?: string;
 }) => {
@@ -60,7 +63,14 @@ export const ConnectWalletComponent = ({
           setOpenOptions={setOpenOptions}
           EthWalletList={EthWalletList ? EthWalletList : []}
           SolWalletList={SolWalletList ? SolWalletList : []}
-          WalletListBG={WalletListBG ? WalletListBG : "white"}
+          WalletListStyle={{
+            background: WalletListStyle?.background
+              ? WalletListStyle.background
+              : "white",
+            marginTop: WalletListStyle?.marginTop
+              ? WalletListStyle.marginTop
+              : "50px",
+          }}
         />
       ) : (
         <></>

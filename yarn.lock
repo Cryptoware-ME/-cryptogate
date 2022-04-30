@@ -23,6 +23,11 @@
     chalk "^2.0.0"
     js-tokens "^4.0.0"
 
+"@cryptogate/core@^0.0.10":
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/@cryptogate/core/-/core-0.0.10.tgz#04e2e132e5797b34ee2271e53960d12347bd15bf"
+  integrity sha512-hBmWNSfsJM9Iuqr0/ednbXp4fXw3CwrbdecbNVoBHiHt6gjMhQgm4FkLXdCqbAvpJUe/G5u6Y0BLvoAD1s7wSw==
+
 "@gar/promisify@^1.0.1":
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/@gar/promisify/-/promisify-1.1.3.tgz#555193ab2e3bb3b6adc3d551c9c030d9e860daf6"

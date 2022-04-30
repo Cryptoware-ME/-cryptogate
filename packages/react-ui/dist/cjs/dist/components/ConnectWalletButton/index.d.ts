@@ -1,8 +1,7 @@
-declare const index: ({ setOpenOptions, onSign, message, btnClass, btnText, }: {
+export declare const ConnectWalletButton: ({ setOpenOptions, onSign, message, btnClass, btnText, }: {
     setOpenOptions: any;
-    onSign: any;
-    message: string;
-    btnClass: string;
-    btnText: string;
+    onSign?: any;
+    message?: string | undefined;
+    btnClass?: string | undefined;
+    btnText?: string | undefined;
 }) => JSX.Element;
-export default index;
