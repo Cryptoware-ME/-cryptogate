@@ -12,7 +12,7 @@ declare enum SolWallets {
     slope = "slope",
     solflare = "solflare"
 }
-declare const ConnectWalletComponent: ({ message, onSign, EthWalletList, SolWalletList, WalletListStyle, ConnectWalletButtonClass, ConnectWalletButtonText, }: {
+declare const ConnectWalletComponent: ({ message, onSign, EthWalletList, SolWalletList, WalletListStyle, ConnectWalletButtonClass, ConnectWalletButtonText, ConnectMenu, }: {
     message?: string | undefined;
     onSign?: ((key: {
         address: string;
@@ -28,18 +28,20 @@ declare const ConnectWalletComponent: ({ message, onSign, EthWalletList, SolWall
     } | undefined;
     ConnectWalletButtonClass?: string | undefined;
     ConnectWalletButtonText?: string | undefined;
+    ConnectMenu?: boolean | undefined;
 }) => JSX.Element;
 
 declare const getWithExpiry: (key: any) => any;
 
 declare const setWithExpiry: (key: any, value: any, ttl: any) => void;
 
-declare const ConnectWalletButton: ({ setOpenOptions, onSign, message, btnClass, btnText, }: {
+declare const ConnectWalletButton: ({ setOpenOptions, onSign, message, btnClass, btnText, connectMenu, }: {
     setOpenOptions: any;
     onSign?: any;
     message?: string | undefined;
     btnClass?: string | undefined;
     btnText?: string | undefined;
+    connectMenu: boolean;
 }) => JSX.Element;
 
 declare const ConnectWalletList: ({ openOptions, setOpenOptions, EthWalletList, SolWalletList, WalletListStyle, }: {

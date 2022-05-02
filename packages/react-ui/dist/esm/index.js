@@ -183,7 +183,7 @@ var signingMessage = function (account, library, message) { return __awaiter(voi
     });
 }); };
 var ConnectWalletButton = function (_a) {
-    var setOpenOptions = _a.setOpenOptions, onSign = _a.onSign, _b = _a.message, message = _b === void 0 ? "This is the default message provided by Cryptogate when signing a message" : _b, btnClass = _a.btnClass, btnText = _a.btnText;
+    var setOpenOptions = _a.setOpenOptions, onSign = _a.onSign, _b = _a.message, message = _b === void 0 ? "This is the default message provided by Cryptogate when signing a message" : _b, btnClass = _a.btnClass, btnText = _a.btnText, connectMenu = _a.connectMenu;
     var _c = useState(false), openMenu = _c[0], setOpenMenu = _c[1];
     var ethereum = useMultichain().ethereum;
     var account = ethereum.account, library = ethereum.library;
@@ -215,7 +215,7 @@ var ConnectWalletButton = function (_a) {
                         paddingTop: "0.03rem",
                     }, onClick: function () { return setOpenMenu(!openMenu); } }, { children: jsx(Identicon, {}) })) })), jsx(ConnectMenu, { onClose: function () {
                     setOpenMenu(false);
-                }, isOpen: openMenu })] })) : (jsx("button", __assign({ className: btnClass, onClick: function () {
+                }, isOpen: connectMenu && openMenu })] })) : (jsx("button", __assign({ className: btnClass, type: "button", onClick: function () {
             setOpenOptions(true);
         } }, { children: btnText })));
 };
@@ -383,9 +383,9 @@ var SolWallets;
     SolWallets["solflare"] = "solflare";
 })(SolWallets || (SolWallets = {}));
 var ConnectWalletComponent = function (_a) {
-    var _b = _a.message, message = _b === void 0 ? "This is the default message provided by Cryptogate when signing a message" : _b, onSign = _a.onSign, EthWalletList = _a.EthWalletList, SolWalletList = _a.SolWalletList, WalletListStyle = _a.WalletListStyle, ConnectWalletButtonClass = _a.ConnectWalletButtonClass, ConnectWalletButtonText = _a.ConnectWalletButtonText;
-    var _c = useState(false), openOptions = _c[0], setOpenOptions = _c[1];
-    return (jsxs(Fragment, { children: [jsx(ConnectWalletButton, { setOpenOptions: setOpenOptions, message: message, onSign: onSign, btnClass: ConnectWalletButtonClass ? ConnectWalletButtonClass : "", btnText: ConnectWalletButtonText ? ConnectWalletButtonText : "Connect Wallet" }), openOptions ? (jsx(ConnectWalletList, { openOptions: openOptions, setOpenOptions: setOpenOptions, EthWalletList: EthWalletList ? EthWalletList : [], SolWalletList: SolWalletList ? SolWalletList : [], WalletListStyle: {
+    var _b = _a.message, message = _b === void 0 ? "This is the default message provided by Cryptogate when signing a message" : _b, onSign = _a.onSign, EthWalletList = _a.EthWalletList, SolWalletList = _a.SolWalletList, WalletListStyle = _a.WalletListStyle, ConnectWalletButtonClass = _a.ConnectWalletButtonClass, ConnectWalletButtonText = _a.ConnectWalletButtonText, _c = _a.ConnectMenu, ConnectMenu = _c === void 0 ? true : _c;
+    var _d = useState(false), openOptions = _d[0], setOpenOptions = _d[1];
+    return (jsxs(Fragment, { children: [jsx(ConnectWalletButton, { setOpenOptions: setOpenOptions, message: message, onSign: onSign, btnClass: ConnectWalletButtonClass ? ConnectWalletButtonClass : "", btnText: ConnectWalletButtonText ? ConnectWalletButtonText : "Connect Wallet", connectMenu: ConnectMenu }), openOptions ? (jsx(ConnectWalletList, { openOptions: openOptions, setOpenOptions: setOpenOptions, EthWalletList: EthWalletList ? EthWalletList : [], SolWalletList: SolWalletList ? SolWalletList : [], WalletListStyle: {
                     background: (WalletListStyle === null || WalletListStyle === void 0 ? void 0 : WalletListStyle.background)
                         ? WalletListStyle.background
                         : "white",

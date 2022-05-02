@@ -29,12 +29,14 @@ export const ConnectWalletButton = ({
   message = "This is the default message provided by Cryptogate when signing a message",
   btnClass,
   btnText,
+  connectMenu,
 }: {
   setOpenOptions: any;
   onSign?: any;
   message?: string;
   btnClass?: string;
   btnText?: string;
+  connectMenu: boolean;
 }) => {
   const [openMenu, setOpenMenu] = useState(false);
   const { ethereum } = useMultichain();
@@ -82,12 +84,13 @@ export const ConnectWalletButton = ({
         onClose={() => {
           setOpenMenu(false);
         }}
-        isOpen={openMenu}
+        isOpen={connectMenu && openMenu}
       />
     </>
   ) : (
     <button
       className={btnClass}
+      type="button"
       onClick={() => {
         setOpenOptions(true);
       }}

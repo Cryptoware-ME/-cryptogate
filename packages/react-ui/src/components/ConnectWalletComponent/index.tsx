@@ -27,6 +27,7 @@ export const ConnectWalletComponent = ({
   WalletListStyle,
   ConnectWalletButtonClass,
   ConnectWalletButtonText,
+  ConnectMenu = true,
 }: {
   message?: string;
   onSign?: (key: {
@@ -43,6 +44,7 @@ export const ConnectWalletComponent = ({
   };
   ConnectWalletButtonClass?: string;
   ConnectWalletButtonText?: string;
+  ConnectMenu?: boolean;
 }) => {
   const [openOptions, setOpenOptions] = useState(false);
 
@@ -56,6 +58,7 @@ export const ConnectWalletComponent = ({
         btnText={
           ConnectWalletButtonText ? ConnectWalletButtonText : "Connect Wallet"
         }
+        connectMenu={ConnectMenu}
       />
       {openOptions ? (
         <ConnectWalletList
