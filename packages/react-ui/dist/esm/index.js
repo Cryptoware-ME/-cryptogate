@@ -186,25 +186,15 @@ var ConnectWalletButton = function (_a) {
     var setOpenOptions = _a.setOpenOptions, onSign = _a.onSign, _b = _a.message, message = _b === void 0 ? "This is the default message provided by Cryptogate when signing a message" : _b, btnClass = _a.btnClass, btnText = _a.btnText, connectMenu = _a.connectMenu, networkChainId = _a.networkChainId;
     var _c = useState(false), openMenu = _c[0], setOpenMenu = _c[1];
     var _d = useMultichain(), ethereum = _d.ethereum, network = _d.network;
-    var account = ethereum.account, library = ethereum.library, deactivate = ethereum.deactivate;
+    var account = ethereum.account, library = ethereum.library;
     useEffect(function () {
-        if (account && library) {
-            if (networkChainId != -1 && network.network.chainId != networkChainId) {
-                alert("Can only connect to Polygon network!");
-                deactivate();
+        if (onSign) {
+            var key = getWithExpiry("sig-".concat(account === null || account === void 0 ? void 0 : account.toLowerCase()));
+            if (key) {
+                onSign(key);
             }
             else {
-                if (onSign) {
-                    var key = getWithExpiry("sig-".concat(account.toLowerCase()));
-                    if (key) {
-                        onSign(key);
-                    }
-                    else {
-                        signingMessage(account, library, message).then(function (key) {
-                            return onSign(key);
-                        });
-                    }
-                }
+                signingMessage(account, library, message).then(function (key) { return onSign(key); });
             }
         }
     }, [account, library]);
@@ -224,7 +214,14 @@ var ConnectWalletButton = function (_a) {
                     }, onClick: function () { return setOpenMenu(!openMenu); } }, { children: jsx(Identicon, {}) })) })), jsx(ConnectMenu, { onClose: function () {
                     setOpenMenu(false);
                 }, isOpen: connectMenu && openMenu })] })) : (jsx("button", __assign({ className: btnClass, type: "button", onClick: function () {
-            setOpenOptions(true);
+            console.log("Cryptogate/networkID: ", networkChainId);
+            console.log("Cryptogate/chainID: ", network.network.chainId);
+            if (networkChainId != -1 && network.network.chainId != networkChainId) {
+                alert("test alert");
+            }
+            else {
+                setOpenOptions(true);
+            }
         } }, { children: btnText })));
 };
 

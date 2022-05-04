@@ -42,24 +42,15 @@ export const ConnectWalletButton = ({
 }) => {
   const [openMenu, setOpenMenu] = useState(false);
   const { ethereum, network } = useMultichain();
-  const { account, library, deactivate } = ethereum;
+  const { account, library } = ethereum;
 
   useEffect(() => {
-    if (account && library) {
-      if (networkChainId != -1 && network.network.chainId != networkChainId) {
-        alert("Can only connect to Polygon network!");
-        deactivate();
+    if (onSign) {
+      let key = getWithExpiry(`sig-${account?.toLowerCase()}`);
+      if (key) {
+        onSign(key);
       } else {
-        if (onSign) {
-          let key = getWithExpiry(`sig-${account.toLowerCase()}`);
-          if (key) {
-            onSign(key);
-          } else {
-            signingMessage(account, library, message).then((key) =>
-              onSign(key)
-            );
-          }
-        }
+        signingMessage(account, library, message).then((key) => onSign(key));
       }
     }
   }, [account, library]);
@@ -101,7 +92,13 @@ export const ConnectWalletButton = ({
       className={btnClass}
       type="button"
       onClick={() => {
-        setOpenOptions(true);
+        console.log("Cryptogate/networkID: ", networkChainId);
+        console.log("Cryptogate/chainID: ", network.network.chainId);
+        if (networkChainId != -1 && network.network.chainId != networkChainId) {
+          alert("test alert");
+        } else {
+          setOpenOptions(true);
+        }
       }}
     >
       {btnText}
