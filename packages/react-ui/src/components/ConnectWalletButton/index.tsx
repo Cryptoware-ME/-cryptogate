@@ -95,7 +95,7 @@ export const ConnectWalletButton = ({
         console.log("Cryptogate/networkID: ", networkChainId);
         console.log("Cryptogate/chainID: ", network.network.chainId);
         if (networkChainId != -1 && network.network.chainId != networkChainId) {
-          alert("test alert");
+          alert("Selected network isn't accepted");
         } else {
           setOpenOptions(true);
         }
