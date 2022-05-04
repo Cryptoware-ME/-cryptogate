@@ -1,4 +1,4 @@
-import { useMultichain } from "@cryptogate/react-providers";
+import { useMultichain, useDapp } from "@cryptogate/react-providers";
 import { useState, useEffect } from "react";
 import Identicon from "../Identicon";
 import ConnectMenu from "../ConnectMenu";
@@ -30,7 +30,7 @@ export const ConnectWalletButton = ({
   btnClass,
   btnText,
   connectMenu,
-  networkChainId,
+  networkChainId = [],
 }: {
   setOpenOptions: any;
   onSign?: any;
@@ -38,20 +38,28 @@ export const ConnectWalletButton = ({
   btnClass?: string;
   btnText?: string;
   connectMenu: boolean;
-  networkChainId: number;
+  networkChainId?: number[];
 }) => {
   const [openMenu, setOpenMenu] = useState(false);
   const { ethereum, network } = useMultichain();
-  const { account, library } = ethereum;
+  const { account, library, deactivate } = ethereum;
 
   useEffect(() => {
-    if (onSign) {
-      let key = getWithExpiry(`sig-${account?.toLowerCase()}`);
-      if (key) {
-        onSign(key);
-      } else {
-        signingMessage(account, library, message).then((key) => onSign(key));
+    if (
+      networkChainId.length >= 1 &&
+      networkChainId.indexOf(network.network.chainId || -5) != -1
+    ) {
+      if (onSign) {
+        let key = getWithExpiry(`sig-${account?.toLowerCase()}`);
+        if (key) {
+          onSign(key);
+        } else {
+          signingMessage(account, library, message).then((key) => onSign(key));
+        }
       }
+    } else {
+      alert("Selected network isn't accepted");
+      deactivate();
     }
   }, [account, library]);
 
@@ -92,13 +100,7 @@ export const ConnectWalletButton = ({
       className={btnClass}
       type="button"
       onClick={() => {
-        console.log("Cryptogate/networkID: ", networkChainId);
-        console.log("Cryptogate/chainID: ", network.network.chainId);
-        if (networkChainId != -1 && network.network.chainId != networkChainId) {
-          alert("Selected network isn't accepted");
-        } else {
-          setOpenOptions(true);
-        }
+        setOpenOptions(true);
       }}
     >
       {btnText}

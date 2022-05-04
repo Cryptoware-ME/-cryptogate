@@ -13,7 +13,7 @@ declare enum SolWallets {
     solflare = "solflare"
 }
 declare const ConnectWalletComponent: ({ networkChainId, message, onSign, EthWalletList, SolWalletList, WalletListStyle, ConnectWalletButtonClass, ConnectWalletButtonText, ConnectMenu, }: {
-    networkChainId?: number | undefined;
+    networkChainId?: number[] | undefined;
     message?: string | undefined;
     onSign?: ((key: {
         address: string;

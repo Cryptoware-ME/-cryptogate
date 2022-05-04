@@ -183,19 +183,26 @@ var signingMessage = function (account, library, message) { return __awaiter(voi
     });
 }); };
 var ConnectWalletButton = function (_a) {
-    var setOpenOptions = _a.setOpenOptions, onSign = _a.onSign, _b = _a.message, message = _b === void 0 ? "This is the default message provided by Cryptogate when signing a message" : _b, btnClass = _a.btnClass, btnText = _a.btnText, connectMenu = _a.connectMenu, networkChainId = _a.networkChainId;
-    var _c = useState(false), openMenu = _c[0], setOpenMenu = _c[1];
-    var _d = useMultichain(), ethereum = _d.ethereum, network = _d.network;
-    var account = ethereum.account, library = ethereum.library;
+    var setOpenOptions = _a.setOpenOptions, onSign = _a.onSign, _b = _a.message, message = _b === void 0 ? "This is the default message provided by Cryptogate when signing a message" : _b, btnClass = _a.btnClass, btnText = _a.btnText, connectMenu = _a.connectMenu, _c = _a.networkChainId, networkChainId = _c === void 0 ? [] : _c;
+    var _d = useState(false), openMenu = _d[0], setOpenMenu = _d[1];
+    var _e = useMultichain(), ethereum = _e.ethereum, network = _e.network;
+    var account = ethereum.account, library = ethereum.library, deactivate = ethereum.deactivate;
     useEffect(function () {
-        if (onSign) {
-            var key = getWithExpiry("sig-".concat(account === null || account === void 0 ? void 0 : account.toLowerCase()));
-            if (key) {
-                onSign(key);
+        if (networkChainId.length >= 1 &&
+            networkChainId.indexOf(network.network.chainId || -5) != -1) {
+            if (onSign) {
+                var key = getWithExpiry("sig-".concat(account === null || account === void 0 ? void 0 : account.toLowerCase()));
+                if (key) {
+                    onSign(key);
+                }
+                else {
+                    signingMessage(account, library, message).then(function (key) { return onSign(key); });
+                }
             }
-            else {
-                signingMessage(account, library, message).then(function (key) { return onSign(key); });
-            }
+        }
+        else {
+            alert("Selected network isn't accepted");
+            deactivate();
         }
     }, [account, library]);
     return account ? (jsxs(Fragment, { children: [jsx("div", __assign({ style: {
@@ -214,14 +221,7 @@ var ConnectWalletButton = function (_a) {
                     }, onClick: function () { return setOpenMenu(!openMenu); } }, { children: jsx(Identicon, {}) })) })), jsx(ConnectMenu, { onClose: function () {
                     setOpenMenu(false);
                 }, isOpen: connectMenu && openMenu })] })) : (jsx("button", __assign({ className: btnClass, type: "button", onClick: function () {
-            console.log("Cryptogate/networkID: ", networkChainId);
-            console.log("Cryptogate/chainID: ", network.network.chainId);
-            if (networkChainId != -1 && network.network.chainId != networkChainId) {
-                alert("Selected network isn't accepted");
-            }
-            else {
-                setOpenOptions(true);
-            }
+            setOpenOptions(true);
         } }, { children: btnText })));
 };
 
@@ -388,7 +388,7 @@ var SolWallets;
     SolWallets["solflare"] = "solflare";
 })(SolWallets || (SolWallets = {}));
 var ConnectWalletComponent = function (_a) {
-    var _b = _a.networkChainId, networkChainId = _b === void 0 ? -1 : _b, _c = _a.message, message = _c === void 0 ? "This is the default message provided by Cryptogate when signing a message" : _c, onSign = _a.onSign, EthWalletList = _a.EthWalletList, SolWalletList = _a.SolWalletList, WalletListStyle = _a.WalletListStyle, _d = _a.ConnectWalletButtonClass, ConnectWalletButtonClass = _d === void 0 ? "" : _d, _e = _a.ConnectWalletButtonText, ConnectWalletButtonText = _e === void 0 ? "Connect Wallet" : _e, _f = _a.ConnectMenu, ConnectMenu = _f === void 0 ? true : _f;
+    var _b = _a.networkChainId, networkChainId = _b === void 0 ? [] : _b, _c = _a.message, message = _c === void 0 ? "This is the default message provided by Cryptogate when signing a message" : _c, onSign = _a.onSign, EthWalletList = _a.EthWalletList, SolWalletList = _a.SolWalletList, WalletListStyle = _a.WalletListStyle, _d = _a.ConnectWalletButtonClass, ConnectWalletButtonClass = _d === void 0 ? "" : _d, _e = _a.ConnectWalletButtonText, ConnectWalletButtonText = _e === void 0 ? "Connect Wallet" : _e, _f = _a.ConnectMenu, ConnectMenu = _f === void 0 ? true : _f;
     var _g = useState(false), openOptions = _g[0], setOpenOptions = _g[1];
     return (jsxs(Fragment, { children: [jsx(ConnectWalletButton, { setOpenOptions: setOpenOptions, message: message, onSign: onSign, btnClass: ConnectWalletButtonClass, btnText: ConnectWalletButtonText, connectMenu: ConnectMenu, networkChainId: networkChainId }), openOptions ? (jsx(ConnectWalletList, { openOptions: openOptions, setOpenOptions: setOpenOptions, EthWalletList: EthWalletList ? EthWalletList : [], SolWalletList: SolWalletList ? SolWalletList : [], WalletListStyle: {
                     background: (WalletListStyle === null || WalletListStyle === void 0 ? void 0 : WalletListStyle.background)

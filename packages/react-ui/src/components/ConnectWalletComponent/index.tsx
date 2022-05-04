@@ -20,7 +20,7 @@ export enum SolWallets {
 }
 
 export const ConnectWalletComponent = ({
-  networkChainId = -1,
+  networkChainId = [],
   message = "This is the default message provided by Cryptogate when signing a message",
   onSign,
   EthWalletList,
@@ -30,7 +30,7 @@ export const ConnectWalletComponent = ({
   ConnectWalletButtonText = "Connect Wallet",
   ConnectMenu = true,
 }: {
-  networkChainId?: number;
+  networkChainId?: number[];
   message?: string;
   onSign?: (key: {
     address: string;

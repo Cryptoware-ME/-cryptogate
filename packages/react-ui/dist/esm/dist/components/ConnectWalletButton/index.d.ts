@@ -5,5 +5,5 @@ export declare const ConnectWalletButton: ({ setOpenOptions, onSign, message, bt
     btnClass?: string | undefined;
     btnText?: string | undefined;
     connectMenu: boolean;
-    networkChainId: number;
+    networkChainId?: number[] | undefined;
 }) => JSX.Element;
