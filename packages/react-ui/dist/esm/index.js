@@ -188,21 +188,25 @@ var ConnectWalletButton = function (_a) {
     var _e = useMultichain(), ethereum = _e.ethereum, network = _e.network;
     var account = ethereum.account, library = ethereum.library, deactivate = ethereum.deactivate;
     useEffect(function () {
-        if (networkChainId.length >= 1 &&
-            networkChainId.indexOf(network.network.chainId || -5) != -1) {
-            if (onSign) {
-                var key = getWithExpiry("sig-".concat(account === null || account === void 0 ? void 0 : account.toLowerCase()));
-                if (key) {
-                    onSign(key);
-                }
-                else {
-                    signingMessage(account, library, message).then(function (key) { return onSign(key); });
+        if (account && library) {
+            if (networkChainId.length >= 1 &&
+                networkChainId.indexOf(network.network.chainId || -5) != -1) {
+                if (onSign) {
+                    var key = getWithExpiry("sig-".concat(account === null || account === void 0 ? void 0 : account.toLowerCase()));
+                    if (key) {
+                        onSign(key);
+                    }
+                    else {
+                        signingMessage(account, library, message).then(function (key) {
+                            return onSign(key);
+                        });
+                    }
                 }
             }
-        }
-        else {
-            alert("Selected network isn't accepted");
-            deactivate();
+            else {
+                alert("Selected network isn't accepted");
+                deactivate();
+            }
         }
     }, [account, library]);
     return account ? (jsxs(Fragment, { children: [jsx("div", __assign({ style: {

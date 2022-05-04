@@ -45,21 +45,25 @@ export const ConnectWalletButton = ({
   const { account, library, deactivate } = ethereum;
 
   useEffect(() => {
-    if (
-      networkChainId.length >= 1 &&
-      networkChainId.indexOf(network.network.chainId || -5) != -1
-    ) {
-      if (onSign) {
-        let key = getWithExpiry(`sig-${account?.toLowerCase()}`);
-        if (key) {
-          onSign(key);
-        } else {
-          signingMessage(account, library, message).then((key) => onSign(key));
+    if (account && library) {
+      if (
+        networkChainId.length >= 1 &&
+        networkChainId.indexOf(network.network.chainId || -5) != -1
+      ) {
+        if (onSign) {
+          let key = getWithExpiry(`sig-${account?.toLowerCase()}`);
+          if (key) {
+            onSign(key);
+          } else {
+            signingMessage(account, library, message).then((key) =>
+              onSign(key)
+            );
+          }
         }
+      } else {
+        alert("Selected network isn't accepted");
+        deactivate();
       }
-    } else {
-      alert("Selected network isn't accepted");
-      deactivate();
     }
   }, [account, library]);
 
