@@ -198,21 +198,6 @@ var ConnectWalletButton = function (_a) {
     var account = ethereum.account, library = ethereum.library, deactivate = ethereum.deactivate;
     react.useEffect(function () {
         if (account && library) {
-            console.log(networkChainId);
-            console.log(networkChainId.length);
-            for (var i = 0; i < networkChainId.length; i++) {
-                console.log(networkChainId[i]);
-            }
-            console.log("------------------------------------");
-            console.log(network.network.chainId);
-            console.log(network.network.chainId
-                ? networkChainId.includes(network.network.chainId)
-                : false);
-            console.log("------------------------------------");
-            console.log(networkChainId.length >= 1 &&
-                (network.network.chainId
-                    ? networkChainId.includes(network.network.chainId)
-                    : false));
             if (networkChainId.length >= 1 &&
                 (network.network.chainId
                     ? networkChainId.includes(network.network.chainId)
@@ -248,6 +233,9 @@ var ConnectWalletButton = function (_a) {
                         width: "46px",
                         paddingLeft: "0.05rem",
                         paddingTop: "0.03rem",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
                     }, onClick: function () { return setOpenMenu(!openMenu); } }, { children: jsxRuntime.jsx(Identicon, {}) })) })), jsxRuntime.jsx(ConnectMenu, { onClose: function () {
                     setOpenMenu(false);
                 }, isOpen: connectMenu && openMenu })] })) : (jsxRuntime.jsx("button", __assign({ className: btnClass, type: "button", onClick: function () {

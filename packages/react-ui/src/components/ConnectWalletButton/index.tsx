@@ -46,26 +46,6 @@ export const ConnectWalletButton = ({
 
   useEffect(() => {
     if (account && library) {
-      console.log(networkChainId);
-      console.log(networkChainId.length);
-      for (var i = 0; i < networkChainId.length; i++) {
-        console.log(networkChainId[i]);
-      }
-      console.log("------------------------------------");
-      console.log(network.network.chainId);
-      console.log(
-        network.network.chainId
-          ? networkChainId.includes(network.network.chainId)
-          : false
-      );
-      console.log("------------------------------------");
-      console.log(
-        networkChainId.length >= 1 &&
-          (network.network.chainId
-            ? networkChainId.includes(network.network.chainId)
-            : false)
-      );
-
       if (
         networkChainId.length >= 1 &&
         (network.network.chainId
@@ -108,6 +88,9 @@ export const ConnectWalletButton = ({
             width: "46px",
             paddingLeft: "0.05rem",
             paddingTop: "0.03rem",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
           }}
           onClick={() => setOpenMenu(!openMenu)}
         >
