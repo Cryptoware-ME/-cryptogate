@@ -192,19 +192,27 @@ var signingMessage = function (account, library, message) { return __awaiter(voi
     });
 }); };
 var ConnectWalletButton = function (_a) {
-    var setOpenOptions = _a.setOpenOptions, onSign = _a.onSign, _b = _a.message, message = _b === void 0 ? "This is the default message provided by Cryptogate when signing a message" : _b, btnClass = _a.btnClass, btnText = _a.btnText, connectMenu = _a.connectMenu;
+    var setOpenOptions = _a.setOpenOptions, onSign = _a.onSign, _b = _a.message, message = _b === void 0 ? "This is the default message provided by Cryptogate when signing a message" : _b, btnClass = _a.btnClass, btnText = _a.btnText, connectMenu = _a.connectMenu, networkChainId = _a.networkChainId;
     var _c = react.useState(false), openMenu = _c[0], setOpenMenu = _c[1];
-    var ethereum = reactProviders.useMultichain().ethereum;
-    var account = ethereum.account, library = ethereum.library;
+    var _d = reactProviders.useMultichain(), ethereum = _d.ethereum, network = _d.network;
+    var account = ethereum.account, library = ethereum.library, deactivate = ethereum.deactivate;
     react.useEffect(function () {
         if (account && library) {
-            if (onSign) {
-                var key = getWithExpiry("sig-".concat(account.toLowerCase()));
-                if (key) {
-                    onSign(key);
-                }
-                else {
-                    signingMessage(account, library, message).then(function (key) { return onSign(key); });
+            if (networkChainId != -1 && network.network.chainId != networkChainId) {
+                alert("Can only connect to Polygon network!");
+                deactivate();
+            }
+            else {
+                if (onSign) {
+                    var key = getWithExpiry("sig-".concat(account.toLowerCase()));
+                    if (key) {
+                        onSign(key);
+                    }
+                    else {
+                        signingMessage(account, library, message).then(function (key) {
+                            return onSign(key);
+                        });
+                    }
                 }
             }
         }
@@ -392,9 +400,9 @@ exports.SolWallets = void 0;
     SolWallets["solflare"] = "solflare";
 })(exports.SolWallets || (exports.SolWallets = {}));
 var ConnectWalletComponent = function (_a) {
-    var _b = _a.message, message = _b === void 0 ? "This is the default message provided by Cryptogate when signing a message" : _b, onSign = _a.onSign, EthWalletList = _a.EthWalletList, SolWalletList = _a.SolWalletList, WalletListStyle = _a.WalletListStyle, ConnectWalletButtonClass = _a.ConnectWalletButtonClass, ConnectWalletButtonText = _a.ConnectWalletButtonText, _c = _a.ConnectMenu, ConnectMenu = _c === void 0 ? true : _c;
-    var _d = react.useState(false), openOptions = _d[0], setOpenOptions = _d[1];
-    return (jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [jsxRuntime.jsx(ConnectWalletButton, { setOpenOptions: setOpenOptions, message: message, onSign: onSign, btnClass: ConnectWalletButtonClass ? ConnectWalletButtonClass : "", btnText: ConnectWalletButtonText ? ConnectWalletButtonText : "Connect Wallet", connectMenu: ConnectMenu }), openOptions ? (jsxRuntime.jsx(ConnectWalletList, { openOptions: openOptions, setOpenOptions: setOpenOptions, EthWalletList: EthWalletList ? EthWalletList : [], SolWalletList: SolWalletList ? SolWalletList : [], WalletListStyle: {
+    var _b = _a.networkChainId, networkChainId = _b === void 0 ? -1 : _b, _c = _a.message, message = _c === void 0 ? "This is the default message provided by Cryptogate when signing a message" : _c, onSign = _a.onSign, EthWalletList = _a.EthWalletList, SolWalletList = _a.SolWalletList, WalletListStyle = _a.WalletListStyle, _d = _a.ConnectWalletButtonClass, ConnectWalletButtonClass = _d === void 0 ? "" : _d, _e = _a.ConnectWalletButtonText, ConnectWalletButtonText = _e === void 0 ? "Connect Wallet" : _e, _f = _a.ConnectMenu, ConnectMenu = _f === void 0 ? true : _f;
+    var _g = react.useState(false), openOptions = _g[0], setOpenOptions = _g[1];
+    return (jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [jsxRuntime.jsx(ConnectWalletButton, { setOpenOptions: setOpenOptions, message: message, onSign: onSign, btnClass: ConnectWalletButtonClass, btnText: ConnectWalletButtonText, connectMenu: ConnectMenu, networkChainId: networkChainId }), openOptions ? (jsxRuntime.jsx(ConnectWalletList, { openOptions: openOptions, setOpenOptions: setOpenOptions, EthWalletList: EthWalletList ? EthWalletList : [], SolWalletList: SolWalletList ? SolWalletList : [], WalletListStyle: {
                     background: (WalletListStyle === null || WalletListStyle === void 0 ? void 0 : WalletListStyle.background)
                         ? WalletListStyle.background
                         : "white",
@@ -404,9 +412,7 @@ var ConnectWalletComponent = function (_a) {
                 } })) : (jsxRuntime.jsx(jsxRuntime.Fragment, {}))] }));
 };
 
-exports.ConnectWalletButton = ConnectWalletButton;
 exports.ConnectWalletComponent = ConnectWalletComponent;
-exports.ConnectWalletList = ConnectWalletList;
 exports.getWithExpiry = getWithExpiry;
 exports.setWithExpiry = setWithExpiry;
 //# sourceMappingURL=index.js.map

@@ -12,7 +12,8 @@ declare enum SolWallets {
     slope = "slope",
     solflare = "solflare"
 }
-declare const ConnectWalletComponent: ({ message, onSign, EthWalletList, SolWalletList, WalletListStyle, ConnectWalletButtonClass, ConnectWalletButtonText, ConnectMenu, }: {
+declare const ConnectWalletComponent: ({ networkChainId, message, onSign, EthWalletList, SolWalletList, WalletListStyle, ConnectWalletButtonClass, ConnectWalletButtonText, ConnectMenu, }: {
+    networkChainId?: number | undefined;
     message?: string | undefined;
     onSign?: ((key: {
         address: string;
@@ -35,21 +36,4 @@ declare const getWithExpiry: (key: any) => any;
 
 declare const setWithExpiry: (key: any, value: any, ttl: any) => void;
 
-declare const ConnectWalletButton: ({ setOpenOptions, onSign, message, btnClass, btnText, connectMenu, }: {
-    setOpenOptions: any;
-    onSign?: any;
-    message?: string | undefined;
-    btnClass?: string | undefined;
-    btnText?: string | undefined;
-    connectMenu: boolean;
-}) => JSX.Element;
-
-declare const ConnectWalletList: ({ openOptions, setOpenOptions, EthWalletList, SolWalletList, WalletListStyle, }: {
-    openOptions: boolean;
-    setOpenOptions: any;
-    EthWalletList?: EthWallets[] | undefined;
-    SolWalletList?: SolWallets[] | undefined;
-    WalletListStyle?: any;
-}) => JSX.Element;
-
-export { ConnectWalletButton, ConnectWalletComponent, ConnectWalletList, EthWallets, SolWallets, getWithExpiry, setWithExpiry };
+export { ConnectWalletComponent, EthWallets, SolWallets, getWithExpiry, setWithExpiry };
