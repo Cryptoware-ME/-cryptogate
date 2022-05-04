@@ -46,6 +46,13 @@ export const ConnectWalletButton = ({
 
   useEffect(() => {
     if (account && library) {
+      console.log(networkChainId);
+      console.log(network.network.chainId);
+      console.log(
+        networkChainId.length >= 1 &&
+          networkChainId.indexOf(network.network.chainId || -5) != -1
+      );
+
       if (
         networkChainId.length >= 1 &&
         networkChainId.indexOf(network.network.chainId || -5) != -1

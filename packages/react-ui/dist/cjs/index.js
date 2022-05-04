@@ -198,6 +198,10 @@ var ConnectWalletButton = function (_a) {
     var account = ethereum.account, library = ethereum.library, deactivate = ethereum.deactivate;
     react.useEffect(function () {
         if (account && library) {
+            console.log(networkChainId);
+            console.log(network.network.chainId);
+            console.log(networkChainId.length >= 1 &&
+                networkChainId.indexOf(network.network.chainId || -5) != -1);
             if (networkChainId.length >= 1 &&
                 networkChainId.indexOf(network.network.chainId || -5) != -1) {
                 if (onSign) {
