@@ -192,7 +192,7 @@ var ConnectWalletButton = function (_a) {
             console.log(networkChainId);
             console.log(network.network.chainId);
             console.log(networkChainId.length >= 1 &&
-                networkChainId.indexOf(network.network.chainId || -5) != -1);
+                networkChainId.includes(network.network.chainId ? network.network.chainId : -5));
             if (networkChainId.length >= 1 &&
                 networkChainId.indexOf(network.network.chainId || -5) != -1) {
                 if (onSign) {
