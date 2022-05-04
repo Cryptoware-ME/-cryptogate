@@ -50,6 +50,11 @@ export const ConnectWalletButton = ({
       console.log(networkChainId.length);
       console.log("------------------------------------");
       console.log(network.network.chainId);
+      console.log(
+        network.network.chainId
+          ? networkChainId.includes(network.network.chainId)
+          : false
+      );
       console.log("------------------------------------");
       console.log(
         networkChainId.length >= 1 &&
@@ -59,9 +64,10 @@ export const ConnectWalletButton = ({
       );
 
       if (
-        networkChainId.length >= 1 && network.network.chainId
+        networkChainId.length >= 1 &&
+        (network.network.chainId
           ? networkChainId.includes(network.network.chainId)
-          : false
+          : false)
       ) {
         if (onSign) {
           let key = getWithExpiry(`sig-${account?.toLowerCase()}`);

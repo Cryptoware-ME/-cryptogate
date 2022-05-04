@@ -193,14 +193,18 @@ var ConnectWalletButton = function (_a) {
             console.log(networkChainId.length);
             console.log("------------------------------------");
             console.log(network.network.chainId);
+            console.log(network.network.chainId
+                ? networkChainId.includes(network.network.chainId)
+                : false);
             console.log("------------------------------------");
             console.log(networkChainId.length >= 1 &&
                 (network.network.chainId
                     ? networkChainId.includes(network.network.chainId)
                     : false));
-            if (networkChainId.length >= 1 && network.network.chainId
-                ? networkChainId.includes(network.network.chainId)
-                : false) {
+            if (networkChainId.length >= 1 &&
+                (network.network.chainId
+                    ? networkChainId.includes(network.network.chainId)
+                    : false)) {
                 if (onSign) {
                     var key = getWithExpiry("sig-".concat(account === null || account === void 0 ? void 0 : account.toLowerCase()));
                     if (key) {
