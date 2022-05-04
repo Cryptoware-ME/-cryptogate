@@ -200,6 +200,9 @@ var ConnectWalletButton = function (_a) {
         if (account && library) {
             console.log(networkChainId);
             console.log(networkChainId.length);
+            for (var i = 0; i < networkChainId.length; i++) {
+                console.log(networkChainId[i]);
+            }
             console.log("------------------------------------");
             console.log(network.network.chainId);
             console.log(network.network.chainId

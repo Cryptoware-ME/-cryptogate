@@ -1,4 +1,4 @@
-import { useMultichain, useDapp } from "@cryptogate/react-providers";
+import { useMultichain } from "@cryptogate/react-providers";
 import { useState, useEffect } from "react";
 import Identicon from "../Identicon";
 import ConnectMenu from "../ConnectMenu";
@@ -48,6 +48,9 @@ export const ConnectWalletButton = ({
     if (account && library) {
       console.log(networkChainId);
       console.log(networkChainId.length);
+      for (var i = 0; i < networkChainId.length; i++) {
+        console.log(networkChainId[i]);
+      }
       console.log("------------------------------------");
       console.log(network.network.chainId);
       console.log(
