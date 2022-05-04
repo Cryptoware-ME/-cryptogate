@@ -48,10 +48,14 @@ export const ConnectWalletButton = ({
     if (account && library) {
       console.log(networkChainId);
       console.log(networkChainId.length);
+      console.log("------------------------------------");
+      console.log(network.network.chainId);
+      console.log("------------------------------------");
       console.log(
-        networkChainId.length >= 1 && network.network.chainId
-          ? networkChainId.includes(network.network.chainId)
-          : false
+        networkChainId.length >= 1 &&
+          (network.network.chainId
+            ? networkChainId.includes(network.network.chainId)
+            : false)
       );
 
       if (
