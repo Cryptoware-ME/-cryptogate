@@ -190,11 +190,13 @@ var ConnectWalletButton = function (_a) {
     useEffect(function () {
         if (account && library) {
             console.log(networkChainId);
-            console.log(network.network.chainId);
-            console.log(networkChainId.length >= 1 &&
-                networkChainId.includes(network.network.chainId ? network.network.chainId : -5));
-            if (networkChainId.length >= 1 &&
-                networkChainId.indexOf(network.network.chainId || -5) != -1) {
+            console.log(networkChainId.length);
+            console.log(networkChainId.length >= 1 && network.network.chainId
+                ? networkChainId.includes(network.network.chainId)
+                : false);
+            if (networkChainId.length >= 1 && network.network.chainId
+                ? networkChainId.includes(network.network.chainId)
+                : false) {
                 if (onSign) {
                     var key = getWithExpiry("sig-".concat(account === null || account === void 0 ? void 0 : account.toLowerCase()));
                     if (key) {

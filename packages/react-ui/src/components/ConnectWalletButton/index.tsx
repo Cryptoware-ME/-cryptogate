@@ -47,17 +47,17 @@ export const ConnectWalletButton = ({
   useEffect(() => {
     if (account && library) {
       console.log(networkChainId);
-      console.log(network.network.chainId);
+      console.log(networkChainId.length);
       console.log(
-        networkChainId.length >= 1 &&
-          networkChainId.includes(
-            network.network.chainId ? network.network.chainId : -5
-          )
+        networkChainId.length >= 1 && network.network.chainId
+          ? networkChainId.includes(network.network.chainId)
+          : false
       );
 
       if (
-        networkChainId.length >= 1 &&
-        networkChainId.indexOf(network.network.chainId || -5) != -1
+        networkChainId.length >= 1 && network.network.chainId
+          ? networkChainId.includes(network.network.chainId)
+          : false
       ) {
         if (onSign) {
           let key = getWithExpiry(`sig-${account?.toLowerCase()}`);
