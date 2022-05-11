@@ -410,5 +410,5 @@ var ConnectWalletComponent = function (_a) {
                 } })) : (jsx(Fragment, {}))] }));
 };
 
-export { ConnectWalletComponent, EthWallets, SolWallets, getWithExpiry, setWithExpiry };
+export { ConnectWalletComponent, EthWallets, Identicon, SolWallets, getWithExpiry, setWithExpiry };
 //# sourceMappingURL=index.js.map

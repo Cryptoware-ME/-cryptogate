@@ -2,7 +2,7 @@ import { useMultichain } from "@cryptogate/react-providers";
 import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
 import { isMobile } from "react-device-detect";
 
-const Identicon = ({ accountToUse }: { accountToUse?: string }) => {
+export const Identicon = ({ accountToUse }: { accountToUse?: string }) => {
   const { ethereum } = useMultichain();
   const { account } = ethereum;
   return (
@@ -15,5 +15,3 @@ const Identicon = ({ accountToUse }: { accountToUse?: string }) => {
     />
   );
 };
-
-export default Identicon;

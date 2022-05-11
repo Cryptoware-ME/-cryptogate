@@ -1,6 +1,6 @@
 import { useMultichain } from "@cryptogate/react-providers";
 import { useState, useEffect } from "react";
-import Identicon from "../Identicon";
+import { Identicon } from "../Identicon";
 import ConnectMenu from "../ConnectMenu";
 import { ethSignMessage } from "@cryptogate/core";
 import { setWithExpiry } from "../../localStorage/setWithExpire";

@@ -32,8 +32,12 @@ declare const ConnectWalletComponent: ({ networkChainId, message, onSign, EthWal
     ConnectMenu?: boolean | undefined;
 }) => JSX.Element;
 
+declare const Identicon: ({ accountToUse }: {
+    accountToUse?: string | undefined;
+}) => JSX.Element;
+
 declare const getWithExpiry: (key: any) => any;
 
 declare const setWithExpiry: (key: any, value: any, ttl: any) => void;
 
-export { ConnectWalletComponent, EthWallets, SolWallets, getWithExpiry, setWithExpiry };
+export { ConnectWalletComponent, EthWallets, Identicon, SolWallets, getWithExpiry, setWithExpiry };

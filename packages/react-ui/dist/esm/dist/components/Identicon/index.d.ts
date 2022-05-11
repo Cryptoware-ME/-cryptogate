@@ -1,4 +1,3 @@
-declare const Identicon: ({ accountToUse }: {
+export declare const Identicon: ({ accountToUse }: {
     accountToUse?: string | undefined;
 }) => JSX.Element;
-export default Identicon;

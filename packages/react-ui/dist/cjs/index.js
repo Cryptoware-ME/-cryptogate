@@ -420,6 +420,7 @@ var ConnectWalletComponent = function (_a) {
 };
 
 exports.ConnectWalletComponent = ConnectWalletComponent;
+exports.Identicon = Identicon;
 exports.getWithExpiry = getWithExpiry;
 exports.setWithExpiry = setWithExpiry;
 //# sourceMappingURL=index.js.map
