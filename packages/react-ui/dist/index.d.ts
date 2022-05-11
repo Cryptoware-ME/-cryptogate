@@ -24,8 +24,8 @@ declare const ConnectWalletComponent: ({ networkChainId, message, onSign, EthWal
     EthWalletList?: EthWallets[] | undefined;
     SolWalletList?: SolWallets[] | undefined;
     WalletListStyle?: {
+        top?: any;
         background?: string | undefined;
-        marginTop?: any;
     } | undefined;
     ConnectWalletButtonClass?: string | undefined;
     ConnectWalletButtonText?: string | undefined;

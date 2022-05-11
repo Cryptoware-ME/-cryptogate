@@ -41,8 +41,8 @@ export const ConnectWalletComponent = ({
   EthWalletList?: EthWallets[];
   SolWalletList?: SolWallets[];
   WalletListStyle?: {
-    background?: string;
     top?: any;
+    background?: string;
   };
   ConnectWalletButtonClass?: string;
   ConnectWalletButtonText?: string;
@@ -71,7 +71,7 @@ export const ConnectWalletComponent = ({
             background: WalletListStyle?.background
               ? WalletListStyle.background
               : "white",
-            marginTop: WalletListStyle?.top
+            top: WalletListStyle?.top
               ? WalletListStyle.top
               : "0",
           }}
