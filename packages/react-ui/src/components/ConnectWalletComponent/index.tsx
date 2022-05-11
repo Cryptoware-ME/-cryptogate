@@ -42,7 +42,7 @@ export const ConnectWalletComponent = ({
   SolWalletList?: SolWallets[];
   WalletListStyle?: {
     background?: string;
-    marginTop?: any;
+    top?: any;
   };
   ConnectWalletButtonClass?: string;
   ConnectWalletButtonText?: string;
@@ -71,9 +71,9 @@ export const ConnectWalletComponent = ({
             background: WalletListStyle?.background
               ? WalletListStyle.background
               : "white",
-            marginTop: WalletListStyle?.marginTop
-              ? WalletListStyle.marginTop
-              : "50px",
+            marginTop: WalletListStyle?.top
+              ? WalletListStyle.top
+              : "0",
           }}
         />
       ) : (

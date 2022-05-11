@@ -309,14 +309,13 @@ var useSolana = function () {
     var dappCtx = React__default["default"].useContext(SolDappContext);
     var walletsCtx = React__default["default"].useContext(SolWalletsContext);
     if (dappCtx === undefined) {
-        throw new Error('useSolana must be used within a SolDappContext');
+        throw new Error("useSolana must be used within a SolDappContext");
     }
     if (walletsCtx === undefined) {
-        throw new Error('useSolana must be used within a SolDappContext');
+        throw new Error("useSolana must be used within a SolDappContext");
     }
     var setSolConfig = dappCtx.setSolConfig;
-    var Wallets = walletsCtx;
-    return __assign(__assign(__assign({}, wallet), connection), { wallets: Wallets, setSolConfig: setSolConfig });
+    return __assign(__assign(__assign({}, wallet), connection), { wallets: walletsCtx, setSolConfig: setSolConfig });
 };
 
 var useMultichain = function () {
