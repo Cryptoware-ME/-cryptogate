@@ -1,4 +1,3 @@
-
 const WalletListing = ({
   iconSrc,
   heading,
@@ -35,29 +34,6 @@ const WalletListing = ({
       }
       onClick={onWalletCall}
     >
-      {/* {isWhite && (
-        <>
-          <div
-            style={{
-              backgroundColor: "black",
-              borderRadius: "50%",
-              width: "30px",
-              height: "30px",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              marginRight: "15px",
-              position: "relative",
-              left: "-5px",
-            }}
-          >
-            <span style={{paddingRight: '15px'}}>
-              <Image src={iconSrc} alt={heading} width="25px" height="25px" />
-            </span>
-          </div>
-        </>
-      )} */}
-
       {!isWhite && (
         <span style={{ paddingRight: "15px" }}>
           <img src={iconSrc} alt={heading} width="25px" height="25px" />

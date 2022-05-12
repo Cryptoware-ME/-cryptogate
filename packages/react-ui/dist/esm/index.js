@@ -170,7 +170,7 @@ var signingMessage = function (account, library, message) { return __awaiter(voi
         return [2 /*return*/, new Promise(function (resolve, reject) {
                 ethSignMessage({
                     account: account,
-                    provider: library,
+                    signer: library,
                     message: message,
                 })
                     .then(function (sig) {
@@ -184,16 +184,17 @@ var signingMessage = function (account, library, message) { return __awaiter(voi
     });
 }); };
 var ConnectWalletButton = function (_a) {
-    var setOpenOptions = _a.setOpenOptions, onSign = _a.onSign, _b = _a.message, message = _b === void 0 ? "This is the default message provided by Cryptogate when signing a message" : _b, btnClass = _a.btnClass, btnText = _a.btnText, connectMenu = _a.connectMenu, _c = _a.networkChainId, networkChainId = _c === void 0 ? [] : _c;
+    var activeComponent = _a.activeComponent; _a.diabledComponent; var connectedComponent = _a.connectedComponent, setOpenOptions = _a.setOpenOptions, onSign = _a.onSign, _b = _a.message, message = _b === void 0 ? "This is the default message provided by Cryptogate when signing a message" : _b, btnClass = _a.btnClass, btnText = _a.btnText, connectMenu = _a.connectMenu, _c = _a.networkChainId, networkChainId = _c === void 0 ? [] : _c;
     var _d = useState(false), openMenu = _d[0], setOpenMenu = _d[1];
     var _e = useMultichain(), ethereum = _e.ethereum, network = _e.network;
     var account = ethereum.account, library = ethereum.library, deactivate = ethereum.deactivate;
     useEffect(function () {
         if (account && library) {
-            if (networkChainId.length >= 1 &&
-                (network.network.chainId
-                    ? networkChainId.includes(network.network.chainId)
-                    : false)) {
+            if (networkChainId.length == 0 ||
+                (networkChainId.length > 0 &&
+                    (network.network.chainId
+                        ? networkChainId.includes(network.network.chainId)
+                        : false))) {
                 if (onSign) {
                     var key = getWithExpiry("sig-".concat(account === null || account === void 0 ? void 0 : account.toLowerCase()));
                     if (key) {
@@ -212,27 +213,11 @@ var ConnectWalletButton = function (_a) {
             }
         }
     }, [account, library]);
-    return account ? (jsxs(Fragment, { children: [jsx("div", __assign({ style: {
-                    display: "flex",
-                    justifyContent: "flex-end",
-                    alignItems: "center",
-                    marginRight: "15px",
-                    cursor: "pointer",
-                } }, { children: jsx("div", __assign({ style: {
-                        borderRadius: "50%",
-                        border: "2px solid #fff",
-                        height: "45px",
-                        width: "46px",
-                        paddingLeft: "0.05rem",
-                        paddingTop: "0.03rem",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                    }, onClick: function () { return setOpenMenu(!openMenu); } }, { children: jsx(Identicon, {}) })) })), jsx(ConnectMenu, { onClose: function () {
+    return account ? (jsxs(Fragment, { children: [jsx("div", __assign({ onClick: function () { return setOpenMenu(!openMenu); } }, { children: connectedComponent ? connectedComponent : jsx(Identicon, {}) })), jsx(ConnectMenu, { onClose: function () {
                     setOpenMenu(false);
-                }, isOpen: connectMenu && openMenu })] })) : (jsx("button", __assign({ className: btnClass, type: "button", onClick: function () {
+                }, isOpen: connectMenu && openMenu })] })) : (jsx("div", __assign({ onClick: function () {
             setOpenOptions(true);
-        } }, { children: btnText })));
+        } }, { children: activeComponent ? (activeComponent) : (jsx("button", __assign({ className: btnClass, type: "button" }, { children: btnText }))) })));
 };
 
 var WalletListing = function (_a) {
@@ -385,28 +370,26 @@ var ConnectWalletList = function (_a) {
 useDapp.ChainId;
 var EthWallets;
 (function (EthWallets) {
-    EthWallets["all"] = "all";
-    EthWallets["metamask"] = "metamask";
-    EthWallets["walletConnect"] = "walletConnect";
-    EthWallets["coinbase"] = "coinbase";
+    EthWallets[EthWallets["all"] = 0] = "all";
+    EthWallets[EthWallets["metamask"] = 1] = "metamask";
+    EthWallets[EthWallets["walletConnect"] = 2] = "walletConnect";
+    EthWallets[EthWallets["coinbase"] = 3] = "coinbase";
 })(EthWallets || (EthWallets = {}));
 var SolWallets;
 (function (SolWallets) {
-    SolWallets["all"] = "all";
-    SolWallets["phantom"] = "phantom";
-    SolWallets["slope"] = "slope";
-    SolWallets["solflare"] = "solflare";
+    SolWallets[SolWallets["all"] = 0] = "all";
+    SolWallets[SolWallets["phantom"] = 1] = "phantom";
+    SolWallets[SolWallets["slope"] = 2] = "slope";
+    SolWallets[SolWallets["solflare"] = 3] = "solflare";
 })(SolWallets || (SolWallets = {}));
 var ConnectWalletComponent = function (_a) {
-    var _b = _a.networkChainId, networkChainId = _b === void 0 ? [] : _b, _c = _a.message, message = _c === void 0 ? "This is the default message provided by Cryptogate when signing a message" : _c, onSign = _a.onSign, EthWalletList = _a.EthWalletList, SolWalletList = _a.SolWalletList, WalletListStyle = _a.WalletListStyle, _d = _a.ConnectWalletButtonClass, ConnectWalletButtonClass = _d === void 0 ? "" : _d, _e = _a.ConnectWalletButtonText, ConnectWalletButtonText = _e === void 0 ? "Connect Wallet" : _e, _f = _a.ConnectMenu, ConnectMenu = _f === void 0 ? true : _f;
+    var activeComponent = _a.activeComponent, diabledComponent = _a.diabledComponent, connectedComponent = _a.connectedComponent, _b = _a.networkChainId, networkChainId = _b === void 0 ? [] : _b, _c = _a.message, message = _c === void 0 ? "This is the default message provided by Cryptogate when signing a message" : _c, onSign = _a.onSign, EthWalletList = _a.EthWalletList, SolWalletList = _a.SolWalletList, WalletListStyle = _a.WalletListStyle, _d = _a.ConnectWalletButtonClass, ConnectWalletButtonClass = _d === void 0 ? "" : _d, _e = _a.ConnectWalletButtonText, ConnectWalletButtonText = _e === void 0 ? "Connect Wallet" : _e, _f = _a.ConnectMenu, ConnectMenu = _f === void 0 ? true : _f;
     var _g = useState(false), openOptions = _g[0], setOpenOptions = _g[1];
-    return (jsxs(Fragment, { children: [jsx(ConnectWalletButton, { setOpenOptions: setOpenOptions, message: message, onSign: onSign, btnClass: ConnectWalletButtonClass, btnText: ConnectWalletButtonText, connectMenu: ConnectMenu, networkChainId: networkChainId }), openOptions ? (jsx(ConnectWalletList, { openOptions: openOptions, setOpenOptions: setOpenOptions, EthWalletList: EthWalletList ? EthWalletList : [], SolWalletList: SolWalletList ? SolWalletList : [], WalletListStyle: {
+    return (jsxs(Fragment, { children: [jsx(ConnectWalletButton, { activeComponent: activeComponent, diabledComponent: diabledComponent, connectedComponent: connectedComponent, setOpenOptions: setOpenOptions, message: message, onSign: onSign, btnClass: ConnectWalletButtonClass, btnText: ConnectWalletButtonText, connectMenu: ConnectMenu, networkChainId: networkChainId }), openOptions ? (jsx(ConnectWalletList, { openOptions: openOptions, setOpenOptions: setOpenOptions, EthWalletList: EthWalletList ? EthWalletList : [], SolWalletList: SolWalletList ? SolWalletList : [], WalletListStyle: {
                     background: (WalletListStyle === null || WalletListStyle === void 0 ? void 0 : WalletListStyle.background)
                         ? WalletListStyle.background
                         : "white",
-                    top: (WalletListStyle === null || WalletListStyle === void 0 ? void 0 : WalletListStyle.top)
-                        ? WalletListStyle.top
-                        : "0",
+                    top: (WalletListStyle === null || WalletListStyle === void 0 ? void 0 : WalletListStyle.top) ? WalletListStyle.top : "0",
                 } })) : (jsx(Fragment, {}))] }));
 };
 

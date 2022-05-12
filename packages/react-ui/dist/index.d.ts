@@ -1,18 +1,22 @@
+import React from 'react';
 import { useDapp } from '@cryptogate/react-providers';
 
 declare enum EthWallets {
-    all = "all",
-    metamask = "metamask",
-    walletConnect = "walletConnect",
-    coinbase = "coinbase"
+    all = 0,
+    metamask = 1,
+    walletConnect = 2,
+    coinbase = 3
 }
 declare enum SolWallets {
-    all = "all",
-    phantom = "phantom",
-    slope = "slope",
-    solflare = "solflare"
+    all = 0,
+    phantom = 1,
+    slope = 2,
+    solflare = 3
 }
-declare const ConnectWalletComponent: ({ networkChainId, message, onSign, EthWalletList, SolWalletList, WalletListStyle, ConnectWalletButtonClass, ConnectWalletButtonText, ConnectMenu, }: {
+declare const ConnectWalletComponent: ({ activeComponent, diabledComponent, connectedComponent, networkChainId, message, onSign, EthWalletList, SolWalletList, WalletListStyle, ConnectWalletButtonClass, ConnectWalletButtonText, ConnectMenu, }: {
+    activeComponent?: React.ReactNode;
+    diabledComponent?: React.ReactNode;
+    connectedComponent?: React.ReactNode;
     networkChainId?: number[] | undefined;
     message?: string | undefined;
     onSign?: ((key: {

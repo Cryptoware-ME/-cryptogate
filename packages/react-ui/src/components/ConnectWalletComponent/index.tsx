@@ -1,3 +1,4 @@
+import React from "react";
 import { ConnectWalletButton } from "../ConnectWalletButton";
 import { ConnectWalletList } from "../ConnectWalletList";
 import { useState } from "react";
@@ -6,20 +7,23 @@ import { useDapp } from "@cryptogate/react-providers";
 const { ChainId } = useDapp;
 
 export enum EthWallets {
-  all = "all",
-  metamask = "metamask",
-  walletConnect = "walletConnect",
-  coinbase = "coinbase",
+  all,
+  metamask,
+  walletConnect,
+  coinbase,
 }
 
 export enum SolWallets {
-  all = "all",
-  phantom = "phantom",
-  slope = "slope",
-  solflare = "solflare",
+  all,
+  phantom,
+  slope,
+  solflare,
 }
 
 export const ConnectWalletComponent = ({
+  activeComponent,
+  diabledComponent,
+  connectedComponent,
   networkChainId = [],
   message = "This is the default message provided by Cryptogate when signing a message",
   onSign,
@@ -30,6 +34,9 @@ export const ConnectWalletComponent = ({
   ConnectWalletButtonText = "Connect Wallet",
   ConnectMenu = true,
 }: {
+  activeComponent?: React.ReactNode;
+  diabledComponent?: React.ReactNode;
+  connectedComponent?: React.ReactNode;
   networkChainId?: number[];
   message?: string;
   onSign?: (key: {
@@ -53,6 +60,9 @@ export const ConnectWalletComponent = ({
   return (
     <>
       <ConnectWalletButton
+        activeComponent={activeComponent}
+        diabledComponent={diabledComponent}
+        connectedComponent={connectedComponent}
         setOpenOptions={setOpenOptions}
         message={message}
         onSign={onSign}
@@ -71,9 +81,7 @@ export const ConnectWalletComponent = ({
             background: WalletListStyle?.background
               ? WalletListStyle.background
               : "white",
-            top: WalletListStyle?.top
-              ? WalletListStyle.top
-              : "0",
+            top: WalletListStyle?.top ? WalletListStyle.top : "0",
           }}
         />
       ) : (

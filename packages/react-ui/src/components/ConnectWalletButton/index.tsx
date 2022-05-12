@@ -1,3 +1,4 @@
+import React from "react";
 import { useMultichain } from "@cryptogate/react-providers";
 import { useState, useEffect } from "react";
 import { Identicon } from "../Identicon";
@@ -10,7 +11,7 @@ const signingMessage = async (account: any, library: any, message: string) => {
   return new Promise((resolve, reject) => {
     ethSignMessage({
       account,
-      provider: library,
+      signer: library,
       message,
     })
       .then((sig) => {
@@ -24,6 +25,9 @@ const signingMessage = async (account: any, library: any, message: string) => {
 };
 
 export const ConnectWalletButton = ({
+  activeComponent,
+  diabledComponent,
+  connectedComponent,
   setOpenOptions,
   onSign,
   message = "This is the default message provided by Cryptogate when signing a message",
@@ -32,6 +36,9 @@ export const ConnectWalletButton = ({
   connectMenu,
   networkChainId = [],
 }: {
+  activeComponent?: React.ReactNode;
+  diabledComponent?: React.ReactNode;
+  connectedComponent?: React.ReactNode;
   setOpenOptions: any;
   onSign?: any;
   message?: string;
@@ -47,10 +54,11 @@ export const ConnectWalletButton = ({
   useEffect(() => {
     if (account && library) {
       if (
-        networkChainId.length >= 1 &&
-        (network.network.chainId
-          ? networkChainId.includes(network.network.chainId)
-          : false)
+        networkChainId.length == 0 ||
+        (networkChainId.length > 0 &&
+          (network.network.chainId
+            ? networkChainId.includes(network.network.chainId)
+            : false))
       ) {
         if (onSign) {
           let key = getWithExpiry(`sig-${account?.toLowerCase()}`);
@@ -71,31 +79,8 @@ export const ConnectWalletButton = ({
 
   return account ? (
     <>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "flex-end",
-          alignItems: "center",
-          marginRight: "15px",
-          cursor: "pointer",
-        }}
-      >
-        <div
-          style={{
-            borderRadius: "50%",
-            border: "2px solid #fff",
-            height: "45px",
-            width: "46px",
-            paddingLeft: "0.05rem",
-            paddingTop: "0.03rem",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-          onClick={() => setOpenMenu(!openMenu)}
-        >
-          <Identicon />
-        </div>
+      <div onClick={() => setOpenMenu(!openMenu)}>
+        {connectedComponent ? connectedComponent : <Identicon />}
       </div>
       <ConnectMenu
         onClose={() => {
@@ -105,14 +90,18 @@ export const ConnectWalletButton = ({
       />
     </>
   ) : (
-    <button
-      className={btnClass}
-      type="button"
+    <div
       onClick={() => {
         setOpenOptions(true);
       }}
     >
-      {btnText}
-    </button>
+      {activeComponent ? (
+        activeComponent
+      ) : (
+        <button className={btnClass} type="button">
+          {btnText}
+        </button>
+      )}
+    </div>
   );
 };
