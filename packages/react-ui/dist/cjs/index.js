@@ -179,7 +179,7 @@ var signingMessage = function (account, library, message) { return __awaiter(voi
         return [2 /*return*/, new Promise(function (resolve, reject) {
                 core.ethSignMessage({
                     account: account,
-                    signer: library,
+                    provider: library,
                     message: message,
                 })
                     .then(function (sig) {
