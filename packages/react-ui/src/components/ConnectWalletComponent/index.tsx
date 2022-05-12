@@ -25,6 +25,7 @@ export const ConnectWalletComponent = ({
   diabledComponent,
   connectedComponent,
   networkChainId = [],
+  alertMessage = "Selected network is not supported",
   message = "This is the default message provided by Cryptogate when signing a message",
   onSign,
   EthWalletList,
@@ -38,6 +39,7 @@ export const ConnectWalletComponent = ({
   diabledComponent?: React.ReactNode;
   connectedComponent?: React.ReactNode;
   networkChainId?: number[];
+  alertMessage?:string,
   message?: string;
   onSign?: (key: {
     address: string;
@@ -64,6 +66,7 @@ export const ConnectWalletComponent = ({
         diabledComponent={diabledComponent}
         connectedComponent={connectedComponent}
         setOpenOptions={setOpenOptions}
+        alertMessage={alertMessage}
         message={message}
         onSign={onSign}
         btnClass={ConnectWalletButtonClass}

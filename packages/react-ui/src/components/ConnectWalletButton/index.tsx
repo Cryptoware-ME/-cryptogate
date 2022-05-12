@@ -30,6 +30,7 @@ export const ConnectWalletButton = ({
   connectedComponent,
   setOpenOptions,
   onSign,
+  alertMessage,
   message = "This is the default message provided by Cryptogate when signing a message",
   btnClass,
   btnText,
@@ -41,6 +42,7 @@ export const ConnectWalletButton = ({
   connectedComponent?: React.ReactNode;
   setOpenOptions: any;
   onSign?: any;
+  alertMessage: string;
   message?: string;
   btnClass?: string;
   btnText?: string;
@@ -71,7 +73,7 @@ export const ConnectWalletButton = ({
           }
         }
       } else {
-        alert("Selected network isn't accepted");
+        alert(alertMessage);
         deactivate();
       }
     }

@@ -13,11 +13,12 @@ declare enum SolWallets {
     slope = 2,
     solflare = 3
 }
-declare const ConnectWalletComponent: ({ activeComponent, diabledComponent, connectedComponent, networkChainId, message, onSign, EthWalletList, SolWalletList, WalletListStyle, ConnectWalletButtonClass, ConnectWalletButtonText, ConnectMenu, }: {
+declare const ConnectWalletComponent: ({ activeComponent, diabledComponent, connectedComponent, networkChainId, alertMessage, message, onSign, EthWalletList, SolWalletList, WalletListStyle, ConnectWalletButtonClass, ConnectWalletButtonText, ConnectMenu, }: {
     activeComponent?: React.ReactNode;
     diabledComponent?: React.ReactNode;
     connectedComponent?: React.ReactNode;
     networkChainId?: number[] | undefined;
+    alertMessage?: string | undefined;
     message?: string | undefined;
     onSign?: ((key: {
         address: string;

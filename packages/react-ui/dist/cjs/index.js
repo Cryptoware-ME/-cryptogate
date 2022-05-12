@@ -193,7 +193,7 @@ var signingMessage = function (account, library, message) { return __awaiter(voi
     });
 }); };
 var ConnectWalletButton = function (_a) {
-    var activeComponent = _a.activeComponent; _a.diabledComponent; var connectedComponent = _a.connectedComponent, setOpenOptions = _a.setOpenOptions, onSign = _a.onSign, _b = _a.message, message = _b === void 0 ? "This is the default message provided by Cryptogate when signing a message" : _b, btnClass = _a.btnClass, btnText = _a.btnText, connectMenu = _a.connectMenu, _c = _a.networkChainId, networkChainId = _c === void 0 ? [] : _c;
+    var activeComponent = _a.activeComponent; _a.diabledComponent; var connectedComponent = _a.connectedComponent, setOpenOptions = _a.setOpenOptions, onSign = _a.onSign, alertMessage = _a.alertMessage, _b = _a.message, message = _b === void 0 ? "This is the default message provided by Cryptogate when signing a message" : _b, btnClass = _a.btnClass, btnText = _a.btnText, connectMenu = _a.connectMenu, _c = _a.networkChainId, networkChainId = _c === void 0 ? [] : _c;
     var _d = react.useState(false), openMenu = _d[0], setOpenMenu = _d[1];
     var _e = reactProviders.useMultichain(), ethereum = _e.ethereum, network = _e.network;
     var account = ethereum.account, library = ethereum.library, deactivate = ethereum.deactivate;
@@ -217,7 +217,7 @@ var ConnectWalletButton = function (_a) {
                 }
             }
             else {
-                alert("Selected network isn't accepted");
+                alert(alertMessage);
                 deactivate();
             }
         }
@@ -392,9 +392,9 @@ exports.SolWallets = void 0;
     SolWallets[SolWallets["solflare"] = 3] = "solflare";
 })(exports.SolWallets || (exports.SolWallets = {}));
 var ConnectWalletComponent = function (_a) {
-    var activeComponent = _a.activeComponent, diabledComponent = _a.diabledComponent, connectedComponent = _a.connectedComponent, _b = _a.networkChainId, networkChainId = _b === void 0 ? [] : _b, _c = _a.message, message = _c === void 0 ? "This is the default message provided by Cryptogate when signing a message" : _c, onSign = _a.onSign, EthWalletList = _a.EthWalletList, SolWalletList = _a.SolWalletList, WalletListStyle = _a.WalletListStyle, _d = _a.ConnectWalletButtonClass, ConnectWalletButtonClass = _d === void 0 ? "" : _d, _e = _a.ConnectWalletButtonText, ConnectWalletButtonText = _e === void 0 ? "Connect Wallet" : _e, _f = _a.ConnectMenu, ConnectMenu = _f === void 0 ? true : _f;
-    var _g = react.useState(false), openOptions = _g[0], setOpenOptions = _g[1];
-    return (jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [jsxRuntime.jsx(ConnectWalletButton, { activeComponent: activeComponent, diabledComponent: diabledComponent, connectedComponent: connectedComponent, setOpenOptions: setOpenOptions, message: message, onSign: onSign, btnClass: ConnectWalletButtonClass, btnText: ConnectWalletButtonText, connectMenu: ConnectMenu, networkChainId: networkChainId }), openOptions ? (jsxRuntime.jsx(ConnectWalletList, { openOptions: openOptions, setOpenOptions: setOpenOptions, EthWalletList: EthWalletList ? EthWalletList : [], SolWalletList: SolWalletList ? SolWalletList : [], WalletListStyle: {
+    var activeComponent = _a.activeComponent, diabledComponent = _a.diabledComponent, connectedComponent = _a.connectedComponent, _b = _a.networkChainId, networkChainId = _b === void 0 ? [] : _b, _c = _a.alertMessage, alertMessage = _c === void 0 ? "Selected network is not supported" : _c, _d = _a.message, message = _d === void 0 ? "This is the default message provided by Cryptogate when signing a message" : _d, onSign = _a.onSign, EthWalletList = _a.EthWalletList, SolWalletList = _a.SolWalletList, WalletListStyle = _a.WalletListStyle, _e = _a.ConnectWalletButtonClass, ConnectWalletButtonClass = _e === void 0 ? "" : _e, _f = _a.ConnectWalletButtonText, ConnectWalletButtonText = _f === void 0 ? "Connect Wallet" : _f, _g = _a.ConnectMenu, ConnectMenu = _g === void 0 ? true : _g;
+    var _h = react.useState(false), openOptions = _h[0], setOpenOptions = _h[1];
+    return (jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [jsxRuntime.jsx(ConnectWalletButton, { activeComponent: activeComponent, diabledComponent: diabledComponent, connectedComponent: connectedComponent, setOpenOptions: setOpenOptions, alertMessage: alertMessage, message: message, onSign: onSign, btnClass: ConnectWalletButtonClass, btnText: ConnectWalletButtonText, connectMenu: ConnectMenu, networkChainId: networkChainId }), openOptions ? (jsxRuntime.jsx(ConnectWalletList, { openOptions: openOptions, setOpenOptions: setOpenOptions, EthWalletList: EthWalletList ? EthWalletList : [], SolWalletList: SolWalletList ? SolWalletList : [], WalletListStyle: {
                     background: (WalletListStyle === null || WalletListStyle === void 0 ? void 0 : WalletListStyle.background)
                         ? WalletListStyle.background
                         : "white",
