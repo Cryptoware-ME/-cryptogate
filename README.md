@@ -5,7 +5,8 @@
 </p>
 
 
-## Cryptogate/react-ui: [Full Documentation](https://github.com/Cryptoware-ME/-cryptogate/tree/main/packages/react-ui#readme)
+## Cryptogate/react-ui:
+[Full Documentation](https://github.com/Cryptoware-ME/-cryptogate/tree/main/packages/react-ui#readme)
 
 ### Required Dependecies:
 
