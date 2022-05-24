@@ -1,7 +1,8 @@
 import React from "react";
 import { useDapp } from "@cryptogate/react-providers";
-export declare const ConnectWalletButton: ({ ActiveComponent, ConnectedComponent, SignatureMessage, NetworkChainIds, NetworkAlertMessage, ConnectMenuFlag, onSign, setOpenOptions, diabledComponent, }: {
+export declare const ConnectWalletButton: ({ ActiveComponent, DiabledComponent, ConnectedComponent, SignatureMessage, NetworkChainIds, NetworkAlertMessage, ConnectMenuFlag, onSign, setOpenOptions, }: {
     ActiveComponent: React.ReactNode;
+    DiabledComponent?: React.ReactNode;
     ConnectedComponent?: React.ReactNode;
     SignatureMessage: string;
     NetworkChainIds?: number[] | undefined;
@@ -14,5 +15,4 @@ export declare const ConnectWalletButton: ({ ActiveComponent, ConnectedComponent
         chain: typeof useDapp.ChainId;
     }) => void) | undefined;
     setOpenOptions: any;
-    diabledComponent?: React.ReactNode;
 }) => JSX.Element;

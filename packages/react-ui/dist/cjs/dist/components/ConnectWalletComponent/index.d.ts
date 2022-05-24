@@ -12,8 +12,9 @@ export declare enum SolWallets {
     SLOPE = "slope",
     SOLFLARE = "solflare"
 }
-export declare const ConnectWalletComponent: ({ ActiveComponent, ConnectedComponent, EthWalletList, SolWalletList, SignatureMessage, NetworkChainIds, NetworkAlertMessage, ConnectMenu, onSign, WalletListStyle, diabledComponent, }: {
+export declare const ConnectWalletComponent: ({ ActiveComponent, DiabledComponent, ConnectedComponent, EthWalletList, SolWalletList, SignatureMessage, NetworkChainIds, NetworkAlertMessage, ConnectMenu, onSign, WalletListStyle, }: {
     ActiveComponent?: React.ReactNode;
+    DiabledComponent?: React.ReactNode;
     ConnectedComponent?: React.ReactNode;
     EthWalletList?: EthWallets[] | undefined;
     SolWalletList?: SolWallets[] | undefined;
@@ -31,5 +32,4 @@ export declare const ConnectWalletComponent: ({ ActiveComponent, ConnectedCompon
         top?: any;
         background?: string | undefined;
     } | undefined;
-    diabledComponent?: React.ReactNode;
 }) => JSX.Element;

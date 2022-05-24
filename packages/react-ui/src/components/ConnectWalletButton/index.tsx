@@ -32,6 +32,7 @@ const signingMessage = async (
 
 export const ConnectWalletButton = ({
   ActiveComponent,
+  DiabledComponent,
   ConnectedComponent,
   SignatureMessage,
   NetworkChainIds = [],
@@ -39,9 +40,9 @@ export const ConnectWalletButton = ({
   ConnectMenuFlag,
   onSign,
   setOpenOptions,
-  diabledComponent,
 }: {
   ActiveComponent: React.ReactNode;
+  DiabledComponent?: React.ReactNode;
   ConnectedComponent?: React.ReactNode;
   SignatureMessage: string;
   NetworkChainIds?: number[];
@@ -54,9 +55,9 @@ export const ConnectWalletButton = ({
     chain: typeof ChainId;
   }) => void;
   setOpenOptions: any;
-  diabledComponent?: React.ReactNode;
 }) => {
   const [openMenu, setOpenMenu] = useState(false);
+  const [keyValue, setKeyValue] = useState(null as unknown as object);
   const { ethereum, network } = useMultichain();
   const { account, library, deactivate } = ethereum;
 
@@ -72,12 +73,16 @@ export const ConnectWalletButton = ({
         if (onSign) {
           let key = getWithExpiry(`sig-${account?.toLowerCase()}`);
           if (key) {
+            setKeyValue(key);
             onSign(key);
           } else {
-            signingMessage(account, library, SignatureMessage).then((key) =>
-              onSign(key as any)
-            );
+            signingMessage(account, library, SignatureMessage).then((key) => {
+              setKeyValue(key as any);
+              onSign(key as any);
+            });
           }
+        } else {
+          setKeyValue({ address: account });
         }
       } else {
         alert(NetworkAlertMessage);
@@ -88,7 +93,11 @@ export const ConnectWalletButton = ({
 
   return account ? (
     <>
-      <div onClick={() => setOpenMenu(!openMenu)}>{ConnectedComponent}</div>
+      {keyValue && keyValue != {} ? (
+        <div onClick={() => setOpenMenu(!openMenu)}>{ConnectedComponent}</div>
+      ) : (
+        <>{DiabledComponent}</>
+      )}
       <ConnectMenu
         onClose={() => {
           setOpenMenu(false);

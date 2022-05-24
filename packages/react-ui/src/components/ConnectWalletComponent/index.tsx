@@ -4,7 +4,7 @@ import { ConnectWalletList } from "../ConnectWalletList";
 import { Identicon } from "../Identicon";
 import { useState } from "react";
 import { useDapp } from "@cryptogate/react-providers";
-import { defaults, Active } from "../../defaults";
+import { defaults, Active, Disabled } from "../../defaults";
 
 //TODO: Wallet List Style
 //TODO: Use Disabled Component
@@ -27,6 +27,7 @@ export enum SolWallets {
 
 export const ConnectWalletComponent = ({
   ActiveComponent = <Active />,
+  DiabledComponent = <Disabled />,
   ConnectedComponent = <Identicon />,
   EthWalletList = defaults.EthWallets,
   SolWalletList = defaults.SolWallets,
@@ -36,9 +37,9 @@ export const ConnectWalletComponent = ({
   ConnectMenu = defaults.ConnectMenu,
   onSign,
   WalletListStyle,
-  diabledComponent,
 }: {
   ActiveComponent?: React.ReactNode;
+  DiabledComponent?: React.ReactNode;
   ConnectedComponent?: React.ReactNode;
   EthWalletList?: EthWallets[];
   SolWalletList?: SolWallets[];
@@ -56,7 +57,6 @@ export const ConnectWalletComponent = ({
     top?: any;
     background?: string;
   };
-  diabledComponent?: React.ReactNode;
 }) => {
   const [openOptions, setOpenOptions] = useState(false);
 
@@ -64,9 +64,9 @@ export const ConnectWalletComponent = ({
     <>
       <ConnectWalletButton
         ActiveComponent={ActiveComponent}
+        DiabledComponent={DiabledComponent}
         ConnectedComponent={ConnectedComponent}
         NetworkChainIds={NetworkChainIds}
-        diabledComponent={diabledComponent}
         setOpenOptions={setOpenOptions}
         NetworkAlertMessage={NetworkAlertMessage}
         SignatureMessage={SignatureMessage}

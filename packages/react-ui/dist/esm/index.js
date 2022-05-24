@@ -178,9 +178,10 @@ var signingMessage = function (account, library, SignatureMessage) { return __aw
     });
 }); };
 var ConnectWalletButton = function (_a) {
-    var ActiveComponent = _a.ActiveComponent, ConnectedComponent = _a.ConnectedComponent, SignatureMessage = _a.SignatureMessage, _b = _a.NetworkChainIds, NetworkChainIds = _b === void 0 ? [] : _b, NetworkAlertMessage = _a.NetworkAlertMessage, ConnectMenuFlag = _a.ConnectMenuFlag, onSign = _a.onSign, setOpenOptions = _a.setOpenOptions; _a.diabledComponent;
+    var ActiveComponent = _a.ActiveComponent, DiabledComponent = _a.DiabledComponent, ConnectedComponent = _a.ConnectedComponent, SignatureMessage = _a.SignatureMessage, _b = _a.NetworkChainIds, NetworkChainIds = _b === void 0 ? [] : _b, NetworkAlertMessage = _a.NetworkAlertMessage, ConnectMenuFlag = _a.ConnectMenuFlag, onSign = _a.onSign, setOpenOptions = _a.setOpenOptions;
     var _c = useState(false), openMenu = _c[0], setOpenMenu = _c[1];
-    var _d = useMultichain(), ethereum = _d.ethereum, network = _d.network;
+    var _d = useState(null), keyValue = _d[0], setKeyValue = _d[1];
+    var _e = useMultichain(), ethereum = _e.ethereum, network = _e.network;
     var account = ethereum.account, library = ethereum.library, deactivate = ethereum.deactivate;
     useEffect(function () {
         if (account && library) {
@@ -192,13 +193,18 @@ var ConnectWalletButton = function (_a) {
                 if (onSign) {
                     var key = getWithExpiry("sig-".concat(account === null || account === void 0 ? void 0 : account.toLowerCase()));
                     if (key) {
+                        setKeyValue(key);
                         onSign(key);
                     }
                     else {
                         signingMessage(account, library, SignatureMessage).then(function (key) {
-                            return onSign(key);
+                            setKeyValue(key);
+                            onSign(key);
                         });
                     }
+                }
+                else {
+                    setKeyValue({ address: account });
                 }
             }
             else {
@@ -207,7 +213,7 @@ var ConnectWalletButton = function (_a) {
             }
         }
     }, [account, library]);
-    return account ? (jsxs(Fragment, { children: [jsx("div", __assign({ onClick: function () { return setOpenMenu(!openMenu); } }, { children: ConnectedComponent })), jsx(ConnectMenu, { onClose: function () {
+    return account ? (jsxs(Fragment, { children: [keyValue && keyValue != {} ? (jsx("div", __assign({ onClick: function () { return setOpenMenu(!openMenu); } }, { children: ConnectedComponent }))) : (jsx(Fragment, { children: DiabledComponent })), jsx(ConnectMenu, { onClose: function () {
                     setOpenMenu(false);
                 }, isOpen: ConnectMenuFlag && openMenu })] })) : (jsx("div", __assign({ onClick: function () {
             setOpenOptions(true);
@@ -388,6 +394,16 @@ var Active = function () {
         }, onMouseEnter: handleMouseEnter, onMouseLeave: handleMouseLeave }, { children: "Connect Wallet" })));
 };
 
+var Disabled = function () {
+    return (jsx("button", __assign({ disabled: true, style: {
+            background: "transparent",
+            color: "#c4c4c4",
+            borderColor: "#c4c4c4",
+            borderRadius: "5px",
+            padding: "1vh 2vw",
+        } }, { children: "Connect Wallet" })));
+};
+
 var defaults = {
     EthWallets: [],
     SolWallets: [],
@@ -416,9 +432,9 @@ var SolWallets;
     SolWallets["SOLFLARE"] = "solflare";
 })(SolWallets || (SolWallets = {}));
 var ConnectWalletComponent = function (_a) {
-    var _b = _a.ActiveComponent, ActiveComponent = _b === void 0 ? jsx(Active, {}) : _b, _c = _a.ConnectedComponent, ConnectedComponent = _c === void 0 ? jsx(Identicon, {}) : _c, _d = _a.EthWalletList, EthWalletList = _d === void 0 ? defaults.EthWallets : _d, _e = _a.SolWalletList, SolWalletList = _e === void 0 ? defaults.SolWallets : _e, _f = _a.SignatureMessage, SignatureMessage = _f === void 0 ? defaults.SignatureMessage : _f, _g = _a.NetworkChainIds, NetworkChainIds = _g === void 0 ? defaults.NetworkChainIds : _g, _h = _a.NetworkAlertMessage, NetworkAlertMessage = _h === void 0 ? defaults.NetworkAlertMessage : _h, _j = _a.ConnectMenu, ConnectMenu = _j === void 0 ? defaults.ConnectMenu : _j, onSign = _a.onSign, WalletListStyle = _a.WalletListStyle, diabledComponent = _a.diabledComponent;
-    var _k = useState(false), openOptions = _k[0], setOpenOptions = _k[1];
-    return (jsxs(Fragment, { children: [jsx(ConnectWalletButton, { ActiveComponent: ActiveComponent, ConnectedComponent: ConnectedComponent, NetworkChainIds: NetworkChainIds, diabledComponent: diabledComponent, setOpenOptions: setOpenOptions, NetworkAlertMessage: NetworkAlertMessage, SignatureMessage: SignatureMessage, onSign: onSign, ConnectMenuFlag: ConnectMenu }), openOptions ? (jsx(ConnectWalletList, { openOptions: openOptions, setOpenOptions: setOpenOptions, EthWalletList: EthWalletList, SolWalletList: SolWalletList, WalletListStyle: {
+    var _b = _a.ActiveComponent, ActiveComponent = _b === void 0 ? jsx(Active, {}) : _b, _c = _a.DiabledComponent, DiabledComponent = _c === void 0 ? jsx(Disabled, {}) : _c, _d = _a.ConnectedComponent, ConnectedComponent = _d === void 0 ? jsx(Identicon, {}) : _d, _e = _a.EthWalletList, EthWalletList = _e === void 0 ? defaults.EthWallets : _e, _f = _a.SolWalletList, SolWalletList = _f === void 0 ? defaults.SolWallets : _f, _g = _a.SignatureMessage, SignatureMessage = _g === void 0 ? defaults.SignatureMessage : _g, _h = _a.NetworkChainIds, NetworkChainIds = _h === void 0 ? defaults.NetworkChainIds : _h, _j = _a.NetworkAlertMessage, NetworkAlertMessage = _j === void 0 ? defaults.NetworkAlertMessage : _j, _k = _a.ConnectMenu, ConnectMenu = _k === void 0 ? defaults.ConnectMenu : _k, onSign = _a.onSign, WalletListStyle = _a.WalletListStyle;
+    var _l = useState(false), openOptions = _l[0], setOpenOptions = _l[1];
+    return (jsxs(Fragment, { children: [jsx(ConnectWalletButton, { ActiveComponent: ActiveComponent, DiabledComponent: DiabledComponent, ConnectedComponent: ConnectedComponent, NetworkChainIds: NetworkChainIds, setOpenOptions: setOpenOptions, NetworkAlertMessage: NetworkAlertMessage, SignatureMessage: SignatureMessage, onSign: onSign, ConnectMenuFlag: ConnectMenu }), openOptions ? (jsx(ConnectWalletList, { openOptions: openOptions, setOpenOptions: setOpenOptions, EthWalletList: EthWalletList, SolWalletList: SolWalletList, WalletListStyle: {
                     background: (WalletListStyle === null || WalletListStyle === void 0 ? void 0 : WalletListStyle.background)
                         ? WalletListStyle.background
                         : "white",
