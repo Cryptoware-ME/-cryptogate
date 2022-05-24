@@ -1,3 +1,3 @@
-export declare const Identicon: ({ accountToUse }: {
-    accountToUse?: string | undefined;
+export declare const Identicon: ({ walletAddress }: {
+    walletAddress?: string | undefined;
 }) => JSX.Element;

@@ -380,10 +380,10 @@ var ConnectWalletList = function (_a) {
 };
 
 var Identicon = function (_a) {
-    var accountToUse = _a.accountToUse;
+    var walletAddress = _a.walletAddress;
     var ethereum = reactProviders.useMultichain().ethereum;
     var account = ethereum.account;
-    return (jsxRuntime.jsx(Jazzicon__default["default"], { diameter: reactDeviceDetect.isMobile ? 30 : 40, seed: Jazzicon.jsNumberForAddress(accountToUse ? accountToUse : (account === null || account === void 0 ? void 0 : account.toString()) || "") }));
+    return (jsxRuntime.jsx(Jazzicon__default["default"], { diameter: reactDeviceDetect.isMobile ? 30 : 40, seed: Jazzicon.jsNumberForAddress(walletAddress ? walletAddress : (account === null || account === void 0 ? void 0 : account.toString()) || "") }));
 };
 
 var Active = function () {
@@ -417,14 +417,16 @@ var defaults = {
     EthWallets: [],
     SolWallets: [],
     NetworkChainIds: [1],
-    ConnectMenu: true,
+    ConnectedMenu: true,
     ConnectWalletButtonText: "Connect Wallet",
     SignatureMessage: "This is the default signaure message provided by Cryptogate.",
     NetworkAlertMessage: "Selected network is not supported.",
+    WalletListStyle: {
+        background: "white",
+        top: "0",
+    },
 };
 
-//TODO: Wallet List Style
-//TODO: Use Disabled Component
 reactProviders.useDapp.ChainId;
 exports.EthWallets = void 0;
 (function (EthWallets) {
@@ -441,14 +443,9 @@ exports.SolWallets = void 0;
     SolWallets["SOLFLARE"] = "solflare";
 })(exports.SolWallets || (exports.SolWallets = {}));
 var ConnectWalletComponent = function (_a) {
-    var _b = _a.ActiveComponent, ActiveComponent = _b === void 0 ? jsxRuntime.jsx(Active, {}) : _b, _c = _a.DiabledComponent, DiabledComponent = _c === void 0 ? jsxRuntime.jsx(Disabled, {}) : _c, _d = _a.ConnectedComponent, ConnectedComponent = _d === void 0 ? jsxRuntime.jsx(Identicon, {}) : _d, _e = _a.EthWalletList, EthWalletList = _e === void 0 ? defaults.EthWallets : _e, _f = _a.SolWalletList, SolWalletList = _f === void 0 ? defaults.SolWallets : _f, _g = _a.SignatureMessage, SignatureMessage = _g === void 0 ? defaults.SignatureMessage : _g, _h = _a.NetworkChainIds, NetworkChainIds = _h === void 0 ? defaults.NetworkChainIds : _h, _j = _a.NetworkAlertMessage, NetworkAlertMessage = _j === void 0 ? defaults.NetworkAlertMessage : _j, _k = _a.ConnectMenu, ConnectMenu = _k === void 0 ? defaults.ConnectMenu : _k, onSign = _a.onSign, WalletListStyle = _a.WalletListStyle;
-    var _l = react.useState(false), openOptions = _l[0], setOpenOptions = _l[1];
-    return (jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [jsxRuntime.jsx(ConnectWalletButton, { ActiveComponent: ActiveComponent, DiabledComponent: DiabledComponent, ConnectedComponent: ConnectedComponent, NetworkChainIds: NetworkChainIds, setOpenOptions: setOpenOptions, NetworkAlertMessage: NetworkAlertMessage, SignatureMessage: SignatureMessage, onSign: onSign, ConnectMenuFlag: ConnectMenu }), openOptions ? (jsxRuntime.jsx(ConnectWalletList, { openOptions: openOptions, setOpenOptions: setOpenOptions, EthWalletList: EthWalletList, SolWalletList: SolWalletList, WalletListStyle: {
-                    background: (WalletListStyle === null || WalletListStyle === void 0 ? void 0 : WalletListStyle.background)
-                        ? WalletListStyle.background
-                        : "white",
-                    top: (WalletListStyle === null || WalletListStyle === void 0 ? void 0 : WalletListStyle.top) ? WalletListStyle.top : "0",
-                } })) : (jsxRuntime.jsx(jsxRuntime.Fragment, {}))] }));
+    var _b = _a.ActiveComponent, ActiveComponent = _b === void 0 ? jsxRuntime.jsx(Active, {}) : _b, _c = _a.DiabledComponent, DiabledComponent = _c === void 0 ? jsxRuntime.jsx(Disabled, {}) : _c, _d = _a.ConnectedComponent, ConnectedComponent = _d === void 0 ? jsxRuntime.jsx(Identicon, {}) : _d, _e = _a.EthWalletList, EthWalletList = _e === void 0 ? defaults.EthWallets : _e, _f = _a.SolWalletList, SolWalletList = _f === void 0 ? defaults.SolWallets : _f, _g = _a.SignatureMessage, SignatureMessage = _g === void 0 ? defaults.SignatureMessage : _g, _h = _a.NetworkChainIds, NetworkChainIds = _h === void 0 ? defaults.NetworkChainIds : _h, _j = _a.NetworkAlertMessage, NetworkAlertMessage = _j === void 0 ? defaults.NetworkAlertMessage : _j, _k = _a.ConnectedMenu, ConnectedMenu = _k === void 0 ? defaults.ConnectedMenu : _k, _l = _a.WalletListStyle, WalletListStyle = _l === void 0 ? defaults.WalletListStyle : _l, onSign = _a.onSign;
+    var _m = react.useState(false), openOptions = _m[0], setOpenOptions = _m[1];
+    return (jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [jsxRuntime.jsx(ConnectWalletButton, { ActiveComponent: ActiveComponent, DiabledComponent: DiabledComponent, ConnectedComponent: ConnectedComponent, NetworkChainIds: NetworkChainIds, setOpenOptions: setOpenOptions, NetworkAlertMessage: NetworkAlertMessage, SignatureMessage: SignatureMessage, onSign: onSign, ConnectMenuFlag: ConnectedMenu }), openOptions ? (jsxRuntime.jsx(ConnectWalletList, { openOptions: openOptions, setOpenOptions: setOpenOptions, EthWalletList: EthWalletList, SolWalletList: SolWalletList, WalletListStyle: WalletListStyle })) : (jsxRuntime.jsx(jsxRuntime.Fragment, {}))] }));
 };
 
 exports.ConnectWalletComponent = ConnectWalletComponent;

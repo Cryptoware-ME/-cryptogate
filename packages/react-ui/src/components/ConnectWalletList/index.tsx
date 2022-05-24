@@ -13,7 +13,10 @@ export const ConnectWalletList = ({
   setOpenOptions: any;
   EthWalletList?: EthWallets[];
   SolWalletList?: SolWallets[];
-  WalletListStyle?: any;
+  WalletListStyle?: {
+    top?: any;
+    background?: string;
+  };
 }) => {
   return (
     <>

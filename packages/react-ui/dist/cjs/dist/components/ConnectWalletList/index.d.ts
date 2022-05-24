@@ -4,5 +4,8 @@ export declare const ConnectWalletList: ({ openOptions, setOpenOptions, EthWalle
     setOpenOptions: any;
     EthWalletList?: EthWallets[] | undefined;
     SolWalletList?: SolWallets[] | undefined;
-    WalletListStyle?: any;
+    WalletListStyle?: {
+        top?: any;
+        background?: string | undefined;
+    } | undefined;
 }) => JSX.Element;

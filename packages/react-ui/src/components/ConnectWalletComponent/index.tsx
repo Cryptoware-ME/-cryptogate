@@ -6,9 +6,6 @@ import { useState } from "react";
 import { useDapp } from "@cryptogate/react-providers";
 import { defaults, Active, Disabled } from "../../defaults";
 
-//TODO: Wallet List Style
-//TODO: Use Disabled Component
-
 const { ChainId } = useDapp;
 
 export enum EthWallets {
@@ -34,9 +31,9 @@ export const ConnectWalletComponent = ({
   SignatureMessage = defaults.SignatureMessage,
   NetworkChainIds = defaults.NetworkChainIds,
   NetworkAlertMessage = defaults.NetworkAlertMessage,
-  ConnectMenu = defaults.ConnectMenu,
+  ConnectedMenu = defaults.ConnectedMenu,
+  WalletListStyle = defaults.WalletListStyle,
   onSign,
-  WalletListStyle,
 }: {
   ActiveComponent?: React.ReactNode;
   DiabledComponent?: React.ReactNode;
@@ -46,17 +43,17 @@ export const ConnectWalletComponent = ({
   SignatureMessage?: string;
   NetworkChainIds?: number[];
   NetworkAlertMessage?: string;
-  ConnectMenu?: boolean;
+  ConnectedMenu?: boolean;
+  WalletListStyle?: {
+    top?: any;
+    background?: string;
+  };
   onSign?: (key: {
     address: string;
     message: string;
     signature: string;
     chain: typeof ChainId;
   }) => void;
-  WalletListStyle?: {
-    top?: any;
-    background?: string;
-  };
 }) => {
   const [openOptions, setOpenOptions] = useState(false);
 
@@ -71,7 +68,7 @@ export const ConnectWalletComponent = ({
         NetworkAlertMessage={NetworkAlertMessage}
         SignatureMessage={SignatureMessage}
         onSign={onSign}
-        ConnectMenuFlag={ConnectMenu}
+        ConnectMenuFlag={ConnectedMenu}
       />
       {openOptions ? (
         <ConnectWalletList
@@ -79,12 +76,7 @@ export const ConnectWalletComponent = ({
           setOpenOptions={setOpenOptions}
           EthWalletList={EthWalletList}
           SolWalletList={SolWalletList}
-          WalletListStyle={{
-            background: WalletListStyle?.background
-              ? WalletListStyle.background
-              : "white",
-            top: WalletListStyle?.top ? WalletListStyle.top : "0",
-          }}
+          WalletListStyle={WalletListStyle}
         />
       ) : (
         <></>

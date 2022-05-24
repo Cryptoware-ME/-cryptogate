@@ -13,7 +13,7 @@ declare enum SolWallets {
     SLOPE = "slope",
     SOLFLARE = "solflare"
 }
-declare const ConnectWalletComponent: ({ ActiveComponent, DiabledComponent, ConnectedComponent, EthWalletList, SolWalletList, SignatureMessage, NetworkChainIds, NetworkAlertMessage, ConnectMenu, onSign, WalletListStyle, }: {
+declare const ConnectWalletComponent: ({ ActiveComponent, DiabledComponent, ConnectedComponent, EthWalletList, SolWalletList, SignatureMessage, NetworkChainIds, NetworkAlertMessage, ConnectedMenu, WalletListStyle, onSign, }: {
     ActiveComponent?: React.ReactNode;
     DiabledComponent?: React.ReactNode;
     ConnectedComponent?: React.ReactNode;
@@ -22,21 +22,21 @@ declare const ConnectWalletComponent: ({ ActiveComponent, DiabledComponent, Conn
     SignatureMessage?: string | undefined;
     NetworkChainIds?: number[] | undefined;
     NetworkAlertMessage?: string | undefined;
-    ConnectMenu?: boolean | undefined;
+    ConnectedMenu?: boolean | undefined;
+    WalletListStyle?: {
+        top?: any;
+        background?: string | undefined;
+    } | undefined;
     onSign?: ((key: {
         address: string;
         message: string;
         signature: string;
         chain: typeof useDapp.ChainId;
     }) => void) | undefined;
-    WalletListStyle?: {
-        top?: any;
-        background?: string | undefined;
-    } | undefined;
 }) => JSX.Element;
 
-declare const Identicon: ({ accountToUse }: {
-    accountToUse?: string | undefined;
+declare const Identicon: ({ walletAddress }: {
+    walletAddress?: string | undefined;
 }) => JSX.Element;
 
 declare const getWithExpiry: (key: any) => any;
