@@ -1,14 +1,18 @@
 import React from "react";
-export declare const ConnectWalletButton: ({ activeComponent, diabledComponent, connectedComponent, setOpenOptions, onSign, alertMessage, message, btnClass, btnText, connectMenu, networkChainId, }: {
-    activeComponent?: React.ReactNode;
-    diabledComponent?: React.ReactNode;
-    connectedComponent?: React.ReactNode;
+import { useDapp } from "@cryptogate/react-providers";
+export declare const ConnectWalletButton: ({ ActiveComponent, ConnectedComponent, SignatureMessage, NetworkChainIds, NetworkAlertMessage, ConnectMenuFlag, onSign, setOpenOptions, diabledComponent, }: {
+    ActiveComponent: React.ReactNode;
+    ConnectedComponent?: React.ReactNode;
+    SignatureMessage: string;
+    NetworkChainIds?: number[] | undefined;
+    NetworkAlertMessage: string;
+    ConnectMenuFlag: boolean;
+    onSign?: ((key: {
+        address: string;
+        message: string;
+        signature: string;
+        chain: typeof useDapp.ChainId;
+    }) => void) | undefined;
     setOpenOptions: any;
-    onSign?: any;
-    alertMessage: string;
-    message?: string | undefined;
-    btnClass?: string | undefined;
-    btnText?: string | undefined;
-    connectMenu: boolean;
-    networkChainId?: number[] | undefined;
+    diabledComponent?: React.ReactNode;
 }) => JSX.Element;

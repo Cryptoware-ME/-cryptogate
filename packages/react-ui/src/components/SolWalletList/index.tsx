@@ -9,7 +9,8 @@ const SolWalletList = ({ SolWalletList }: { SolWalletList: SolWallets[] }) => {
         marginBottom: "20px",
       }}
     >
-      {(SolWalletList.indexOf(SolWallets.all) > -1 || SolWalletList.indexOf(SolWallets.phantom) > -1) && (
+      {(SolWalletList.indexOf(SolWallets.ALL) > -1 ||
+        SolWalletList.indexOf(SolWallets.PHANTOM) > -1) && (
         // <WalletListing
         //   heading="Metamask"
         //   iconSrc={DCBMetamask}
@@ -17,7 +18,8 @@ const SolWalletList = ({ SolWalletList }: { SolWalletList: SolWallets[] }) => {
         // />
         <></>
       )}
-      {(SolWalletList.indexOf(SolWallets.all) > -1 || SolWalletList.indexOf(SolWallets.slope) > -1) && (
+      {(SolWalletList.indexOf(SolWallets.ALL) > -1 ||
+        SolWalletList.indexOf(SolWallets.SLOPE) > -1) && (
         // <WalletListing
         //   heading="Coinbase"
         //   iconSrc={DCBCoinbase}
@@ -25,7 +27,8 @@ const SolWalletList = ({ SolWalletList }: { SolWalletList: SolWallets[] }) => {
         // />
         <></>
       )}
-      {(SolWalletList.indexOf(SolWallets.all) > -1 || SolWalletList.indexOf(SolWallets.solflare) > -1) && (
+      {(SolWalletList.indexOf(SolWallets.ALL) > -1 ||
+        SolWalletList.indexOf(SolWallets.SOLFLARE) > -1) && (
         // <WalletListing
         //   heading="Fortmatic"
         //   iconSrc={DCBFortmatic}

@@ -1,18 +1,24 @@
 import React from "react";
 import { useMultichain } from "@cryptogate/react-providers";
 import { useState, useEffect } from "react";
-import { Identicon } from "../Identicon";
 import ConnectMenu from "../ConnectMenu";
 import { ethSignMessage } from "@cryptogate/core";
 import { setWithExpiry } from "../../localStorage/setWithExpire";
 import { getWithExpiry } from "../../localStorage/getWithExpire";
+import { useDapp } from "@cryptogate/react-providers";
 
-const signingMessage = async (account: any, library: any, message: string) => {
+const { ChainId } = useDapp;
+
+const signingMessage = async (
+  account: any,
+  library: any,
+  SignatureMessage: string
+) => {
   return new Promise((resolve, reject) => {
     ethSignMessage({
       account,
       provider: library,
-      message,
+      message: SignatureMessage + "Wallet Address: " + account,
     })
       .then((sig) => {
         setWithExpiry(`sig-${account.toLowerCase()}`, sig, 43200000);
@@ -25,29 +31,30 @@ const signingMessage = async (account: any, library: any, message: string) => {
 };
 
 export const ConnectWalletButton = ({
-  activeComponent,
-  diabledComponent,
-  connectedComponent,
-  setOpenOptions,
+  ActiveComponent,
+  ConnectedComponent,
+  SignatureMessage,
+  NetworkChainIds = [],
+  NetworkAlertMessage,
+  ConnectMenuFlag,
   onSign,
-  alertMessage,
-  message = "This is the default message provided by Cryptogate when signing a message",
-  btnClass,
-  btnText,
-  connectMenu,
-  networkChainId = [],
+  setOpenOptions,
+  diabledComponent,
 }: {
-  activeComponent?: React.ReactNode;
-  diabledComponent?: React.ReactNode;
-  connectedComponent?: React.ReactNode;
+  ActiveComponent: React.ReactNode;
+  ConnectedComponent?: React.ReactNode;
+  SignatureMessage: string;
+  NetworkChainIds?: number[];
+  NetworkAlertMessage: string;
+  ConnectMenuFlag: boolean;
+  onSign?: (key: {
+    address: string;
+    message: string;
+    signature: string;
+    chain: typeof ChainId;
+  }) => void;
   setOpenOptions: any;
-  onSign?: any;
-  alertMessage: string;
-  message?: string;
-  btnClass?: string;
-  btnText?: string;
-  connectMenu: boolean;
-  networkChainId?: number[];
+  diabledComponent?: React.ReactNode;
 }) => {
   const [openMenu, setOpenMenu] = useState(false);
   const { ethereum, network } = useMultichain();
@@ -56,10 +63,10 @@ export const ConnectWalletButton = ({
   useEffect(() => {
     if (account && library) {
       if (
-        networkChainId.length == 0 ||
-        (networkChainId.length > 0 &&
+        NetworkChainIds.length == 0 ||
+        (NetworkChainIds.length > 0 &&
           (network.network.chainId
-            ? networkChainId.includes(network.network.chainId)
+            ? NetworkChainIds.includes(network.network.chainId)
             : false))
       ) {
         if (onSign) {
@@ -67,13 +74,13 @@ export const ConnectWalletButton = ({
           if (key) {
             onSign(key);
           } else {
-            signingMessage(account, library, message).then((key) =>
-              onSign(key)
+            signingMessage(account, library, SignatureMessage).then((key) =>
+              onSign(key as any)
             );
           }
         }
       } else {
-        alert(alertMessage);
+        alert(NetworkAlertMessage);
         deactivate();
       }
     }
@@ -81,14 +88,12 @@ export const ConnectWalletButton = ({
 
   return account ? (
     <>
-      <div onClick={() => setOpenMenu(!openMenu)}>
-        {connectedComponent ? connectedComponent : <Identicon />}
-      </div>
+      <div onClick={() => setOpenMenu(!openMenu)}>{ConnectedComponent}</div>
       <ConnectMenu
         onClose={() => {
           setOpenMenu(false);
         }}
-        isOpen={connectMenu && openMenu}
+        isOpen={ConnectMenuFlag && openMenu}
       />
     </>
   ) : (
@@ -97,13 +102,7 @@ export const ConnectWalletButton = ({
         setOpenOptions(true);
       }}
     >
-      {activeComponent ? (
-        activeComponent
-      ) : (
-        <button className={btnClass} type="button">
-          {btnText}
-        </button>
-      )}
+      {ActiveComponent}
     </div>
   );
 };

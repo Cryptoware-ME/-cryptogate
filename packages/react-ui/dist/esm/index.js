@@ -1,11 +1,11 @@
-import { jsx, jsxs, Fragment } from 'react/jsx-runtime';
+import { jsxs, jsx, Fragment } from 'react/jsx-runtime';
 import { useMultichain, useDapp } from '@cryptogate/react-providers';
 import { useState, useEffect } from 'react';
-import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
-import { isMobile } from 'react-device-detect';
 import { utils } from 'ethers';
 import { ethSignMessage } from '@cryptogate/core';
 import detectEthereumProvider from '@metamask/detect-provider';
+import { isMobile } from 'react-device-detect';
+import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation.
@@ -70,13 +70,6 @@ function __generator(thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 }
-
-var Identicon = function (_a) {
-    var accountToUse = _a.accountToUse;
-    var ethereum = useMultichain().ethereum;
-    var account = ethereum.account;
-    return (jsx(Jazzicon, { diameter: isMobile ? 30 : 40, seed: jsNumberForAddress(accountToUse ? accountToUse : (account === null || account === void 0 ? void 0 : account.toString()) || "") }));
-};
 
 var disconnect = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAAACXBIWXMAAA7DAAAOwwHHb6hkAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAAyFJREFUOI2tlc9rHHUUwD/vOzOb6IZiakCJl0hoLoGW6mrY2c3GLdH6A0QQKYgUevKu4M0/wJN/gCBovWjoRasHGzsuM7sxMRoprAerNBUNzcHupkpJnN3v87AzcdzOqojv8mDe+36+7/t+jfA/SqvVOmqtvQgg6cdGo/FgsVjcLZVKt//usKqaVqv1lLW2JiJHVPV713UvqOota+0qcBL4QlKo4zhXgSvGmGXf92/mQRO/FeDhIVMM/AzMAFue5z1uAIrF4i5wBThprV1ttVpHh6FhGM45jhMl0Guq+rqqvgy8CzgJdNsYs7ywsPDLYSqS/KRP2cpGHobhnIgEwDTwURzHL9br9d8yZ09baz8BeiIyV6lUrh+CR8H7/f5UBvrh5OTkC/Pz878PvyiKoneAs8Ar1Wr1TZM1+r5/0xizDGwlabn8b6BpXImeBTDD1iH4CWBaRC7+AxTgvkT/mgvOgQNM7+3tTYwiBkEwAZwDMMZ8ngtuNpuzYRi+0ev1nBSuqg+p6qW8bmm324VCoXAemFHVjXK5fOkOcKPROKaqDRF5zXGc09nI8+DtdrvQ7XbfV9XngB3Xdc+IiIXM5K2trc30+/0IeIChQgVBcI/neZ8CjwDfeJ637DjOrYODgw8S6K619lStVvs25QkMxrTZbG4waP7c6mdbUUS+VtWfgGeBHVWtLy4ufpf1F4Aoip4GPgauxXF8PNv8Q0XKRk5epKkYABGpJZG/PQoKUK/Xu8aYJ/mzW26MjY3t5vmaBHgkueDGKGi73S40m82Xer2eE8fxKeBL4EQcx58FQTA1CvxDov1R0E6ns6Kq5x3HebVer3fjOH4ihXuet7q+vn7vHWDXdS8AsYicDcNwOesQBMFEp9NZISkU8Faaliw8juO/wAUOK/4Vg9XXB95T1ZaI3M9gomaAnX6//9jS0tLV7MXDi2t8fLxaKpVuy5Bhm8HCKWQPq+qG67pnyuXydl6qMozjIjJbqVSuSxiG6yLyKMmatNZOAM8Dx4A9EQl8319NJ2qUbG5u3r2/vz9VrVZ/BJAoii4Ddxljnhn1S/ov8gdQvalD20NEGgAAAABJRU5ErkJggg==";
 var WalletInformation = function (_a) {
@@ -165,13 +158,14 @@ var getWithExpiry = function (key) {
     return item.value;
 };
 
-var signingMessage = function (account, library, message) { return __awaiter(void 0, void 0, void 0, function () {
+useDapp.ChainId;
+var signingMessage = function (account, library, SignatureMessage) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         return [2 /*return*/, new Promise(function (resolve, reject) {
                 ethSignMessage({
                     account: account,
                     provider: library,
-                    message: message,
+                    message: SignatureMessage + "Wallet Address: " + account,
                 })
                     .then(function (sig) {
                     setWithExpiry("sig-".concat(account.toLowerCase()), sig, 43200000);
@@ -184,16 +178,16 @@ var signingMessage = function (account, library, message) { return __awaiter(voi
     });
 }); };
 var ConnectWalletButton = function (_a) {
-    var activeComponent = _a.activeComponent; _a.diabledComponent; var connectedComponent = _a.connectedComponent, setOpenOptions = _a.setOpenOptions, onSign = _a.onSign, alertMessage = _a.alertMessage, _b = _a.message, message = _b === void 0 ? "This is the default message provided by Cryptogate when signing a message" : _b, btnClass = _a.btnClass, btnText = _a.btnText, connectMenu = _a.connectMenu, _c = _a.networkChainId, networkChainId = _c === void 0 ? [] : _c;
-    var _d = useState(false), openMenu = _d[0], setOpenMenu = _d[1];
-    var _e = useMultichain(), ethereum = _e.ethereum, network = _e.network;
+    var ActiveComponent = _a.ActiveComponent, ConnectedComponent = _a.ConnectedComponent, SignatureMessage = _a.SignatureMessage, _b = _a.NetworkChainIds, NetworkChainIds = _b === void 0 ? [] : _b, NetworkAlertMessage = _a.NetworkAlertMessage, ConnectMenuFlag = _a.ConnectMenuFlag, onSign = _a.onSign, setOpenOptions = _a.setOpenOptions; _a.diabledComponent;
+    var _c = useState(false), openMenu = _c[0], setOpenMenu = _c[1];
+    var _d = useMultichain(), ethereum = _d.ethereum, network = _d.network;
     var account = ethereum.account, library = ethereum.library, deactivate = ethereum.deactivate;
     useEffect(function () {
         if (account && library) {
-            if (networkChainId.length == 0 ||
-                (networkChainId.length > 0 &&
+            if (NetworkChainIds.length == 0 ||
+                (NetworkChainIds.length > 0 &&
                     (network.network.chainId
-                        ? networkChainId.includes(network.network.chainId)
+                        ? NetworkChainIds.includes(network.network.chainId)
                         : false))) {
                 if (onSign) {
                     var key = getWithExpiry("sig-".concat(account === null || account === void 0 ? void 0 : account.toLowerCase()));
@@ -201,23 +195,23 @@ var ConnectWalletButton = function (_a) {
                         onSign(key);
                     }
                     else {
-                        signingMessage(account, library, message).then(function (key) {
+                        signingMessage(account, library, SignatureMessage).then(function (key) {
                             return onSign(key);
                         });
                     }
                 }
             }
             else {
-                alert(alertMessage);
+                alert(NetworkAlertMessage);
                 deactivate();
             }
         }
     }, [account, library]);
-    return account ? (jsxs(Fragment, { children: [jsx("div", __assign({ onClick: function () { return setOpenMenu(!openMenu); } }, { children: connectedComponent ? connectedComponent : jsx(Identicon, {}) })), jsx(ConnectMenu, { onClose: function () {
+    return account ? (jsxs(Fragment, { children: [jsx("div", __assign({ onClick: function () { return setOpenMenu(!openMenu); } }, { children: ConnectedComponent })), jsx(ConnectMenu, { onClose: function () {
                     setOpenMenu(false);
-                }, isOpen: connectMenu && openMenu })] })) : (jsx("div", __assign({ onClick: function () {
+                }, isOpen: ConnectMenuFlag && openMenu })] })) : (jsx("div", __assign({ onClick: function () {
             setOpenOptions(true);
-        } }, { children: activeComponent ? (activeComponent) : (jsx("button", __assign({ className: btnClass, type: "button" }, { children: btnText }))) })));
+        } }, { children: ActiveComponent })));
 };
 
 var WalletListing = function (_a) {
@@ -283,17 +277,17 @@ var EthWalletListComp = function (_a) {
             border: "black 1px solid",
             borderRadius: "8px",
             marginBottom: "20px",
-        } }, { children: [(EthWalletList.indexOf(EthWallets.all) > -1 ||
-                EthWalletList.indexOf(EthWallets.metamask) > -1) && (jsx(WalletListing, { noBottomBorder: EthWalletList.indexOf(EthWallets.metamask) ==
+        } }, { children: [(EthWalletList.indexOf(EthWallets.ALL) > -1 ||
+                EthWalletList.indexOf(EthWallets.METAMASK) > -1) && (jsx(WalletListing, { noBottomBorder: EthWalletList.indexOf(EthWallets.METAMASK) ==
                     EthWalletList.length - 1
                     ? true
-                    : false, heading: "Metamask", iconSrc: DCBMetamask, onWalletCall: injectedHandle })), (EthWalletList.indexOf(EthWallets.all) > -1 ||
-                EthWalletList.indexOf(EthWallets.coinbase) > -1) && (jsx(WalletListing, { noBottomBorder: EthWalletList.indexOf(EthWallets.coinbase) ==
+                    : false, heading: "Metamask", iconSrc: DCBMetamask, onWalletCall: injectedHandle })), (EthWalletList.indexOf(EthWallets.ALL) > -1 ||
+                EthWalletList.indexOf(EthWallets.COINBASE) > -1) && (jsx(WalletListing, { noBottomBorder: EthWalletList.indexOf(EthWallets.COINBASE) ==
                     EthWalletList.length - 1
                     ? true
-                    : false, heading: "Coinbase", iconSrc: DCBCoinbase, onWalletCall: function () { return regHandle("Coinbase Wallet", wallets.Coinbase); } })), (EthWalletList.indexOf(EthWallets.all) > -1 ||
-                EthWalletList.indexOf(EthWallets.walletConnect) > -1) && (jsx(WalletListing, { noBottomBorder: EthWalletList.indexOf(EthWallets.all) > -1 ||
-                    EthWalletList.indexOf(EthWallets.walletConnect) ==
+                    : false, heading: "Coinbase", iconSrc: DCBCoinbase, onWalletCall: function () { return regHandle("Coinbase Wallet", wallets.Coinbase); } })), (EthWalletList.indexOf(EthWallets.ALL) > -1 ||
+                EthWalletList.indexOf(EthWallets.WALLETCONNECT) > -1) && (jsx(WalletListing, { noBottomBorder: EthWalletList.indexOf(EthWallets.ALL) > -1 ||
+                    EthWalletList.indexOf(EthWallets.WALLETCONNECT) ==
                         EthWalletList.length - 1
                     ? true
                     : false, heading: "WalletConnect", iconSrc: DCBWalletconnect, onWalletCall: function () {
@@ -307,19 +301,22 @@ var SolWalletList = function (_a) {
             border: "black 1px solid",
             borderRadius: "8px",
             marginBottom: "20px",
-        } }, { children: [(SolWalletList.indexOf(SolWallets.all) > -1 || SolWalletList.indexOf(SolWallets.phantom) > -1) && (
+        } }, { children: [(SolWalletList.indexOf(SolWallets.ALL) > -1 ||
+                SolWalletList.indexOf(SolWallets.PHANTOM) > -1) && (
             // <WalletListing
             //   heading="Metamask"
             //   iconSrc={DCBMetamask}
             //   onWalletCall={injectedHandle}
             // />
-            jsx(Fragment, {})), (SolWalletList.indexOf(SolWallets.all) > -1 || SolWalletList.indexOf(SolWallets.slope) > -1) && (
+            jsx(Fragment, {})), (SolWalletList.indexOf(SolWallets.ALL) > -1 ||
+                SolWalletList.indexOf(SolWallets.SLOPE) > -1) && (
             // <WalletListing
             //   heading="Coinbase"
             //   iconSrc={DCBCoinbase}
             //   onWalletCall={() => regHandle("Coinbase Wallet", wallets.Coinbase)}
             // />
-            jsx(Fragment, {})), (SolWalletList.indexOf(SolWallets.all) > -1 || SolWalletList.indexOf(SolWallets.solflare) > -1) && (
+            jsx(Fragment, {})), (SolWalletList.indexOf(SolWallets.ALL) > -1 ||
+                SolWalletList.indexOf(SolWallets.SOLFLARE) > -1) && (
             // <WalletListing
             //   heading="Fortmatic"
             //   iconSrc={DCBFortmatic}
@@ -367,25 +364,61 @@ var ConnectWalletList = function (_a) {
                 }, onClick: function () { return setOpenOptions(false); } }))] }));
 };
 
+var Identicon = function (_a) {
+    var accountToUse = _a.accountToUse;
+    var ethereum = useMultichain().ethereum;
+    var account = ethereum.account;
+    return (jsx(Jazzicon, { diameter: isMobile ? 30 : 40, seed: jsNumberForAddress(accountToUse ? accountToUse : (account === null || account === void 0 ? void 0 : account.toString()) || "") }));
+};
+
+var Active = function () {
+    var _a = useState(false), isHovering = _a[0], setIsHovering = _a[1];
+    var handleMouseEnter = function () {
+        setIsHovering(true);
+    };
+    var handleMouseLeave = function () {
+        setIsHovering(false);
+    };
+    return (jsx("button", __assign({ style: {
+            background: isHovering ? "#000000" : "transparent",
+            color: isHovering ? "#ffffff" : "#000000",
+            borderRadius: "5px",
+            padding: "1vh 2vw",
+            cursor: isHovering ? "pointer" : "",
+        }, onMouseEnter: handleMouseEnter, onMouseLeave: handleMouseLeave }, { children: "Connect Wallet" })));
+};
+
+var defaults = {
+    EthWallets: [],
+    SolWallets: [],
+    NetworkChainIds: [1],
+    ConnectMenu: true,
+    ConnectWalletButtonText: "Connect Wallet",
+    SignatureMessage: "This is the default signaure message provided by Cryptogate.",
+    NetworkAlertMessage: "Selected network is not supported.",
+};
+
+//TODO: Wallet List Style
+//TODO: Use Disabled Component
 useDapp.ChainId;
 var EthWallets;
 (function (EthWallets) {
-    EthWallets[EthWallets["all"] = 0] = "all";
-    EthWallets[EthWallets["metamask"] = 1] = "metamask";
-    EthWallets[EthWallets["walletConnect"] = 2] = "walletConnect";
-    EthWallets[EthWallets["coinbase"] = 3] = "coinbase";
+    EthWallets["ALL"] = "all";
+    EthWallets["METAMASK"] = "metamask";
+    EthWallets["WALLETCONNECT"] = "walletconnect";
+    EthWallets["COINBASE"] = "coinbase";
 })(EthWallets || (EthWallets = {}));
 var SolWallets;
 (function (SolWallets) {
-    SolWallets[SolWallets["all"] = 0] = "all";
-    SolWallets[SolWallets["phantom"] = 1] = "phantom";
-    SolWallets[SolWallets["slope"] = 2] = "slope";
-    SolWallets[SolWallets["solflare"] = 3] = "solflare";
+    SolWallets["ALL"] = "all";
+    SolWallets["PHANTOM"] = "phantom";
+    SolWallets["SLOPE"] = "slope";
+    SolWallets["SOLFLARE"] = "solflare";
 })(SolWallets || (SolWallets = {}));
 var ConnectWalletComponent = function (_a) {
-    var activeComponent = _a.activeComponent, diabledComponent = _a.diabledComponent, connectedComponent = _a.connectedComponent, _b = _a.networkChainId, networkChainId = _b === void 0 ? [] : _b, _c = _a.alertMessage, alertMessage = _c === void 0 ? "Selected network is not supported" : _c, _d = _a.message, message = _d === void 0 ? "This is the default message provided by Cryptogate when signing a message" : _d, onSign = _a.onSign, EthWalletList = _a.EthWalletList, SolWalletList = _a.SolWalletList, WalletListStyle = _a.WalletListStyle, _e = _a.ConnectWalletButtonClass, ConnectWalletButtonClass = _e === void 0 ? "" : _e, _f = _a.ConnectWalletButtonText, ConnectWalletButtonText = _f === void 0 ? "Connect Wallet" : _f, _g = _a.ConnectMenu, ConnectMenu = _g === void 0 ? true : _g;
-    var _h = useState(false), openOptions = _h[0], setOpenOptions = _h[1];
-    return (jsxs(Fragment, { children: [jsx(ConnectWalletButton, { activeComponent: activeComponent, diabledComponent: diabledComponent, connectedComponent: connectedComponent, setOpenOptions: setOpenOptions, alertMessage: alertMessage, message: message, onSign: onSign, btnClass: ConnectWalletButtonClass, btnText: ConnectWalletButtonText, connectMenu: ConnectMenu, networkChainId: networkChainId }), openOptions ? (jsx(ConnectWalletList, { openOptions: openOptions, setOpenOptions: setOpenOptions, EthWalletList: EthWalletList ? EthWalletList : [], SolWalletList: SolWalletList ? SolWalletList : [], WalletListStyle: {
+    var _b = _a.ActiveComponent, ActiveComponent = _b === void 0 ? jsx(Active, {}) : _b, _c = _a.ConnectedComponent, ConnectedComponent = _c === void 0 ? jsx(Identicon, {}) : _c, _d = _a.EthWalletList, EthWalletList = _d === void 0 ? defaults.EthWallets : _d, _e = _a.SolWalletList, SolWalletList = _e === void 0 ? defaults.SolWallets : _e, _f = _a.SignatureMessage, SignatureMessage = _f === void 0 ? defaults.SignatureMessage : _f, _g = _a.NetworkChainIds, NetworkChainIds = _g === void 0 ? defaults.NetworkChainIds : _g, _h = _a.NetworkAlertMessage, NetworkAlertMessage = _h === void 0 ? defaults.NetworkAlertMessage : _h, _j = _a.ConnectMenu, ConnectMenu = _j === void 0 ? defaults.ConnectMenu : _j, onSign = _a.onSign, WalletListStyle = _a.WalletListStyle, diabledComponent = _a.diabledComponent;
+    var _k = useState(false), openOptions = _k[0], setOpenOptions = _k[1];
+    return (jsxs(Fragment, { children: [jsx(ConnectWalletButton, { ActiveComponent: ActiveComponent, ConnectedComponent: ConnectedComponent, NetworkChainIds: NetworkChainIds, diabledComponent: diabledComponent, setOpenOptions: setOpenOptions, NetworkAlertMessage: NetworkAlertMessage, SignatureMessage: SignatureMessage, onSign: onSign, ConnectMenuFlag: ConnectMenu }), openOptions ? (jsx(ConnectWalletList, { openOptions: openOptions, setOpenOptions: setOpenOptions, EthWalletList: EthWalletList, SolWalletList: SolWalletList, WalletListStyle: {
                     background: (WalletListStyle === null || WalletListStyle === void 0 ? void 0 : WalletListStyle.background)
                         ? WalletListStyle.background
                         : "white",

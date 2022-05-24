@@ -58,11 +58,11 @@ const EthWalletListComp = ({
         marginBottom: "20px",
       }}
     >
-      {(EthWalletList.indexOf(EthWallets.all) > -1 ||
-        EthWalletList.indexOf(EthWallets.metamask) > -1) && (
+      {(EthWalletList.indexOf(EthWallets.ALL) > -1 ||
+        EthWalletList.indexOf(EthWallets.METAMASK) > -1) && (
         <WalletListing
           noBottomBorder={
-            EthWalletList.indexOf(EthWallets.metamask) ==
+            EthWalletList.indexOf(EthWallets.METAMASK) ==
             EthWalletList.length - 1
               ? true
               : false
@@ -72,11 +72,11 @@ const EthWalletListComp = ({
           onWalletCall={injectedHandle}
         />
       )}
-      {(EthWalletList.indexOf(EthWallets.all) > -1 ||
-        EthWalletList.indexOf(EthWallets.coinbase) > -1) && (
+      {(EthWalletList.indexOf(EthWallets.ALL) > -1 ||
+        EthWalletList.indexOf(EthWallets.COINBASE) > -1) && (
         <WalletListing
           noBottomBorder={
-            EthWalletList.indexOf(EthWallets.coinbase) ==
+            EthWalletList.indexOf(EthWallets.COINBASE) ==
             EthWalletList.length - 1
               ? true
               : false
@@ -86,12 +86,12 @@ const EthWalletListComp = ({
           onWalletCall={() => regHandle("Coinbase Wallet", wallets.Coinbase)}
         />
       )}
-      {(EthWalletList.indexOf(EthWallets.all) > -1 ||
-        EthWalletList.indexOf(EthWallets.walletConnect) > -1) && (
+      {(EthWalletList.indexOf(EthWallets.ALL) > -1 ||
+        EthWalletList.indexOf(EthWallets.WALLETCONNECT) > -1) && (
         <WalletListing
           noBottomBorder={
-            EthWalletList.indexOf(EthWallets.all) > -1 ||
-            EthWalletList.indexOf(EthWallets.walletConnect) ==
+            EthWalletList.indexOf(EthWallets.ALL) > -1 ||
+            EthWalletList.indexOf(EthWallets.WALLETCONNECT) ==
               EthWalletList.length - 1
               ? true
               : false

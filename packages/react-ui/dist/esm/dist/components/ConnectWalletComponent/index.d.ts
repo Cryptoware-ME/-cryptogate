@@ -1,37 +1,35 @@
 import React from "react";
 import { useDapp } from "@cryptogate/react-providers";
 export declare enum EthWallets {
-    all = 0,
-    metamask = 1,
-    walletConnect = 2,
-    coinbase = 3
+    ALL = "all",
+    METAMASK = "metamask",
+    WALLETCONNECT = "walletconnect",
+    COINBASE = "coinbase"
 }
 export declare enum SolWallets {
-    all = 0,
-    phantom = 1,
-    slope = 2,
-    solflare = 3
+    ALL = "all",
+    PHANTOM = "phantom",
+    SLOPE = "slope",
+    SOLFLARE = "solflare"
 }
-export declare const ConnectWalletComponent: ({ activeComponent, diabledComponent, connectedComponent, networkChainId, alertMessage, message, onSign, EthWalletList, SolWalletList, WalletListStyle, ConnectWalletButtonClass, ConnectWalletButtonText, ConnectMenu, }: {
-    activeComponent?: React.ReactNode;
-    diabledComponent?: React.ReactNode;
-    connectedComponent?: React.ReactNode;
-    networkChainId?: number[] | undefined;
-    alertMessage?: string | undefined;
-    message?: string | undefined;
+export declare const ConnectWalletComponent: ({ ActiveComponent, ConnectedComponent, EthWalletList, SolWalletList, SignatureMessage, NetworkChainIds, NetworkAlertMessage, ConnectMenu, onSign, WalletListStyle, diabledComponent, }: {
+    ActiveComponent?: React.ReactNode;
+    ConnectedComponent?: React.ReactNode;
+    EthWalletList?: EthWallets[] | undefined;
+    SolWalletList?: SolWallets[] | undefined;
+    SignatureMessage?: string | undefined;
+    NetworkChainIds?: number[] | undefined;
+    NetworkAlertMessage?: string | undefined;
+    ConnectMenu?: boolean | undefined;
     onSign?: ((key: {
         address: string;
         message: string;
         signature: string;
         chain: typeof useDapp.ChainId;
     }) => void) | undefined;
-    EthWalletList?: EthWallets[] | undefined;
-    SolWalletList?: SolWallets[] | undefined;
     WalletListStyle?: {
         top?: any;
         background?: string | undefined;
     } | undefined;
-    ConnectWalletButtonClass?: string | undefined;
-    ConnectWalletButtonText?: string | undefined;
-    ConnectMenu?: boolean | undefined;
+    diabledComponent?: React.ReactNode;
 }) => JSX.Element;

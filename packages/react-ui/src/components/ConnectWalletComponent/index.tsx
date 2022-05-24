@@ -1,85 +1,84 @@
 import React from "react";
 import { ConnectWalletButton } from "../ConnectWalletButton";
 import { ConnectWalletList } from "../ConnectWalletList";
+import { Identicon } from "../Identicon";
 import { useState } from "react";
 import { useDapp } from "@cryptogate/react-providers";
+import { defaults, Active } from "../../defaults";
+
+//TODO: Wallet List Style
+//TODO: Use Disabled Component
 
 const { ChainId } = useDapp;
 
 export enum EthWallets {
-  all,
-  metamask,
-  walletConnect,
-  coinbase,
+  ALL = "all",
+  METAMASK = "metamask",
+  WALLETCONNECT = "walletconnect",
+  COINBASE = "coinbase",
 }
 
 export enum SolWallets {
-  all,
-  phantom,
-  slope,
-  solflare,
+  ALL = "all",
+  PHANTOM = "phantom",
+  SLOPE = "slope",
+  SOLFLARE = "solflare",
 }
 
 export const ConnectWalletComponent = ({
-  activeComponent,
-  diabledComponent,
-  connectedComponent,
-  networkChainId = [],
-  alertMessage = "Selected network is not supported",
-  message = "This is the default message provided by Cryptogate when signing a message",
+  ActiveComponent = <Active />,
+  ConnectedComponent = <Identicon />,
+  EthWalletList = defaults.EthWallets,
+  SolWalletList = defaults.SolWallets,
+  SignatureMessage = defaults.SignatureMessage,
+  NetworkChainIds = defaults.NetworkChainIds,
+  NetworkAlertMessage = defaults.NetworkAlertMessage,
+  ConnectMenu = defaults.ConnectMenu,
   onSign,
-  EthWalletList,
-  SolWalletList,
   WalletListStyle,
-  ConnectWalletButtonClass = "",
-  ConnectWalletButtonText = "Connect Wallet",
-  ConnectMenu = true,
+  diabledComponent,
 }: {
-  activeComponent?: React.ReactNode;
-  diabledComponent?: React.ReactNode;
-  connectedComponent?: React.ReactNode;
-  networkChainId?: number[];
-  alertMessage?:string,
-  message?: string;
+  ActiveComponent?: React.ReactNode;
+  ConnectedComponent?: React.ReactNode;
+  EthWalletList?: EthWallets[];
+  SolWalletList?: SolWallets[];
+  SignatureMessage?: string;
+  NetworkChainIds?: number[];
+  NetworkAlertMessage?: string;
+  ConnectMenu?: boolean;
   onSign?: (key: {
     address: string;
     message: string;
     signature: string;
     chain: typeof ChainId;
   }) => void;
-  EthWalletList?: EthWallets[];
-  SolWalletList?: SolWallets[];
   WalletListStyle?: {
     top?: any;
     background?: string;
   };
-  ConnectWalletButtonClass?: string;
-  ConnectWalletButtonText?: string;
-  ConnectMenu?: boolean;
+  diabledComponent?: React.ReactNode;
 }) => {
   const [openOptions, setOpenOptions] = useState(false);
 
   return (
     <>
       <ConnectWalletButton
-        activeComponent={activeComponent}
+        ActiveComponent={ActiveComponent}
+        ConnectedComponent={ConnectedComponent}
+        NetworkChainIds={NetworkChainIds}
         diabledComponent={diabledComponent}
-        connectedComponent={connectedComponent}
         setOpenOptions={setOpenOptions}
-        alertMessage={alertMessage}
-        message={message}
+        NetworkAlertMessage={NetworkAlertMessage}
+        SignatureMessage={SignatureMessage}
         onSign={onSign}
-        btnClass={ConnectWalletButtonClass}
-        btnText={ConnectWalletButtonText}
-        connectMenu={ConnectMenu}
-        networkChainId={networkChainId}
+        ConnectMenuFlag={ConnectMenu}
       />
       {openOptions ? (
         <ConnectWalletList
           openOptions={openOptions}
           setOpenOptions={setOpenOptions}
-          EthWalletList={EthWalletList ? EthWalletList : []}
-          SolWalletList={SolWalletList ? SolWalletList : []}
+          EthWalletList={EthWalletList}
+          SolWalletList={SolWalletList}
           WalletListStyle={{
             background: WalletListStyle?.background
               ? WalletListStyle.background
