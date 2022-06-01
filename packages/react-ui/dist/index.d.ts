@@ -13,16 +13,25 @@ declare enum SolWallets {
     SLOPE = "slope",
     SOLFLARE = "solflare"
 }
-declare const ConnectWalletComponent: ({ ActiveComponent, DiabledComponent, ConnectedComponent, EthWalletList, SolWalletList, SignatureMessage, NetworkChainIds, NetworkAlertMessage, ConnectedMenu, WalletListStyle, onSign, }: {
+declare enum ConnectedMenu {
+    NOMENU = "nomenu",
+    WALLETINFORMATION = "walletinformation",
+    STORE = "store"
+}
+declare const ConnectWalletComponent: ({ ActiveComponent, DisabledComponent, ConnectedComponent, EthWalletList, SolWalletList, SignatureMessage, NetworkChainIds, NetworkAlertMessage, ConnectedMenuChosen, Store, WalletListStyle, onSign, }: {
     ActiveComponent?: React.ReactNode;
-    DiabledComponent?: React.ReactNode;
+    DisabledComponent?: React.ReactNode;
     ConnectedComponent?: React.ReactNode;
     EthWalletList?: EthWallets[] | undefined;
     SolWalletList?: SolWallets[] | undefined;
     SignatureMessage?: string | undefined;
     NetworkChainIds?: number[] | undefined;
     NetworkAlertMessage?: string | undefined;
-    ConnectedMenu?: boolean | undefined;
+    ConnectedMenuChosen?: ConnectedMenu | undefined;
+    Store?: {
+        Tokens?: string[] | undefined;
+        NFTs?: string[] | undefined;
+    } | undefined;
     WalletListStyle?: {
         top?: any;
         background?: string | undefined;
@@ -43,4 +52,4 @@ declare const getWithExpiry: (key: any) => any;
 
 declare const setWithExpiry: (key: any, value: any, ttl: any) => void;
 
-export { ConnectWalletComponent, EthWallets, Identicon, SolWallets, getWithExpiry, setWithExpiry };
+export { ConnectWalletComponent, ConnectedMenu, EthWallets, Identicon, SolWallets, getWithExpiry, setWithExpiry };

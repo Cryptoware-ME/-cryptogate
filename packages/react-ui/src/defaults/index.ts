@@ -1,10 +1,12 @@
+import { ConnectedMenu } from "../components/ConnectWalletComponent";
+
 export * from "./components";
 
 export const defaults = {
   EthWallets: [],
   SolWallets: [],
+  // ConnectedMenu: ConnectedMenu.WALLETINFORMATION,
   NetworkChainIds: [1],
-  ConnectedMenu: true,
   ConnectWalletButtonText: "Connect Wallet",
   SignatureMessage:
     "This is the default signaure message provided by Cryptogate.",

@@ -22,28 +22,36 @@ export enum SolWallets {
   SOLFLARE = "solflare",
 }
 
+export enum ConnectedMenu {
+  NOMENU = "nomenu",
+  WALLETINFORMATION = "walletinformation",
+  STORE = "store",
+}
+
 export const ConnectWalletComponent = ({
   ActiveComponent = <Active />,
-  DiabledComponent = <Disabled />,
+  DisabledComponent = <Disabled />,
   ConnectedComponent = <Identicon />,
   EthWalletList = defaults.EthWallets,
   SolWalletList = defaults.SolWallets,
   SignatureMessage = defaults.SignatureMessage,
   NetworkChainIds = defaults.NetworkChainIds,
   NetworkAlertMessage = defaults.NetworkAlertMessage,
-  ConnectedMenu = defaults.ConnectedMenu,
+  ConnectedMenuChosen = ConnectedMenu.WALLETINFORMATION,
+  Store,
   WalletListStyle = defaults.WalletListStyle,
   onSign,
 }: {
   ActiveComponent?: React.ReactNode;
-  DiabledComponent?: React.ReactNode;
+  DisabledComponent?: React.ReactNode;
   ConnectedComponent?: React.ReactNode;
   EthWalletList?: EthWallets[];
   SolWalletList?: SolWallets[];
   SignatureMessage?: string;
   NetworkChainIds?: number[];
   NetworkAlertMessage?: string;
-  ConnectedMenu?: boolean;
+  ConnectedMenuChosen?: ConnectedMenu;
+  Store?: { Tokens?: string[]; NFTs?: string[] };
   WalletListStyle?: {
     top?: any;
     background?: string;
@@ -61,14 +69,15 @@ export const ConnectWalletComponent = ({
     <>
       <ConnectWalletButton
         ActiveComponent={ActiveComponent}
-        DiabledComponent={DiabledComponent}
+        DisabledComponent={DisabledComponent}
         ConnectedComponent={ConnectedComponent}
         NetworkChainIds={NetworkChainIds}
         setOpenOptions={setOpenOptions}
         NetworkAlertMessage={NetworkAlertMessage}
         SignatureMessage={SignatureMessage}
         onSign={onSign}
-        ConnectMenuFlag={ConnectedMenu}
+        ChosenConnectedMenu={ConnectedMenuChosen}
+        Store={Store}
       />
       {openOptions ? (
         <ConnectWalletList

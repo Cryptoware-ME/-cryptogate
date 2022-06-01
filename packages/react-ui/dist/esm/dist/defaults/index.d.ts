@@ -3,7 +3,6 @@ export declare const defaults: {
     EthWallets: never[];
     SolWallets: never[];
     NetworkChainIds: number[];
-    ConnectedMenu: boolean;
     ConnectWalletButtonText: string;
     SignatureMessage: string;
     NetworkAlertMessage: string;

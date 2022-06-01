@@ -28,7 +28,10 @@
     "ethers": "^5.6.4",
     "react": "^18.0.0",
     "react-device-detect": "^2.2.2",
-    "react-jazzicon": "^1.0.3"
+    "react-jazzicon": "^1.0.3",
+    "react-slick": "^0.29.0",
+    "sass": "^1.52.1",
+    "slick-carousel": "^1.8.1"
   },
   "devDependencies": {
     "@cryptogate/core": "^0.0.10",
@@ -40,11 +43,15 @@
     "@rollup/plugin-typescript": "^8.3.2",
     "@types/node": "^17.0.29",
     "@types/react": "^18.0.8",
+    "@types/react-slick": "^0.23.8",
     "autoprefixer": "^10.4.4",
     "ethers": "^5.6.4",
     "react": "^18.0.0",
     "react-device-detect": "^2.2.2",
     "react-jazzicon": "^1.0.3",
+    "react-slick": "^0.29.0",
+    "sass": "^1.52.1",
+    "slick-carousel": "^1.8.1",
     "rollup": "^2.70.2",
     "rollup-plugin-dts": "^4.2.1",
     "rollup-plugin-ignore": "^1.0.10",

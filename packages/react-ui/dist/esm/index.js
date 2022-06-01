@@ -1,7 +1,13 @@
 import { jsxs, jsx, Fragment } from 'react/jsx-runtime';
-import { useMultichain, useDapp } from '@cryptogate/react-providers';
+import { useEthereum, useDapp, useMultichain } from '@cryptogate/react-providers';
 import { useState, useEffect } from 'react';
+import { Identicon as Identicon$1 } from '@cryptogate/react-ui';
 import { utils } from 'ethers';
+import BigNumber from 'bignumber.js';
+import { Interface } from '@ethersproject/abi';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 import { ethSignMessage } from '@cryptogate/core';
 import detectEthereumProvider from '@metamask/detect-provider';
 import { isMobile } from 'react-device-detect';
@@ -73,9 +79,8 @@ function __generator(thisArg, body) {
 
 var disconnect = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAAACXBIWXMAAA7DAAAOwwHHb6hkAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAAyFJREFUOI2tlc9rHHUUwD/vOzOb6IZiakCJl0hoLoGW6mrY2c3GLdH6A0QQKYgUevKu4M0/wJN/gCBovWjoRasHGzsuM7sxMRoprAerNBUNzcHupkpJnN3v87AzcdzOqojv8mDe+36+7/t+jfA/SqvVOmqtvQgg6cdGo/FgsVjcLZVKt//usKqaVqv1lLW2JiJHVPV713UvqOota+0qcBL4QlKo4zhXgSvGmGXf92/mQRO/FeDhIVMM/AzMAFue5z1uAIrF4i5wBThprV1ttVpHh6FhGM45jhMl0Guq+rqqvgy8CzgJdNsYs7ywsPDLYSqS/KRP2cpGHobhnIgEwDTwURzHL9br9d8yZ09baz8BeiIyV6lUrh+CR8H7/f5UBvrh5OTkC/Pz878PvyiKoneAs8Ar1Wr1TZM1+r5/0xizDGwlabn8b6BpXImeBTDD1iH4CWBaRC7+AxTgvkT/mgvOgQNM7+3tTYwiBkEwAZwDMMZ8ngtuNpuzYRi+0ev1nBSuqg+p6qW8bmm324VCoXAemFHVjXK5fOkOcKPROKaqDRF5zXGc09nI8+DtdrvQ7XbfV9XngB3Xdc+IiIXM5K2trc30+/0IeIChQgVBcI/neZ8CjwDfeJ637DjOrYODgw8S6K619lStVvs25QkMxrTZbG4waP7c6mdbUUS+VtWfgGeBHVWtLy4ufpf1F4Aoip4GPgauxXF8PNv8Q0XKRk5epKkYABGpJZG/PQoKUK/Xu8aYJ/mzW26MjY3t5vmaBHgkueDGKGi73S40m82Xer2eE8fxKeBL4EQcx58FQTA1CvxDov1R0E6ns6Kq5x3HebVer3fjOH4ihXuet7q+vn7vHWDXdS8AsYicDcNwOesQBMFEp9NZISkU8Faaliw8juO/wAUOK/4Vg9XXB95T1ZaI3M9gomaAnX6//9jS0tLV7MXDi2t8fLxaKpVuy5Bhm8HCKWQPq+qG67pnyuXydl6qMozjIjJbqVSuSxiG6yLyKMmatNZOAM8Dx4A9EQl8319NJ2qUbG5u3r2/vz9VrVZ/BJAoii4Ddxljnhn1S/ov8gdQvalD20NEGgAAAABJRU5ErkJggg==";
 var WalletInformation = function (_a) {
-    var onClose = _a.onClose;
-    var ethereum = useMultichain().ethereum;
-    var getEthBalance = ethereum.getEthBalance, account = ethereum.account, deactivate = ethereum.deactivate;
+    var onClose = _a.onClose, _b = _a.direction, direction = _b === void 0 ? "y" : _b;
+    var _c = useEthereum(), getEthBalance = _c.getEthBalance, account = _c.account, deactivate = _c.deactivate;
     var etherBalance = getEthBalance(account);
     var handleDisconnect = function () {
         account && deactivate();
@@ -83,9 +88,9 @@ var WalletInformation = function (_a) {
     };
     return (jsxs("div", __assign({ style: {
             display: "flex",
-            flexDirection: "column",
-            placeContent: "space-between",
-            width: "auto",
+            flexDirection: direction == "y" ? "column" : "row-reverse",
+            justifyContent: "space-between",
+            alignItems: "center",
         } }, { children: [jsxs("div", __assign({ style: {
                     display: "flex",
                     justifyContent: "space-between",
@@ -95,40 +100,2019 @@ var WalletInformation = function (_a) {
                             cursor: "pointer",
                             height: "22px",
                             width: "22px",
-                        } }, { children: jsx("img", { src: disconnect, alt: "Disconnect", className: "disconnect", onClick: handleDisconnect }) }))] })), jsx("hr", { style: { width: "100%" } }), jsxs("div", { children: [jsx("p", { children: "Total Balance" }), jsxs("h5", { children: [etherBalance &&
+                        } }, { children: jsx("img", { src: disconnect, alt: "Disconnect", className: "disconnect", onClick: handleDisconnect }) })), jsx("span", __assign({ style: {
+                            display: direction == "x" ? "flex" : "none",
+                            margin: "0 1vw 0 4vw",
+                        } }, { children: jsx(Identicon$1, {}) }))] })), direction == "y" && (jsx("hr", { style: { width: "100%", marginBottom: "2vh" } })), jsxs("div", __assign({ style: {
+                    marginRight: direction == "x" ? "10vw" : "0",
+                    padding: 0,
+                } }, { children: [jsx("p", __assign({ style: { margin: 0 } }, { children: "Total Balance" })), jsxs("p", __assign({ style: {
+                            fontWeight: "bold",
+                            margin: 0,
+                        } }, { children: [etherBalance &&
                                 account &&
-                                utils.formatEther(etherBalance).slice(0, 7), " ", "ETH"] })] })] })));
+                                utils.formatEther(etherBalance).slice(0, 7), " ", "ETH"] }))] }))] })));
+};
+
+var ERC20Interface = useDapp.ERC20Interface, useContractCalls$1 = useDapp.useContractCalls;
+var useTokensMultiCall = function (_a) {
+    var tokenList = _a.tokenList, method = _a.method; _a.format; var _c = _a.args, args = _c === void 0 ? [] : _c;
+    return useContractCalls$1(tokenList
+        ? tokenList.map(function (token) { return ({
+            abi: ERC20Interface,
+            address: token,
+            method: method,
+            args: args,
+        }); })
+        : []);
+};
+
+var toDecimals = function (_a) {
+    var number = _a.number, _b = _a.precision, precision = _b === void 0 ? 0 : _b, _c = _a.tokenDecimals, tokenDecimals = _c === void 0 ? 0 : _c;
+    var decimals = new BigNumber(10).exponentiatedBy(tokenDecimals);
+    if (precision === 0) {
+        return new BigNumber(number._hex).dividedBy(decimals).toNumber();
+    }
+    return new BigNumber(number._hex).dividedBy(decimals).toPrecision(precision);
+};
+var convertResultToReadableFormat = function (result) {
+    return result.map(function (e) {
+        return e
+            ? toDecimals({
+                number: e[0],
+            })
+            : 0;
+    });
+};
+var isUriIPFS = function (uri) {
+    var uriSplit = uri.split(":");
+    return uriSplit[0] === "ipfs" ? uriSplit[1].slice(2) : false;
+};
+var imageURI = function (uri) {
+    var uriSplit = uri.split(":");
+    return uriSplit[0] === "ipfs"
+        ? "https://gateway.ipfs.io/ipfs/".concat(uriSplit[1].slice(2))
+        : uri;
+};
+var areAllElementsValid = function (arr) {
+    return arr.every(function (element) { return element !== undefined && element !== null; });
+};
+
+var TOKEN_CONTRACT_METHODS = {
+    BALANCE_OF: "balanceOf",
+    SYMBOL: "symbol",
+    DECIMALS: "decimals",
+};
+var NFT_CONTRACT_METHODS = {
+    BALANCE_OF: "balanceOf",
+    SYMBOL: "symbol",
+    TOKEN_URI: "tokenURI",
+    TOKEN_OF_OWNER_BY_INDEX: "tokenOfOwnerByIndex",
+};
+var build_slider_settings = function (_a) {
+    var _b = _a.full, full = _b === void 0 ? false : _b, _c = _a.rows, rows = _c === void 0 ? 1 : _c;
+    return ({
+        autoplay: true,
+        autoplaySpeed: 2000,
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: full ? 2 : 1,
+        slidesToScroll: full ? 2 : 1,
+        rows: rows,
+    });
+};
+
+var index$4 = function (_a) {
+    var tokens = _a.tokens;
+    var account = useEthereum().account;
+    var balance = useTokensMultiCall({
+        tokenList: tokens,
+        method: TOKEN_CONTRACT_METHODS.BALANCE_OF,
+        format: true,
+        args: [account],
+    });
+    var symbol = useTokensMultiCall({
+        tokenList: tokens,
+        method: TOKEN_CONTRACT_METHODS.SYMBOL,
+    });
+    var decimals = useTokensMultiCall({
+        tokenList: tokens,
+        method: TOKEN_CONTRACT_METHODS.DECIMALS,
+    });
+    return (jsxs("div", { children: [jsx("p", __assign({ style: { fontWeight: "500", lineHeight: 0 } }, { children: "Tokens" })), balance[0] &&
+                symbol[0] &&
+                decimals[0] &&
+                balance.map(function (e, index) { return (jsx("div", { children: e && (jsx("div", { children: jsxs("div", __assign({ style: {
+                                display: "flex",
+                                alignItems: "center",
+                                margin: "1vh 0",
+                            } }, { children: [jsx("div", { style: {
+                                        height: "40px",
+                                        width: "40px",
+                                        borderRadius: "50%",
+                                        backgroundColor: "#c4c4c4",
+                                        marginRight: "1vw",
+                                    } }), jsxs("div", { children: [jsx("p", __assign({ style: { margin: 0 } }, { children: symbol[index] })), jsx("p", __assign({ style: { margin: 0 } }, { children: toDecimals({
+                                                number: e[0],
+                                                precision: 7,
+                                                tokenDecimals: decimals[index],
+                                            }) }))] })] })) })) }, "token-mainlist-".concat(index))); })] }));
+};
+
+var contractName = "IERC721Metadata";
+var abi = [
+	{
+		anonymous: false,
+		inputs: [
+			{
+				indexed: true,
+				internalType: "address",
+				name: "owner",
+				type: "address"
+			},
+			{
+				indexed: true,
+				internalType: "address",
+				name: "approved",
+				type: "address"
+			},
+			{
+				indexed: true,
+				internalType: "uint256",
+				name: "tokenId",
+				type: "uint256"
+			}
+		],
+		name: "Approval",
+		type: "event"
+	},
+	{
+		anonymous: false,
+		inputs: [
+			{
+				indexed: true,
+				internalType: "address",
+				name: "owner",
+				type: "address"
+			},
+			{
+				indexed: true,
+				internalType: "address",
+				name: "operator",
+				type: "address"
+			},
+			{
+				indexed: false,
+				internalType: "bool",
+				name: "approved",
+				type: "bool"
+			}
+		],
+		name: "ApprovalForAll",
+		type: "event"
+	},
+	{
+		anonymous: false,
+		inputs: [
+			{
+				indexed: true,
+				internalType: "address",
+				name: "from",
+				type: "address"
+			},
+			{
+				indexed: true,
+				internalType: "address",
+				name: "to",
+				type: "address"
+			},
+			{
+				indexed: true,
+				internalType: "uint256",
+				name: "tokenId",
+				type: "uint256"
+			}
+		],
+		name: "Transfer",
+		type: "event"
+	},
+	{
+		inputs: [
+			{
+				internalType: "address",
+				name: "to",
+				type: "address"
+			},
+			{
+				internalType: "uint256",
+				name: "tokenId",
+				type: "uint256"
+			}
+		],
+		name: "approve",
+		outputs: [
+		],
+		stateMutability: "nonpayable",
+		type: "function"
+	},
+	{
+		inputs: [
+			{
+				internalType: "address",
+				name: "owner",
+				type: "address"
+			}
+		],
+		name: "balanceOf",
+		outputs: [
+			{
+				internalType: "uint256",
+				name: "balance",
+				type: "uint256"
+			}
+		],
+		stateMutability: "view",
+		type: "function"
+	},
+	{
+		inputs: [
+			{
+				internalType: "uint256",
+				name: "tokenId",
+				type: "uint256"
+			}
+		],
+		name: "getApproved",
+		outputs: [
+			{
+				internalType: "address",
+				name: "operator",
+				type: "address"
+			}
+		],
+		stateMutability: "view",
+		type: "function"
+	},
+	{
+		inputs: [
+			{
+				internalType: "address",
+				name: "owner",
+				type: "address"
+			},
+			{
+				internalType: "address",
+				name: "operator",
+				type: "address"
+			}
+		],
+		name: "isApprovedForAll",
+		outputs: [
+			{
+				internalType: "bool",
+				name: "",
+				type: "bool"
+			}
+		],
+		stateMutability: "view",
+		type: "function"
+	},
+	{
+		inputs: [
+			{
+				internalType: "uint256",
+				name: "tokenId",
+				type: "uint256"
+			}
+		],
+		name: "ownerOf",
+		outputs: [
+			{
+				internalType: "address",
+				name: "owner",
+				type: "address"
+			}
+		],
+		stateMutability: "view",
+		type: "function"
+	},
+	{
+		inputs: [
+			{
+				internalType: "address",
+				name: "from",
+				type: "address"
+			},
+			{
+				internalType: "address",
+				name: "to",
+				type: "address"
+			},
+			{
+				internalType: "uint256",
+				name: "tokenId",
+				type: "uint256"
+			}
+		],
+		name: "safeTransferFrom",
+		outputs: [
+		],
+		stateMutability: "nonpayable",
+		type: "function"
+	},
+	{
+		inputs: [
+			{
+				internalType: "address",
+				name: "from",
+				type: "address"
+			},
+			{
+				internalType: "address",
+				name: "to",
+				type: "address"
+			},
+			{
+				internalType: "uint256",
+				name: "tokenId",
+				type: "uint256"
+			},
+			{
+				internalType: "bytes",
+				name: "data",
+				type: "bytes"
+			}
+		],
+		name: "safeTransferFrom",
+		outputs: [
+		],
+		stateMutability: "nonpayable",
+		type: "function"
+	},
+	{
+		inputs: [
+			{
+				internalType: "address",
+				name: "operator",
+				type: "address"
+			},
+			{
+				internalType: "bool",
+				name: "_approved",
+				type: "bool"
+			}
+		],
+		name: "setApprovalForAll",
+		outputs: [
+		],
+		stateMutability: "nonpayable",
+		type: "function"
+	},
+	{
+		inputs: [
+			{
+				internalType: "bytes4",
+				name: "interfaceId",
+				type: "bytes4"
+			}
+		],
+		name: "supportsInterface",
+		outputs: [
+			{
+				internalType: "bool",
+				name: "",
+				type: "bool"
+			}
+		],
+		stateMutability: "view",
+		type: "function"
+	},
+	{
+		inputs: [
+			{
+				internalType: "address",
+				name: "from",
+				type: "address"
+			},
+			{
+				internalType: "address",
+				name: "to",
+				type: "address"
+			},
+			{
+				internalType: "uint256",
+				name: "tokenId",
+				type: "uint256"
+			}
+		],
+		name: "transferFrom",
+		outputs: [
+		],
+		stateMutability: "nonpayable",
+		type: "function"
+	},
+	{
+		inputs: [
+		],
+		name: "name",
+		outputs: [
+			{
+				internalType: "string",
+				name: "",
+				type: "string"
+			}
+		],
+		stateMutability: "view",
+		type: "function"
+	},
+	{
+		inputs: [
+		],
+		name: "symbol",
+		outputs: [
+			{
+				internalType: "string",
+				name: "",
+				type: "string"
+			}
+		],
+		stateMutability: "view",
+		type: "function"
+	},
+	{
+		inputs: [
+			{
+				internalType: "uint256",
+				name: "tokenId",
+				type: "uint256"
+			}
+		],
+		name: "tokenURI",
+		outputs: [
+			{
+				internalType: "string",
+				name: "",
+				type: "string"
+			}
+		],
+		stateMutability: "view",
+		type: "function"
+	}
+];
+var metadata = "{\"compiler\":{\"version\":\"0.8.10+commit.fc410830\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"approved\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"Approval\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"operator\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"approved\",\"type\":\"bool\"}],\"name\":\"ApprovalForAll\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"Transfer\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"approve\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"}],\"name\":\"balanceOf\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"balance\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"getApproved\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"operator\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"operator\",\"type\":\"address\"}],\"name\":\"isApprovedForAll\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"name\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"ownerOf\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"safeTransferFrom\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"}],\"name\":\"safeTransferFrom\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"operator\",\"type\":\"address\"},{\"internalType\":\"bool\",\"name\":\"_approved\",\"type\":\"bool\"}],\"name\":\"setApprovalForAll\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes4\",\"name\":\"interfaceId\",\"type\":\"bytes4\"}],\"name\":\"supportsInterface\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"symbol\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"tokenURI\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"transferFrom\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"details\":\"See https://eips.ethereum.org/EIPS/eip-721\",\"kind\":\"dev\",\"methods\":{\"approve(address,uint256)\":{\"details\":\"Gives permission to `to` to transfer `tokenId` token to another account. The approval is cleared when the token is transferred. Only a single account can be approved at a time, so approving the zero address clears previous approvals. Requirements: - The caller must own the token or be an approved operator. - `tokenId` must exist. Emits an {Approval} event.\"},\"balanceOf(address)\":{\"details\":\"Returns the number of tokens in ``owner``'s account.\"},\"getApproved(uint256)\":{\"details\":\"Returns the account approved for `tokenId` token. Requirements: - `tokenId` must exist.\"},\"isApprovedForAll(address,address)\":{\"details\":\"Returns if the `operator` is allowed to manage all of the assets of `owner`. See {setApprovalForAll}\"},\"name()\":{\"details\":\"Returns the token collection name.\"},\"ownerOf(uint256)\":{\"details\":\"Returns the owner of the `tokenId` token. Requirements: - `tokenId` must exist.\"},\"safeTransferFrom(address,address,uint256)\":{\"details\":\"Safely transfers `tokenId` token from `from` to `to`, checking first that contract recipients are aware of the ERC721 protocol to prevent tokens from being forever locked. Requirements: - `from` cannot be the zero address. - `to` cannot be the zero address. - `tokenId` token must exist and be owned by `from`. - If the caller is not `from`, it must be have been allowed to move this token by either {approve} or {setApprovalForAll}. - If `to` refers to a smart contract, it must implement {IERC721Receiver-onERC721Received}, which is called upon a safe transfer. Emits a {Transfer} event.\"},\"safeTransferFrom(address,address,uint256,bytes)\":{\"details\":\"Safely transfers `tokenId` token from `from` to `to`. Requirements: - `from` cannot be the zero address. - `to` cannot be the zero address. - `tokenId` token must exist and be owned by `from`. - If the caller is not `from`, it must be approved to move this token by either {approve} or {setApprovalForAll}. - If `to` refers to a smart contract, it must implement {IERC721Receiver-onERC721Received}, which is called upon a safe transfer. Emits a {Transfer} event.\"},\"setApprovalForAll(address,bool)\":{\"details\":\"Approve or remove `operator` as an operator for the caller. Operators can call {transferFrom} or {safeTransferFrom} for any token owned by the caller. Requirements: - The `operator` cannot be the caller. Emits an {ApprovalForAll} event.\"},\"supportsInterface(bytes4)\":{\"details\":\"Returns true if this contract implements the interface defined by `interfaceId`. See the corresponding https://eips.ethereum.org/EIPS/eip-165#how-interfaces-are-identified[EIP section] to learn more about how these ids are created. This function call must use less than 30 000 gas.\"},\"symbol()\":{\"details\":\"Returns the token collection symbol.\"},\"tokenURI(uint256)\":{\"details\":\"Returns the Uniform Resource Identifier (URI) for `tokenId` token.\"},\"transferFrom(address,address,uint256)\":{\"details\":\"Transfers `tokenId` token from `from` to `to`. WARNING: Usage of this method is discouraged, use {safeTransferFrom} whenever possible. Requirements: - `from` cannot be the zero address. - `to` cannot be the zero address. - `tokenId` token must be owned by `from`. - If the caller is not `from`, it must be approved to move this token by either {approve} or {setApprovalForAll}. Emits a {Transfer} event.\"}},\"title\":\"ERC-721 Non-Fungible Token Standard, optional metadata extension\",\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/node_modules/@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol\":\"IERC721Metadata\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/node_modules/@openzeppelin/contracts/token/ERC721/IERC721.sol\":{\"keccak256\":\"0xf101e8720213560fab41104d53b3cc7ba0456ef3a98455aa7f022391783144a0\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://3e7820bcf567e6892d937c3cb10db263a4042e446799bca602535868d822384e\",\"dweb:/ipfs/QmPG2oeDjKncqsEeyYGjAN7CwAJmMgHterXGGnpzhha4z7\"]},\"project:/node_modules/@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol\":{\"keccak256\":\"0xd32fb7f530a914b1083d10a6bed3a586f2451952fec04fe542bcc670a82f7ba5\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://af63ab940a34687c45f0ad84960b048fc5f49330c92ccb422db7822a444733b9\",\"dweb:/ipfs/QmUShaQEu8HS1GjDnsMJQ8jkZEBrecn6NuDZ3pfjY1gVck\"]},\"project:/node_modules/@openzeppelin/contracts/utils/introspection/IERC165.sol\":{\"keccak256\":\"0xa28007762d9da9db878dd421960c8cb9a10471f47ab5c1b3309bfe48e9e79ff4\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://796ab6e88af7bf0e78def0f059310c903af6a312b565344e0ff524a0f26e81c6\",\"dweb:/ipfs/QmcsVgLgzWdor3UnAztUkXKNGcysm1MPneWksF72AvnwBx\"]}},\"version\":1}";
+var bytecode = "0x";
+var deployedBytecode = "0x";
+var immutableReferences = {
+};
+var generatedSources = [
+];
+var deployedGeneratedSources = [
+];
+var sourceMap = "";
+var deployedSourceMap = "";
+var source = "// SPDX-License-Identifier: MIT\n\npragma solidity ^0.8.0;\n\nimport \"../IERC721.sol\";\n\n/**\n * @title ERC-721 Non-Fungible Token Standard, optional metadata extension\n * @dev See https://eips.ethereum.org/EIPS/eip-721\n */\ninterface IERC721Metadata is IERC721 {\n    /**\n     * @dev Returns the token collection name.\n     */\n    function name() external view returns (string memory);\n\n    /**\n     * @dev Returns the token collection symbol.\n     */\n    function symbol() external view returns (string memory);\n\n    /**\n     * @dev Returns the Uniform Resource Identifier (URI) for `tokenId` token.\n     */\n    function tokenURI(uint256 tokenId) external view returns (string memory);\n}\n";
+var sourcePath = "/home/highpofly/Documents/code/dcb-lottery/blockend/node_modules/@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol";
+var ast = {
+	absolutePath: "project:/node_modules/@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol",
+	exportedSymbols: {
+		IERC165: [
+			4701
+		],
+		IERC721: [
+			3692
+		],
+		IERC721Metadata: [
+			4143
+		]
+	},
+	id: 4144,
+	license: "MIT",
+	nodeType: "SourceUnit",
+	nodes: [
+		{
+			id: 4118,
+			literals: [
+				"solidity",
+				"^",
+				"0.8",
+				".0"
+			],
+			nodeType: "PragmaDirective",
+			src: "33:23:23"
+		},
+		{
+			absolutePath: "project:/node_modules/@openzeppelin/contracts/token/ERC721/IERC721.sol",
+			file: "../IERC721.sol",
+			id: 4119,
+			nameLocation: "-1:-1:-1",
+			nodeType: "ImportDirective",
+			scope: 4144,
+			sourceUnit: 3693,
+			src: "58:24:23",
+			symbolAliases: [
+			],
+			unitAlias: ""
+		},
+		{
+			abstract: false,
+			baseContracts: [
+				{
+					baseName: {
+						id: 4121,
+						name: "IERC721",
+						nodeType: "IdentifierPath",
+						referencedDeclaration: 3692,
+						src: "247:7:23"
+					},
+					id: 4122,
+					nodeType: "InheritanceSpecifier",
+					src: "247:7:23"
+				}
+			],
+			canonicalName: "IERC721Metadata",
+			contractDependencies: [
+			],
+			contractKind: "interface",
+			documentation: {
+				id: 4120,
+				nodeType: "StructuredDocumentation",
+				src: "84:133:23",
+				text: " @title ERC-721 Non-Fungible Token Standard, optional metadata extension\n @dev See https://eips.ethereum.org/EIPS/eip-721"
+			},
+			fullyImplemented: false,
+			id: 4143,
+			linearizedBaseContracts: [
+				4143,
+				3692,
+				4701
+			],
+			name: "IERC721Metadata",
+			nameLocation: "228:15:23",
+			nodeType: "ContractDefinition",
+			nodes: [
+				{
+					documentation: {
+						id: 4123,
+						nodeType: "StructuredDocumentation",
+						src: "261:58:23",
+						text: " @dev Returns the token collection name."
+					},
+					functionSelector: "06fdde03",
+					id: 4128,
+					implemented: false,
+					kind: "function",
+					modifiers: [
+					],
+					name: "name",
+					nameLocation: "333:4:23",
+					nodeType: "FunctionDefinition",
+					parameters: {
+						id: 4124,
+						nodeType: "ParameterList",
+						parameters: [
+						],
+						src: "337:2:23"
+					},
+					returnParameters: {
+						id: 4127,
+						nodeType: "ParameterList",
+						parameters: [
+							{
+								constant: false,
+								id: 4126,
+								mutability: "mutable",
+								name: "",
+								nameLocation: "-1:-1:-1",
+								nodeType: "VariableDeclaration",
+								scope: 4128,
+								src: "363:13:23",
+								stateVariable: false,
+								storageLocation: "memory",
+								typeDescriptions: {
+									typeIdentifier: "t_string_memory_ptr",
+									typeString: "string"
+								},
+								typeName: {
+									id: 4125,
+									name: "string",
+									nodeType: "ElementaryTypeName",
+									src: "363:6:23",
+									typeDescriptions: {
+										typeIdentifier: "t_string_storage_ptr",
+										typeString: "string"
+									}
+								},
+								visibility: "internal"
+							}
+						],
+						src: "362:15:23"
+					},
+					scope: 4143,
+					src: "324:54:23",
+					stateMutability: "view",
+					virtual: false,
+					visibility: "external"
+				},
+				{
+					documentation: {
+						id: 4129,
+						nodeType: "StructuredDocumentation",
+						src: "384:60:23",
+						text: " @dev Returns the token collection symbol."
+					},
+					functionSelector: "95d89b41",
+					id: 4134,
+					implemented: false,
+					kind: "function",
+					modifiers: [
+					],
+					name: "symbol",
+					nameLocation: "458:6:23",
+					nodeType: "FunctionDefinition",
+					parameters: {
+						id: 4130,
+						nodeType: "ParameterList",
+						parameters: [
+						],
+						src: "464:2:23"
+					},
+					returnParameters: {
+						id: 4133,
+						nodeType: "ParameterList",
+						parameters: [
+							{
+								constant: false,
+								id: 4132,
+								mutability: "mutable",
+								name: "",
+								nameLocation: "-1:-1:-1",
+								nodeType: "VariableDeclaration",
+								scope: 4134,
+								src: "490:13:23",
+								stateVariable: false,
+								storageLocation: "memory",
+								typeDescriptions: {
+									typeIdentifier: "t_string_memory_ptr",
+									typeString: "string"
+								},
+								typeName: {
+									id: 4131,
+									name: "string",
+									nodeType: "ElementaryTypeName",
+									src: "490:6:23",
+									typeDescriptions: {
+										typeIdentifier: "t_string_storage_ptr",
+										typeString: "string"
+									}
+								},
+								visibility: "internal"
+							}
+						],
+						src: "489:15:23"
+					},
+					scope: 4143,
+					src: "449:56:23",
+					stateMutability: "view",
+					virtual: false,
+					visibility: "external"
+				},
+				{
+					documentation: {
+						id: 4135,
+						nodeType: "StructuredDocumentation",
+						src: "511:90:23",
+						text: " @dev Returns the Uniform Resource Identifier (URI) for `tokenId` token."
+					},
+					functionSelector: "c87b56dd",
+					id: 4142,
+					implemented: false,
+					kind: "function",
+					modifiers: [
+					],
+					name: "tokenURI",
+					nameLocation: "615:8:23",
+					nodeType: "FunctionDefinition",
+					parameters: {
+						id: 4138,
+						nodeType: "ParameterList",
+						parameters: [
+							{
+								constant: false,
+								id: 4137,
+								mutability: "mutable",
+								name: "tokenId",
+								nameLocation: "632:7:23",
+								nodeType: "VariableDeclaration",
+								scope: 4142,
+								src: "624:15:23",
+								stateVariable: false,
+								storageLocation: "default",
+								typeDescriptions: {
+									typeIdentifier: "t_uint256",
+									typeString: "uint256"
+								},
+								typeName: {
+									id: 4136,
+									name: "uint256",
+									nodeType: "ElementaryTypeName",
+									src: "624:7:23",
+									typeDescriptions: {
+										typeIdentifier: "t_uint256",
+										typeString: "uint256"
+									}
+								},
+								visibility: "internal"
+							}
+						],
+						src: "623:17:23"
+					},
+					returnParameters: {
+						id: 4141,
+						nodeType: "ParameterList",
+						parameters: [
+							{
+								constant: false,
+								id: 4140,
+								mutability: "mutable",
+								name: "",
+								nameLocation: "-1:-1:-1",
+								nodeType: "VariableDeclaration",
+								scope: 4142,
+								src: "664:13:23",
+								stateVariable: false,
+								storageLocation: "memory",
+								typeDescriptions: {
+									typeIdentifier: "t_string_memory_ptr",
+									typeString: "string"
+								},
+								typeName: {
+									id: 4139,
+									name: "string",
+									nodeType: "ElementaryTypeName",
+									src: "664:6:23",
+									typeDescriptions: {
+										typeIdentifier: "t_string_storage_ptr",
+										typeString: "string"
+									}
+								},
+								visibility: "internal"
+							}
+						],
+						src: "663:15:23"
+					},
+					scope: 4143,
+					src: "606:73:23",
+					stateMutability: "view",
+					virtual: false,
+					visibility: "external"
+				}
+			],
+			scope: 4144,
+			src: "218:463:23",
+			usedErrors: [
+			]
+		}
+	],
+	src: "33:649:23"
+};
+var legacyAST = {
+	absolutePath: "project:/node_modules/@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol",
+	exportedSymbols: {
+		IERC165: [
+			4701
+		],
+		IERC721: [
+			3692
+		],
+		IERC721Metadata: [
+			4143
+		]
+	},
+	id: 4144,
+	license: "MIT",
+	nodeType: "SourceUnit",
+	nodes: [
+		{
+			id: 4118,
+			literals: [
+				"solidity",
+				"^",
+				"0.8",
+				".0"
+			],
+			nodeType: "PragmaDirective",
+			src: "33:23:23"
+		},
+		{
+			absolutePath: "project:/node_modules/@openzeppelin/contracts/token/ERC721/IERC721.sol",
+			file: "../IERC721.sol",
+			id: 4119,
+			nameLocation: "-1:-1:-1",
+			nodeType: "ImportDirective",
+			scope: 4144,
+			sourceUnit: 3693,
+			src: "58:24:23",
+			symbolAliases: [
+			],
+			unitAlias: ""
+		},
+		{
+			abstract: false,
+			baseContracts: [
+				{
+					baseName: {
+						id: 4121,
+						name: "IERC721",
+						nodeType: "IdentifierPath",
+						referencedDeclaration: 3692,
+						src: "247:7:23"
+					},
+					id: 4122,
+					nodeType: "InheritanceSpecifier",
+					src: "247:7:23"
+				}
+			],
+			canonicalName: "IERC721Metadata",
+			contractDependencies: [
+			],
+			contractKind: "interface",
+			documentation: {
+				id: 4120,
+				nodeType: "StructuredDocumentation",
+				src: "84:133:23",
+				text: " @title ERC-721 Non-Fungible Token Standard, optional metadata extension\n @dev See https://eips.ethereum.org/EIPS/eip-721"
+			},
+			fullyImplemented: false,
+			id: 4143,
+			linearizedBaseContracts: [
+				4143,
+				3692,
+				4701
+			],
+			name: "IERC721Metadata",
+			nameLocation: "228:15:23",
+			nodeType: "ContractDefinition",
+			nodes: [
+				{
+					documentation: {
+						id: 4123,
+						nodeType: "StructuredDocumentation",
+						src: "261:58:23",
+						text: " @dev Returns the token collection name."
+					},
+					functionSelector: "06fdde03",
+					id: 4128,
+					implemented: false,
+					kind: "function",
+					modifiers: [
+					],
+					name: "name",
+					nameLocation: "333:4:23",
+					nodeType: "FunctionDefinition",
+					parameters: {
+						id: 4124,
+						nodeType: "ParameterList",
+						parameters: [
+						],
+						src: "337:2:23"
+					},
+					returnParameters: {
+						id: 4127,
+						nodeType: "ParameterList",
+						parameters: [
+							{
+								constant: false,
+								id: 4126,
+								mutability: "mutable",
+								name: "",
+								nameLocation: "-1:-1:-1",
+								nodeType: "VariableDeclaration",
+								scope: 4128,
+								src: "363:13:23",
+								stateVariable: false,
+								storageLocation: "memory",
+								typeDescriptions: {
+									typeIdentifier: "t_string_memory_ptr",
+									typeString: "string"
+								},
+								typeName: {
+									id: 4125,
+									name: "string",
+									nodeType: "ElementaryTypeName",
+									src: "363:6:23",
+									typeDescriptions: {
+										typeIdentifier: "t_string_storage_ptr",
+										typeString: "string"
+									}
+								},
+								visibility: "internal"
+							}
+						],
+						src: "362:15:23"
+					},
+					scope: 4143,
+					src: "324:54:23",
+					stateMutability: "view",
+					virtual: false,
+					visibility: "external"
+				},
+				{
+					documentation: {
+						id: 4129,
+						nodeType: "StructuredDocumentation",
+						src: "384:60:23",
+						text: " @dev Returns the token collection symbol."
+					},
+					functionSelector: "95d89b41",
+					id: 4134,
+					implemented: false,
+					kind: "function",
+					modifiers: [
+					],
+					name: "symbol",
+					nameLocation: "458:6:23",
+					nodeType: "FunctionDefinition",
+					parameters: {
+						id: 4130,
+						nodeType: "ParameterList",
+						parameters: [
+						],
+						src: "464:2:23"
+					},
+					returnParameters: {
+						id: 4133,
+						nodeType: "ParameterList",
+						parameters: [
+							{
+								constant: false,
+								id: 4132,
+								mutability: "mutable",
+								name: "",
+								nameLocation: "-1:-1:-1",
+								nodeType: "VariableDeclaration",
+								scope: 4134,
+								src: "490:13:23",
+								stateVariable: false,
+								storageLocation: "memory",
+								typeDescriptions: {
+									typeIdentifier: "t_string_memory_ptr",
+									typeString: "string"
+								},
+								typeName: {
+									id: 4131,
+									name: "string",
+									nodeType: "ElementaryTypeName",
+									src: "490:6:23",
+									typeDescriptions: {
+										typeIdentifier: "t_string_storage_ptr",
+										typeString: "string"
+									}
+								},
+								visibility: "internal"
+							}
+						],
+						src: "489:15:23"
+					},
+					scope: 4143,
+					src: "449:56:23",
+					stateMutability: "view",
+					virtual: false,
+					visibility: "external"
+				},
+				{
+					documentation: {
+						id: 4135,
+						nodeType: "StructuredDocumentation",
+						src: "511:90:23",
+						text: " @dev Returns the Uniform Resource Identifier (URI) for `tokenId` token."
+					},
+					functionSelector: "c87b56dd",
+					id: 4142,
+					implemented: false,
+					kind: "function",
+					modifiers: [
+					],
+					name: "tokenURI",
+					nameLocation: "615:8:23",
+					nodeType: "FunctionDefinition",
+					parameters: {
+						id: 4138,
+						nodeType: "ParameterList",
+						parameters: [
+							{
+								constant: false,
+								id: 4137,
+								mutability: "mutable",
+								name: "tokenId",
+								nameLocation: "632:7:23",
+								nodeType: "VariableDeclaration",
+								scope: 4142,
+								src: "624:15:23",
+								stateVariable: false,
+								storageLocation: "default",
+								typeDescriptions: {
+									typeIdentifier: "t_uint256",
+									typeString: "uint256"
+								},
+								typeName: {
+									id: 4136,
+									name: "uint256",
+									nodeType: "ElementaryTypeName",
+									src: "624:7:23",
+									typeDescriptions: {
+										typeIdentifier: "t_uint256",
+										typeString: "uint256"
+									}
+								},
+								visibility: "internal"
+							}
+						],
+						src: "623:17:23"
+					},
+					returnParameters: {
+						id: 4141,
+						nodeType: "ParameterList",
+						parameters: [
+							{
+								constant: false,
+								id: 4140,
+								mutability: "mutable",
+								name: "",
+								nameLocation: "-1:-1:-1",
+								nodeType: "VariableDeclaration",
+								scope: 4142,
+								src: "664:13:23",
+								stateVariable: false,
+								storageLocation: "memory",
+								typeDescriptions: {
+									typeIdentifier: "t_string_memory_ptr",
+									typeString: "string"
+								},
+								typeName: {
+									id: 4139,
+									name: "string",
+									nodeType: "ElementaryTypeName",
+									src: "664:6:23",
+									typeDescriptions: {
+										typeIdentifier: "t_string_storage_ptr",
+										typeString: "string"
+									}
+								},
+								visibility: "internal"
+							}
+						],
+						src: "663:15:23"
+					},
+					scope: 4143,
+					src: "606:73:23",
+					stateMutability: "view",
+					virtual: false,
+					visibility: "external"
+				}
+			],
+			scope: 4144,
+			src: "218:463:23",
+			usedErrors: [
+			]
+		}
+	],
+	src: "33:649:23"
+};
+var compiler = {
+	name: "solc",
+	version: "0.8.10+commit.fc410830.Emscripten.clang"
+};
+var networks = {
+};
+var schemaVersion = "3.4.3";
+var updatedAt = "2021-12-11T18:02:41.999Z";
+var devdoc = {
+	details: "See https://eips.ethereum.org/EIPS/eip-721",
+	kind: "dev",
+	methods: {
+		"approve(address,uint256)": {
+			details: "Gives permission to `to` to transfer `tokenId` token to another account. The approval is cleared when the token is transferred. Only a single account can be approved at a time, so approving the zero address clears previous approvals. Requirements: - The caller must own the token or be an approved operator. - `tokenId` must exist. Emits an {Approval} event."
+		},
+		"balanceOf(address)": {
+			details: "Returns the number of tokens in ``owner``'s account."
+		},
+		"getApproved(uint256)": {
+			details: "Returns the account approved for `tokenId` token. Requirements: - `tokenId` must exist."
+		},
+		"isApprovedForAll(address,address)": {
+			details: "Returns if the `operator` is allowed to manage all of the assets of `owner`. See {setApprovalForAll}"
+		},
+		"name()": {
+			details: "Returns the token collection name."
+		},
+		"ownerOf(uint256)": {
+			details: "Returns the owner of the `tokenId` token. Requirements: - `tokenId` must exist."
+		},
+		"safeTransferFrom(address,address,uint256)": {
+			details: "Safely transfers `tokenId` token from `from` to `to`, checking first that contract recipients are aware of the ERC721 protocol to prevent tokens from being forever locked. Requirements: - `from` cannot be the zero address. - `to` cannot be the zero address. - `tokenId` token must exist and be owned by `from`. - If the caller is not `from`, it must be have been allowed to move this token by either {approve} or {setApprovalForAll}. - If `to` refers to a smart contract, it must implement {IERC721Receiver-onERC721Received}, which is called upon a safe transfer. Emits a {Transfer} event."
+		},
+		"safeTransferFrom(address,address,uint256,bytes)": {
+			details: "Safely transfers `tokenId` token from `from` to `to`. Requirements: - `from` cannot be the zero address. - `to` cannot be the zero address. - `tokenId` token must exist and be owned by `from`. - If the caller is not `from`, it must be approved to move this token by either {approve} or {setApprovalForAll}. - If `to` refers to a smart contract, it must implement {IERC721Receiver-onERC721Received}, which is called upon a safe transfer. Emits a {Transfer} event."
+		},
+		"setApprovalForAll(address,bool)": {
+			details: "Approve or remove `operator` as an operator for the caller. Operators can call {transferFrom} or {safeTransferFrom} for any token owned by the caller. Requirements: - The `operator` cannot be the caller. Emits an {ApprovalForAll} event."
+		},
+		"supportsInterface(bytes4)": {
+			details: "Returns true if this contract implements the interface defined by `interfaceId`. See the corresponding https://eips.ethereum.org/EIPS/eip-165#how-interfaces-are-identified[EIP section] to learn more about how these ids are created. This function call must use less than 30 000 gas."
+		},
+		"symbol()": {
+			details: "Returns the token collection symbol."
+		},
+		"tokenURI(uint256)": {
+			details: "Returns the Uniform Resource Identifier (URI) for `tokenId` token."
+		},
+		"transferFrom(address,address,uint256)": {
+			details: "Transfers `tokenId` token from `from` to `to`. WARNING: Usage of this method is discouraged, use {safeTransferFrom} whenever possible. Requirements: - `from` cannot be the zero address. - `to` cannot be the zero address. - `tokenId` token must be owned by `from`. - If the caller is not `from`, it must be approved to move this token by either {approve} or {setApprovalForAll}. Emits a {Transfer} event."
+		}
+	},
+	title: "ERC-721 Non-Fungible Token Standard, optional metadata extension",
+	version: 1
+};
+var userdoc = {
+	kind: "user",
+	methods: {
+	},
+	version: 1
+};
+var IERC721Metadata = {
+	contractName: contractName,
+	abi: abi,
+	metadata: metadata,
+	bytecode: bytecode,
+	deployedBytecode: deployedBytecode,
+	immutableReferences: immutableReferences,
+	generatedSources: generatedSources,
+	deployedGeneratedSources: deployedGeneratedSources,
+	sourceMap: sourceMap,
+	deployedSourceMap: deployedSourceMap,
+	source: source,
+	sourcePath: sourcePath,
+	ast: ast,
+	legacyAST: legacyAST,
+	compiler: compiler,
+	networks: networks,
+	schemaVersion: schemaVersion,
+	updatedAt: updatedAt,
+	devdoc: devdoc,
+	userdoc: userdoc
+};
+
+var ERC721 = [
+	{
+		inputs: [
+			{
+				internalType: "string",
+				name: "name",
+				type: "string"
+			},
+			{
+				internalType: "string",
+				name: "symbol",
+				type: "string"
+			},
+			{
+				internalType: "uint256",
+				name: "maxNftSupply",
+				type: "uint256"
+			},
+			{
+				internalType: "uint256",
+				name: "saleStart",
+				type: "uint256"
+			}
+		],
+		stateMutability: "nonpayable",
+		type: "constructor"
+	},
+	{
+		anonymous: false,
+		inputs: [
+			{
+				indexed: true,
+				internalType: "address",
+				name: "owner",
+				type: "address"
+			},
+			{
+				indexed: true,
+				internalType: "address",
+				name: "approved",
+				type: "address"
+			},
+			{
+				indexed: true,
+				internalType: "uint256",
+				name: "tokenId",
+				type: "uint256"
+			}
+		],
+		name: "Approval",
+		type: "event"
+	},
+	{
+		anonymous: false,
+		inputs: [
+			{
+				indexed: true,
+				internalType: "address",
+				name: "owner",
+				type: "address"
+			},
+			{
+				indexed: true,
+				internalType: "address",
+				name: "operator",
+				type: "address"
+			},
+			{
+				indexed: false,
+				internalType: "bool",
+				name: "approved",
+				type: "bool"
+			}
+		],
+		name: "ApprovalForAll",
+		type: "event"
+	},
+	{
+		anonymous: false,
+		inputs: [
+			{
+				indexed: true,
+				internalType: "address",
+				name: "previousOwner",
+				type: "address"
+			},
+			{
+				indexed: true,
+				internalType: "address",
+				name: "newOwner",
+				type: "address"
+			}
+		],
+		name: "OwnershipTransferred",
+		type: "event"
+	},
+	{
+		anonymous: false,
+		inputs: [
+			{
+				indexed: true,
+				internalType: "address",
+				name: "from",
+				type: "address"
+			},
+			{
+				indexed: true,
+				internalType: "address",
+				name: "to",
+				type: "address"
+			},
+			{
+				indexed: true,
+				internalType: "uint256",
+				name: "tokenId",
+				type: "uint256"
+			}
+		],
+		name: "Transfer",
+		type: "event"
+	},
+	{
+		inputs: [
+		],
+		name: "BAYC_PROVENANCE",
+		outputs: [
+			{
+				internalType: "string",
+				name: "",
+				type: "string"
+			}
+		],
+		stateMutability: "view",
+		type: "function"
+	},
+	{
+		inputs: [
+		],
+		name: "MAX_APES",
+		outputs: [
+			{
+				internalType: "uint256",
+				name: "",
+				type: "uint256"
+			}
+		],
+		stateMutability: "view",
+		type: "function"
+	},
+	{
+		inputs: [
+		],
+		name: "REVEAL_TIMESTAMP",
+		outputs: [
+			{
+				internalType: "uint256",
+				name: "",
+				type: "uint256"
+			}
+		],
+		stateMutability: "view",
+		type: "function"
+	},
+	{
+		inputs: [
+		],
+		name: "apePrice",
+		outputs: [
+			{
+				internalType: "uint256",
+				name: "",
+				type: "uint256"
+			}
+		],
+		stateMutability: "view",
+		type: "function"
+	},
+	{
+		inputs: [
+			{
+				internalType: "address",
+				name: "to",
+				type: "address"
+			},
+			{
+				internalType: "uint256",
+				name: "tokenId",
+				type: "uint256"
+			}
+		],
+		name: "approve",
+		outputs: [
+		],
+		stateMutability: "nonpayable",
+		type: "function"
+	},
+	{
+		inputs: [
+			{
+				internalType: "address",
+				name: "owner",
+				type: "address"
+			}
+		],
+		name: "balanceOf",
+		outputs: [
+			{
+				internalType: "uint256",
+				name: "",
+				type: "uint256"
+			}
+		],
+		stateMutability: "view",
+		type: "function"
+	},
+	{
+		inputs: [
+		],
+		name: "baseURI",
+		outputs: [
+			{
+				internalType: "string",
+				name: "",
+				type: "string"
+			}
+		],
+		stateMutability: "view",
+		type: "function"
+	},
+	{
+		inputs: [
+		],
+		name: "emergencySetStartingIndexBlock",
+		outputs: [
+		],
+		stateMutability: "nonpayable",
+		type: "function"
+	},
+	{
+		inputs: [
+		],
+		name: "flipSaleState",
+		outputs: [
+		],
+		stateMutability: "nonpayable",
+		type: "function"
+	},
+	{
+		inputs: [
+			{
+				internalType: "uint256",
+				name: "tokenId",
+				type: "uint256"
+			}
+		],
+		name: "getApproved",
+		outputs: [
+			{
+				internalType: "address",
+				name: "",
+				type: "address"
+			}
+		],
+		stateMutability: "view",
+		type: "function"
+	},
+	{
+		inputs: [
+			{
+				internalType: "address",
+				name: "owner",
+				type: "address"
+			},
+			{
+				internalType: "address",
+				name: "operator",
+				type: "address"
+			}
+		],
+		name: "isApprovedForAll",
+		outputs: [
+			{
+				internalType: "bool",
+				name: "",
+				type: "bool"
+			}
+		],
+		stateMutability: "view",
+		type: "function"
+	},
+	{
+		inputs: [
+		],
+		name: "maxApePurchase",
+		outputs: [
+			{
+				internalType: "uint256",
+				name: "",
+				type: "uint256"
+			}
+		],
+		stateMutability: "view",
+		type: "function"
+	},
+	{
+		inputs: [
+			{
+				internalType: "uint256",
+				name: "numberOfTokens",
+				type: "uint256"
+			}
+		],
+		name: "mintApe",
+		outputs: [
+		],
+		stateMutability: "payable",
+		type: "function"
+	},
+	{
+		inputs: [
+		],
+		name: "name",
+		outputs: [
+			{
+				internalType: "string",
+				name: "",
+				type: "string"
+			}
+		],
+		stateMutability: "view",
+		type: "function"
+	},
+	{
+		inputs: [
+		],
+		name: "owner",
+		outputs: [
+			{
+				internalType: "address",
+				name: "",
+				type: "address"
+			}
+		],
+		stateMutability: "view",
+		type: "function"
+	},
+	{
+		inputs: [
+			{
+				internalType: "uint256",
+				name: "tokenId",
+				type: "uint256"
+			}
+		],
+		name: "ownerOf",
+		outputs: [
+			{
+				internalType: "address",
+				name: "",
+				type: "address"
+			}
+		],
+		stateMutability: "view",
+		type: "function"
+	},
+	{
+		inputs: [
+		],
+		name: "renounceOwnership",
+		outputs: [
+		],
+		stateMutability: "nonpayable",
+		type: "function"
+	},
+	{
+		inputs: [
+		],
+		name: "reserveApes",
+		outputs: [
+		],
+		stateMutability: "nonpayable",
+		type: "function"
+	},
+	{
+		inputs: [
+			{
+				internalType: "address",
+				name: "from",
+				type: "address"
+			},
+			{
+				internalType: "address",
+				name: "to",
+				type: "address"
+			},
+			{
+				internalType: "uint256",
+				name: "tokenId",
+				type: "uint256"
+			}
+		],
+		name: "safeTransferFrom",
+		outputs: [
+		],
+		stateMutability: "nonpayable",
+		type: "function"
+	},
+	{
+		inputs: [
+			{
+				internalType: "address",
+				name: "from",
+				type: "address"
+			},
+			{
+				internalType: "address",
+				name: "to",
+				type: "address"
+			},
+			{
+				internalType: "uint256",
+				name: "tokenId",
+				type: "uint256"
+			},
+			{
+				internalType: "bytes",
+				name: "_data",
+				type: "bytes"
+			}
+		],
+		name: "safeTransferFrom",
+		outputs: [
+		],
+		stateMutability: "nonpayable",
+		type: "function"
+	},
+	{
+		inputs: [
+		],
+		name: "saleIsActive",
+		outputs: [
+			{
+				internalType: "bool",
+				name: "",
+				type: "bool"
+			}
+		],
+		stateMutability: "view",
+		type: "function"
+	},
+	{
+		inputs: [
+			{
+				internalType: "address",
+				name: "operator",
+				type: "address"
+			},
+			{
+				internalType: "bool",
+				name: "approved",
+				type: "bool"
+			}
+		],
+		name: "setApprovalForAll",
+		outputs: [
+		],
+		stateMutability: "nonpayable",
+		type: "function"
+	},
+	{
+		inputs: [
+			{
+				internalType: "string",
+				name: "baseURI",
+				type: "string"
+			}
+		],
+		name: "setBaseURI",
+		outputs: [
+		],
+		stateMutability: "nonpayable",
+		type: "function"
+	},
+	{
+		inputs: [
+			{
+				internalType: "string",
+				name: "provenanceHash",
+				type: "string"
+			}
+		],
+		name: "setProvenanceHash",
+		outputs: [
+		],
+		stateMutability: "nonpayable",
+		type: "function"
+	},
+	{
+		inputs: [
+			{
+				internalType: "uint256",
+				name: "revealTimeStamp",
+				type: "uint256"
+			}
+		],
+		name: "setRevealTimestamp",
+		outputs: [
+		],
+		stateMutability: "nonpayable",
+		type: "function"
+	},
+	{
+		inputs: [
+		],
+		name: "setStartingIndex",
+		outputs: [
+		],
+		stateMutability: "nonpayable",
+		type: "function"
+	},
+	{
+		inputs: [
+		],
+		name: "startingIndex",
+		outputs: [
+			{
+				internalType: "uint256",
+				name: "",
+				type: "uint256"
+			}
+		],
+		stateMutability: "view",
+		type: "function"
+	},
+	{
+		inputs: [
+		],
+		name: "startingIndexBlock",
+		outputs: [
+			{
+				internalType: "uint256",
+				name: "",
+				type: "uint256"
+			}
+		],
+		stateMutability: "view",
+		type: "function"
+	},
+	{
+		inputs: [
+			{
+				internalType: "bytes4",
+				name: "interfaceId",
+				type: "bytes4"
+			}
+		],
+		name: "supportsInterface",
+		outputs: [
+			{
+				internalType: "bool",
+				name: "",
+				type: "bool"
+			}
+		],
+		stateMutability: "view",
+		type: "function"
+	},
+	{
+		inputs: [
+		],
+		name: "symbol",
+		outputs: [
+			{
+				internalType: "string",
+				name: "",
+				type: "string"
+			}
+		],
+		stateMutability: "view",
+		type: "function"
+	},
+	{
+		inputs: [
+			{
+				internalType: "uint256",
+				name: "index",
+				type: "uint256"
+			}
+		],
+		name: "tokenByIndex",
+		outputs: [
+			{
+				internalType: "uint256",
+				name: "",
+				type: "uint256"
+			}
+		],
+		stateMutability: "view",
+		type: "function"
+	},
+	{
+		inputs: [
+			{
+				internalType: "address",
+				name: "owner",
+				type: "address"
+			},
+			{
+				internalType: "uint256",
+				name: "index",
+				type: "uint256"
+			}
+		],
+		name: "tokenOfOwnerByIndex",
+		outputs: [
+			{
+				internalType: "uint256",
+				name: "",
+				type: "uint256"
+			}
+		],
+		stateMutability: "view",
+		type: "function"
+	},
+	{
+		inputs: [
+			{
+				internalType: "uint256",
+				name: "tokenId",
+				type: "uint256"
+			}
+		],
+		name: "tokenURI",
+		outputs: [
+			{
+				internalType: "string",
+				name: "",
+				type: "string"
+			}
+		],
+		stateMutability: "view",
+		type: "function"
+	},
+	{
+		inputs: [
+		],
+		name: "totalSupply",
+		outputs: [
+			{
+				internalType: "uint256",
+				name: "",
+				type: "uint256"
+			}
+		],
+		stateMutability: "view",
+		type: "function"
+	},
+	{
+		inputs: [
+			{
+				internalType: "address",
+				name: "from",
+				type: "address"
+			},
+			{
+				internalType: "address",
+				name: "to",
+				type: "address"
+			},
+			{
+				internalType: "uint256",
+				name: "tokenId",
+				type: "uint256"
+			}
+		],
+		name: "transferFrom",
+		outputs: [
+		],
+		stateMutability: "nonpayable",
+		type: "function"
+	},
+	{
+		inputs: [
+			{
+				internalType: "address",
+				name: "newOwner",
+				type: "address"
+			}
+		],
+		name: "transferOwnership",
+		outputs: [
+		],
+		stateMutability: "nonpayable",
+		type: "function"
+	},
+	{
+		inputs: [
+		],
+		name: "withdraw",
+		outputs: [
+		],
+		stateMutability: "nonpayable",
+		type: "function"
+	}
+];
+
+var useContractCalls = useDapp.useContractCalls;
+var IERC721MetadataContractInterface = new Interface(IERC721Metadata.abi);
+var ERC721ContractInterface = new Interface(ERC721);
+var useNFTMetadataMultiCall = function (_a) {
+    var NFTs = _a.NFTs, method = _a.method, _b = _a.format, format = _b === void 0 ? false : _b, _c = _a.args, args = _c === void 0 ? [] : _c;
+    var result = useContractCalls(NFTs
+        ? NFTs.map(function (nft) { return ({
+            abi: IERC721MetadataContractInterface,
+            address: nft,
+            method: method,
+            args: args,
+        }); })
+        : []);
+    return result[0] && format ? convertResultToReadableFormat(result) : result;
+};
+var useTokenURIIndexCover = function (_a) {
+    var NFTs = _a.NFTs;
+    return useContractCalls(NFTs.map(function (nft) {
+        return {
+            abi: ERC721ContractInterface,
+            address: "" + nft,
+            method: NFT_CONTRACT_METHODS.TOKEN_URI,
+            args: [0],
+        };
+    }));
+};
+
+var index$3 = function (_a) {
+    var URI = _a.URI, number = _a.number, symbol = _a.symbol;
+    var _b = useState(""), image = _b[0], setImg = _b[1];
+    var _c = useState(false), empty = _c[0], setEmpty = _c[1];
+    useEffect(function () {
+        if (URI) {
+            var validURI = isUriIPFS(URI[0]);
+            if (validURI) {
+                var newURI = "https://gateway.ipfs.io/ipfs/".concat(validURI);
+                fetch(newURI)
+                    .then(function (d) {
+                    return d.json();
+                })
+                    .then(function (d) {
+                    setImg(imageURI(d.image));
+                })
+                    .catch(function (e) {
+                    console.log(e);
+                    setEmpty(true);
+                });
+            }
+            else {
+                fetch(URI[0])
+                    .then(function (d) {
+                    return d.json();
+                })
+                    .then(function (d) {
+                    setImg(imageURI(d.image));
+                })
+                    .catch(function (e) {
+                    console.log(e);
+                    setEmpty(true);
+                });
+            }
+        }
+    }, [URI]);
+    return (jsx("div", __assign({ style: { padding: "0 1vw" } }, { children: jsxs("div", __assign({ style: { borderRadius: "10px", border: "1px solid black" } }, { children: [jsxs("div", __assign({ style: {
+                        overflow: "hidden",
+                        borderRadius: "10px 10px 0px 0px",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                    } }, { children: [empty && (jsx("img", { alt: "".concat(symbol, "-").concat(number), src: "https://airnfts.s3.amazonaws.com/nft-images/20211121/Blur_1637529258562.png", width: "100%" })), !empty && image && (jsx("img", { alt: "".concat(symbol, "-").concat(number), src: image, width: "100%" }))] })), jsxs("div", __assign({ style: {
+                        display: "flex",
+                        backgroundColor: "#666666",
+                        borderRadius: "0px 0px 10px 10px",
+                        color: "white",
+                        width: "100%",
+                        padding: "1px 1vw",
+                    } }, { children: [jsx("div", __assign({ style: { marginRight: "2vw" } }, { children: symbol })), number && jsx("div", { children: number })] }))] })) })));
+};
+
+var index$2 = function (_a) {
+    var URIs = _a.URIs, symbols = _a.symbols, numbers = _a.numbers, full = _a.full;
+    return (jsx("div", __assign({ style: { maxWidth: "300px", padding: "0vh 25px" } }, { children: jsx(Slider, __assign({}, build_slider_settings({ full: full }), { children: URIs.map(function (uri, index) {
+                return (jsx("div", { children: jsx(index$3, { URI: uri, number: numbers[index], symbol: Array.isArray(symbols) ? symbols[index] : symbols }, index) }, "".concat(Array.isArray(symbols) ? symbols[index] : symbols, "-").concat(numbers[index])));
+            }) })) })));
+};
+
+var index$1 = function (_a) {
+    var NFTs = _a.NFTs, Full = _a.Full;
+    var account = useEthereum().account;
+    var balances = useNFTMetadataMultiCall({
+        NFTs: NFTs,
+        method: NFT_CONTRACT_METHODS.BALANCE_OF,
+        format: true,
+        args: [account],
+    });
+    var symbols = useNFTMetadataMultiCall({
+        NFTs: NFTs,
+        method: NFT_CONTRACT_METHODS.SYMBOL,
+    });
+    var URIs = useTokenURIIndexCover({ NFTs: NFTs });
+    return (jsxs("div", { children: [jsx("p", __assign({ style: { fontWeight: "500", lineHeight: 0 } }, { children: "Collectibles" })), areAllElementsValid(URIs) && areAllElementsValid(balances) && (jsx(index$2, { symbols: symbols, URIs: URIs, numbers: balances, full: Full }))] }));
+};
+
+var index = function (_a) {
+    var onClose = _a.onClose, Store = _a.Store;
+    return (jsxs("div", { children: [jsx(WalletInformation, { onClose: onClose, direction: "x" }), jsx("hr", { style: { width: "100%" } }), Store && (Store.Tokens || Store.NFTs) && (jsxs("div", __assign({ style: {
+                    display: "flex",
+                    justifyContent: "flex-start",
+                    alignItems: "felx-start",
+                } }, { children: [Store.Tokens && Store.Tokens.length > 0 && (jsx(index$4, { tokens: Store.Tokens })), Store.Tokens &&
+                        Store.Tokens.length &&
+                        Store.NFTs &&
+                        Store.NFTs.length && (jsx("div", { style: { borderLeft: "1px solid #888888", margin: "0 2vw" } })), Store.NFTs && Store.NFTs.length > 0 && (jsx(index$1, { NFTs: Store.NFTs, Full: !(Store.Tokens && Store.Tokens.length) }))] })))] }));
 };
 
 var ConnectMenu = function (_a) {
-    var onClose = _a.onClose, isOpen = _a.isOpen;
-    return (jsxs("div", __assign({ style: {
-            position: "fixed",
-            top: "0",
-            bottom: 0,
-            left: 0,
-            right: "0",
-            zIndex: "1000",
-            visibility: isOpen ? "visible" : "hidden",
-        } }, { children: [jsx("div", { style: { width: "100%", height: "100%" }, onClick: function () {
-                    onClose();
-                } }), jsx("div", __assign({ style: {
-                    backgroundColor: "#ffffff",
-                    boxShadow: "0 15px 15px rgba(0, 0, 0, 0.2)",
-                    opacity: isOpen ? "1" : "0",
-                    display: "block",
-                    position: "absolute",
-                    top: "80px",
-                    right: "40px",
-                    borderRadius: "10px",
-                    border: "1px solid #c4c4c4",
-                    boxSizing: "border-box",
-                    transform: isOpen ? "translateY(0)" : "translateY(-100%)",
-                    transition: "all 0.2s ease-in-out",
-                    height: "auto",
-                    padding: "20px 20px 20px 20px",
-                    width: "auto",
-                } }, { children: jsx(WalletInformation, { onClose: onClose }) }))] })));
+    var ChosenConnectedMenu = _a.ChosenConnectedMenu, onClose = _a.onClose, isOpen = _a.isOpen, Store = _a.Store;
+    return (jsxs(Fragment, { children: [ChosenConnectedMenu == ConnectedMenu.NOMENU && jsx(Fragment, {}), ChosenConnectedMenu != ConnectedMenu.NOMENU && (jsxs("div", __assign({ style: {
+                    position: "fixed",
+                    top: "0",
+                    bottom: 0,
+                    left: 0,
+                    right: "0",
+                    zIndex: "1000",
+                    visibility: isOpen ? "visible" : "hidden",
+                } }, { children: [jsx("div", { style: { width: "100%", height: "100%" }, onClick: function () {
+                            onClose();
+                        } }), jsxs("div", __assign({ style: {
+                            backgroundColor: "#ffffff",
+                            boxShadow: "0 15px 15px rgba(0, 0, 0, 0.2)",
+                            opacity: isOpen ? "1" : "0",
+                            display: "block",
+                            position: "absolute",
+                            top: "80px",
+                            right: "40px",
+                            borderRadius: "20px",
+                            border: "1px solid #555555",
+                            boxSizing: "border-box",
+                            transform: isOpen ? "translateY(0)" : "translateY(-100%)",
+                            transition: "all 0.2s ease-in-out",
+                            height: "auto",
+                            padding: "20px 20px 20px 20px",
+                            width: "auto",
+                        } }, { children: [ChosenConnectedMenu == ConnectedMenu.WALLETINFORMATION && (jsx(WalletInformation, { onClose: onClose })), ChosenConnectedMenu == ConnectedMenu.STORE && (jsx(index, { onClose: onClose, Store: Store }))] }))] })))] }));
 };
 
 var setWithExpiry = function (key, value, ttl) {
@@ -178,7 +2162,7 @@ var signingMessage = function (account, library, SignatureMessage) { return __aw
     });
 }); };
 var ConnectWalletButton = function (_a) {
-    var ActiveComponent = _a.ActiveComponent, DiabledComponent = _a.DiabledComponent, ConnectedComponent = _a.ConnectedComponent, SignatureMessage = _a.SignatureMessage, _b = _a.NetworkChainIds, NetworkChainIds = _b === void 0 ? [] : _b, NetworkAlertMessage = _a.NetworkAlertMessage, ConnectMenuFlag = _a.ConnectMenuFlag, onSign = _a.onSign, setOpenOptions = _a.setOpenOptions;
+    var ActiveComponent = _a.ActiveComponent, DisabledComponent = _a.DisabledComponent, ConnectedComponent = _a.ConnectedComponent, SignatureMessage = _a.SignatureMessage, _b = _a.NetworkChainIds, NetworkChainIds = _b === void 0 ? [] : _b, NetworkAlertMessage = _a.NetworkAlertMessage, ChosenConnectedMenu = _a.ChosenConnectedMenu, onSign = _a.onSign, Store = _a.Store, setOpenOptions = _a.setOpenOptions;
     var _c = useState(false), openMenu = _c[0], setOpenMenu = _c[1];
     var _d = useState(null), keyValue = _d[0], setKeyValue = _d[1];
     var _e = useMultichain(), ethereum = _e.ethereum, network = _e.network;
@@ -213,9 +2197,9 @@ var ConnectWalletButton = function (_a) {
             }
         }
     }, [account, library]);
-    return account ? (jsxs(Fragment, { children: [keyValue && keyValue != {} ? (jsx("div", __assign({ onClick: function () { return setOpenMenu(!openMenu); } }, { children: ConnectedComponent }))) : (jsx(Fragment, { children: DiabledComponent })), jsx(ConnectMenu, { onClose: function () {
+    return account ? (jsxs(Fragment, { children: [keyValue && keyValue != {} ? (jsx("div", __assign({ onClick: function () { return setOpenMenu(!openMenu); } }, { children: ConnectedComponent }))) : (jsx(Fragment, { children: DisabledComponent })), jsx(ConnectMenu, { ChosenConnectedMenu: ChosenConnectedMenu, Store: Store, onClose: function () {
                     setOpenMenu(false);
-                }, isOpen: ConnectMenuFlag && openMenu })] })) : (jsx("div", __assign({ onClick: function () {
+                }, isOpen: openMenu })] })) : (jsx("div", __assign({ onClick: function () {
             setOpenOptions(true);
         } }, { children: ActiveComponent })));
 };
@@ -407,8 +2391,8 @@ var Disabled = function () {
 var defaults = {
     EthWallets: [],
     SolWallets: [],
+    // ConnectedMenu: ConnectedMenu.WALLETINFORMATION,
     NetworkChainIds: [1],
-    ConnectedMenu: true,
     ConnectWalletButtonText: "Connect Wallet",
     SignatureMessage: "This is the default signaure message provided by Cryptogate.",
     NetworkAlertMessage: "Selected network is not supported.",
@@ -433,11 +2417,17 @@ var SolWallets;
     SolWallets["SLOPE"] = "slope";
     SolWallets["SOLFLARE"] = "solflare";
 })(SolWallets || (SolWallets = {}));
+var ConnectedMenu;
+(function (ConnectedMenu) {
+    ConnectedMenu["NOMENU"] = "nomenu";
+    ConnectedMenu["WALLETINFORMATION"] = "walletinformation";
+    ConnectedMenu["STORE"] = "store";
+})(ConnectedMenu || (ConnectedMenu = {}));
 var ConnectWalletComponent = function (_a) {
-    var _b = _a.ActiveComponent, ActiveComponent = _b === void 0 ? jsx(Active, {}) : _b, _c = _a.DiabledComponent, DiabledComponent = _c === void 0 ? jsx(Disabled, {}) : _c, _d = _a.ConnectedComponent, ConnectedComponent = _d === void 0 ? jsx(Identicon, {}) : _d, _e = _a.EthWalletList, EthWalletList = _e === void 0 ? defaults.EthWallets : _e, _f = _a.SolWalletList, SolWalletList = _f === void 0 ? defaults.SolWallets : _f, _g = _a.SignatureMessage, SignatureMessage = _g === void 0 ? defaults.SignatureMessage : _g, _h = _a.NetworkChainIds, NetworkChainIds = _h === void 0 ? defaults.NetworkChainIds : _h, _j = _a.NetworkAlertMessage, NetworkAlertMessage = _j === void 0 ? defaults.NetworkAlertMessage : _j, _k = _a.ConnectedMenu, ConnectedMenu = _k === void 0 ? defaults.ConnectedMenu : _k, _l = _a.WalletListStyle, WalletListStyle = _l === void 0 ? defaults.WalletListStyle : _l, onSign = _a.onSign;
+    var _b = _a.ActiveComponent, ActiveComponent = _b === void 0 ? jsx(Active, {}) : _b, _c = _a.DisabledComponent, DisabledComponent = _c === void 0 ? jsx(Disabled, {}) : _c, _d = _a.ConnectedComponent, ConnectedComponent = _d === void 0 ? jsx(Identicon, {}) : _d, _e = _a.EthWalletList, EthWalletList = _e === void 0 ? defaults.EthWallets : _e, _f = _a.SolWalletList, SolWalletList = _f === void 0 ? defaults.SolWallets : _f, _g = _a.SignatureMessage, SignatureMessage = _g === void 0 ? defaults.SignatureMessage : _g, _h = _a.NetworkChainIds, NetworkChainIds = _h === void 0 ? defaults.NetworkChainIds : _h, _j = _a.NetworkAlertMessage, NetworkAlertMessage = _j === void 0 ? defaults.NetworkAlertMessage : _j, _k = _a.ConnectedMenuChosen, ConnectedMenuChosen = _k === void 0 ? ConnectedMenu.WALLETINFORMATION : _k, Store = _a.Store, _l = _a.WalletListStyle, WalletListStyle = _l === void 0 ? defaults.WalletListStyle : _l, onSign = _a.onSign;
     var _m = useState(false), openOptions = _m[0], setOpenOptions = _m[1];
-    return (jsxs(Fragment, { children: [jsx(ConnectWalletButton, { ActiveComponent: ActiveComponent, DiabledComponent: DiabledComponent, ConnectedComponent: ConnectedComponent, NetworkChainIds: NetworkChainIds, setOpenOptions: setOpenOptions, NetworkAlertMessage: NetworkAlertMessage, SignatureMessage: SignatureMessage, onSign: onSign, ConnectMenuFlag: ConnectedMenu }), openOptions ? (jsx(ConnectWalletList, { openOptions: openOptions, setOpenOptions: setOpenOptions, EthWalletList: EthWalletList, SolWalletList: SolWalletList, WalletListStyle: WalletListStyle })) : (jsx(Fragment, {}))] }));
+    return (jsxs(Fragment, { children: [jsx(ConnectWalletButton, { ActiveComponent: ActiveComponent, DisabledComponent: DisabledComponent, ConnectedComponent: ConnectedComponent, NetworkChainIds: NetworkChainIds, setOpenOptions: setOpenOptions, NetworkAlertMessage: NetworkAlertMessage, SignatureMessage: SignatureMessage, onSign: onSign, ChosenConnectedMenu: ConnectedMenuChosen, Store: Store }), openOptions ? (jsx(ConnectWalletList, { openOptions: openOptions, setOpenOptions: setOpenOptions, EthWalletList: EthWalletList, SolWalletList: SolWalletList, WalletListStyle: WalletListStyle })) : (jsx(Fragment, {}))] }));
 };
 
-export { ConnectWalletComponent, EthWallets, Identicon, SolWallets, getWithExpiry, setWithExpiry };
+export { ConnectWalletComponent, ConnectedMenu, EthWallets, Identicon, SolWallets, getWithExpiry, setWithExpiry };
 //# sourceMappingURL=index.js.map

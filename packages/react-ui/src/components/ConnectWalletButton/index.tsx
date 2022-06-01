@@ -6,6 +6,7 @@ import { ethSignMessage } from "@cryptogate/core";
 import { setWithExpiry } from "../../localStorage/setWithExpire";
 import { getWithExpiry } from "../../localStorage/getWithExpire";
 import { useDapp } from "@cryptogate/react-providers";
+import { ConnectedMenu } from "../ConnectWalletComponent";
 
 const { ChainId } = useDapp;
 
@@ -32,22 +33,24 @@ const signingMessage = async (
 
 export const ConnectWalletButton = ({
   ActiveComponent,
-  DiabledComponent,
+  DisabledComponent,
   ConnectedComponent,
   SignatureMessage,
   NetworkChainIds = [],
   NetworkAlertMessage,
-  ConnectMenuFlag,
+  ChosenConnectedMenu,
   onSign,
+  Store,
   setOpenOptions,
 }: {
   ActiveComponent: React.ReactNode;
-  DiabledComponent?: React.ReactNode;
+  DisabledComponent?: React.ReactNode;
   ConnectedComponent?: React.ReactNode;
   SignatureMessage: string;
   NetworkChainIds?: number[];
   NetworkAlertMessage: string;
-  ConnectMenuFlag: boolean;
+  ChosenConnectedMenu: ConnectedMenu;
+  Store?: { Tokens?: string[]; NFTs?: string[] };
   onSign?: (key: {
     address: string;
     message: string;
@@ -96,13 +99,15 @@ export const ConnectWalletButton = ({
       {keyValue && keyValue != {} ? (
         <div onClick={() => setOpenMenu(!openMenu)}>{ConnectedComponent}</div>
       ) : (
-        <>{DiabledComponent}</>
+        <>{DisabledComponent}</>
       )}
       <ConnectMenu
+        ChosenConnectedMenu={ChosenConnectedMenu}
+        Store={Store}
         onClose={() => {
           setOpenMenu(false);
         }}
-        isOpen={ConnectMenuFlag && openMenu}
+        isOpen={openMenu}
       />
     </>
   ) : (
