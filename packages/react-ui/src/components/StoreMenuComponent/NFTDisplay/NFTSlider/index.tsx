@@ -9,18 +9,29 @@ const index = ({
   symbols,
   numbers,
   full,
+  onCollectionSelected,
 }: {
   URIs: any;
   symbols: any;
   numbers: any;
   full: boolean;
+  onCollectionSelected: any;
 }) => {
   return (
-    <div style={{ maxWidth: "300px", padding: "0vh 25px" }}>
+    <div
+      style={{
+        minWidth: "300px",
+        maxWidth: "300px",
+        padding: "1vh 25px 0 25px",
+      }}
+    >
       <Slider {...build_slider_settings({ full: full })}>
         {URIs.map((uri: string[], index: number) => {
           return (
             <div
+              onClick={() => {
+                onCollectionSelected(index);
+              }}
               key={`${Array.isArray(symbols) ? symbols[index] : symbols}-${
                 numbers[index]
               }`}

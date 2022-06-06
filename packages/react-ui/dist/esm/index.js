@@ -183,7 +183,7 @@ var build_slider_settings = function (_a) {
     });
 };
 
-var index$4 = function (_a) {
+var index$5 = function (_a) {
     var tokens = _a.tokens;
     var account = useEthereum().account;
     var balance = useTokensMultiCall({
@@ -200,24 +200,29 @@ var index$4 = function (_a) {
         tokenList: tokens,
         method: TOKEN_CONTRACT_METHODS.DECIMALS,
     });
-    return (jsxs("div", { children: [jsx("p", __assign({ style: { fontWeight: "500", lineHeight: 0 } }, { children: "Tokens" })), balance[0] &&
-                symbol[0] &&
-                decimals[0] &&
-                balance.map(function (e, index) { return (jsx("div", { children: e && (jsx("div", { children: jsxs("div", __assign({ style: {
-                                display: "flex",
-                                alignItems: "center",
-                                margin: "1vh 0",
-                            } }, { children: [jsx("div", { style: {
-                                        height: "40px",
-                                        width: "40px",
-                                        borderRadius: "50%",
-                                        backgroundColor: "#c4c4c4",
-                                        marginRight: "1vw",
-                                    } }), jsxs("div", { children: [jsx("p", __assign({ style: { margin: 0 } }, { children: symbol[index] })), jsx("p", __assign({ style: { margin: 0 } }, { children: toDecimals({
-                                                number: e[0],
-                                                precision: 7,
-                                                tokenDecimals: decimals[index],
-                                            }) }))] })] })) })) }, "token-mainlist-".concat(index))); })] }));
+    return (jsxs("div", { children: [jsx("p", __assign({ style: { fontWeight: "500", lineHeight: 0 } }, { children: "Tokens" })), jsx("div", __assign({ style: {
+                    maxHeight: "300px",
+                    overflowY: "unset",
+                    overflowX: "hidden",
+                    paddingRight: "2vw",
+                } }, { children: balance[0] &&
+                    symbol[0] &&
+                    decimals[0] &&
+                    balance.map(function (e, index) { return (jsx("div", { children: e && (jsx("div", { children: jsxs("div", __assign({ style: {
+                                    display: "flex",
+                                    alignItems: "center",
+                                    margin: "1vh 0",
+                                } }, { children: [jsx("div", { style: {
+                                            height: "40px",
+                                            width: "40px",
+                                            borderRadius: "50%",
+                                            backgroundColor: "#c4c4c4",
+                                            marginRight: "1vw",
+                                        } }), jsxs("div", { children: [jsx("p", __assign({ style: { margin: 0 } }, { children: symbol[index] })), jsx("p", __assign({ style: { margin: 0 } }, { children: toDecimals({
+                                                    number: e[0],
+                                                    precision: 7,
+                                                    tokenDecimals: decimals[index],
+                                                }) }))] })] })) })) }, "token-mainlist-".concat(index))); }) }))] }));
 };
 
 var contractName = "IERC721Metadata";
@@ -1986,17 +1991,33 @@ var useNFTMetadataMultiCall = function (_a) {
 };
 var useTokenURIIndexCover = function (_a) {
     var NFTs = _a.NFTs;
-    return useContractCalls(NFTs.map(function (nft) {
-        return {
-            abi: ERC721ContractInterface,
-            address: "" + nft,
-            method: NFT_CONTRACT_METHODS.TOKEN_URI,
-            args: [0],
-        };
-    }));
+    return useContractCalls(NFTs.map(function (nft) { return ({
+        abi: ERC721ContractInterface,
+        address: "" + nft,
+        method: NFT_CONTRACT_METHODS.TOKEN_URI,
+        args: [1],
+    }); }));
+};
+var useTokenOfOwnerByIndex = function (_a) {
+    var NFT = _a.NFT, args = _a.args;
+    var range = Array.from(Array(args[1] - 1).keys()).map(function (x) { return x + 1; });
+    range.unshift(0);
+    console.log("Range: ", range);
+    var result = useContractCalls(range
+        ? range.map(function (e) {
+            return {
+                abi: ERC721ContractInterface,
+                address: "" + NFT,
+                method: NFT_CONTRACT_METHODS.TOKEN_OF_OWNER_BY_INDEX,
+                args: [args[0], e],
+            };
+        })
+        : []);
+    console.log(result);
+    return result[0] ? convertResultToReadableFormat(result) : result;
 };
 
-var index$3 = function (_a) {
+var index$4 = function (_a) {
     var URI = _a.URI, number = _a.number, symbol = _a.symbol;
     var _b = useState(""), image = _b[0], setImg = _b[1];
     var _c = useState(false), empty = _c[0], setEmpty = _c[1];
@@ -2048,15 +2069,37 @@ var index$3 = function (_a) {
                     } }, { children: [jsx("div", __assign({ style: { marginRight: "2vw" } }, { children: symbol })), number && jsx("div", { children: number })] }))] })) })));
 };
 
-var index$2 = function (_a) {
-    var URIs = _a.URIs, symbols = _a.symbols, numbers = _a.numbers, full = _a.full;
-    return (jsx("div", __assign({ style: { maxWidth: "300px", padding: "0vh 25px" } }, { children: jsx(Slider, __assign({}, build_slider_settings({ full: full }), { children: URIs.map(function (uri, index) {
-                return (jsx("div", { children: jsx(index$3, { URI: uri, number: numbers[index], symbol: Array.isArray(symbols) ? symbols[index] : symbols }, index) }, "".concat(Array.isArray(symbols) ? symbols[index] : symbols, "-").concat(numbers[index])));
+var index$3 = function (_a) {
+    var URIs = _a.URIs, symbols = _a.symbols, numbers = _a.numbers, full = _a.full, onCollectionSelected = _a.onCollectionSelected;
+    return (jsx("div", __assign({ style: {
+            minWidth: "300px",
+            maxWidth: "300px",
+            padding: "1vh 25px 0 25px",
+        } }, { children: jsx(Slider, __assign({}, build_slider_settings({ full: full }), { children: URIs.map(function (uri, index) {
+                return (jsx("div", __assign({ onClick: function () {
+                        onCollectionSelected(index);
+                    } }, { children: jsx(index$4, { URI: uri, number: numbers[index], symbol: Array.isArray(symbols) ? symbols[index] : symbols }, index) }), "".concat(Array.isArray(symbols) ? symbols[index] : symbols, "-").concat(numbers[index])));
             }) })) })));
+};
+
+var index$2 = function (_a) {
+    var NFT = _a.NFT, balance = _a.balance, symbol = _a.symbol;
+    var account = useEthereum().account;
+    useTokenOfOwnerByIndex({
+        NFT: NFT,
+        args: [account, balance],
+    });
+    // const URIs = useTokenURIIndex({ NFT, args: tokenIds });
+    return (jsx("div", __assign({ style: {
+            minWidth: "300px",
+            maxWidth: "300px",
+            padding: "1vh 25px 0 25px",
+        } }, { children: jsx(Fragment, { children: symbol }) })));
 };
 
 var index$1 = function (_a) {
     var NFTs = _a.NFTs, Full = _a.Full;
+    var _b = useState(-1), clicked = _b[0], setClicked = _b[1];
     var account = useEthereum().account;
     var balances = useNFTMetadataMultiCall({
         NFTs: NFTs,
@@ -2064,12 +2107,30 @@ var index$1 = function (_a) {
         format: true,
         args: [account],
     });
+    var tpmNFTs = [];
+    var tpmBalances = [];
+    for (var i = 0; i < balances.length; i++) {
+        if (balances[i] > 0) {
+            tpmNFTs.push(NFTs[i]);
+            tpmBalances.push(balances[i]);
+        }
+    }
+    balances = tpmBalances;
+    NFTs = tpmNFTs;
     var symbols = useNFTMetadataMultiCall({
         NFTs: NFTs,
         method: NFT_CONTRACT_METHODS.SYMBOL,
     });
     var URIs = useTokenURIIndexCover({ NFTs: NFTs });
-    return (jsxs("div", { children: [jsx("p", __assign({ style: { fontWeight: "500", lineHeight: 0 } }, { children: "Collectibles" })), areAllElementsValid(URIs) && areAllElementsValid(balances) && (jsx(index$2, { symbols: symbols, URIs: URIs, numbers: balances, full: Full }))] }));
+    return (jsxs("div", __assign({ style: { display: "flex", flexDirection: "column" } }, { children: [jsxs("p", __assign({ style: { fontWeight: "500", lineHeight: 0 }, onClick: function () {
+                    if (clicked != -1) {
+                        setClicked(-1);
+                    }
+                } }, { children: [clicked >= 0 ? "< ".concat(symbols[clicked][0], "'s ") : "", " Collectibles"] })), clicked == -1 &&
+                areAllElementsValid(URIs) &&
+                areAllElementsValid(balances) && (jsx(index$3, { symbols: symbols, URIs: URIs, numbers: balances, full: Full, onCollectionSelected: setClicked })), clicked != -1 &&
+                areAllElementsValid(URIs) &&
+                areAllElementsValid(balances) && (jsx(index$2, { NFT: NFTs[clicked], symbol: symbols[clicked][0], balance: balances[clicked] }))] })));
 };
 
 var index = function (_a) {
@@ -2078,10 +2139,10 @@ var index = function (_a) {
                     display: "flex",
                     justifyContent: "flex-start",
                     alignItems: "felx-start",
-                } }, { children: [Store.Tokens && Store.Tokens.length > 0 && (jsx(index$4, { tokens: Store.Tokens })), Store.Tokens &&
+                } }, { children: [Store.Tokens && Store.Tokens.length > 0 && (jsx(index$5, { tokens: Store.Tokens })), Store.Tokens &&
                         Store.Tokens.length &&
                         Store.NFTs &&
-                        Store.NFTs.length && (jsx("div", { style: { borderLeft: "1px solid #888888", margin: "0 2vw" } })), Store.NFTs && Store.NFTs.length > 0 && (jsx(index$1, { NFTs: Store.NFTs, Full: !(Store.Tokens && Store.Tokens.length) }))] })))] }));
+                        Store.NFTs.length && (jsx("div", { style: { borderLeft: "1px solid #888888", margin: "0 2vw 0 0" } })), Store.NFTs && Store.NFTs.length > 0 && (jsx(index$1, { NFTs: Store.NFTs, Full: !(Store.Tokens && Store.Tokens.length) }))] })))] }));
 };
 
 var ConnectMenu = function (_a) {

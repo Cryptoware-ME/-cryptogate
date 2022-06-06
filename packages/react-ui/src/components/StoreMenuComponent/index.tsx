@@ -30,7 +30,7 @@ const index = ({
             Store.NFTs &&
             Store.NFTs.length && (
               <div
-                style={{ borderLeft: "1px solid #888888", margin: "0 2vw" }}
+                style={{ borderLeft: "1px solid #888888", margin: "0 2vw 0 0" }}
               ></div>
             )}
 

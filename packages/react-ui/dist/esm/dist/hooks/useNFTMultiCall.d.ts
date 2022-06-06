@@ -11,3 +11,7 @@ export declare const useTokenURIIndex: ({ NFT, args }: {
     NFT: string;
     args: any;
 }) => (any[] | undefined)[];
+export declare const useTokenOfOwnerByIndex: ({ NFT, args, }: {
+    NFT: string;
+    args: any[];
+}) => any;
