@@ -25,27 +25,43 @@ const index = ({
         padding: "1vh 25px 0 25px",
       }}
     >
-      <Slider {...build_slider_settings({ full: full })}>
-        {URIs.map((uri: string[], index: number) => {
-          return (
-            <div
-              onClick={() => {
-                onCollectionSelected(index);
-              }}
-              key={`${Array.isArray(symbols) ? symbols[index] : symbols}-${
-                numbers[index]
-              }`}
-            >
-              <NFTImage
-                key={index}
-                URI={uri}
-                number={numbers[index]}
-                symbol={Array.isArray(symbols) ? symbols[index] : symbols}
-              />
-            </div>
-          );
-        })}
-      </Slider>
+      {URIs.length > 0 ? (
+        <Slider {...build_slider_settings({ full: full })}>
+          {URIs.map((uri: string[], index: number) => {
+            return (
+              <div
+                onClick={() => {
+                  onCollectionSelected(index);
+                }}
+                key={`${Array.isArray(symbols) ? symbols[index] : symbols}-${
+                  numbers[index]
+                }`}
+              >
+                <NFTImage
+                  key={index}
+                  URI={uri}
+                  number={numbers[index]}
+                  symbol={Array.isArray(symbols) ? symbols[index] : symbols}
+                />
+              </div>
+            );
+          })}
+        </Slider>
+      ) : (
+        <div
+          style={{
+            textAlign: "center",
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          <br />
+          <br />
+          Oops..
+          <br />
+          There's nothing to show here
+        </div>
+      )}
     </div>
   );
 };

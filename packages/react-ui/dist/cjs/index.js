@@ -5,7 +5,8 @@ Object.defineProperty(exports, '__esModule', { value: true });
 var jsxRuntime = require('react/jsx-runtime');
 var reactProviders = require('@cryptogate/react-providers');
 var react = require('react');
-var reactUi = require('@cryptogate/react-ui');
+var Jazzicon = require('react-jazzicon');
+var reactDeviceDetect = require('react-device-detect');
 var ethers = require('ethers');
 var BigNumber = require('bignumber.js');
 var abi$1 = require('@ethersproject/abi');
@@ -14,15 +15,13 @@ require('slick-carousel/slick/slick.css');
 require('slick-carousel/slick/slick-theme.css');
 var core = require('@cryptogate/core');
 var detectEthereumProvider = require('@metamask/detect-provider');
-var reactDeviceDetect = require('react-device-detect');
-var Jazzicon = require('react-jazzicon');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
+var Jazzicon__default = /*#__PURE__*/_interopDefaultLegacy(Jazzicon);
 var BigNumber__default = /*#__PURE__*/_interopDefaultLegacy(BigNumber);
 var Slider__default = /*#__PURE__*/_interopDefaultLegacy(Slider);
 var detectEthereumProvider__default = /*#__PURE__*/_interopDefaultLegacy(detectEthereumProvider);
-var Jazzicon__default = /*#__PURE__*/_interopDefaultLegacy(Jazzicon);
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation.
@@ -88,15 +87,42 @@ function __generator(thisArg, body) {
     }
 }
 
+var Identicon = function (_a) {
+    var walletAddress = _a.walletAddress;
+    var ethereum = reactProviders.useMultichain().ethereum;
+    var account = ethereum.account;
+    return (jsxRuntime.jsx(Jazzicon__default["default"], { diameter: reactDeviceDetect.isMobile ? 30 : 40, seed: Jazzicon.jsNumberForAddress(walletAddress ? walletAddress : (account === null || account === void 0 ? void 0 : account.toString()) || "") }));
+};
+
 var disconnect = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAAACXBIWXMAAA7DAAAOwwHHb6hkAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAAyFJREFUOI2tlc9rHHUUwD/vOzOb6IZiakCJl0hoLoGW6mrY2c3GLdH6A0QQKYgUevKu4M0/wJN/gCBovWjoRasHGzsuM7sxMRoprAerNBUNzcHupkpJnN3v87AzcdzOqojv8mDe+36+7/t+jfA/SqvVOmqtvQgg6cdGo/FgsVjcLZVKt//usKqaVqv1lLW2JiJHVPV713UvqOota+0qcBL4QlKo4zhXgSvGmGXf92/mQRO/FeDhIVMM/AzMAFue5z1uAIrF4i5wBThprV1ttVpHh6FhGM45jhMl0Guq+rqqvgy8CzgJdNsYs7ywsPDLYSqS/KRP2cpGHobhnIgEwDTwURzHL9br9d8yZ09baz8BeiIyV6lUrh+CR8H7/f5UBvrh5OTkC/Pz878PvyiKoneAs8Ar1Wr1TZM1+r5/0xizDGwlabn8b6BpXImeBTDD1iH4CWBaRC7+AxTgvkT/mgvOgQNM7+3tTYwiBkEwAZwDMMZ8ngtuNpuzYRi+0ev1nBSuqg+p6qW8bmm324VCoXAemFHVjXK5fOkOcKPROKaqDRF5zXGc09nI8+DtdrvQ7XbfV9XngB3Xdc+IiIXM5K2trc30+/0IeIChQgVBcI/neZ8CjwDfeJ637DjOrYODgw8S6K619lStVvs25QkMxrTZbG4waP7c6mdbUUS+VtWfgGeBHVWtLy4ufpf1F4Aoip4GPgauxXF8PNv8Q0XKRk5epKkYABGpJZG/PQoKUK/Xu8aYJ/mzW26MjY3t5vmaBHgkueDGKGi73S40m82Xer2eE8fxKeBL4EQcx58FQTA1CvxDov1R0E6ns6Kq5x3HebVer3fjOH4ihXuet7q+vn7vHWDXdS8AsYicDcNwOesQBMFEp9NZISkU8Faaliw8juO/wAUOK/4Vg9XXB95T1ZaI3M9gomaAnX6//9jS0tLV7MXDi2t8fLxaKpVuy5Bhm8HCKWQPq+qG67pnyuXydl6qMozjIjJbqVSuSxiG6yLyKMmatNZOAM8Dx4A9EQl8319NJ2qUbG5u3r2/vz9VrVZ/BJAoii4Ddxljnhn1S/ov8gdQvalD20NEGgAAAABJRU5ErkJggg==";
+var provider = new ethers.ethers.providers.JsonRpcProvider("https://mainnet.infura.io/v3/ced28563ff504eeca880d195dda82166");
+var useENS = function () {
+    var _a = react.useState(""), name = _a[0], setname = _a[1];
+    var getName = function (addr) {
+        provider.lookupAddress(addr).then(function (resolvedName) {
+            if (resolvedName)
+                setname(resolvedName);
+            else
+                setname("");
+            return resolvedName ? resolvedName : null;
+        });
+    };
+    return { name: name, getName: getName };
+};
 var WalletInformation = function (_a) {
     var onClose = _a.onClose, _b = _a.direction, direction = _b === void 0 ? "y" : _b;
     var _c = reactProviders.useEthereum(), getEthBalance = _c.getEthBalance, account = _c.account, deactivate = _c.deactivate;
     var etherBalance = getEthBalance(account);
+    var _d = useENS(), getName = _d.getName, name = _d.name;
     var handleDisconnect = function () {
         account && deactivate();
         onClose();
     };
+    react.useEffect(function () {
+        if (account) {
+            getName(account);
+        }
+    }, [account]);
     return (jsxRuntime.jsxs("div", __assign({ style: {
             display: "flex",
             flexDirection: direction == "y" ? "column" : "row-reverse",
@@ -106,7 +132,20 @@ var WalletInformation = function (_a) {
                     display: "flex",
                     justifyContent: "space-between",
                     alignItems: "center",
-                } }, { children: [jsxRuntime.jsxs("p", __assign({ style: { color: "#c4c4c4", marginRight: "10px" } }, { children: [account === null || account === void 0 ? void 0 : account.slice(0, 6), "...", account === null || account === void 0 ? void 0 : account.slice(-3)] })), jsxRuntime.jsx("span", __assign({ style: {
+                } }, { children: [account && name && (jsxRuntime.jsxs("div", __assign({ style: {
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "flex-start",
+                            justifyContent: "flex-start",
+                        } }, { children: [jsxRuntime.jsxs("p", __assign({ style: {
+                                    color: "#c4c4c4",
+                                    margin: "0 10px 0 0",
+                                    lineHeight: 1,
+                                } }, { children: [account === null || account === void 0 ? void 0 : account.slice(0, 6), "...", account === null || account === void 0 ? void 0 : account.slice(-3)] })), jsxRuntime.jsx("p", __assign({ style: { color: "#c4c4c4", lineHeight: 0 } }, { children: name ? name : "" }))] }))), account && !name && (jsxRuntime.jsxs("p", __assign({ style: {
+                            color: "#c4c4c4",
+                            margin: "0 10px 0 0",
+                            lineHeight: 1,
+                        } }, { children: [account === null || account === void 0 ? void 0 : account.slice(0, 6), "...", account === null || account === void 0 ? void 0 : account.slice(-3)] }))), jsxRuntime.jsx("span", __assign({ style: {
                             marginLeft: "10px",
                             cursor: "pointer",
                             height: "22px",
@@ -114,7 +153,7 @@ var WalletInformation = function (_a) {
                         } }, { children: jsxRuntime.jsx("img", { src: disconnect, alt: "Disconnect", className: "disconnect", onClick: handleDisconnect }) })), jsxRuntime.jsx("span", __assign({ style: {
                             display: direction == "x" ? "flex" : "none",
                             margin: "0 1vw 0 4vw",
-                        } }, { children: jsxRuntime.jsx(reactUi.Identicon, {}) }))] })), direction == "y" && (jsxRuntime.jsx("hr", { style: { width: "100%", marginBottom: "2vh" } })), jsxRuntime.jsxs("div", __assign({ style: {
+                        } }, { children: jsxRuntime.jsx(Identicon, {}) }))] })), direction == "y" && (jsxRuntime.jsx("hr", { style: { width: "100%", marginBottom: "2vh" } })), jsxRuntime.jsxs("div", __assign({ style: {
                     marginRight: direction == "x" ? "10vw" : "0",
                     padding: 0,
                 } }, { children: [jsxRuntime.jsx("p", __assign({ style: { margin: 0 } }, { children: "Total Balance" })), jsxRuntime.jsxs("p", __assign({ style: {
@@ -211,29 +250,18 @@ var index$5 = function (_a) {
         tokenList: tokens,
         method: TOKEN_CONTRACT_METHODS.DECIMALS,
     });
-    return (jsxRuntime.jsxs("div", { children: [jsxRuntime.jsx("p", __assign({ style: { fontWeight: "500", lineHeight: 0 } }, { children: "Tokens" })), jsxRuntime.jsx("div", __assign({ style: {
-                    maxHeight: "300px",
-                    overflowY: "unset",
-                    overflowX: "hidden",
-                    paddingRight: "2vw",
-                } }, { children: balance[0] &&
+    return (jsxRuntime.jsxs("div", { children: [jsxRuntime.jsx("p", __assign({ style: { fontWeight: "bold", lineHeight: 0 } }, { children: "TOKENS" })), jsxRuntime.jsx("div", __assign({ className: "tokenDetailsContainer" }, { children: balance[0] &&
                     symbol[0] &&
                     decimals[0] &&
-                    balance.map(function (e, index) { return (jsxRuntime.jsx("div", { children: e && (jsxRuntime.jsx("div", { children: jsxRuntime.jsxs("div", __assign({ style: {
+                    balance.map(function (e, index) { return (jsxRuntime.jsx("div", { children: e && (jsxRuntime.jsx("div", { children: jsxRuntime.jsx("div", __assign({ style: {
                                     display: "flex",
                                     alignItems: "center",
                                     margin: "1vh 0",
-                                } }, { children: [jsxRuntime.jsx("div", { style: {
-                                            height: "40px",
-                                            width: "40px",
-                                            borderRadius: "50%",
-                                            backgroundColor: "#c4c4c4",
-                                            marginRight: "1vw",
-                                        } }), jsxRuntime.jsxs("div", { children: [jsxRuntime.jsx("p", __assign({ style: { margin: 0 } }, { children: symbol[index] })), jsxRuntime.jsx("p", __assign({ style: { margin: 0 } }, { children: toDecimals({
-                                                    number: e[0],
-                                                    precision: 7,
-                                                    tokenDecimals: decimals[index],
-                                                }) }))] })] })) })) }, "token-mainlist-".concat(index))); }) }))] }));
+                                } }, { children: jsxRuntime.jsxs("div", { children: [jsxRuntime.jsx("p", __assign({ style: { margin: 0, fontWeight: "500" } }, { children: symbol[index] })), jsxRuntime.jsx("p", __assign({ style: { margin: 0 } }, { children: toDecimals({
+                                                number: e[0],
+                                                precision: 7,
+                                                tokenDecimals: decimals[index],
+                                            }) }))] }) })) })) }, "token-mainlist-".concat(index))); }) }))] }));
 };
 
 var contractName = "IERC721Metadata";
@@ -2009,24 +2037,6 @@ var useTokenURIIndexCover = function (_a) {
         args: [1],
     }); }));
 };
-var useTokenOfOwnerByIndex = function (_a) {
-    var NFT = _a.NFT, args = _a.args;
-    var range = Array.from(Array(args[1] - 1).keys()).map(function (x) { return x + 1; });
-    range.unshift(0);
-    console.log("Range: ", range);
-    var result = useContractCalls(range
-        ? range.map(function (e) {
-            return {
-                abi: ERC721ContractInterface,
-                address: "" + NFT,
-                method: NFT_CONTRACT_METHODS.TOKEN_OF_OWNER_BY_INDEX,
-                args: [args[0], e],
-            };
-        })
-        : []);
-    console.log(result);
-    return result[0] ? convertResultToReadableFormat(result) : result;
-};
 
 var index$4 = function (_a) {
     var URI = _a.URI, number = _a.number, symbol = _a.symbol;
@@ -2086,20 +2096,24 @@ var index$3 = function (_a) {
             minWidth: "300px",
             maxWidth: "300px",
             padding: "1vh 25px 0 25px",
-        } }, { children: jsxRuntime.jsx(Slider__default["default"], __assign({}, build_slider_settings({ full: full }), { children: URIs.map(function (uri, index) {
+        } }, { children: URIs.length > 0 ? (jsxRuntime.jsx(Slider__default["default"], __assign({}, build_slider_settings({ full: full }), { children: URIs.map(function (uri, index) {
                 return (jsxRuntime.jsx("div", __assign({ onClick: function () {
                         onCollectionSelected(index);
                     } }, { children: jsxRuntime.jsx(index$4, { URI: uri, number: numbers[index], symbol: Array.isArray(symbols) ? symbols[index] : symbols }, index) }), "".concat(Array.isArray(symbols) ? symbols[index] : symbols, "-").concat(numbers[index])));
-            }) })) })));
+            }) }))) : (jsxRuntime.jsxs("div", __assign({ style: {
+                textAlign: "center",
+                display: "flex",
+                alignItems: "center",
+            } }, { children: [jsxRuntime.jsx("br", {}), jsxRuntime.jsx("br", {}), "Oops..", jsxRuntime.jsx("br", {}), "There's nothing to show here"] }))) })));
 };
 
 var index$2 = function (_a) {
-    var NFT = _a.NFT, balance = _a.balance, symbol = _a.symbol;
-    var account = reactProviders.useEthereum().account;
-    useTokenOfOwnerByIndex({
-        NFT: NFT,
-        args: [account, balance],
-    });
+    _a.NFT; _a.balance; var symbol = _a.symbol;
+    reactProviders.useEthereum().account;
+    // const tokenIds = useTokenOfOwnerByIndex({
+    //   NFT,
+    //   args: [account, balance],
+    // });
     // const URIs = useTokenURIIndex({ NFT, args: tokenIds });
     return (jsxRuntime.jsx("div", __assign({ style: {
             minWidth: "300px",
@@ -2133,11 +2147,11 @@ var index$1 = function (_a) {
         method: NFT_CONTRACT_METHODS.SYMBOL,
     });
     var URIs = useTokenURIIndexCover({ NFTs: NFTs });
-    return (jsxRuntime.jsxs("div", __assign({ style: { display: "flex", flexDirection: "column" } }, { children: [jsxRuntime.jsxs("p", __assign({ style: { fontWeight: "500", lineHeight: 0 }, onClick: function () {
+    return (jsxRuntime.jsxs("div", __assign({ style: { display: "flex", flexDirection: "column" } }, { children: [jsxRuntime.jsxs("p", __assign({ style: { fontWeight: "bold", lineHeight: 0 }, onClick: function () {
                     if (clicked != -1) {
                         setClicked(-1);
                     }
-                } }, { children: [clicked >= 0 ? "< ".concat(symbols[clicked][0], "'s ") : "", " Collectibles"] })), clicked == -1 &&
+                } }, { children: [clicked >= 0 ? "< ".concat(symbols[clicked][0], "'s ") : "", " COLLECTIBLES"] })), clicked == -1 &&
                 areAllElementsValid(URIs) &&
                 areAllElementsValid(balances) && (jsxRuntime.jsx(index$3, { symbols: symbols, URIs: URIs, numbers: balances, full: Full, onCollectionSelected: setClicked })), clicked != -1 &&
                 areAllElementsValid(URIs) &&
@@ -2391,8 +2405,8 @@ var ConnectWalletList = function (_a) {
     var openOptions = _a.openOptions, setOpenOptions = _a.setOpenOptions, _b = _a.EthWalletList, EthWalletList = _b === void 0 ? [] : _b, _c = _a.SolWalletList, SolWalletList$1 = _c === void 0 ? [] : _c, WalletListStyle = _a.WalletListStyle;
     return (jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [jsxRuntime.jsx("div", __assign({ style: {
                     width: 270,
-                    top: WalletListStyle.top ? WalletListStyle.top : 0,
-                    backgroundColor: WalletListStyle.background
+                    top: (WalletListStyle === null || WalletListStyle === void 0 ? void 0 : WalletListStyle.top) ? WalletListStyle.top : 0,
+                    backgroundColor: (WalletListStyle === null || WalletListStyle === void 0 ? void 0 : WalletListStyle.background)
                         ? WalletListStyle.background
                         : "white",
                     transition: "0.5s",
@@ -2424,13 +2438,6 @@ var ConnectWalletList = function (_a) {
                     position: "fixed",
                     left: 0,
                 }, onClick: function () { return setOpenOptions(false); } }))] }));
-};
-
-var Identicon = function (_a) {
-    var walletAddress = _a.walletAddress;
-    var ethereum = reactProviders.useMultichain().ethereum;
-    var account = ethereum.account;
-    return (jsxRuntime.jsx(Jazzicon__default["default"], { diameter: reactDeviceDetect.isMobile ? 30 : 40, seed: Jazzicon.jsNumberForAddress(walletAddress ? walletAddress : (account === null || account === void 0 ? void 0 : account.toString()) || "") }));
 };
 
 var Active = function () {

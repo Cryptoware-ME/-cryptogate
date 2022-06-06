@@ -1,5 +1,9 @@
 import { useEthereum } from "@cryptogate/react-providers";
-import { useTokenOfOwnerByIndex } from "../../../../hooks/useNFTMultiCall";
+import {
+  useTokenOfOwnerByIndex,
+  useTokenURIIndex,
+} from "../../../../hooks/useNFTMultiCall";
+import { areAllElementsValid } from "../../../../utils/helpers";
 
 const index = ({
   NFT,
@@ -12,10 +16,10 @@ const index = ({
 }) => {
   const { account } = useEthereum();
 
-  const tokenIds = useTokenOfOwnerByIndex({
-    NFT,
-    args: [account, balance],
-  });
+  // const tokenIds = useTokenOfOwnerByIndex({
+  //   NFT,
+  //   args: [account, balance],
+  // });
 
   // const URIs = useTokenURIIndex({ NFT, args: tokenIds });
 
@@ -27,7 +31,9 @@ const index = ({
         padding: "1vh 25px 0 25px",
       }}
     >
+      {/* {areAllElementsValid(URIs) && areAllElementsValid(tokenIds) && ( */}
       <>{symbol}</>
+      {/* )} */}
     </div>
   );
 };

@@ -2,6 +2,7 @@ import { useEthereum } from "@cryptogate/react-providers";
 import { useTokensMultiCall } from "../../../hooks/useTokensMultiCall";
 import { toDecimals } from "../../../utils/helpers";
 import { TOKEN_CONTRACT_METHODS } from "../../../utils/constants";
+import "./TokenDetails.css";
 
 const index = ({ tokens }: { tokens?: string[] }) => {
   const { account } = useEthereum();
@@ -25,15 +26,8 @@ const index = ({ tokens }: { tokens?: string[] }) => {
 
   return (
     <div>
-      <p style={{ fontWeight: "500", lineHeight: 0 }}>Tokens</p>
-      <div
-        style={{
-          maxHeight: "300px",
-          overflowY: "unset",
-          overflowX: "hidden",
-          paddingRight: "2vw",
-        }}
-      >
+      <p style={{ fontWeight: "bold", lineHeight: 0 }}>TOKENS</p>
+      <div className="tokenDetailsContainer">
         {balance[0] &&
           symbol[0] &&
           decimals[0] &&
@@ -48,7 +42,7 @@ const index = ({ tokens }: { tokens?: string[] }) => {
                       margin: "1vh 0",
                     }}
                   >
-                    <div
+                    {/* <div
                       style={{
                         height: "40px",
                         width: "40px",
@@ -56,9 +50,11 @@ const index = ({ tokens }: { tokens?: string[] }) => {
                         backgroundColor: "#c4c4c4",
                         marginRight: "1vw",
                       }}
-                    ></div>
+                    ></div> */}
                     <div>
-                      <p style={{ margin: 0 }}>{symbol[index]}</p>
+                      <p style={{ margin: 0, fontWeight: "500" }}>
+                        {symbol[index]}
+                      </p>
                       <p style={{ margin: 0 }}>
                         {toDecimals({
                           number: e[0],

@@ -3,6 +3,7 @@ import json from "@rollup/plugin-json";
 import typescript from "@rollup/plugin-typescript";
 import svg from "rollup-plugin-svg";
 import dts from "rollup-plugin-dts";
+import css from "rollup-plugin-import-css";
 
 const packageJson = require("./package.json");
 
@@ -30,6 +31,7 @@ export default [
       }),
       commonjs(),
       svg(),
+      css()
     ],
   },
   {

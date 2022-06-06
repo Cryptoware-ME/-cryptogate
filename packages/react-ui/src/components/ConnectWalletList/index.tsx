@@ -23,8 +23,8 @@ export const ConnectWalletList = ({
       <div
         style={{
           width: 270,
-          top: WalletListStyle.top ? WalletListStyle.top : 0,
-          backgroundColor: WalletListStyle.background
+          top: WalletListStyle?.top ? WalletListStyle.top : 0,
+          backgroundColor: WalletListStyle?.background
             ? WalletListStyle.background
             : "white",
           transition: "0.5s",

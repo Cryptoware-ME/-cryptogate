@@ -41,14 +41,14 @@ const index = ({ NFTs, Full }: { NFTs: string[]; Full: boolean }) => {
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
       <p
-        style={{ fontWeight: "500", lineHeight: 0 }}
+        style={{ fontWeight: "bold", lineHeight: 0 }}
         onClick={() => {
           if (clicked != -1) {
             setClicked(-1);
           }
         }}
       >
-        {clicked >= 0 ? `< ${symbols[clicked][0]}'s ` : ""} Collectibles
+        {clicked >= 0 ? `< ${symbols[clicked][0]}'s ` : ""} COLLECTIBLES
       </p>
       {clicked == -1 &&
         areAllElementsValid(URIs) &&
