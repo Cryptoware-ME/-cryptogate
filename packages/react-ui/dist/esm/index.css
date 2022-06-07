@@ -17,6 +17,8 @@
   background: #555;
 }
 
+@charset 'UTF-8';
+
 /* Slider */
 .slick-slider {
   position: relative;
@@ -120,7 +122,6 @@
   display: none;
 }
 
-@charset 'UTF-8';
 /* Slider */
 .slick-loading .slick-list {
   background: #fff url("./ajax-loader.gif") center center no-repeat;
