@@ -3,15 +3,15 @@ import TokenDetails from "./TokenDetails";
 import NFTDisplay from "./NFTDisplay";
 
 const index = ({
-  onClose,
+  onDisconnect,
   Store,
 }: {
-  onClose: any;
+  onDisconnect: any;
   Store?: { Tokens?: string[]; NFTs?: string[] };
 }) => {
   return (
     <div>
-      <WalletInformation onClose={onClose} direction="x" />
+      <WalletInformation onDisconnect={onDisconnect} direction="x" />
       <hr style={{ width: "100%" }} />
       {Store && (Store.Tokens || Store.NFTs) && (
         <div

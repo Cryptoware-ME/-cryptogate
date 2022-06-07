@@ -48,10 +48,11 @@ declare const Identicon: ({ walletAddress }: {
     walletAddress?: string | undefined;
 }) => JSX.Element;
 
-declare const ConnectMenu: ({ ChosenConnectedMenu, onClose, isOpen, Store, }: {
+declare const ConnectMenu: ({ ChosenConnectedMenu, onClose, onDisconnect, isOpen, Store, }: {
     ChosenConnectedMenu: ConnectedMenu;
     onClose: any;
     isOpen: boolean;
+    onDisconnect?: any;
     Store?: {
         Tokens?: string[] | undefined;
         NFTs?: string[] | undefined;

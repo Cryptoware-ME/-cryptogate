@@ -22,10 +22,10 @@ const useENS = () => {
 };
 
 const WalletInformation = ({
-  onClose,
+  onDisconnect,
   direction = "y",
 }: {
-  onClose: any;
+  onDisconnect: any;
   direction?: string;
 }) => {
   const { getEthBalance, account, deactivate } = useEthereum();
@@ -34,7 +34,7 @@ const WalletInformation = ({
 
   const handleDisconnect = () => {
     account && deactivate();
-    onClose();
+    onDisconnect();
   };
 
   useEffect(() => {

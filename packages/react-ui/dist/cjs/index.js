@@ -108,13 +108,13 @@ var useENS = function () {
     return { name: name, getName: getName };
 };
 var WalletInformation = function (_a) {
-    var onClose = _a.onClose, _b = _a.direction, direction = _b === void 0 ? "y" : _b;
+    var onDisconnect = _a.onDisconnect, _b = _a.direction, direction = _b === void 0 ? "y" : _b;
     var _c = reactProviders.useEthereum(), getEthBalance = _c.getEthBalance, account = _c.account, deactivate = _c.deactivate;
     var etherBalance = getEthBalance(account);
     var _d = useENS(), getName = _d.getName, name = _d.name;
     var handleDisconnect = function () {
         account && deactivate();
-        onClose();
+        onDisconnect();
     };
     react.useEffect(function () {
         if (account) {
@@ -2157,8 +2157,8 @@ var index$1 = function (_a) {
 };
 
 var index = function (_a) {
-    var onClose = _a.onClose, Store = _a.Store;
-    return (jsxRuntime.jsxs("div", { children: [jsxRuntime.jsx(WalletInformation, { onClose: onClose, direction: "x" }), jsxRuntime.jsx("hr", { style: { width: "100%" } }), Store && (Store.Tokens || Store.NFTs) && (jsxRuntime.jsxs("div", __assign({ style: {
+    var onDisconnect = _a.onDisconnect, Store = _a.Store;
+    return (jsxRuntime.jsxs("div", { children: [jsxRuntime.jsx(WalletInformation, { onDisconnect: onDisconnect, direction: "x" }), jsxRuntime.jsx("hr", { style: { width: "100%" } }), Store && (Store.Tokens || Store.NFTs) && (jsxRuntime.jsxs("div", __assign({ style: {
                     display: "flex",
                     justifyContent: "flex-start",
                     alignItems: "felx-start",
@@ -2169,7 +2169,7 @@ var index = function (_a) {
 };
 
 var ConnectMenu = function (_a) {
-    var ChosenConnectedMenu = _a.ChosenConnectedMenu, onClose = _a.onClose, isOpen = _a.isOpen, Store = _a.Store;
+    var ChosenConnectedMenu = _a.ChosenConnectedMenu, onClose = _a.onClose, onDisconnect = _a.onDisconnect, isOpen = _a.isOpen, Store = _a.Store;
     return (jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [ChosenConnectedMenu == exports.ConnectedMenu.NOMENU && jsxRuntime.jsx(jsxRuntime.Fragment, {}), ChosenConnectedMenu != exports.ConnectedMenu.NOMENU && (jsxRuntime.jsxs("div", __assign({ style: {
                     position: "fixed",
                     top: "0",
@@ -2196,7 +2196,7 @@ var ConnectMenu = function (_a) {
                             height: "auto",
                             padding: "20px 20px 20px 20px",
                             width: "auto",
-                        } }, { children: [ChosenConnectedMenu == exports.ConnectedMenu.WALLETINFORMATION && (jsxRuntime.jsx(WalletInformation, { onClose: onClose })), ChosenConnectedMenu == exports.ConnectedMenu.STORE && (jsxRuntime.jsx(index, { onClose: onClose, Store: Store }))] }))] })))] }));
+                        } }, { children: [ChosenConnectedMenu == exports.ConnectedMenu.WALLETINFORMATION && (jsxRuntime.jsx(WalletInformation, { onDisconnect: onDisconnect })), ChosenConnectedMenu == exports.ConnectedMenu.STORE && (jsxRuntime.jsx(index, { onDisconnect: onDisconnect, Store: Store }))] }))] })))] }));
 };
 
 var setWithExpiry = function (key, value, ttl) {

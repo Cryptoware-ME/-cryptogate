@@ -5,12 +5,14 @@ import { ConnectedMenu } from "../ConnectWalletComponent";
 export const ConnectMenu = ({
   ChosenConnectedMenu,
   onClose,
+  onDisconnect,
   isOpen,
   Store,
 }: {
   ChosenConnectedMenu: ConnectedMenu;
   onClose: any;
   isOpen: boolean;
+  onDisconnect?: any;
   Store?: { Tokens?: string[]; NFTs?: string[] };
 }) => {
   return (
@@ -54,10 +56,10 @@ export const ConnectMenu = ({
             }}
           >
             {ChosenConnectedMenu == ConnectedMenu.WALLETINFORMATION && (
-              <WalletInformation onClose={onClose} />
+              <WalletInformation onDisconnect={onDisconnect} />
             )}
             {ChosenConnectedMenu == ConnectedMenu.STORE && (
-              <StoreMenuComponent onClose={onClose} Store={Store} />
+              <StoreMenuComponent onDisconnect={onDisconnect} Store={Store} />
             )}
           </div>
         </div>

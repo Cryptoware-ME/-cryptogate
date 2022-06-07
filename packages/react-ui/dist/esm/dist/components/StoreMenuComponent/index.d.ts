@@ -1,5 +1,5 @@
-declare const index: ({ onClose, Store, }: {
-    onClose: any;
+declare const index: ({ onDisconnect, Store, }: {
+    onDisconnect: any;
     Store?: {
         Tokens?: string[] | undefined;
         NFTs?: string[] | undefined;
