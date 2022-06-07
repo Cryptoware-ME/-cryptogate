@@ -2,7 +2,7 @@ import { useEthereum } from "@cryptogate/react-providers";
 import { useTokensMultiCall } from "../../../hooks/useTokensMultiCall";
 import { toDecimals } from "../../../utils/helpers";
 import { TOKEN_CONTRACT_METHODS } from "../../../utils/constants";
-import "./TokenDetails.css";
+import "./TokenDetails.module.css";
 
 const index = ({ tokens }: { tokens?: string[] }) => {
   const { account } = useEthereum();

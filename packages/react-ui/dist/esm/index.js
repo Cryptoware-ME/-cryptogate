@@ -7,8 +7,8 @@ import { ethers, utils } from 'ethers';
 import BigNumber from 'bignumber.js';
 import { Interface } from '@ethersproject/abi';
 import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+import 'slick.css';
+import 'slick-theme.css';
 import { ethSignMessage } from '@cryptogate/core';
 import detectEthereumProvider from '@metamask/detect-provider';
 
@@ -2121,16 +2121,16 @@ var index$1 = function (_a) {
         format: true,
         args: [account],
     });
-    var tpmNFTs = [];
-    var tpmBalances = [];
-    for (var i = 0; i < balances.length; i++) {
-        if (balances[i] > 0) {
-            tpmNFTs.push(NFTs[i]);
-            tpmBalances.push(balances[i]);
-        }
-    }
-    balances = tpmBalances;
-    NFTs = tpmNFTs;
+    // var tpmNFTs = [];
+    // var tpmBalances = [];
+    // for (var i = 0; i < balances.length; i++) {
+    //   if (balances[i] > 0) {
+    //     tpmNFTs.push(NFTs[i]);
+    //     tpmBalances.push(balances[i]);
+    //   }
+    // }
+    // balances = tpmBalances;
+    // NFTs = tpmNFTs;
     var symbols = useNFTMetadataMultiCall({
         NFTs: NFTs,
         method: NFT_CONTRACT_METHODS.SYMBOL,
