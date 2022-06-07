@@ -1,5 +1,5 @@
-import "slick.css";
-import "slick-theme.css";
+import "./slick.css";
+import "./slick-theme.css";
 declare const index: ({ URIs, symbols, numbers, full, onCollectionSelected, }: {
     URIs: any;
     symbols: any;

@@ -7,8 +7,6 @@ import { ethers, utils } from 'ethers';
 import BigNumber from 'bignumber.js';
 import { Interface } from '@ethersproject/abi';
 import Slider from 'react-slick';
-import 'slick.css';
-import 'slick-theme.css';
 import { ethSignMessage } from '@cryptogate/core';
 import detectEthereumProvider from '@metamask/detect-provider';
 
