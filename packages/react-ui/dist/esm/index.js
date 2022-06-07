@@ -2495,5 +2495,5 @@ var ConnectWalletComponent = function (_a) {
     return (jsxs(Fragment, { children: [jsx(ConnectWalletButton, { ActiveComponent: ActiveComponent, DisabledComponent: DisabledComponent, ConnectedComponent: ConnectedComponent, NetworkChainIds: NetworkChainIds, setOpenOptions: setOpenOptions, NetworkAlertMessage: NetworkAlertMessage, SignatureMessage: SignatureMessage, onSign: onSign, ChosenConnectedMenu: ConnectedMenuChosen, Store: Store }), openOptions ? (jsx(ConnectWalletList, { openOptions: openOptions, setOpenOptions: setOpenOptions, EthWalletList: EthWalletList, SolWalletList: SolWalletList, WalletListStyle: WalletListStyle })) : (jsx(Fragment, {}))] }));
 };
 
-export { ConnectWalletComponent, ConnectedMenu, EthWallets, Identicon, SolWallets, getWithExpiry, setWithExpiry };
+export { ConnectMenu, ConnectWalletComponent, ConnectedMenu, EthWallets, Identicon, SolWallets, getWithExpiry, setWithExpiry };
 //# sourceMappingURL=index.js.map

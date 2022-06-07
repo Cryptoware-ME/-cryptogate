@@ -2,7 +2,7 @@ import WalletInformation from "../WalletInformation";
 import StoreMenuComponent from "../StoreMenuComponent";
 import { ConnectedMenu } from "../ConnectWalletComponent";
 
-const ConnectMenu = ({
+export const ConnectMenu = ({
   ChosenConnectedMenu,
   onClose,
   isOpen,
@@ -65,5 +65,3 @@ const ConnectMenu = ({
     </>
   );
 };
-
-export default ConnectMenu;

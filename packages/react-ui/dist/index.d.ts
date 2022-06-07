@@ -48,8 +48,18 @@ declare const Identicon: ({ walletAddress }: {
     walletAddress?: string | undefined;
 }) => JSX.Element;
 
+declare const ConnectMenu: ({ ChosenConnectedMenu, onClose, isOpen, Store, }: {
+    ChosenConnectedMenu: ConnectedMenu;
+    onClose: any;
+    isOpen: boolean;
+    Store?: {
+        Tokens?: string[] | undefined;
+        NFTs?: string[] | undefined;
+    } | undefined;
+}) => JSX.Element;
+
 declare const getWithExpiry: (key: any) => any;
 
 declare const setWithExpiry: (key: any, value: any, ttl: any) => void;
 
-export { ConnectWalletComponent, ConnectedMenu, EthWallets, Identicon, SolWallets, getWithExpiry, setWithExpiry };
+export { ConnectMenu, ConnectWalletComponent, ConnectedMenu, EthWallets, Identicon, SolWallets, getWithExpiry, setWithExpiry };

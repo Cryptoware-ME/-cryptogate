@@ -1,5 +1,5 @@
 import { ConnectedMenu } from "../ConnectWalletComponent";
-declare const ConnectMenu: ({ ChosenConnectedMenu, onClose, isOpen, Store, }: {
+export declare const ConnectMenu: ({ ChosenConnectedMenu, onClose, isOpen, Store, }: {
     ChosenConnectedMenu: ConnectedMenu;
     onClose: any;
     isOpen: boolean;
@@ -8,4 +8,3 @@ declare const ConnectMenu: ({ ChosenConnectedMenu, onClose, isOpen, Store, }: {
         NFTs?: string[] | undefined;
     } | undefined;
 }) => JSX.Element;
-export default ConnectMenu;

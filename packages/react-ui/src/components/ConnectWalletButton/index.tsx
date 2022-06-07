@@ -1,7 +1,7 @@
 import React from "react";
 import { useMultichain } from "@cryptogate/react-providers";
 import { useState, useEffect } from "react";
-import ConnectMenu from "../ConnectMenu";
+import { ConnectMenu } from "../ConnectMenu";
 import { ethSignMessage } from "@cryptogate/core";
 import { setWithExpiry } from "../../localStorage/setWithExpire";
 import { getWithExpiry } from "../../localStorage/getWithExpire";

@@ -2506,6 +2506,7 @@ var ConnectWalletComponent = function (_a) {
     return (jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [jsxRuntime.jsx(ConnectWalletButton, { ActiveComponent: ActiveComponent, DisabledComponent: DisabledComponent, ConnectedComponent: ConnectedComponent, NetworkChainIds: NetworkChainIds, setOpenOptions: setOpenOptions, NetworkAlertMessage: NetworkAlertMessage, SignatureMessage: SignatureMessage, onSign: onSign, ChosenConnectedMenu: ConnectedMenuChosen, Store: Store }), openOptions ? (jsxRuntime.jsx(ConnectWalletList, { openOptions: openOptions, setOpenOptions: setOpenOptions, EthWalletList: EthWalletList, SolWalletList: SolWalletList, WalletListStyle: WalletListStyle })) : (jsxRuntime.jsx(jsxRuntime.Fragment, {}))] }));
 };
 
+exports.ConnectMenu = ConnectMenu;
 exports.ConnectWalletComponent = ConnectWalletComponent;
 exports.Identicon = Identicon;
 exports.getWithExpiry = getWithExpiry;
