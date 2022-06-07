@@ -2119,16 +2119,16 @@ var index$1 = function (_a) {
         format: true,
         args: [account],
     });
-    // var tpmNFTs = [];
-    // var tpmBalances = [];
-    // for (var i = 0; i < balances.length; i++) {
-    //   if (balances[i] > 0) {
-    //     tpmNFTs.push(NFTs[i]);
-    //     tpmBalances.push(balances[i]);
-    //   }
-    // }
-    // balances = tpmBalances;
-    // NFTs = tpmNFTs;
+    var tpmNFTs = [];
+    var tpmBalances = [];
+    for (var i = 0; i < balances.length; i++) {
+        if (balances[i] > 0) {
+            tpmNFTs.push(NFTs[i]);
+            tpmBalances.push(balances[i]);
+        }
+    }
+    balances = tpmBalances;
+    NFTs = tpmNFTs;
     var symbols = useNFTMetadataMultiCall({
         NFTs: NFTs,
         method: NFT_CONTRACT_METHODS.SYMBOL,

@@ -20,16 +20,16 @@ const index = ({ NFTs, Full }: { NFTs: string[]; Full: boolean }) => {
     args: [account],
   });
 
-  // var tpmNFTs = [];
-  // var tpmBalances = [];
-  // for (var i = 0; i < balances.length; i++) {
-  //   if (balances[i] > 0) {
-  //     tpmNFTs.push(NFTs[i]);
-  //     tpmBalances.push(balances[i]);
-  //   }
-  // }
-  // balances = tpmBalances;
-  // NFTs = tpmNFTs;
+  var tpmNFTs = [];
+  var tpmBalances = [];
+  for (var i = 0; i < balances.length; i++) {
+    if (balances[i] > 0) {
+      tpmNFTs.push(NFTs[i]);
+      tpmBalances.push(balances[i]);
+    }
+  }
+  balances = tpmBalances;
+  NFTs = tpmNFTs;
 
   const symbols = useNFTMetadataMultiCall({
     NFTs,
