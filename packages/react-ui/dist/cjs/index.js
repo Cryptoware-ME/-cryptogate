@@ -11,8 +11,6 @@ var ethers = require('ethers');
 var BigNumber = require('bignumber.js');
 var abi$1 = require('@ethersproject/abi');
 var Slider = require('react-slick');
-require('slick-carousel/slick/slick.css');
-require('slick-carousel/slick/slick-theme.css');
 var core = require('@cryptogate/core');
 var detectEthereumProvider = require('@metamask/detect-provider');
 
