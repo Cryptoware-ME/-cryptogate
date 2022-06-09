@@ -1,12 +1,12 @@
 import React from "react";
 import { useMultichain } from "@cryptogate/react-providers";
 import { useState, useEffect } from "react";
-import { ConnectMenu } from "../ConnectMenu";
+import { ConnectedMenu } from "../ConnectedMenu";
 import { ethSignMessage } from "@cryptogate/core";
 import { setWithExpiry } from "../../localStorage/setWithExpire";
 import { getWithExpiry } from "../../localStorage/getWithExpire";
 import { useDapp } from "@cryptogate/react-providers";
-import { ConnectedMenu } from "../ConnectWalletComponent";
+import { ConnectedMenuOptions } from "../ConnectWalletComponent";
 
 const { ChainId } = useDapp;
 
@@ -49,8 +49,8 @@ export const ConnectWalletButton = ({
   SignatureMessage: string;
   NetworkChainIds?: number[];
   NetworkAlertMessage: string;
-  ChosenConnectedMenu: ConnectedMenu;
-  Store?: { Tokens?: string[]; NFTs?: string[] };
+  ChosenConnectedMenu: ConnectedMenuOptions;
+  Store: { Tokens?: string[]; NFTs?: string[] };
   onSign?: (key: {
     address: string;
     message: string;
@@ -101,7 +101,7 @@ export const ConnectWalletButton = ({
       ) : (
         <>{DisabledComponent}</>
       )}
-      <ConnectMenu
+      <ConnectedMenu
         ChosenConnectedMenu={ChosenConnectedMenu}
         Store={Store}
         onClose={() => {

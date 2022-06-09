@@ -12,7 +12,7 @@ export declare enum SolWallets {
     SLOPE = "slope",
     SOLFLARE = "solflare"
 }
-export declare enum ConnectedMenu {
+export declare enum ConnectedMenuOptions {
     NOMENU = "nomenu",
     WALLETINFORMATION = "walletinformation",
     STORE = "store"
@@ -26,7 +26,7 @@ export declare const ConnectWalletComponent: ({ ActiveComponent, DisabledCompone
     SignatureMessage?: string | undefined;
     NetworkChainIds?: number[] | undefined;
     NetworkAlertMessage?: string | undefined;
-    ConnectedMenuChosen?: ConnectedMenu | undefined;
+    ConnectedMenuChosen?: ConnectedMenuOptions | undefined;
     Store?: {
         Tokens?: string[] | undefined;
         NFTs?: string[] | undefined;

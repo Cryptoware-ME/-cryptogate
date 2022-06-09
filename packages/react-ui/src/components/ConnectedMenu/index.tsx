@@ -1,15 +1,15 @@
 import WalletInformation from "../WalletInformation";
 import StoreMenuComponent from "../StoreMenuComponent";
-import { ConnectedMenu } from "../ConnectWalletComponent";
+import { ConnectedMenuOptions } from "../ConnectWalletComponent";
 
-export const ConnectMenu = ({
+export const ConnectedMenu = ({
   ChosenConnectedMenu,
   onClose,
   onDisconnect,
   isOpen,
   Store,
 }: {
-  ChosenConnectedMenu: ConnectedMenu;
+  ChosenConnectedMenu: ConnectedMenuOptions;
   onClose: any;
   isOpen: boolean;
   onDisconnect?: any;
@@ -17,8 +17,8 @@ export const ConnectMenu = ({
 }) => {
   return (
     <>
-      {ChosenConnectedMenu == ConnectedMenu.NOMENU && <></>}
-      {ChosenConnectedMenu != ConnectedMenu.NOMENU && (
+      {ChosenConnectedMenu == ConnectedMenuOptions.NOMENU && <></>}
+      {ChosenConnectedMenu != ConnectedMenuOptions.NOMENU && (
         <div
           style={{
             position: "fixed",
@@ -55,10 +55,10 @@ export const ConnectMenu = ({
               width: "auto",
             }}
           >
-            {ChosenConnectedMenu == ConnectedMenu.WALLETINFORMATION && (
+            {ChosenConnectedMenu == ConnectedMenuOptions.WALLETINFORMATION && (
               <WalletInformation onDisconnect={onDisconnect} />
             )}
-            {ChosenConnectedMenu == ConnectedMenu.STORE && (
+            {ChosenConnectedMenu == ConnectedMenuOptions.STORE && (
               <StoreMenuComponent onDisconnect={onDisconnect} Store={Store} />
             )}
           </div>

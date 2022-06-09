@@ -2168,9 +2168,9 @@ var index = function (_a) {
                         Store.NFTs.length && (jsxRuntime.jsx("div", { style: { borderLeft: "1px solid #888888", margin: "0 2vw 0 0" } })), Store.NFTs && Store.NFTs.length > 0 && (jsxRuntime.jsx(index$1, { NFTs: Store.NFTs, Full: !(Store.Tokens && Store.Tokens.length) }))] })))] }));
 };
 
-var ConnectMenu = function (_a) {
+var ConnectedMenu = function (_a) {
     var ChosenConnectedMenu = _a.ChosenConnectedMenu, onClose = _a.onClose, onDisconnect = _a.onDisconnect, isOpen = _a.isOpen, Store = _a.Store;
-    return (jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [ChosenConnectedMenu == exports.ConnectedMenu.NOMENU && jsxRuntime.jsx(jsxRuntime.Fragment, {}), ChosenConnectedMenu != exports.ConnectedMenu.NOMENU && (jsxRuntime.jsxs("div", __assign({ style: {
+    return (jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [ChosenConnectedMenu == exports.ConnectedMenuOptions.NOMENU && jsxRuntime.jsx(jsxRuntime.Fragment, {}), ChosenConnectedMenu != exports.ConnectedMenuOptions.NOMENU && (jsxRuntime.jsxs("div", __assign({ style: {
                     position: "fixed",
                     top: "0",
                     bottom: 0,
@@ -2196,7 +2196,7 @@ var ConnectMenu = function (_a) {
                             height: "auto",
                             padding: "20px 20px 20px 20px",
                             width: "auto",
-                        } }, { children: [ChosenConnectedMenu == exports.ConnectedMenu.WALLETINFORMATION && (jsxRuntime.jsx(WalletInformation, { onDisconnect: onDisconnect })), ChosenConnectedMenu == exports.ConnectedMenu.STORE && (jsxRuntime.jsx(index, { onDisconnect: onDisconnect, Store: Store }))] }))] })))] }));
+                        } }, { children: [ChosenConnectedMenu == exports.ConnectedMenuOptions.WALLETINFORMATION && (jsxRuntime.jsx(WalletInformation, { onDisconnect: onDisconnect })), ChosenConnectedMenu == exports.ConnectedMenuOptions.STORE && (jsxRuntime.jsx(index, { onDisconnect: onDisconnect, Store: Store }))] }))] })))] }));
 };
 
 var setWithExpiry = function (key, value, ttl) {
@@ -2281,7 +2281,7 @@ var ConnectWalletButton = function (_a) {
             }
         }
     }, [account, library]);
-    return account ? (jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [keyValue && keyValue != {} ? (jsxRuntime.jsx("div", __assign({ onClick: function () { return setOpenMenu(!openMenu); } }, { children: ConnectedComponent }))) : (jsxRuntime.jsx(jsxRuntime.Fragment, { children: DisabledComponent })), jsxRuntime.jsx(ConnectMenu, { ChosenConnectedMenu: ChosenConnectedMenu, Store: Store, onClose: function () {
+    return account ? (jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [keyValue && keyValue != {} ? (jsxRuntime.jsx("div", __assign({ onClick: function () { return setOpenMenu(!openMenu); } }, { children: ConnectedComponent }))) : (jsxRuntime.jsx(jsxRuntime.Fragment, { children: DisabledComponent })), jsxRuntime.jsx(ConnectedMenu, { ChosenConnectedMenu: ChosenConnectedMenu, Store: Store, onClose: function () {
                     setOpenMenu(false);
                 }, isOpen: openMenu })] })) : (jsxRuntime.jsx("div", __assign({ onClick: function () {
             setOpenOptions(true);
@@ -2494,20 +2494,20 @@ exports.SolWallets = void 0;
     SolWallets["SLOPE"] = "slope";
     SolWallets["SOLFLARE"] = "solflare";
 })(exports.SolWallets || (exports.SolWallets = {}));
-exports.ConnectedMenu = void 0;
-(function (ConnectedMenu) {
-    ConnectedMenu["NOMENU"] = "nomenu";
-    ConnectedMenu["WALLETINFORMATION"] = "walletinformation";
-    ConnectedMenu["STORE"] = "store";
-})(exports.ConnectedMenu || (exports.ConnectedMenu = {}));
+exports.ConnectedMenuOptions = void 0;
+(function (ConnectedMenuOptions) {
+    ConnectedMenuOptions["NOMENU"] = "nomenu";
+    ConnectedMenuOptions["WALLETINFORMATION"] = "walletinformation";
+    ConnectedMenuOptions["STORE"] = "store";
+})(exports.ConnectedMenuOptions || (exports.ConnectedMenuOptions = {}));
 var ConnectWalletComponent = function (_a) {
-    var _b = _a.ActiveComponent, ActiveComponent = _b === void 0 ? jsxRuntime.jsx(Active, {}) : _b, _c = _a.DisabledComponent, DisabledComponent = _c === void 0 ? jsxRuntime.jsx(Disabled, {}) : _c, _d = _a.ConnectedComponent, ConnectedComponent = _d === void 0 ? jsxRuntime.jsx(Identicon, {}) : _d, _e = _a.EthWalletList, EthWalletList = _e === void 0 ? defaults.EthWallets : _e, _f = _a.SolWalletList, SolWalletList = _f === void 0 ? defaults.SolWallets : _f, _g = _a.SignatureMessage, SignatureMessage = _g === void 0 ? defaults.SignatureMessage : _g, _h = _a.NetworkChainIds, NetworkChainIds = _h === void 0 ? defaults.NetworkChainIds : _h, _j = _a.NetworkAlertMessage, NetworkAlertMessage = _j === void 0 ? defaults.NetworkAlertMessage : _j, _k = _a.ConnectedMenuChosen, ConnectedMenuChosen = _k === void 0 ? exports.ConnectedMenu.WALLETINFORMATION : _k, Store = _a.Store, _l = _a.WalletListStyle, WalletListStyle = _l === void 0 ? defaults.WalletListStyle : _l, onSign = _a.onSign;
-    var _m = react.useState(false), openOptions = _m[0], setOpenOptions = _m[1];
+    var _b = _a.ActiveComponent, ActiveComponent = _b === void 0 ? jsxRuntime.jsx(Active, {}) : _b, _c = _a.DisabledComponent, DisabledComponent = _c === void 0 ? jsxRuntime.jsx(Disabled, {}) : _c, _d = _a.ConnectedComponent, ConnectedComponent = _d === void 0 ? jsxRuntime.jsx(Identicon, {}) : _d, _e = _a.EthWalletList, EthWalletList = _e === void 0 ? defaults.EthWallets : _e, _f = _a.SolWalletList, SolWalletList = _f === void 0 ? defaults.SolWallets : _f, _g = _a.SignatureMessage, SignatureMessage = _g === void 0 ? defaults.SignatureMessage : _g, _h = _a.NetworkChainIds, NetworkChainIds = _h === void 0 ? defaults.NetworkChainIds : _h, _j = _a.NetworkAlertMessage, NetworkAlertMessage = _j === void 0 ? defaults.NetworkAlertMessage : _j, _k = _a.ConnectedMenuChosen, ConnectedMenuChosen = _k === void 0 ? exports.ConnectedMenuOptions.WALLETINFORMATION : _k, _l = _a.Store, Store = _l === void 0 ? {} : _l, _m = _a.WalletListStyle, WalletListStyle = _m === void 0 ? defaults.WalletListStyle : _m, onSign = _a.onSign;
+    var _o = react.useState(false), openOptions = _o[0], setOpenOptions = _o[1];
     return (jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [jsxRuntime.jsx(ConnectWalletButton, { ActiveComponent: ActiveComponent, DisabledComponent: DisabledComponent, ConnectedComponent: ConnectedComponent, NetworkChainIds: NetworkChainIds, setOpenOptions: setOpenOptions, NetworkAlertMessage: NetworkAlertMessage, SignatureMessage: SignatureMessage, onSign: onSign, ChosenConnectedMenu: ConnectedMenuChosen, Store: Store }), openOptions ? (jsxRuntime.jsx(ConnectWalletList, { openOptions: openOptions, setOpenOptions: setOpenOptions, EthWalletList: EthWalletList, SolWalletList: SolWalletList, WalletListStyle: WalletListStyle })) : (jsxRuntime.jsx(jsxRuntime.Fragment, {}))] }));
 };
 
-exports.ConnectMenu = ConnectMenu;
 exports.ConnectWalletComponent = ConnectWalletComponent;
+exports.ConnectedMenu = ConnectedMenu;
 exports.Identicon = Identicon;
 exports.getWithExpiry = getWithExpiry;
 exports.setWithExpiry = setWithExpiry;

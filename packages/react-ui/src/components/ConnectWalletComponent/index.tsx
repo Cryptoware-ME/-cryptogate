@@ -22,7 +22,7 @@ export enum SolWallets {
   SOLFLARE = "solflare",
 }
 
-export enum ConnectedMenu {
+export enum ConnectedMenuOptions {
   NOMENU = "nomenu",
   WALLETINFORMATION = "walletinformation",
   STORE = "store",
@@ -37,8 +37,8 @@ export const ConnectWalletComponent = ({
   SignatureMessage = defaults.SignatureMessage,
   NetworkChainIds = defaults.NetworkChainIds,
   NetworkAlertMessage = defaults.NetworkAlertMessage,
-  ConnectedMenuChosen = ConnectedMenu.WALLETINFORMATION,
-  Store,
+  ConnectedMenuChosen = ConnectedMenuOptions.WALLETINFORMATION,
+  Store = {},
   WalletListStyle = defaults.WalletListStyle,
   onSign,
 }: {
@@ -50,7 +50,7 @@ export const ConnectWalletComponent = ({
   SignatureMessage?: string;
   NetworkChainIds?: number[];
   NetworkAlertMessage?: string;
-  ConnectedMenuChosen?: ConnectedMenu;
+  ConnectedMenuChosen?: ConnectedMenuOptions;
   Store?: { Tokens?: string[]; NFTs?: string[] };
   WalletListStyle?: {
     top?: any;

@@ -13,7 +13,7 @@ declare enum SolWallets {
     SLOPE = "slope",
     SOLFLARE = "solflare"
 }
-declare enum ConnectedMenu {
+declare enum ConnectedMenuOptions {
     NOMENU = "nomenu",
     WALLETINFORMATION = "walletinformation",
     STORE = "store"
@@ -27,7 +27,7 @@ declare const ConnectWalletComponent: ({ ActiveComponent, DisabledComponent, Con
     SignatureMessage?: string | undefined;
     NetworkChainIds?: number[] | undefined;
     NetworkAlertMessage?: string | undefined;
-    ConnectedMenuChosen?: ConnectedMenu | undefined;
+    ConnectedMenuChosen?: ConnectedMenuOptions | undefined;
     Store?: {
         Tokens?: string[] | undefined;
         NFTs?: string[] | undefined;
@@ -48,8 +48,8 @@ declare const Identicon: ({ walletAddress }: {
     walletAddress?: string | undefined;
 }) => JSX.Element;
 
-declare const ConnectMenu: ({ ChosenConnectedMenu, onClose, onDisconnect, isOpen, Store, }: {
-    ChosenConnectedMenu: ConnectedMenu;
+declare const ConnectedMenu: ({ ChosenConnectedMenu, onClose, onDisconnect, isOpen, Store, }: {
+    ChosenConnectedMenu: ConnectedMenuOptions;
     onClose: any;
     isOpen: boolean;
     onDisconnect?: any;
@@ -63,4 +63,4 @@ declare const getWithExpiry: (key: any) => any;
 
 declare const setWithExpiry: (key: any, value: any, ttl: any) => void;
 
-export { ConnectMenu, ConnectWalletComponent, ConnectedMenu, EthWallets, Identicon, SolWallets, getWithExpiry, setWithExpiry };
+export { ConnectWalletComponent, ConnectedMenu, ConnectedMenuOptions, EthWallets, Identicon, SolWallets, getWithExpiry, setWithExpiry };
