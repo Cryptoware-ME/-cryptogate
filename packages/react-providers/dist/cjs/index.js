@@ -278,10 +278,22 @@ var SolDappContextProvider = function (_a) {
                 React__default["default"].createElement(SolWalletsContext.Consumer, null, function (Wallets) { return Wallets && Wallets.Phantom && (React__default["default"].createElement(walletAdapterReact.WalletProvider, { wallets: mapWallets(Wallets), autoConnect: (Config && Config.config) ? Config.config.autoConnect : false, onError: onError }, children)); })))));
 };
 
+var ThemeContext = React__default["default"].createContext({});
+var ThemeContextProvider = function (_a) {
+    var primary = _a.primary, secondary = _a.secondary, children = _a.children;
+    var _b = React.useState({}), theme = _b[0], setTheme = _b[1];
+    React.useEffect(function () {
+        setTheme({ primary: primary, secondary: secondary });
+        console.log("THEME::: ", { primary: primary, secondary: secondary });
+    }, [primary, secondary]);
+    return (React__default["default"].createElement(ThemeContext.Provider, { value: theme }, children));
+};
+
 var MultichainProvider = function (_a) {
-    var ethConfig = _a.ethConfig, solConfig = _a.solConfig, ethContracts = _a.ethContracts, children = _a.children;
+    var ethConfig = _a.ethConfig, solConfig = _a.solConfig, ethContracts = _a.ethContracts, children = _a.children, theme = _a.theme;
     return (React__default["default"].createElement(EthDappContextProvider, { config: ethConfig, contracts: ethContracts },
-        React__default["default"].createElement(SolDappContextProvider, __assign({}, solConfig), children)));
+        React__default["default"].createElement(SolDappContextProvider, __assign({}, solConfig),
+            React__default["default"].createElement(ThemeContextProvider, { primary: theme.primary, secondary: theme.secondary }, children))));
 };
 
 var useEthereum = function () {
@@ -356,6 +368,11 @@ var useMultichain = function () {
     };
 };
 
+var useTheme = function () {
+    var themeCtx = React.useContext(ThemeContext);
+    return { theme: themeCtx };
+};
+
 exports.useDapp = core__namespace;
 exports.EthContractsContext = EthContractsContext;
 exports.EthContractsContextProvider = EthContractsContextProvider;
@@ -368,9 +385,12 @@ exports.SolDappContext = SolDappContext;
 exports.SolDappContextProvider = SolDappContextProvider;
 exports.SolWalletsContext = SolWalletsContext;
 exports.SolWalletsContextProvider = SolWalletsContextProvider;
+exports.ThemeContext = ThemeContext;
+exports.ThemeContextProvider = ThemeContextProvider;
 exports.defaultConfig = defaultConfig;
 exports.solDefaultConfig = solDefaultConfig;
 exports.useEthereum = useEthereum;
 exports.useMultichain = useMultichain;
 exports.useSolana = useSolana;
+exports.useTheme = useTheme;
 //# sourceMappingURL=index.js.map

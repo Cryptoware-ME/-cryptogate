@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
 import { useNetwork, DAppProvider, useEthers, useEtherBalance } from '@usedapp/core';
 import * as core from '@usedapp/core';
 export { core as useDapp };
@@ -253,10 +253,22 @@ var SolDappContextProvider = function (_a) {
                 React.createElement(SolWalletsContext.Consumer, null, function (Wallets) { return Wallets && Wallets.Phantom && (React.createElement(WalletProvider, { wallets: mapWallets(Wallets), autoConnect: (Config && Config.config) ? Config.config.autoConnect : false, onError: onError }, children)); })))));
 };
 
+var ThemeContext = React.createContext({});
+var ThemeContextProvider = function (_a) {
+    var primary = _a.primary, secondary = _a.secondary, children = _a.children;
+    var _b = useState({}), theme = _b[0], setTheme = _b[1];
+    useEffect(function () {
+        setTheme({ primary: primary, secondary: secondary });
+        console.log("THEME::: ", { primary: primary, secondary: secondary });
+    }, [primary, secondary]);
+    return (React.createElement(ThemeContext.Provider, { value: theme }, children));
+};
+
 var MultichainProvider = function (_a) {
-    var ethConfig = _a.ethConfig, solConfig = _a.solConfig, ethContracts = _a.ethContracts, children = _a.children;
+    var ethConfig = _a.ethConfig, solConfig = _a.solConfig, ethContracts = _a.ethContracts, children = _a.children, theme = _a.theme;
     return (React.createElement(EthDappContextProvider, { config: ethConfig, contracts: ethContracts },
-        React.createElement(SolDappContextProvider, __assign({}, solConfig), children)));
+        React.createElement(SolDappContextProvider, __assign({}, solConfig),
+            React.createElement(ThemeContextProvider, { primary: theme.primary, secondary: theme.secondary }, children))));
 };
 
 var useEthereum = function () {
@@ -331,5 +343,10 @@ var useMultichain = function () {
     };
 };
 
-export { EthContractsContext, EthContractsContextProvider, EthDappContext, EthDappContextProvider, EthWalletsContext, EthWalletsContextProvider, MultichainProvider, SolDappContext, SolDappContextProvider, SolWalletsContext, SolWalletsContextProvider, defaultConfig, solDefaultConfig, useEthereum, useMultichain, useSolana };
+var useTheme = function () {
+    var themeCtx = useContext(ThemeContext);
+    return { theme: themeCtx };
+};
+
+export { EthContractsContext, EthContractsContextProvider, EthDappContext, EthDappContextProvider, EthWalletsContext, EthWalletsContextProvider, MultichainProvider, SolDappContext, SolDappContextProvider, SolWalletsContext, SolWalletsContextProvider, ThemeContext, ThemeContextProvider, defaultConfig, solDefaultConfig, useEthereum, useMultichain, useSolana, useTheme };
 //# sourceMappingURL=index.js.map
