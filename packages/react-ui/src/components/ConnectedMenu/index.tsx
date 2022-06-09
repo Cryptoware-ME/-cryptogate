@@ -5,7 +5,7 @@ import { ConnectedMenuOptions } from "../ConnectWalletComponent";
 export const ConnectedMenu = ({
   ChosenConnectedMenu,
   onClose,
-  onDisconnect,
+  onDisconnect = () => {},
   isOpen,
   Store,
 }: {

@@ -2158,7 +2158,7 @@ var index = function (_a) {
 };
 
 var ConnectedMenu = function (_a) {
-    var ChosenConnectedMenu = _a.ChosenConnectedMenu, onClose = _a.onClose, onDisconnect = _a.onDisconnect, isOpen = _a.isOpen, Store = _a.Store;
+    var ChosenConnectedMenu = _a.ChosenConnectedMenu, onClose = _a.onClose, _b = _a.onDisconnect, onDisconnect = _b === void 0 ? function () { } : _b, isOpen = _a.isOpen, Store = _a.Store;
     return (jsxs(Fragment, { children: [ChosenConnectedMenu == ConnectedMenuOptions.NOMENU && jsx(Fragment, {}), ChosenConnectedMenu != ConnectedMenuOptions.NOMENU && (jsxs("div", __assign({ style: {
                     position: "fixed",
                     top: "0",
