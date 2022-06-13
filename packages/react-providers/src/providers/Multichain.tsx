@@ -3,7 +3,7 @@ import React, { ReactNode } from "react";
 import { EthContractConfig } from "./EthContracts";
 import { EthDappContextProvider } from "./EthDapp";
 import { SolDappContextProvider, SolDappContextProviderProps } from "./SolDapp";
-import { ThemeContextProvider, ThemeContextProviderProps } from "./Theme";
+import { ThemeContextProvider } from "./Theme";
 
 export interface MultichainProviderProps {
   children?: ReactNode;
@@ -18,7 +18,11 @@ export interface MultichainProviderProps {
   };
   ethContracts: EthContractConfig[];
   solConfig: SolDappContextProviderProps;
-  theme: ThemeContextProviderProps;
+  theme?: {
+    titles: string;
+    text: string;
+    background: string;
+  };
 }
 
 export const MultichainProvider = ({
@@ -26,17 +30,16 @@ export const MultichainProvider = ({
   solConfig,
   ethContracts,
   children,
-  theme,
+  theme = {
+    titles: "#000000",
+    text: "#000000",
+    background: "#ffffff",
+  },
 }: MultichainProviderProps) => {
   return (
     <EthDappContextProvider config={ethConfig} contracts={ethContracts}>
       <SolDappContextProvider {...solConfig}>
-        <ThemeContextProvider
-          primary={theme.primary}
-          secondary={theme.secondary}
-        >
-          {children}
-        </ThemeContextProvider>
+        <ThemeContextProvider Theme={theme}>{children}</ThemeContextProvider>
       </SolDappContextProvider>
     </EthDappContextProvider>
   );

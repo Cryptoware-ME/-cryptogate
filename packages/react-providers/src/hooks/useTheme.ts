@@ -3,5 +3,6 @@ import { ThemeContext } from "../providers";
 
 export const useTheme = () => {
   const themeCtx = useContext(ThemeContext);
-  return { theme: themeCtx };
+  const { Theme } = themeCtx;
+  return { Theme };
 };

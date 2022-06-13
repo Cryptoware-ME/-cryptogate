@@ -127,17 +127,6 @@ interface SolConfigSetter {
 declare const SolDappContext: React.Context<SolConfigSetter>;
 declare const SolDappContextProvider: ({ config, children }: SolDappContextProviderProps) => JSX.Element;
 
-interface ThemeContextProviderProps {
-    children?: React.ReactNode;
-    primary: string;
-    secondary: string;
-}
-declare const ThemeContext: React.Context<{
-    primary: string;
-    secondary: string;
-}>;
-declare const ThemeContextProvider: ({ primary, secondary, children, }: ThemeContextProviderProps) => JSX.Element;
-
 interface MultichainProviderProps {
     children?: ReactNode;
     ethConfig: {
@@ -151,9 +140,29 @@ interface MultichainProviderProps {
     };
     ethContracts: EthContractConfig[];
     solConfig: SolDappContextProviderProps;
-    theme: ThemeContextProviderProps;
+    theme?: {
+        titles: string;
+        text: string;
+        background: string;
+    };
 }
 declare const MultichainProvider: ({ ethConfig, solConfig, ethContracts, children, theme, }: MultichainProviderProps) => JSX.Element;
+
+declare const ThemeContext: React.Context<{
+    Theme: {
+        titles: string;
+        text: string;
+        background: string;
+    };
+}>;
+declare const ThemeContextProvider: ({ Theme, children, }: {
+    Theme: {
+        titles: string;
+        text: string;
+        background: string;
+    };
+    children: React.ReactNode;
+}) => JSX.Element;
 
 declare const useEthereum: () => {
     wallets: EthWallets;
@@ -275,10 +284,11 @@ declare const useMultichain: () => {
 };
 
 declare const useTheme: () => {
-    theme: {
-        primary: string;
-        secondary: string;
+    Theme: {
+        titles: string;
+        text: string;
+        background: string;
     };
 };
 
-export { EthConfigSetter, EthContractConfig, EthContracts, EthContractsContext, EthContractsContextProvider, EthContractsContextProviderProps, EthDappContext, EthDappContextProvider, EthDappContextProviderProps, EthWallets, EthWalletsContext, EthWalletsContextProvider, EthWalletsContextProviderProps, MultichainProvider, MultichainProviderProps, SolConfigSetter, SolDappContext, SolDappContextProvider, SolDappContextProviderProps, SolWallets, SolWalletsContext, SolWalletsContextProvider, SolWalletsContextProviderProps, ThemeContext, ThemeContextProvider, ThemeContextProviderProps, defaultConfig, solDefaultConfig, useEthereum, useMultichain, useSolana, useTheme };
+export { EthConfigSetter, EthContractConfig, EthContracts, EthContractsContext, EthContractsContextProvider, EthContractsContextProviderProps, EthDappContext, EthDappContextProvider, EthDappContextProviderProps, EthWallets, EthWalletsContext, EthWalletsContextProvider, EthWalletsContextProviderProps, MultichainProvider, MultichainProviderProps, SolConfigSetter, SolDappContext, SolDappContextProvider, SolDappContextProviderProps, SolWallets, SolWalletsContext, SolWalletsContextProvider, SolWalletsContextProviderProps, ThemeContext, ThemeContextProvider, defaultConfig, solDefaultConfig, useEthereum, useMultichain, useSolana, useTheme };

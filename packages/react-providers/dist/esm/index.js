@@ -255,20 +255,23 @@ var SolDappContextProvider = function (_a) {
 
 var ThemeContext = React.createContext({});
 var ThemeContextProvider = function (_a) {
-    var primary = _a.primary, secondary = _a.secondary, children = _a.children;
+    var Theme = _a.Theme, children = _a.children;
     var _b = useState({}), theme = _b[0], setTheme = _b[1];
     useEffect(function () {
-        setTheme({ primary: primary, secondary: secondary });
-        console.log("THEME::: ", { primary: primary, secondary: secondary });
-    }, [primary, secondary]);
-    return (React.createElement(ThemeContext.Provider, { value: theme }, children));
+        setTheme(Theme);
+    }, [Theme]);
+    return (React.createElement(ThemeContext.Provider, { value: { Theme: theme } }, children));
 };
 
 var MultichainProvider = function (_a) {
-    var ethConfig = _a.ethConfig, solConfig = _a.solConfig, ethContracts = _a.ethContracts, children = _a.children, theme = _a.theme;
+    var ethConfig = _a.ethConfig, solConfig = _a.solConfig, ethContracts = _a.ethContracts, children = _a.children, _b = _a.theme, theme = _b === void 0 ? {
+        titles: "#000000",
+        text: "#000000",
+        background: "#ffffff",
+    } : _b;
     return (React.createElement(EthDappContextProvider, { config: ethConfig, contracts: ethContracts },
         React.createElement(SolDappContextProvider, __assign({}, solConfig),
-            React.createElement(ThemeContextProvider, { primary: theme.primary, secondary: theme.secondary }, children))));
+            React.createElement(ThemeContextProvider, { Theme: theme }, children))));
 };
 
 var useEthereum = function () {
@@ -345,7 +348,8 @@ var useMultichain = function () {
 
 var useTheme = function () {
     var themeCtx = useContext(ThemeContext);
-    return { theme: themeCtx };
+    var Theme = themeCtx.Theme;
+    return { Theme: Theme };
 };
 
 export { EthContractsContext, EthContractsContextProvider, EthDappContext, EthDappContextProvider, EthWalletsContext, EthWalletsContextProvider, MultichainProvider, SolDappContext, SolDappContextProvider, SolWalletsContext, SolWalletsContextProvider, ThemeContext, ThemeContextProvider, defaultConfig, solDefaultConfig, useEthereum, useMultichain, useSolana, useTheme };

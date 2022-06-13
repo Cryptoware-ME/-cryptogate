@@ -1,6 +1,7 @@
 export declare const useTheme: () => {
-    theme: {
-        primary: string;
-        secondary: string;
+    Theme: {
+        titles: string;
+        text: string;
+        background: string;
     };
 };

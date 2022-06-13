@@ -280,20 +280,23 @@ var SolDappContextProvider = function (_a) {
 
 var ThemeContext = React__default["default"].createContext({});
 var ThemeContextProvider = function (_a) {
-    var primary = _a.primary, secondary = _a.secondary, children = _a.children;
+    var Theme = _a.Theme, children = _a.children;
     var _b = React.useState({}), theme = _b[0], setTheme = _b[1];
     React.useEffect(function () {
-        setTheme({ primary: primary, secondary: secondary });
-        console.log("THEME::: ", { primary: primary, secondary: secondary });
-    }, [primary, secondary]);
-    return (React__default["default"].createElement(ThemeContext.Provider, { value: theme }, children));
+        setTheme(Theme);
+    }, [Theme]);
+    return (React__default["default"].createElement(ThemeContext.Provider, { value: { Theme: theme } }, children));
 };
 
 var MultichainProvider = function (_a) {
-    var ethConfig = _a.ethConfig, solConfig = _a.solConfig, ethContracts = _a.ethContracts, children = _a.children, theme = _a.theme;
+    var ethConfig = _a.ethConfig, solConfig = _a.solConfig, ethContracts = _a.ethContracts, children = _a.children, _b = _a.theme, theme = _b === void 0 ? {
+        titles: "#000000",
+        text: "#000000",
+        background: "#ffffff",
+    } : _b;
     return (React__default["default"].createElement(EthDappContextProvider, { config: ethConfig, contracts: ethContracts },
         React__default["default"].createElement(SolDappContextProvider, __assign({}, solConfig),
-            React__default["default"].createElement(ThemeContextProvider, { primary: theme.primary, secondary: theme.secondary }, children))));
+            React__default["default"].createElement(ThemeContextProvider, { Theme: theme }, children))));
 };
 
 var useEthereum = function () {
@@ -370,7 +373,8 @@ var useMultichain = function () {
 
 var useTheme = function () {
     var themeCtx = React.useContext(ThemeContext);
-    return { theme: themeCtx };
+    var Theme = themeCtx.Theme;
+    return { Theme: Theme };
 };
 
 exports.useDapp = core__namespace;
