@@ -21,7 +21,7 @@
   "gitHead": "4e7588c374765236eb36f78f70745b80a39c773c",
   "peerDependencies": {
     "@cryptogate/core": "^0.0.10",
-    "@cryptogate/react-providers": "^0.0.34",
+    "@cryptogate/react-providers": "^0.0.37",
     "@metamask/detect-provider": "^1.2.0",
     "@types/node": "^17.0.29",
     "@types/react": "^18.0.8",
