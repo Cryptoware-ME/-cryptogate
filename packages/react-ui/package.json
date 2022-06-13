@@ -8,7 +8,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Cryptogate Web3 UI Components",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "@cryptogate/core": "^0.0.10",
-    "@cryptogate/react-providers": "^0.0.35",
+    "@cryptogate/react-providers": "^0.0.36",
     "@metamask/detect-provider": "^1.2.0",
     "@rollup/plugin-commonjs": "^21.1.0",
     "@rollup/plugin-json": "^4.1.0",
