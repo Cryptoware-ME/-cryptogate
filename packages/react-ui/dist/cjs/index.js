@@ -11,8 +11,6 @@ var ethers = require('ethers');
 var BigNumber = require('bignumber.js');
 var abi$1 = require('@ethersproject/abi');
 var Slider = require('react-slick');
-require('slick-carousel/slick/slick.css');
-require('slick-carousel/slick/slick-theme.css');
 var core = require('@cryptogate/core');
 var detectEthereumProvider = require('@metamask/detect-provider');
 
@@ -247,8 +245,6 @@ var build_slider_settings = function (_a) {
     });
 };
 
-var styles = ".tokenDetailsContainer {\r\n  overflow-x: hidden;\r\n  overflow-y: scroll;\r\n  padding-right: 2vw;\r\n}\r\n.tokenDetailsContainer::-webkit-scrollbar {\r\n  width: 0.3vw;\r\n}\r\n.tokenDetailsContainer::-webkit-scrollbar-track {\r\n  background: #f1f1f1;\r\n}\r\n.tokenDetailsContainer::-webkit-scrollbar-thumb {\r\n  background: #888;\r\n}\r\n.tokenDetailsContainer::-webkit-scrollbar-thumb:hover {\r\n  background: #555;\r\n}\r\n";
-
 var index$5 = function (_a) {
     var tokens = _a.tokens;
     var account = reactProviders.useEthereum().account;
@@ -271,7 +267,7 @@ var index$5 = function (_a) {
                     fontWeight: "bold",
                     lineHeight: 0,
                     color: Theme.primaryText,
-                } }, { children: "TOKENS" })), jsxRuntime.jsx("div", __assign({ className: styles.tokenDetailsContainer }, { children: balance[0] &&
+                } }, { children: "TOKENS" })), jsxRuntime.jsx("div", __assign({ className: "tokenDetailsContainer" }, { children: balance[0] &&
                     symbol[0] &&
                     decimals[0] &&
                     balance.map(function (e, index) { return (jsxRuntime.jsx("div", { children: e && (jsxRuntime.jsx("div", { children: jsxRuntime.jsx("div", __assign({ style: {
