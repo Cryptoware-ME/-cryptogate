@@ -2,7 +2,7 @@ import { useEthereum } from "@cryptogate/react-providers";
 import { useTokensMultiCall } from "../../../hooks/useTokensMultiCall";
 import { toDecimals } from "../../../utils/helpers";
 import { TOKEN_CONTRACT_METHODS } from "../../../utils/constants";
-import "./TokenDetails.module.css";
+import styles from "./TokenDetails.module.css";
 import { useTheme } from "@cryptogate/react-providers";
 
 const index = ({ tokens }: { tokens?: string[] }) => {
@@ -37,7 +37,7 @@ const index = ({ tokens }: { tokens?: string[] }) => {
       >
         TOKENS
       </p>
-      <div className="tokenDetailsContainer">
+      <div className={styles.tokenDetailsContainer}>
         {balance[0] &&
           symbol[0] &&
           decimals[0] &&

@@ -11,6 +11,8 @@ var ethers = require('ethers');
 var BigNumber = require('bignumber.js');
 var abi$1 = require('@ethersproject/abi');
 var Slider = require('react-slick');
+require('slick-carousel/slick/slick.css');
+require('slick-carousel/slick/slick-theme.css');
 var core = require('@cryptogate/core');
 var detectEthereumProvider = require('@metamask/detect-provider');
 
@@ -92,7 +94,13 @@ var Identicon = function (_a) {
     return (jsxRuntime.jsx(Jazzicon__default["default"], { diameter: reactDeviceDetect.isMobile ? 30 : 40, seed: Jazzicon.jsNumberForAddress(walletAddress ? walletAddress : (account === null || account === void 0 ? void 0 : account.toString()) || "") }));
 };
 
-var disconnect = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAAACXBIWXMAAA7DAAAOwwHHb6hkAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAAyFJREFUOI2tlc9rHHUUwD/vOzOb6IZiakCJl0hoLoGW6mrY2c3GLdH6A0QQKYgUevKu4M0/wJN/gCBovWjoRasHGzsuM7sxMRoprAerNBUNzcHupkpJnN3v87AzcdzOqojv8mDe+36+7/t+jfA/SqvVOmqtvQgg6cdGo/FgsVjcLZVKt//usKqaVqv1lLW2JiJHVPV713UvqOota+0qcBL4QlKo4zhXgSvGmGXf92/mQRO/FeDhIVMM/AzMAFue5z1uAIrF4i5wBThprV1ttVpHh6FhGM45jhMl0Guq+rqqvgy8CzgJdNsYs7ywsPDLYSqS/KRP2cpGHobhnIgEwDTwURzHL9br9d8yZ09baz8BeiIyV6lUrh+CR8H7/f5UBvrh5OTkC/Pz878PvyiKoneAs8Ar1Wr1TZM1+r5/0xizDGwlabn8b6BpXImeBTDD1iH4CWBaRC7+AxTgvkT/mgvOgQNM7+3tTYwiBkEwAZwDMMZ8ngtuNpuzYRi+0ev1nBSuqg+p6qW8bmm324VCoXAemFHVjXK5fOkOcKPROKaqDRF5zXGc09nI8+DtdrvQ7XbfV9XngB3Xdc+IiIXM5K2trc30+/0IeIChQgVBcI/neZ8CjwDfeJ637DjOrYODgw8S6K619lStVvs25QkMxrTZbG4waP7c6mdbUUS+VtWfgGeBHVWtLy4ufpf1F4Aoip4GPgauxXF8PNv8Q0XKRk5epKkYABGpJZG/PQoKUK/Xu8aYJ/mzW26MjY3t5vmaBHgkueDGKGi73S40m82Xer2eE8fxKeBL4EQcx58FQTA1CvxDov1R0E6ns6Kq5x3HebVer3fjOH4ihXuet7q+vn7vHWDXdS8AsYicDcNwOesQBMFEp9NZISkU8Faaliw8juO/wAUOK/4Vg9XXB95T1ZaI3M9gomaAnX6//9jS0tLV7MXDi2t8fLxaKpVuy5Bhm8HCKWQPq+qG67pnyuXydl6qMozjIjJbqVSuSxiG6yLyKMmatNZOAM8Dx4A9EQl8319NJ2qUbG5u3r2/vz9VrVZ/BJAoii4Ddxljnhn1S/ov8gdQvalD20NEGgAAAABJRU5ErkJggg==";
+var DisconnectBtn = function () {
+    var Theme = reactProviders.useTheme().Theme;
+    return (jsxRuntime.jsx("svg", __assign({ xmlns: "http://www.w3.org/2000/svg", width: "22", height: "22", viewBox: "0 0 22 22" }, { children: jsxRuntime.jsxs("g", __assign({ id: "Group_3655", "data-name": "Group 3655", transform: "translate(-660.042 -514.38)" }, { children: [jsxRuntime.jsx("path", { id: "Path_12166", "data-name": "Path 12166", d: "M672.351,853.66a.974.974,0,0,0-1.378,0l-1.816,1.816a3.392,3.392,0,0,1-4.774.011l-.011-.012-.012-.011a3.388,3.388,0,0,1,.012-4.774l1.816-1.816a.974.974,0,0,0,0-1.378h0a.974.974,0,0,0-1.378,0l-1.816,1.816a5.34,5.34,0,0,0-.626,6.789l-2.039,2.039a.975.975,0,1,0,1.379,1.379l2.039-2.039a5.341,5.341,0,0,0,6.789-.626l1.816-1.816a.974.974,0,0,0,0-1.378Z", transform: "translate(0 -323.424)", fill: Theme.secondaryBackground, opacity: "50%" }), jsxRuntime.jsx("path", { id: "Path_12167", "data-name": "Path 12167", d: "M742.855,514.666a.975.975,0,0,0-1.379,0l-2.04,2.04a5.343,5.343,0,0,0-6.791.625l-3.587,3.589-4.476-4.476a.975.975,0,1,0-1.379,1.379L739.7,534.317a.975.975,0,0,0,1.379-1.379l-4.476-4.476,3.587-3.587a5.343,5.343,0,0,0,.627-6.79l2.041-2.041A.975.975,0,0,0,742.855,514.666ZM738.81,523.5l-3.588,3.588-4.785-4.785,3.587-3.587a3.387,3.387,0,0,1,4.774-.012l.011.012.011.011A3.386,3.386,0,0,1,738.81,523.5Z", transform: "translate(-61.098)", fill: Theme.secondaryBackground, opacity: "50%" })] })) })));
+};
+
+// const disconnect =
+//   "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAAACXBIWXMAAA7DAAAOwwHHb6hkAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAAyFJREFUOI2tlc9rHHUUwD/vOzOb6IZiakCJl0hoLoGW6mrY2c3GLdH6A0QQKYgUevKu4M0/wJN/gCBovWjoRasHGzsuM7sxMRoprAerNBUNzcHupkpJnN3v87AzcdzOqojv8mDe+36+7/t+jfA/SqvVOmqtvQgg6cdGo/FgsVjcLZVKt//usKqaVqv1lLW2JiJHVPV713UvqOota+0qcBL4QlKo4zhXgSvGmGXf92/mQRO/FeDhIVMM/AzMAFue5z1uAIrF4i5wBThprV1ttVpHh6FhGM45jhMl0Guq+rqqvgy8CzgJdNsYs7ywsPDLYSqS/KRP2cpGHobhnIgEwDTwURzHL9br9d8yZ09baz8BeiIyV6lUrh+CR8H7/f5UBvrh5OTkC/Pz878PvyiKoneAs8Ar1Wr1TZM1+r5/0xizDGwlabn8b6BpXImeBTDD1iH4CWBaRC7+AxTgvkT/mgvOgQNM7+3tTYwiBkEwAZwDMMZ8ngtuNpuzYRi+0ev1nBSuqg+p6qW8bmm324VCoXAemFHVjXK5fOkOcKPROKaqDRF5zXGc09nI8+DtdrvQ7XbfV9XngB3Xdc+IiIXM5K2trc30+/0IeIChQgVBcI/neZ8CjwDfeJ637DjOrYODgw8S6K619lStVvs25QkMxrTZbG4waP7c6mdbUUS+VtWfgGeBHVWtLy4ufpf1F4Aoip4GPgauxXF8PNv8Q0XKRk5epKkYABGpJZG/PQoKUK/Xu8aYJ/mzW26MjY3t5vmaBHgkueDGKGi73S40m82Xer2eE8fxKeBL4EQcx58FQTA1CvxDov1R0E6ns6Kq5x3HebVer3fjOH4ihXuet7q+vn7vHWDXdS8AsYicDcNwOesQBMFEp9NZISkU8Faaliw8juO/wAUOK/4Vg9XXB95T1ZaI3M9gomaAnX6//9jS0tLV7MXDi2t8fLxaKpVuy5Bhm8HCKWQPq+qG67pnyuXydl6qMozjIjJbqVSuSxiG6yLyKMmatNZOAM8Dx4A9EQl8319NJ2qUbG5u3r2/vz9VrVZ/BJAoii4Ddxljnhn1S/ov8gdQvalD20NEGgAAAABJRU5ErkJggg==";
 var provider = new ethers.ethers.providers.JsonRpcProvider("https://mainnet.infura.io/v3/ced28563ff504eeca880d195dda82166");
 var useENS = function () {
     var _a = react.useState(""), name = _a[0], setname = _a[1];
@@ -155,7 +163,7 @@ var WalletInformation = function (_a) {
                             cursor: "pointer",
                             height: "22px",
                             width: "22px",
-                        } }, { children: jsxRuntime.jsx("img", { src: disconnect, alt: "Disconnect", className: "disconnect", onClick: handleDisconnect }) })), jsxRuntime.jsx("span", __assign({ style: {
+                        } }, { children: jsxRuntime.jsx("span", __assign({ onClick: handleDisconnect }, { children: jsxRuntime.jsx(DisconnectBtn, {}) })) })), jsxRuntime.jsx("span", __assign({ style: {
                             display: direction == "x" ? "flex" : "none",
                             margin: "0 0 0 4vw",
                         } }, { children: jsxRuntime.jsx(Identicon, {}) }))] })), direction == "y" && (jsxRuntime.jsx("hr", { style: { width: "100%", marginBottom: "2vh" } })), jsxRuntime.jsxs("div", __assign({ style: {
@@ -239,6 +247,8 @@ var build_slider_settings = function (_a) {
     });
 };
 
+var styles = ".tokenDetailsContainer {\r\n  overflow-x: hidden;\r\n  overflow-y: scroll;\r\n  padding-right: 2vw;\r\n}\r\n.tokenDetailsContainer::-webkit-scrollbar {\r\n  width: 0.3vw;\r\n}\r\n.tokenDetailsContainer::-webkit-scrollbar-track {\r\n  background: #f1f1f1;\r\n}\r\n.tokenDetailsContainer::-webkit-scrollbar-thumb {\r\n  background: #888;\r\n}\r\n.tokenDetailsContainer::-webkit-scrollbar-thumb:hover {\r\n  background: #555;\r\n}\r\n";
+
 var index$5 = function (_a) {
     var tokens = _a.tokens;
     var account = reactProviders.useEthereum().account;
@@ -261,7 +271,7 @@ var index$5 = function (_a) {
                     fontWeight: "bold",
                     lineHeight: 0,
                     color: Theme.primaryText,
-                } }, { children: "TOKENS" })), jsxRuntime.jsx("div", __assign({ className: "tokenDetailsContainer" }, { children: balance[0] &&
+                } }, { children: "TOKENS" })), jsxRuntime.jsx("div", __assign({ className: styles.tokenDetailsContainer }, { children: balance[0] &&
                     symbol[0] &&
                     decimals[0] &&
                     balance.map(function (e, index) { return (jsxRuntime.jsx("div", { children: e && (jsxRuntime.jsx("div", { children: jsxRuntime.jsx("div", __assign({ style: {
