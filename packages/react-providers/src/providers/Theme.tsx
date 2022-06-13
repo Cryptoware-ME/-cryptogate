@@ -3,9 +3,10 @@ import React, { useEffect, useState } from "react";
 export const ThemeContext = React.createContext(
   {} as {
     Theme: {
-      titles: string;
-      text: string;
-      background: string;
+      primaryText: string;
+      secondaryText: string;
+      primaryBackground: string;
+      secondaryBackground: string;
     };
   }
 );
@@ -14,18 +15,20 @@ export const ThemeContextProvider = ({
   Theme,
   children,
 }: {
-  Theme: {
-    titles: string;
-    text: string;
-    background: string;
+  Theme:  {
+    primaryText: string;
+    secondaryText: string;
+    primaryBackground: string;
+    secondaryBackground: string;
   };
   children: React.ReactNode;
 }) => {
   const [theme, setTheme] = useState(
-    {} as {
-      titles: string;
-      text: string;
-      background: string;
+    {} as  {
+      primaryText: string;
+      secondaryText: string;
+      primaryBackground: string;
+      secondaryBackground: string;
     }
   );
 

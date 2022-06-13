@@ -16,9 +16,10 @@ export interface MultichainProviderProps {
     ethContracts: EthContractConfig[];
     solConfig: SolDappContextProviderProps;
     theme?: {
-        titles: string;
-        text: string;
-        background: string;
+        primaryText: string;
+        secondaryText: string;
+        primaryBackground: string;
+        secondaryBackground: string;
     };
 }
 export declare const MultichainProvider: ({ ethConfig, solConfig, ethContracts, children, theme, }: MultichainProviderProps) => JSX.Element;

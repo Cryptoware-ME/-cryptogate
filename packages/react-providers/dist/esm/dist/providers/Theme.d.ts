@@ -1,16 +1,18 @@
 import React from "react";
 export declare const ThemeContext: React.Context<{
     Theme: {
-        titles: string;
-        text: string;
-        background: string;
+        primaryText: string;
+        secondaryText: string;
+        primaryBackground: string;
+        secondaryBackground: string;
     };
 }>;
 export declare const ThemeContextProvider: ({ Theme, children, }: {
     Theme: {
-        titles: string;
-        text: string;
-        background: string;
+        primaryText: string;
+        secondaryText: string;
+        primaryBackground: string;
+        secondaryBackground: string;
     };
     children: React.ReactNode;
 }) => JSX.Element;

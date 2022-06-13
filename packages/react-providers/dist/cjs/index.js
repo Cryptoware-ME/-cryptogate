@@ -290,9 +290,10 @@ var ThemeContextProvider = function (_a) {
 
 var MultichainProvider = function (_a) {
     var ethConfig = _a.ethConfig, solConfig = _a.solConfig, ethContracts = _a.ethContracts, children = _a.children, _b = _a.theme, theme = _b === void 0 ? {
-        titles: "#000000",
-        text: "#000000",
-        background: "#ffffff",
+        primaryText: "#000000",
+        secondaryText: "#000000",
+        primaryBackground: "#ffffff",
+        secondaryBackground: "#000000",
     } : _b;
     return (React__default["default"].createElement(EthDappContextProvider, { config: ethConfig, contracts: ethContracts },
         React__default["default"].createElement(SolDappContextProvider, __assign({}, solConfig),

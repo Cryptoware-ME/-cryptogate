@@ -141,25 +141,28 @@ interface MultichainProviderProps {
     ethContracts: EthContractConfig[];
     solConfig: SolDappContextProviderProps;
     theme?: {
-        titles: string;
-        text: string;
-        background: string;
+        primaryText: string;
+        secondaryText: string;
+        primaryBackground: string;
+        secondaryBackground: string;
     };
 }
 declare const MultichainProvider: ({ ethConfig, solConfig, ethContracts, children, theme, }: MultichainProviderProps) => JSX.Element;
 
 declare const ThemeContext: React.Context<{
     Theme: {
-        titles: string;
-        text: string;
-        background: string;
+        primaryText: string;
+        secondaryText: string;
+        primaryBackground: string;
+        secondaryBackground: string;
     };
 }>;
 declare const ThemeContextProvider: ({ Theme, children, }: {
     Theme: {
-        titles: string;
-        text: string;
-        background: string;
+        primaryText: string;
+        secondaryText: string;
+        primaryBackground: string;
+        secondaryBackground: string;
     };
     children: React.ReactNode;
 }) => JSX.Element;
@@ -285,9 +288,10 @@ declare const useMultichain: () => {
 
 declare const useTheme: () => {
     Theme: {
-        titles: string;
-        text: string;
-        background: string;
+        primaryText: string;
+        secondaryText: string;
+        primaryBackground: string;
+        secondaryBackground: string;
     };
 };
 
