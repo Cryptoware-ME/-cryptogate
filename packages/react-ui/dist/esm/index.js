@@ -1,5 +1,5 @@
 import { jsx, jsxs, Fragment } from 'react/jsx-runtime';
-import { useMultichain, useEthereum, useDapp } from '@cryptogate/react-providers';
+import { useMultichain, useEthereum, useTheme, useDapp } from '@cryptogate/react-providers';
 import { useEffect, useState } from 'react';
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
 import { isMobile } from 'react-device-detect';
@@ -7,6 +7,8 @@ import { ethers, utils } from 'ethers';
 import BigNumber from 'bignumber.js';
 import { Interface } from '@ethersproject/abi';
 import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 import { ethSignMessage } from '@cryptogate/core';
 import detectEthereumProvider from '@metamask/detect-provider';
 
@@ -101,6 +103,7 @@ var WalletInformation = function (_a) {
     var _c = useEthereum(), getEthBalance = _c.getEthBalance, account = _c.account, deactivate = _c.deactivate;
     var etherBalance = getEthBalance(account);
     var _d = useENS(), getName = _d.getName, name = _d.name;
+    var Theme = useTheme().Theme;
     var handleDisconnect = function () {
         account && deactivate();
         onDisconnect();
@@ -125,12 +128,18 @@ var WalletInformation = function (_a) {
                             alignItems: "flex-start",
                             justifyContent: "flex-start",
                         } }, { children: [jsxs("p", __assign({ style: {
-                                    color: "#c4c4c4",
+                                    color: Theme.secondaryText,
                                     margin: "0 10px 0 0",
+                                    opacity: "50%",
                                     lineHeight: 1,
-                                } }, { children: [account === null || account === void 0 ? void 0 : account.slice(0, 6), "...", account === null || account === void 0 ? void 0 : account.slice(-3)] })), jsx("p", __assign({ style: { color: "#c4c4c4", lineHeight: 0 } }, { children: name ? name : "" }))] }))), account && !name && (jsxs("p", __assign({ style: {
-                            color: "#c4c4c4",
+                                } }, { children: [account === null || account === void 0 ? void 0 : account.slice(0, 6), "...", account === null || account === void 0 ? void 0 : account.slice(-3)] })), jsx("p", __assign({ style: {
+                                    color: Theme.secondaryText,
+                                    lineHeight: 0,
+                                    opacity: "50%",
+                                } }, { children: name ? name : "" }))] }))), account && !name && (jsxs("p", __assign({ style: {
+                            color: Theme.secondaryText,
                             margin: "0 10px 0 0",
+                            opacity: "50%",
                             lineHeight: 1,
                         } }, { children: [account === null || account === void 0 ? void 0 : account.slice(0, 6), "...", account === null || account === void 0 ? void 0 : account.slice(-3)] }))), jsx("span", __assign({ style: {
                             marginLeft: "10px",
@@ -139,13 +148,14 @@ var WalletInformation = function (_a) {
                             width: "22px",
                         } }, { children: jsx("img", { src: disconnect, alt: "Disconnect", className: "disconnect", onClick: handleDisconnect }) })), jsx("span", __assign({ style: {
                             display: direction == "x" ? "flex" : "none",
-                            margin: "0 1vw 0 4vw",
+                            margin: "0 0 0 4vw",
                         } }, { children: jsx(Identicon, {}) }))] })), direction == "y" && (jsx("hr", { style: { width: "100%", marginBottom: "2vh" } })), jsxs("div", __assign({ style: {
                     marginRight: direction == "x" ? "10vw" : "0",
                     padding: 0,
-                } }, { children: [jsx("p", __assign({ style: { margin: 0 } }, { children: "Total Balance" })), jsxs("p", __assign({ style: {
+                } }, { children: [jsx("p", __assign({ style: { margin: 0, color: Theme.secondaryText } }, { children: "Total Balance" })), jsxs("p", __assign({ style: {
                             fontWeight: "bold",
                             margin: 0,
+                            color: Theme.primaryText,
                         } }, { children: [etherBalance &&
                                 account &&
                                 utils.formatEther(etherBalance).slice(0, 7), " ", "ETH"] }))] }))] })));
@@ -220,9 +230,12 @@ var build_slider_settings = function (_a) {
     });
 };
 
+var styles = ".tokenDetailsContainer {\r\n  overflow-x: hidden;\r\n  overflow-y: scroll;\r\n  padding-right: 2vw;\r\n}\r\n.tokenDetailsContainer::-webkit-scrollbar {\r\n  width: 0.3vw;\r\n}\r\n.tokenDetailsContainer::-webkit-scrollbar-track {\r\n  background: #f1f1f1;\r\n}\r\n.tokenDetailsContainer::-webkit-scrollbar-thumb {\r\n  background: #888;\r\n}\r\n.tokenDetailsContainer::-webkit-scrollbar-thumb:hover {\r\n  background: #555;\r\n}\r\n";
+
 var index$5 = function (_a) {
     var tokens = _a.tokens;
     var account = useEthereum().account;
+    var Theme = useTheme().Theme;
     var balance = useTokensMultiCall({
         tokenList: tokens,
         method: TOKEN_CONTRACT_METHODS.BALANCE_OF,
@@ -237,18 +250,26 @@ var index$5 = function (_a) {
         tokenList: tokens,
         method: TOKEN_CONTRACT_METHODS.DECIMALS,
     });
-    return (jsxs("div", { children: [jsx("p", __assign({ style: { fontWeight: "bold", lineHeight: 0 } }, { children: "TOKENS" })), jsx("div", __assign({ className: "tokenDetailsContainer" }, { children: balance[0] &&
+    return (jsxs("div", __assign({ style: { display: "flex", flexDirection: "column" } }, { children: [jsx("p", __assign({ style: {
+                    fontWeight: "bold",
+                    lineHeight: 0,
+                    color: Theme.primaryText,
+                } }, { children: "TOKENS" })), jsx("div", __assign({ className: styles.tokenDetailsContainer }, { children: balance[0] &&
                     symbol[0] &&
                     decimals[0] &&
                     balance.map(function (e, index) { return (jsx("div", { children: e && (jsx("div", { children: jsx("div", __assign({ style: {
                                     display: "flex",
                                     alignItems: "center",
                                     margin: "1vh 0",
-                                } }, { children: jsxs("div", { children: [jsx("p", __assign({ style: { margin: 0, fontWeight: "500" } }, { children: symbol[index] })), jsx("p", __assign({ style: { margin: 0 } }, { children: toDecimals({
+                                } }, { children: jsxs("div", { children: [jsx("p", __assign({ style: {
+                                                margin: 0,
+                                                fontWeight: "500",
+                                                color: Theme.primaryText,
+                                            } }, { children: symbol[index] })), jsx("p", __assign({ style: { margin: 0, color: Theme.secondaryText } }, { children: toDecimals({
                                                 number: e[0],
                                                 precision: 7,
                                                 tokenDecimals: decimals[index],
-                                            }) }))] }) })) })) }, "token-mainlist-".concat(index))); }) }))] }));
+                                            }) }))] }) })) })) }, "token-mainlist-".concat(index))); }) }))] })));
 };
 
 var contractName = "IERC721Metadata";
@@ -2029,6 +2050,7 @@ var index$4 = function (_a) {
     var URI = _a.URI, number = _a.number, symbol = _a.symbol;
     var _b = useState(""), image = _b[0], setImg = _b[1];
     var _c = useState(false), empty = _c[0], setEmpty = _c[1];
+    useTheme().Theme;
     useEffect(function () {
         if (URI) {
             var validURI = isUriIPFS(URI[0]);
@@ -2061,20 +2083,23 @@ var index$4 = function (_a) {
             }
         }
     }, [URI]);
-    return (jsx("div", __assign({ style: { padding: "0 1vw" } }, { children: jsxs("div", __assign({ style: { borderRadius: "10px", border: "1px solid black" } }, { children: [jsxs("div", __assign({ style: {
-                        overflow: "hidden",
-                        borderRadius: "10px 10px 0px 0px",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                    } }, { children: [empty && (jsx("img", { alt: "".concat(symbol, "-").concat(number), src: "https://airnfts.s3.amazonaws.com/nft-images/20211121/Blur_1637529258562.png", width: "100%" })), !empty && image && (jsx("img", { alt: "".concat(symbol, "-").concat(number), src: image, width: "100%" }))] })), jsxs("div", __assign({ style: {
-                        display: "flex",
-                        backgroundColor: "#666666",
-                        borderRadius: "0px 0px 10px 10px",
-                        color: "white",
-                        width: "100%",
-                        padding: "1px 1vw",
-                    } }, { children: [jsx("div", __assign({ style: { marginRight: "2vw" } }, { children: symbol })), number && jsx("div", { children: number })] }))] })) })));
+    return (jsxs("div", __assign({ style: {
+            borderRadius: "10px",
+            border: "1px solid black",
+        } }, { children: [jsxs("div", __assign({ style: {
+                    overflow: "hidden",
+                    borderRadius: "10px 10px 0px 0px",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                } }, { children: [empty && (jsx("img", { alt: "".concat(symbol, "-").concat(number), src: "https://airnfts.s3.amazonaws.com/nft-images/20211121/Blur_1637529258562.png", width: "100%" })), !empty && image && (jsx("img", { alt: "".concat(symbol, "-").concat(number), src: image, width: "100%" }))] })), jsxs("div", __assign({ style: {
+                    display: "flex",
+                    backgroundColor: "#666666",
+                    borderRadius: "0px 0px 10px 10px",
+                    color: "white",
+                    width: "100%",
+                    padding: "1px 1vw",
+                } }, { children: [jsx("div", __assign({ style: { marginRight: "2vw" } }, { children: symbol })), number && jsx("div", { children: number })] }))] })));
 };
 
 var index$3 = function (_a) {
@@ -2113,6 +2138,7 @@ var index$1 = function (_a) {
     var NFTs = _a.NFTs, Full = _a.Full;
     var _b = useState(-1), clicked = _b[0], setClicked = _b[1];
     var account = useEthereum().account;
+    var Theme = useTheme().Theme;
     var balances = useNFTMetadataMultiCall({
         NFTs: NFTs,
         method: NFT_CONTRACT_METHODS.BALANCE_OF,
@@ -2134,31 +2160,46 @@ var index$1 = function (_a) {
         method: NFT_CONTRACT_METHODS.SYMBOL,
     });
     var URIs = useTokenURIIndexCover({ NFTs: NFTs });
-    return (jsxs("div", __assign({ style: { display: "flex", flexDirection: "column" } }, { children: [jsxs("p", __assign({ style: { fontWeight: "bold", lineHeight: 0 }, onClick: function () {
+    return (jsxs("div", __assign({ style: {
+            display: "flex",
+            flexDirection: "column",
+        } }, { children: [jsxs("p", __assign({ style: { fontWeight: "bold", lineHeight: 0, color: Theme.primaryText }, onClick: function () {
                     if (clicked != -1) {
                         setClicked(-1);
                     }
                 } }, { children: [clicked >= 0 ? "< ".concat(symbols[clicked][0], "'s ") : "", " COLLECTIBLES"] })), clicked == -1 &&
                 areAllElementsValid(URIs) &&
-                areAllElementsValid(balances) && (jsx(index$3, { symbols: symbols, URIs: URIs, numbers: balances, full: Full, onCollectionSelected: setClicked })), clicked != -1 &&
+                areAllElementsValid(balances) && (jsx(index$3, { symbols: symbols, URIs: URIs, numbers: balances, full: Full, 
+                // onCollectionSelected={setClicked}
+                onCollectionSelected: function () { } })), clicked != -1 &&
                 areAllElementsValid(URIs) &&
                 areAllElementsValid(balances) && (jsx(index$2, { NFT: NFTs[clicked], symbol: symbols[clicked][0], balance: balances[clicked] }))] })));
 };
 
 var index = function (_a) {
     var onDisconnect = _a.onDisconnect, Store = _a.Store;
-    return (jsxs("div", { children: [jsx(WalletInformation, { onDisconnect: onDisconnect, direction: "x" }), jsx("hr", { style: { width: "100%" } }), Store && (Store.Tokens || Store.NFTs) && (jsxs("div", __assign({ style: {
-                    display: "flex",
-                    justifyContent: "flex-start",
-                    alignItems: "felx-start",
-                } }, { children: [Store.Tokens && Store.Tokens.length > 0 && (jsx(index$5, { tokens: Store.Tokens })), Store.Tokens &&
-                        Store.Tokens.length &&
-                        Store.NFTs &&
-                        Store.NFTs.length && (jsx("div", { style: { borderLeft: "1px solid #888888", margin: "0 2vw 0 0" } })), Store.NFTs && Store.NFTs.length > 0 && (jsx(index$1, { NFTs: Store.NFTs, Full: !(Store.Tokens && Store.Tokens.length) }))] })))] }));
+    var Theme = useTheme().Theme;
+    return (jsxs("div", { children: [jsx(WalletInformation, { onDisconnect: onDisconnect, direction: "x" }), Store && (Store.Tokens || Store.NFTs) && (jsxs(Fragment, { children: [jsx("hr", { style: {
+                            width: "100%",
+                            borderTop: 0,
+                            borderBottom: "1px solid ".concat(Theme.secondaryBackground),
+                        } }), jsxs("div", __assign({ style: {
+                            display: "flex",
+                            justifyContent: "flex-start",
+                            alignItems: "felx-start",
+                            maxHeight: "320px",
+                        } }, { children: [Store.Tokens && Store.Tokens.length > 0 && (jsx(index$5, { tokens: Store.Tokens })), Store.Tokens &&
+                                Store.Tokens.length &&
+                                Store.NFTs &&
+                                Store.NFTs.length && (jsx("div", { style: {
+                                    borderLeft: "1px solid ".concat(Theme.secondaryBackground),
+                                    margin: "0 2vw 0 0",
+                                } })), Store.NFTs && Store.NFTs.length > 0 && (jsx(index$1, { NFTs: Store.NFTs, Full: !(Store.Tokens && Store.Tokens.length) }))] }))] }))] }));
 };
 
 var ConnectedMenu = function (_a) {
     var ChosenConnectedMenu = _a.ChosenConnectedMenu, onClose = _a.onClose, _b = _a.onDisconnect, onDisconnect = _b === void 0 ? function () { } : _b, isOpen = _a.isOpen, Store = _a.Store;
+    var Theme = useTheme().Theme;
     return (jsxs(Fragment, { children: [ChosenConnectedMenu == ConnectedMenuOptions.NOMENU && jsx(Fragment, {}), ChosenConnectedMenu != ConnectedMenuOptions.NOMENU && (jsxs("div", __assign({ style: {
                     position: "fixed",
                     top: "0",
@@ -2170,7 +2211,7 @@ var ConnectedMenu = function (_a) {
                 } }, { children: [jsx("div", { style: { width: "100%", height: "100%" }, onClick: function () {
                             onClose();
                         } }), jsxs("div", __assign({ style: {
-                            backgroundColor: "#ffffff",
+                            backgroundColor: Theme.primaryBackground,
                             boxShadow: "0 15px 15px rgba(0, 0, 0, 0.2)",
                             opacity: isOpen ? "1" : "0",
                             display: "block",
@@ -2178,7 +2219,7 @@ var ConnectedMenu = function (_a) {
                             top: "80px",
                             right: "40px",
                             borderRadius: "20px",
-                            border: "1px solid #555555",
+                            border: "1px solid ".concat(Theme.secondaryBackground),
                             boxSizing: "border-box",
                             transform: isOpen ? "translateY(0)" : "translateY(-100%)",
                             transition: "all 0.2s ease-in-out",

@@ -8,10 +8,12 @@ import {
 import { areAllElementsValid } from "../../../utils/helpers";
 import NFTSlider from "./NFTSlider";
 import NFTCollection from "./NFTCollection";
+import { useTheme } from "@cryptogate/react-providers";
 
 const index = ({ NFTs, Full }: { NFTs: string[]; Full: boolean }) => {
   const [clicked, setClicked] = useState(-1);
   const { account } = useEthereum();
+  const { Theme } = useTheme();
 
   var balances = useNFTMetadataMultiCall({
     NFTs,
@@ -39,9 +41,14 @@ const index = ({ NFTs, Full }: { NFTs: string[]; Full: boolean }) => {
   const URIs = useTokenURIIndexCover({ NFTs });
 
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
       <p
-        style={{ fontWeight: "bold", lineHeight: 0 }}
+        style={{ fontWeight: "bold", lineHeight: 0, color: Theme.primaryText }}
         onClick={() => {
           if (clicked != -1) {
             setClicked(-1);
@@ -58,7 +65,8 @@ const index = ({ NFTs, Full }: { NFTs: string[]; Full: boolean }) => {
             URIs={URIs}
             numbers={balances}
             full={Full}
-            onCollectionSelected={setClicked}
+            // onCollectionSelected={setClicked}
+            onCollectionSelected={() => {}}
           />
         )}
       {clicked != -1 &&

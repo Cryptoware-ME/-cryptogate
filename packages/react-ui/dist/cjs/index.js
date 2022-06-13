@@ -11,6 +11,8 @@ var ethers = require('ethers');
 var BigNumber = require('bignumber.js');
 var abi$1 = require('@ethersproject/abi');
 var Slider = require('react-slick');
+require('slick-carousel/slick/slick.css');
+require('slick-carousel/slick/slick-theme.css');
 var core = require('@cryptogate/core');
 var detectEthereumProvider = require('@metamask/detect-provider');
 
@@ -112,6 +114,7 @@ var WalletInformation = function (_a) {
     var _c = reactProviders.useEthereum(), getEthBalance = _c.getEthBalance, account = _c.account, deactivate = _c.deactivate;
     var etherBalance = getEthBalance(account);
     var _d = useENS(), getName = _d.getName, name = _d.name;
+    var Theme = reactProviders.useTheme().Theme;
     var handleDisconnect = function () {
         account && deactivate();
         onDisconnect();
@@ -136,12 +139,18 @@ var WalletInformation = function (_a) {
                             alignItems: "flex-start",
                             justifyContent: "flex-start",
                         } }, { children: [jsxRuntime.jsxs("p", __assign({ style: {
-                                    color: "#c4c4c4",
+                                    color: Theme.secondaryText,
                                     margin: "0 10px 0 0",
+                                    opacity: "50%",
                                     lineHeight: 1,
-                                } }, { children: [account === null || account === void 0 ? void 0 : account.slice(0, 6), "...", account === null || account === void 0 ? void 0 : account.slice(-3)] })), jsxRuntime.jsx("p", __assign({ style: { color: "#c4c4c4", lineHeight: 0 } }, { children: name ? name : "" }))] }))), account && !name && (jsxRuntime.jsxs("p", __assign({ style: {
-                            color: "#c4c4c4",
+                                } }, { children: [account === null || account === void 0 ? void 0 : account.slice(0, 6), "...", account === null || account === void 0 ? void 0 : account.slice(-3)] })), jsxRuntime.jsx("p", __assign({ style: {
+                                    color: Theme.secondaryText,
+                                    lineHeight: 0,
+                                    opacity: "50%",
+                                } }, { children: name ? name : "" }))] }))), account && !name && (jsxRuntime.jsxs("p", __assign({ style: {
+                            color: Theme.secondaryText,
                             margin: "0 10px 0 0",
+                            opacity: "50%",
                             lineHeight: 1,
                         } }, { children: [account === null || account === void 0 ? void 0 : account.slice(0, 6), "...", account === null || account === void 0 ? void 0 : account.slice(-3)] }))), jsxRuntime.jsx("span", __assign({ style: {
                             marginLeft: "10px",
@@ -150,13 +159,14 @@ var WalletInformation = function (_a) {
                             width: "22px",
                         } }, { children: jsxRuntime.jsx("img", { src: disconnect, alt: "Disconnect", className: "disconnect", onClick: handleDisconnect }) })), jsxRuntime.jsx("span", __assign({ style: {
                             display: direction == "x" ? "flex" : "none",
-                            margin: "0 1vw 0 4vw",
+                            margin: "0 0 0 4vw",
                         } }, { children: jsxRuntime.jsx(Identicon, {}) }))] })), direction == "y" && (jsxRuntime.jsx("hr", { style: { width: "100%", marginBottom: "2vh" } })), jsxRuntime.jsxs("div", __assign({ style: {
                     marginRight: direction == "x" ? "10vw" : "0",
                     padding: 0,
-                } }, { children: [jsxRuntime.jsx("p", __assign({ style: { margin: 0 } }, { children: "Total Balance" })), jsxRuntime.jsxs("p", __assign({ style: {
+                } }, { children: [jsxRuntime.jsx("p", __assign({ style: { margin: 0, color: Theme.secondaryText } }, { children: "Total Balance" })), jsxRuntime.jsxs("p", __assign({ style: {
                             fontWeight: "bold",
                             margin: 0,
+                            color: Theme.primaryText,
                         } }, { children: [etherBalance &&
                                 account &&
                                 ethers.utils.formatEther(etherBalance).slice(0, 7), " ", "ETH"] }))] }))] })));
@@ -231,9 +241,12 @@ var build_slider_settings = function (_a) {
     });
 };
 
+var styles = ".tokenDetailsContainer {\r\n  overflow-x: hidden;\r\n  overflow-y: scroll;\r\n  padding-right: 2vw;\r\n}\r\n.tokenDetailsContainer::-webkit-scrollbar {\r\n  width: 0.3vw;\r\n}\r\n.tokenDetailsContainer::-webkit-scrollbar-track {\r\n  background: #f1f1f1;\r\n}\r\n.tokenDetailsContainer::-webkit-scrollbar-thumb {\r\n  background: #888;\r\n}\r\n.tokenDetailsContainer::-webkit-scrollbar-thumb:hover {\r\n  background: #555;\r\n}\r\n";
+
 var index$5 = function (_a) {
     var tokens = _a.tokens;
     var account = reactProviders.useEthereum().account;
+    var Theme = reactProviders.useTheme().Theme;
     var balance = useTokensMultiCall({
         tokenList: tokens,
         method: TOKEN_CONTRACT_METHODS.BALANCE_OF,
@@ -248,18 +261,26 @@ var index$5 = function (_a) {
         tokenList: tokens,
         method: TOKEN_CONTRACT_METHODS.DECIMALS,
     });
-    return (jsxRuntime.jsxs("div", { children: [jsxRuntime.jsx("p", __assign({ style: { fontWeight: "bold", lineHeight: 0 } }, { children: "TOKENS" })), jsxRuntime.jsx("div", __assign({ className: "tokenDetailsContainer" }, { children: balance[0] &&
+    return (jsxRuntime.jsxs("div", __assign({ style: { display: "flex", flexDirection: "column" } }, { children: [jsxRuntime.jsx("p", __assign({ style: {
+                    fontWeight: "bold",
+                    lineHeight: 0,
+                    color: Theme.primaryText,
+                } }, { children: "TOKENS" })), jsxRuntime.jsx("div", __assign({ className: styles.tokenDetailsContainer }, { children: balance[0] &&
                     symbol[0] &&
                     decimals[0] &&
                     balance.map(function (e, index) { return (jsxRuntime.jsx("div", { children: e && (jsxRuntime.jsx("div", { children: jsxRuntime.jsx("div", __assign({ style: {
                                     display: "flex",
                                     alignItems: "center",
                                     margin: "1vh 0",
-                                } }, { children: jsxRuntime.jsxs("div", { children: [jsxRuntime.jsx("p", __assign({ style: { margin: 0, fontWeight: "500" } }, { children: symbol[index] })), jsxRuntime.jsx("p", __assign({ style: { margin: 0 } }, { children: toDecimals({
+                                } }, { children: jsxRuntime.jsxs("div", { children: [jsxRuntime.jsx("p", __assign({ style: {
+                                                margin: 0,
+                                                fontWeight: "500",
+                                                color: Theme.primaryText,
+                                            } }, { children: symbol[index] })), jsxRuntime.jsx("p", __assign({ style: { margin: 0, color: Theme.secondaryText } }, { children: toDecimals({
                                                 number: e[0],
                                                 precision: 7,
                                                 tokenDecimals: decimals[index],
-                                            }) }))] }) })) })) }, "token-mainlist-".concat(index))); }) }))] }));
+                                            }) }))] }) })) })) }, "token-mainlist-".concat(index))); }) }))] })));
 };
 
 var contractName = "IERC721Metadata";
@@ -2040,6 +2061,7 @@ var index$4 = function (_a) {
     var URI = _a.URI, number = _a.number, symbol = _a.symbol;
     var _b = react.useState(""), image = _b[0], setImg = _b[1];
     var _c = react.useState(false), empty = _c[0], setEmpty = _c[1];
+    reactProviders.useTheme().Theme;
     react.useEffect(function () {
         if (URI) {
             var validURI = isUriIPFS(URI[0]);
@@ -2072,20 +2094,23 @@ var index$4 = function (_a) {
             }
         }
     }, [URI]);
-    return (jsxRuntime.jsx("div", __assign({ style: { padding: "0 1vw" } }, { children: jsxRuntime.jsxs("div", __assign({ style: { borderRadius: "10px", border: "1px solid black" } }, { children: [jsxRuntime.jsxs("div", __assign({ style: {
-                        overflow: "hidden",
-                        borderRadius: "10px 10px 0px 0px",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                    } }, { children: [empty && (jsxRuntime.jsx("img", { alt: "".concat(symbol, "-").concat(number), src: "https://airnfts.s3.amazonaws.com/nft-images/20211121/Blur_1637529258562.png", width: "100%" })), !empty && image && (jsxRuntime.jsx("img", { alt: "".concat(symbol, "-").concat(number), src: image, width: "100%" }))] })), jsxRuntime.jsxs("div", __assign({ style: {
-                        display: "flex",
-                        backgroundColor: "#666666",
-                        borderRadius: "0px 0px 10px 10px",
-                        color: "white",
-                        width: "100%",
-                        padding: "1px 1vw",
-                    } }, { children: [jsxRuntime.jsx("div", __assign({ style: { marginRight: "2vw" } }, { children: symbol })), number && jsxRuntime.jsx("div", { children: number })] }))] })) })));
+    return (jsxRuntime.jsxs("div", __assign({ style: {
+            borderRadius: "10px",
+            border: "1px solid black",
+        } }, { children: [jsxRuntime.jsxs("div", __assign({ style: {
+                    overflow: "hidden",
+                    borderRadius: "10px 10px 0px 0px",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                } }, { children: [empty && (jsxRuntime.jsx("img", { alt: "".concat(symbol, "-").concat(number), src: "https://airnfts.s3.amazonaws.com/nft-images/20211121/Blur_1637529258562.png", width: "100%" })), !empty && image && (jsxRuntime.jsx("img", { alt: "".concat(symbol, "-").concat(number), src: image, width: "100%" }))] })), jsxRuntime.jsxs("div", __assign({ style: {
+                    display: "flex",
+                    backgroundColor: "#666666",
+                    borderRadius: "0px 0px 10px 10px",
+                    color: "white",
+                    width: "100%",
+                    padding: "1px 1vw",
+                } }, { children: [jsxRuntime.jsx("div", __assign({ style: { marginRight: "2vw" } }, { children: symbol })), number && jsxRuntime.jsx("div", { children: number })] }))] })));
 };
 
 var index$3 = function (_a) {
@@ -2124,6 +2149,7 @@ var index$1 = function (_a) {
     var NFTs = _a.NFTs, Full = _a.Full;
     var _b = react.useState(-1), clicked = _b[0], setClicked = _b[1];
     var account = reactProviders.useEthereum().account;
+    var Theme = reactProviders.useTheme().Theme;
     var balances = useNFTMetadataMultiCall({
         NFTs: NFTs,
         method: NFT_CONTRACT_METHODS.BALANCE_OF,
@@ -2145,31 +2171,46 @@ var index$1 = function (_a) {
         method: NFT_CONTRACT_METHODS.SYMBOL,
     });
     var URIs = useTokenURIIndexCover({ NFTs: NFTs });
-    return (jsxRuntime.jsxs("div", __assign({ style: { display: "flex", flexDirection: "column" } }, { children: [jsxRuntime.jsxs("p", __assign({ style: { fontWeight: "bold", lineHeight: 0 }, onClick: function () {
+    return (jsxRuntime.jsxs("div", __assign({ style: {
+            display: "flex",
+            flexDirection: "column",
+        } }, { children: [jsxRuntime.jsxs("p", __assign({ style: { fontWeight: "bold", lineHeight: 0, color: Theme.primaryText }, onClick: function () {
                     if (clicked != -1) {
                         setClicked(-1);
                     }
                 } }, { children: [clicked >= 0 ? "< ".concat(symbols[clicked][0], "'s ") : "", " COLLECTIBLES"] })), clicked == -1 &&
                 areAllElementsValid(URIs) &&
-                areAllElementsValid(balances) && (jsxRuntime.jsx(index$3, { symbols: symbols, URIs: URIs, numbers: balances, full: Full, onCollectionSelected: setClicked })), clicked != -1 &&
+                areAllElementsValid(balances) && (jsxRuntime.jsx(index$3, { symbols: symbols, URIs: URIs, numbers: balances, full: Full, 
+                // onCollectionSelected={setClicked}
+                onCollectionSelected: function () { } })), clicked != -1 &&
                 areAllElementsValid(URIs) &&
                 areAllElementsValid(balances) && (jsxRuntime.jsx(index$2, { NFT: NFTs[clicked], symbol: symbols[clicked][0], balance: balances[clicked] }))] })));
 };
 
 var index = function (_a) {
     var onDisconnect = _a.onDisconnect, Store = _a.Store;
-    return (jsxRuntime.jsxs("div", { children: [jsxRuntime.jsx(WalletInformation, { onDisconnect: onDisconnect, direction: "x" }), jsxRuntime.jsx("hr", { style: { width: "100%" } }), Store && (Store.Tokens || Store.NFTs) && (jsxRuntime.jsxs("div", __assign({ style: {
-                    display: "flex",
-                    justifyContent: "flex-start",
-                    alignItems: "felx-start",
-                } }, { children: [Store.Tokens && Store.Tokens.length > 0 && (jsxRuntime.jsx(index$5, { tokens: Store.Tokens })), Store.Tokens &&
-                        Store.Tokens.length &&
-                        Store.NFTs &&
-                        Store.NFTs.length && (jsxRuntime.jsx("div", { style: { borderLeft: "1px solid #888888", margin: "0 2vw 0 0" } })), Store.NFTs && Store.NFTs.length > 0 && (jsxRuntime.jsx(index$1, { NFTs: Store.NFTs, Full: !(Store.Tokens && Store.Tokens.length) }))] })))] }));
+    var Theme = reactProviders.useTheme().Theme;
+    return (jsxRuntime.jsxs("div", { children: [jsxRuntime.jsx(WalletInformation, { onDisconnect: onDisconnect, direction: "x" }), Store && (Store.Tokens || Store.NFTs) && (jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [jsxRuntime.jsx("hr", { style: {
+                            width: "100%",
+                            borderTop: 0,
+                            borderBottom: "1px solid ".concat(Theme.secondaryBackground),
+                        } }), jsxRuntime.jsxs("div", __assign({ style: {
+                            display: "flex",
+                            justifyContent: "flex-start",
+                            alignItems: "felx-start",
+                            maxHeight: "320px",
+                        } }, { children: [Store.Tokens && Store.Tokens.length > 0 && (jsxRuntime.jsx(index$5, { tokens: Store.Tokens })), Store.Tokens &&
+                                Store.Tokens.length &&
+                                Store.NFTs &&
+                                Store.NFTs.length && (jsxRuntime.jsx("div", { style: {
+                                    borderLeft: "1px solid ".concat(Theme.secondaryBackground),
+                                    margin: "0 2vw 0 0",
+                                } })), Store.NFTs && Store.NFTs.length > 0 && (jsxRuntime.jsx(index$1, { NFTs: Store.NFTs, Full: !(Store.Tokens && Store.Tokens.length) }))] }))] }))] }));
 };
 
 var ConnectedMenu = function (_a) {
     var ChosenConnectedMenu = _a.ChosenConnectedMenu, onClose = _a.onClose, _b = _a.onDisconnect, onDisconnect = _b === void 0 ? function () { } : _b, isOpen = _a.isOpen, Store = _a.Store;
+    var Theme = reactProviders.useTheme().Theme;
     return (jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [ChosenConnectedMenu == exports.ConnectedMenuOptions.NOMENU && jsxRuntime.jsx(jsxRuntime.Fragment, {}), ChosenConnectedMenu != exports.ConnectedMenuOptions.NOMENU && (jsxRuntime.jsxs("div", __assign({ style: {
                     position: "fixed",
                     top: "0",
@@ -2181,7 +2222,7 @@ var ConnectedMenu = function (_a) {
                 } }, { children: [jsxRuntime.jsx("div", { style: { width: "100%", height: "100%" }, onClick: function () {
                             onClose();
                         } }), jsxRuntime.jsxs("div", __assign({ style: {
-                            backgroundColor: "#ffffff",
+                            backgroundColor: Theme.primaryBackground,
                             boxShadow: "0 15px 15px rgba(0, 0, 0, 0.2)",
                             opacity: isOpen ? "1" : "0",
                             display: "block",
@@ -2189,7 +2230,7 @@ var ConnectedMenu = function (_a) {
                             top: "80px",
                             right: "40px",
                             borderRadius: "20px",
-                            border: "1px solid #555555",
+                            border: "1px solid ".concat(Theme.secondaryBackground),
                             boxSizing: "border-box",
                             transform: isOpen ? "translateY(0)" : "translateY(-100%)",
                             transition: "all 0.2s ease-in-out",
