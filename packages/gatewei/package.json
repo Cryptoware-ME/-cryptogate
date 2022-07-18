@@ -1,5 +1,5 @@
 {
-  "name": "cryptogatetest",
+  "name": "gatewei",
   "version": "1.0.1",
   "description": "",
   "main": "index.js",
@@ -18,10 +18,11 @@
     "@nomiclabs/hardhat-waffle": "^2.0.0",
     "chai": "^4.2.0",
     "ethereum-waffle": "^3.0.0",
+    "@openzeppelin/contracts": "^4.7.0",
     "ethers": "^5.0.0",
     "hardhat": "^2.9.9"
   },
-  "dependencies": {
+  "peerDependencies": {
     "@openzeppelin/contracts": "^4.7.0"
   }
 }
