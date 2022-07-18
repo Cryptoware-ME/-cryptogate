@@ -1,5 +1,5 @@
 {
-  "name": "gatewei",
+  "name": "@cryptogate/gatewei",
   "version": "1.0.3",
   "description": "",
   "main": "index.js",
@@ -25,5 +25,5 @@
   "peerDependencies": {
     "@openzeppelin/contracts": "^4.7.0"
   },
-  "gitHead": "3fb9cca07f883e346b73e1c62772da1a6733c968"
+  "gitHead": "3a6272e956511defb2b6aedaca040f48d3f197ad"
 }
