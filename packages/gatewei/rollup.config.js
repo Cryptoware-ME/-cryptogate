@@ -1,6 +1,6 @@
 import commonjs from "@rollup/plugin-commonjs";
 import json from "@rollup/plugin-json";
-import typescript from "@rollup/plugin-typescript";
+// import typescript from "@rollup/plugin-typescript";
 import svg from "rollup-plugin-svg";
 import dts from "rollup-plugin-dts";
 
@@ -26,9 +26,9 @@ export default [
     plugins: [
       //nodeResolve(),
       json(),
-      typescript({
-        tsconfig: "./tsconfig.json",
-      }),
+      // typescript({
+      //   tsconfig: "./tsconfig.json",
+      // }),
       commonjs(),
       svg(),
     ],

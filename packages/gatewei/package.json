@@ -24,5 +24,6 @@
   },
   "peerDependencies": {
     "@openzeppelin/contracts": "^4.7.0"
-  }
+  },
+  "gitHead": "3fb9cca07f883e346b73e1c62772da1a6733c968"
 }
