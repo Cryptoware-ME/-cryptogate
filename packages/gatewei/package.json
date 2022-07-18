@@ -1,11 +1,11 @@
 {
   "name": "cryptogatetest",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
     "compile": "npx hardhat compile",
-    "launch-devnet": "npx hardhat node", 
+    "launch-devnet": "npx hardhat node",
     "deploy-devnet": "npx hardhat run ./scripts/deploy/main.js --network localhost",
     "test-devnet": "npx hardhat test ./test/cryptogate-test.js --network localhost",
     "test": "echo \"Error: no test specified\" && exit 1"
