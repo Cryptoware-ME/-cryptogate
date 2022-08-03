@@ -23,7 +23,7 @@ contract PaymentFactory is Ownable, ReentrancyGuard {
     address public PaymentSplitterBase;
 
     /// @notice Address of protocol fee wallet;
-    address public protocolAddress;
+    address payable public protocolAddress;
 
     /// @notice Protocol fee to charge
     uint256 public protocolFee;
@@ -52,7 +52,7 @@ contract PaymentFactory is Ownable, ReentrancyGuard {
     constructor(
         address BasePaymentSplitter,
         uint256 _protocolFee,
-        address _protocolAddress
+        address payable _protocolAddress
     ) {
         PaymentSplitterBase = BasePaymentSplitter;
         protocolFee = _protocolFee;
@@ -67,7 +67,7 @@ contract PaymentFactory is Ownable, ReentrancyGuard {
     function createPaymentClone(
         address[] memory payees_,
         uint256[] memory shares_
-    ) external payable nonReentrant {
+    ) external payable onlyOwner nonReentrant {
         require(msg.value == protocolFee, "ether sent mismatch");
 
         checkAndCollectFees(msg.value);
@@ -103,7 +103,7 @@ contract PaymentFactory is Ownable, ReentrancyGuard {
     function checkAndCollectFees(uint256 amount) internal {
         require(amount == protocolFee, "error AMOUNT NOT SAME AS FEE");
         /// @notice forward fund to Splitter contract using CALL to avoid 2300 stipend limit
-        (bool success, ) = protocolAddress.call{value: amount}("");
+        (bool success, ) = payable(protocolAddress).call{value: amount}("");
         require(success, "Cryptogate: Failed to forward funds");
     }
 
@@ -123,7 +123,7 @@ contract PaymentFactory is Ownable, ReentrancyGuard {
      * @notice Owner can change protocol address
      * @param addr address of new protocol
      */
-    function changeProtocolAddress(address addr) external onlyOwner {
+    function changeProtocolAddress(address payable addr) external onlyOwner {
         require(
             addr != address(0),
             "Cryptogate: New Protocol cannot be address 0"

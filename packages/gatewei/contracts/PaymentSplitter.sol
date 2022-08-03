@@ -38,6 +38,8 @@ contract PaymentSplitter is Context, Initializable {
     uint256 private _totalShares;
     uint256 private _totalReleased;
 
+    mapping(address => uint256) private _deposits;
+
     mapping(address => uint256) private _shares;
     mapping(address => uint256) private _released;
     address[] private _payees;
@@ -78,6 +80,21 @@ contract PaymentSplitter is Context, Initializable {
      */
     receive() external payable virtual {
         emit PaymentReceived(_msgSender(), msg.value);
+    }
+
+    function deposit(uint256 amount) external payable {
+        require(
+            msg.value == amount,
+            "value received is less than required amount"
+        );
+        emit PaymentReceived(_msgSender(), msg.value);
+    }
+
+    /**
+     * @dev Getter for the deposits of an account.
+     */
+    function deposits(address account) public view returns (uint256) {
+        return _deposits[account];
     }
 
     /**

@@ -1,7 +1,9 @@
 require("@nomiclabs/hardhat-waffle");
+const fs = require("fs");
 
-// This is a sample Hardhat task. To learn how to create your own go to
-// https://hardhat.org/guides/create-task.html
+const INFURA_API_KEY = "ced28563ff504eeca880d195dda82166";
+const key_TESTNET = fs.readFileSync(".test.secret").toString().trim();
+
 task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
   const accounts = await hre.ethers.getSigners();
 
@@ -10,12 +12,21 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
   }
 });
 
-// You need to export an object to set up your config
-// Go to https://hardhat.org/config/ to learn more
-
-/**
- * @type import('hardhat/config').HardhatUserConfig
- */
 module.exports = {
-  solidity: "0.8.4",
+  solidity: {
+    version: "0.8.4",
+    settings: {
+      optimizer: {
+        enabled: true,
+        runs: 2000,
+      },
+    },
+  },
+  hardhat: {},
+  networks: {
+    rinkeby: {
+      url: `https://rinkeby.infura.io/v3/${INFURA_API_KEY}`,
+      accounts: [key_TESTNET],
+    },
+  },
 };

@@ -7,6 +7,7 @@
     "compile": "npx hardhat compile",
     "launch-devnet": "npx hardhat node",
     "deploy-devnet": "npx hardhat run ./scripts/deploy/main.js --network localhost",
+    "deploy-rinkeby": "npx hardhat run ./scripts/deploy/main.js --network rinkeby",
     "test-devnet": "npx hardhat test ./test/cryptogate-test.js --network localhost",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -25,5 +26,6 @@
   "peerDependencies": {
     "@openzeppelin/contracts": "^4.7.0"
   },
-  "gitHead": "3a6272e956511defb2b6aedaca040f48d3f197ad"
+  "gitHead": "3a6272e956511defb2b6aedaca040f48d3f197ad",
+  "dependencies": {}
 }

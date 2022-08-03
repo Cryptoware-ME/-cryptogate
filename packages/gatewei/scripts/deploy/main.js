@@ -1,14 +1,17 @@
 const hre = require("hardhat");
-const deployPaymentSplitter = require('./paymentSplitter.js');
-const deployPaymentFactory = require('./paymentFactory.js');
+
+const deployPaymentSplitter = require("./paymentSplitter.js");
+const deployPaymentFactory = require("./paymentFactory.js");
 
 async function main() {
   await hre.run("compile");
-  const [owner, _] = await hre.ethers.getSigners();
-  const paymentSplitterAddress = await deployPaymentSplitter()
+  const owner = await hre.ethers.getSigner(
+    "0xFDc4bbC7b67E19BfCd13B25F3De778d7C7Fba867"
+  );
+  const paymentSplitterAddress = await deployPaymentSplitter(owner);
 
   const paymentFactoryAddress = await deployPaymentFactory(
-    owner.address,
+    owner,
     paymentSplitterAddress
   );
 }
