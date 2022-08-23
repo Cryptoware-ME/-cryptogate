@@ -41,10 +41,6 @@
 //     </SolWalletsContext.Provider>
 //   );
 // };
-const SolWallets = () => {
-  return (
-    <div>SolWallets</div>
-  )
-}
+const SolWallets = () => {};
 
-export default SolWallets
+export default SolWallets;

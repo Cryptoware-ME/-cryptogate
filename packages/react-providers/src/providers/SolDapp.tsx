@@ -96,9 +96,7 @@
 //   );
 // };
 const SolDapp = () => {
-  return (
-    <div>SolDapp</div>
-  )
+  
 }
 
 export default SolDapp
