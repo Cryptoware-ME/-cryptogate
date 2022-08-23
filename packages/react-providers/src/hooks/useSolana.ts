@@ -1,5 +1,5 @@
 // import React from "react";
-// import { useConnection, useWallet } from "@solana/wallet-adapter-react";
+// import { useConnection, useWallet } from "";
 // import { SolDappContext } from "../providers/SolDapp";
 // import { SolWalletsContext } from "../providers/SolWallets";
 

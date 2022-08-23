@@ -2,7 +2,7 @@
 // import { clusterApiUrl } from "@solana/web3.js";
 // import { WalletAdapterNetwork, WalletError } from "";
 // import { SolWallets, SolWalletsContext, SolWalletsContextProvider } from "./SolWallets";
-// import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
+// import { ConnectionProvider, WalletProvider } from '';
 
 // export const solDefaultConfig = {
 //   lamportsPerSol: 1000000000

@@ -1,11 +1,11 @@
 // import React, { ReactNode, useEffect, useState } from "react";
-// import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
+// import { WalletAdapterNetwork } from "";
 // import {
 //   PhantomWalletAdapter,
 //   SlopeWalletAdapter,
 //   SolflareWalletAdapter,
 //   SolletExtensionWalletAdapter
-// } from "@solana/wallet-adapter-wallets";
+// } from "";
 
 // export interface SolWalletsContextProviderProps {
 //   children?: ReactNode,

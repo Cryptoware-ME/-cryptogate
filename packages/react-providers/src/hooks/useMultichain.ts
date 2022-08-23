@@ -1,4 +1,4 @@
-// import { Connection, PublicKey } from "@solana/web3.js";
+// import { Connection, PublicKey } from "";
 import { useNetwork } from "@usedapp/core";
 import { useEffect, useState } from "react";
 import { useEthereum } from "./useEthereum";
