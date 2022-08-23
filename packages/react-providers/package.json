@@ -8,7 +8,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "0.0.43",
+  "version": "0.0.39",
   "description": "Cryptogate Web3 react providers & hooks",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -20,6 +20,11 @@
   "license": "MIT",
   "peerDependencies": {
     "@ethersproject/contracts": "^5.6.0",
+    "@solana/wallet-adapter-base": "^0.9.5",
+    "@solana/wallet-adapter-react": "^0.15.4",
+    "@solana/wallet-adapter-react-ui": "^0.9.6",
+    "@solana/wallet-adapter-wallets": "^0.15.5",
+    "@solana/web3.js": "^1.37.0",
     "@usedapp/core": "^0.12.9",
     "@web3-react/ledger-connector": "^6.1.9",
     "@web3-react/trezor-connector": "^6.1.9",
@@ -33,6 +38,11 @@
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^13.2.1",
     "@rollup/plugin-typescript": "^8.3.2",
+    "@solana/wallet-adapter-base": "^0.9.5",
+    "@solana/wallet-adapter-react": "^0.15.4",
+    "@solana/wallet-adapter-react-ui": "^0.9.6",
+    "@solana/wallet-adapter-wallets": "^0.15.5",
+    "@solana/web3.js": "^1.37.0",
     "@usedapp/core": "^0.12.9",
     "@web3-react/ledger-connector": "^6.1.9",
     "@web3-react/trezor-connector": "^6.1.9",
@@ -47,5 +57,5 @@
     "rollup-plugin-svg": "^2.0.0",
     "typescript": "^4.7.0-dev.20220416"
   },
-  "gitHead": "4e7588c374765236eb36f78f70745b80a39c773c"
+  "gitHead": "14db6d2825bab2f40c909293780d91de5df8ec8b"
 }

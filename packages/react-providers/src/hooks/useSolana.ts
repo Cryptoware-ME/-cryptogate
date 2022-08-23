@@ -1,5 +1,28 @@
+import React from "react";
+import { useConnection, useWallet } from "@solana/wallet-adapter-react";
+import { SolDappContext } from "../providers/SolDapp";
+import { SolWalletsContext } from "../providers/SolWallets";
 
-const useSolana = () => {
-}
+export const useSolana = () => {
+  const wallet = useWallet();
+  const connection = useConnection();
 
-export default useSolana
+  const dappCtx = React.useContext(SolDappContext);
+  const walletsCtx = React.useContext(SolWalletsContext);
+
+  if (dappCtx === undefined) {
+    throw new Error("useSolana must be used within a SolDappContext");
+  }
+  if (walletsCtx === undefined) {
+    throw new Error("useSolana must be used within a SolDappContext");
+  }
+
+  const { setSolConfig } = dappCtx;
+
+  return {
+    ...wallet,
+    ...connection,
+    wallets: walletsCtx,
+    setSolConfig,
+  };
+};
