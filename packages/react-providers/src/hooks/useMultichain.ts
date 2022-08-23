@@ -1,4 +1,4 @@
-import { Connection, PublicKey } from "@solana/web3.js";
+// import { Connection, PublicKey } from "@solana/web3.js";
 import { useNetwork } from "@usedapp/core";
 import { useEffect, useState } from "react";
 import { useEthereum } from "./useEthereum";
@@ -13,17 +13,17 @@ export const useMultichain = () => {
   // const { publicKey, connected, connection } = solana;
   const [solBalance, setSolbalance] = useState(0);
 
-  const getUserSOLBalance = async (
-    publicKey: PublicKey,
-    connection: Connection
-  ) => {
-    try {
-      return await connection.getBalance(publicKey, "confirmed");
-    } catch (e) {
-      console.log(`error getting balance: `, e);
-      return 0;
-    }
-  };
+  // const getUserSOLBalance = async (
+  //   publicKey: PublicKey,
+  //   connection: Connection
+  // ) => {
+  //   try {
+  //     return await connection.getBalance(publicKey, "confirmed");
+  //   } catch (e) {
+  //     console.log(`error getting balance: `, e);
+  //     return 0;
+  //   }
+  // };
 
   // useEffect(() => {
   //   if (publicKey && connection && connected) {

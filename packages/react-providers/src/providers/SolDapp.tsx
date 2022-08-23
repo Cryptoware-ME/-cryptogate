@@ -1,6 +1,6 @@
 // import React, { ReactNode, useCallback, useEffect, useState } from "react";
 // import { clusterApiUrl } from "@solana/web3.js";
-// import { WalletAdapterNetwork, WalletError } from "@solana/wallet-adapter-base";
+// import { WalletAdapterNetwork, WalletError } from "";
 // import { SolWallets, SolWalletsContext, SolWalletsContextProvider } from "./SolWallets";
 // import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
 
