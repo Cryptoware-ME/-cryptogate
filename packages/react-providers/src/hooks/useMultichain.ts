@@ -2,15 +2,15 @@ import { Connection, PublicKey } from "@solana/web3.js";
 import { useNetwork } from "@usedapp/core";
 import { useEffect, useState } from "react";
 import { useEthereum } from "./useEthereum";
-import { useSolana } from "./useSolana";
+// import { useSolana } from "./useSolana";
 
 export const useMultichain = () => {
   const ethereum = useEthereum();
   const { account, getEthBalance } = ethereum;
   const etherBalance = getEthBalance(account, {});
 
-  const solana = useSolana();
-  const { publicKey, connected, connection } = solana;
+  // const solana = useSolana();
+  // const { publicKey, connected, connection } = solana;
   const [solBalance, setSolbalance] = useState(0);
 
   const getUserSOLBalance = async (
@@ -25,17 +25,18 @@ export const useMultichain = () => {
     }
   };
 
-  useEffect(() => {
-    if (publicKey && connection && connected) {
-      getUserSOLBalance(publicKey, connection).then(setSolbalance);
-    }
-  }, [publicKey, connection]);
+  // useEffect(() => {
+  //   if (publicKey && connection && connected) {
+  //     getUserSOLBalance(publicKey, connection).then(setSolbalance);
+  //   }
+  // }, [publicKey, connection]);
 
   return {
     network: useNetwork() || "Solana",
-    account: account || publicKey || "",
+    // account: account || publicKey || "",
+    account: account || "",
     ethereum,
-    solana,
+    // solana,
     etherBalance,
     solBalance,
   };
