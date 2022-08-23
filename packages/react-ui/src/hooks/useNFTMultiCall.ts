@@ -24,11 +24,11 @@ export const useNFTMetadataMultiCall = ({
   const result = useContractCalls(
     NFTs
       ? NFTs.map((nft) => ({
-          abi: IERC721MetadataContractInterface,
-          address: nft,
-          method,
-          args,
-        }))
+        abi: IERC721MetadataContractInterface,
+        address: nft,
+        method,
+        args,
+      }))
       : []
   );
   return result[0] && format ? convertResultToReadableFormat(result) : result;
@@ -49,13 +49,13 @@ export const useTokenURIIndex = ({ NFT, args }: { NFT: string; args: any }) => {
   const response = useContractCalls(
     args
       ? args.map((e: number) => {
-          return {
-            abi: ERC721ContractInterface,
-            address: "" + NFT,
-            method: NFT_CONTRACT_METHODS.TOKEN_URI,
-            args: e ? [e] : [],
-          };
-        })
+        return {
+          abi: ERC721ContractInterface,
+          address: "" + NFT,
+          method: NFT_CONTRACT_METHODS.TOKEN_URI,
+          args: e ? [e] : [],
+        };
+      })
       : []
   );
   console.log("URIs: ", response);
@@ -75,13 +75,13 @@ export const useTokenOfOwnerByIndex = ({
   const result = useContractCalls(
     range
       ? range.map((e) => {
-          return {
-            abi: ERC721ContractInterface,
-            address: "" + NFT,
-            method: NFT_CONTRACT_METHODS.TOKEN_OF_OWNER_BY_INDEX,
-            args: [args[0], e],
-          };
-        })
+        return {
+          abi: ERC721ContractInterface,
+          address: "" + NFT,
+          method: NFT_CONTRACT_METHODS.TOKEN_OF_OWNER_BY_INDEX,
+          args: [args[0], e],
+        };
+      })
       : []
   );
   console.log(result);
