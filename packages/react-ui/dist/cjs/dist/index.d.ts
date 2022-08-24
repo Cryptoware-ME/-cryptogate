@@ -1,6 +1,5 @@
-import { Strategy } from 'passport';
-
-declare class Web3Strategy extends Strategy {
+import { Strategy } from "passport";
+export declare class Web3Strategy extends Strategy {
     private _verify;
     name: string;
     constructor(options: any, verify: (req: any, address: string, msg: string, signed: string, chain: string, isevm: boolean, done: (err: Error | null, user: any, info: any) => void) => void | undefined);
@@ -19,5 +18,3 @@ declare class Web3Strategy extends Strategy {
      */
     getCredentials(req: any): any;
 }
-
-export { Web3Strategy };
