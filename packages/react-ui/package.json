@@ -8,7 +8,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "1.0.24",
+  "version": "1.0.25",
   "description": "Cryptogate Web3 UI Components",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -33,8 +33,8 @@
     "slick-carousel": "^1.8.1"
   },
   "devDependencies": {
-    "@cryptogate/core": "^0.0.12",
-    "@cryptogate/react-providers": "^0.1.2",
+    "@cryptogate/core": "^0.0.13",
+    "@cryptogate/react-providers": "^0.1.3",
     "@metamask/detect-provider": "^1.2.0",
     "@rollup/plugin-commonjs": "^21.1.0",
     "@rollup/plugin-json": "^4.1.0",
