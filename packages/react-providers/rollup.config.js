@@ -1,7 +1,6 @@
 import commonjs from "@rollup/plugin-commonjs";
 import json from "@rollup/plugin-json";
 import typescript from "@rollup/plugin-typescript";
-import nodeResolve from "@rollup/plugin-node-resolve";
 import svg from "rollup-plugin-svg";
 import dts from "rollup-plugin-dts";
 
@@ -35,7 +34,7 @@ export default [
     ],
   },
   {
-    input: "dist/esm/dist/index.d.ts",
+    input: "dist/esm/index.d.ts",
     output: [{ file: "dist/index.d.ts", format: "esm" }],
     external: [/\.scss$/],
     plugins: [dts()],

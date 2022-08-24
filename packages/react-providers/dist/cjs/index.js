@@ -218,12 +218,12 @@ var useEthereum = function () {
 var useMultichain = function () {
     var ethereum = useEthereum();
     var account = ethereum.account, getEthBalance = ethereum.getEthBalance;
-    var etherBalance = getEthBalance(account, {});
+    getEthBalance(account, {});
     return {
         network: core.useNetwork(),
         account: account || "",
         ethereum: ethereum,
-        etherBalance: etherBalance,
+        // etherBalance: etherBalance,
     };
 };
 

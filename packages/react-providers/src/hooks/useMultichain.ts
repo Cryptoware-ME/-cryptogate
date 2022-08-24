@@ -10,7 +10,7 @@ export const useMultichain = () => {
   return {
     network: useNetwork(),
     account: account || "",
-    ethereum,
-    etherBalance,
+    ethereum: ethereum,
+    // etherBalance: etherBalance,
   };
-};
+}
