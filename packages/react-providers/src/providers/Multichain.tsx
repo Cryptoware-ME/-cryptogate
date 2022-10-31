@@ -1,43 +1,27 @@
-import { Chain, NodeUrls } from "@usedapp/core";
-import React, { ReactNode } from "react";
-import { EthContractConfig } from "./EthContracts";
-import { EthDappContextProvider } from "./EthDapp";
-import { ThemeContextProvider } from "./Theme";
+import React from "react";
+import { EthConfig } from "../models/types";
+import { ConfigProvider } from "./config";
+import { EthNodeProvider } from "./ethNode";
+import { WindowProvider } from "./window";
 
-export interface MultichainProviderProps {
-  children?: ReactNode;
-  ethConfig: {
-    readOnlyUrls: NodeUrls;
-    appName: string;
-    appEmail: string;
-    appUrl: string;
-    appLogo: string;
-    pollingInterval: number;
-    networks: (Chain | undefined)[];
-  };
-  ethContracts: EthContractConfig[];
-  theme?: {
-    primaryText: string;
-    secondaryText: string;
-    primaryBackground: string;
-    secondaryBackground: string;
-  };
+export interface MultiChainProviderConfigProps {
+  ethConfig: EthConfig;
 }
 
-export const MultichainProvider = ({
-  ethConfig,
-  ethContracts,
+export interface MultiChainProviderProps {
+  children: React.ReactNode;
+  config: MultiChainProviderConfigProps;
+}
+
+export const MultiChainProvider = ({
+  config,
   children,
-  theme = {
-    primaryText: "#000000",
-    secondaryText: "#000000",
-    primaryBackground: "#ffffff",
-    secondaryBackground: "#000000",
-  },
-}: MultichainProviderProps) => {
+}: MultiChainProviderProps) => {
   return (
-    <EthDappContextProvider config={ethConfig} contracts={ethContracts}>
-        <ThemeContextProvider Theme={theme}>{children}</ThemeContextProvider>
-    </EthDappContextProvider>
+    <WindowProvider>
+      <ConfigProvider config={config}>
+        <EthNodeProvider>{children}</EthNodeProvider>
+      </ConfigProvider>
+    </WindowProvider>
   );
 };

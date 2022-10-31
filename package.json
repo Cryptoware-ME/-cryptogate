@@ -8,5 +8,9 @@
   "publishConfig": {
     "access": "public"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@coinbase/wallet-sdk": "^3.5.3",
+    "@metamask/detect-provider": "^2.0.0",
+    "lodash.pickby": "^4.6.0"
+  }
 }
