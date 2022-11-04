@@ -6,7 +6,10 @@ interface Props {
 }
 
 export function WindowProvider({ children }: Props) {
-  const [isActiveWindow, setActiveWindow] = React.useState(true);
+  const [isActiveWindow, setActiveWindow]: [
+    isActiveWindow: boolean,
+    setIsActiveWindow: React.Dispatch<React.SetStateAction<boolean>>
+  ] = React.useState(true);
 
   React.useEffect(() => {
     const visibilityChangeListener = () => {

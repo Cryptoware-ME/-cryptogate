@@ -1,4 +1,4 @@
-import { ErrorsContext, useErrorsBag } from './context'
-import { ErrorsProvider } from './provider'
+import { ErrorsBagContext, useErrorsBag } from './context'
+import { ErrorsBagProvider } from './provider'
 
-export { ErrorsContext, ErrorsProvider, useErrorsBag }
+export { ErrorsBagContext, ErrorsBagProvider, useErrorsBag }

@@ -1,4 +1,4 @@
-import { EthAddress } from "./EthConfig"
+import { EvmAddress } from "./common"
 
 export type Chain = {
     chainId: number
@@ -12,6 +12,6 @@ export type Chain = {
         symbol: string
         decimals: number
     }
-    getExplorerAddressLink: (address: EthAddress) => string
+    getExplorerAddressLink: (address: EvmAddress) => string
     getExplorerTransactionLink: (txnId: string) => string
 }

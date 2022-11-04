@@ -1,5 +1,7 @@
 import { MultiChainProviderConfigProps } from "../../providers"
 
+// TODO: FIX DEFAULT CONFIGS
+
 export const DEFAULT_NODE_URLS = {
     pocket: "-",
     ankr: "-"

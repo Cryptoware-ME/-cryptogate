@@ -1,19 +1,22 @@
 import React from "react";
-import { ErrorsContext } from "./context";
+import { ErrorsBagContext } from "./context";
 
 interface Props {
   children: React.ReactNode;
 }
 
-export function ErrorsProvider({ children }: Props) {
-  const [errors, setErrors] = React.useState<string[]>([]);
+export function ErrorsBagProvider({ children }: Props) {
+  const [errors, setErrors]: [
+    errors: string[],
+    setErrors: React.Dispatch<React.SetStateAction<string[]>>
+  ] = React.useState([] as string[]);
 
   const addError = (error: any) => {
     setErrors([...errors, error]);
   };
 
   return (
-    <ErrorsContext.Provider
+    <ErrorsBagContext.Provider
       value={{ errors: errors, addError: addError }}
       children={children}
     />

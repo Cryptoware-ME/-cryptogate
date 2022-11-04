@@ -1,6 +1,5 @@
 import { Chain } from "./Chain";
-
-export type EthAddress = string
+import { EvmAddress } from "./common";
 
 export type NodeUrls = {
     [chainId: number]: string
@@ -23,7 +22,7 @@ export type ContractABIUnit = {
 export type EthContract = {
     name: string,
     abi: ContractABIUnit[];
-    addresses: { [chainId: number]: EthAddress }
+    addresses: { [chainId: number]: EvmAddress }
 }
 
 export type EthConfig = {
