@@ -5,5 +5,6 @@ import { MultiChainProviderConfigProps } from '../Multichain'
 export const ConfigContext = React.createContext<MultiChainProviderConfigProps>(DEFAULT_MULTICHAIN_CONFIG)
 
 export function useConfig() {
-  return React.useContext(ConfigContext)
+  const context = React.useContext(ConfigContext)
+  return context
 }

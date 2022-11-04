@@ -1,3 +1,5 @@
+import { EthAddress } from "./EthConfig"
+
 export type Chain = {
     chainId: number
     chainName: string
@@ -10,6 +12,6 @@ export type Chain = {
         symbol: string
         decimals: number
     }
-    getExplorerAddressLink: (address: string) => string
-    getExplorerTransactionLink: (address: string) => string
+    getExplorerAddressLink: (address: EthAddress) => string
+    getExplorerTransactionLink: (txnId: string) => string
 }

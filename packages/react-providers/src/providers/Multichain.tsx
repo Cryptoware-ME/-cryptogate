@@ -1,6 +1,7 @@
 import React from "react";
 import { EthConfig } from "../models/types";
 import { ConfigProvider } from "./config";
+import { ErrorsProvider } from "./errors/provider";
 import { EthNodeProvider } from "./ethNode";
 import { WindowProvider } from "./window";
 
@@ -20,7 +21,11 @@ export const MultiChainProvider = ({
   return (
     <WindowProvider>
       <ConfigProvider config={config}>
-        <EthNodeProvider>{children}</EthNodeProvider>
+        <ErrorsProvider>
+          <EthNodeProvider readOnlyUrls={config.ethConfig.readOnlyUrls}>
+            {children}
+          </EthNodeProvider>
+        </ErrorsProvider>
       </ConfigProvider>
     </WindowProvider>
   );

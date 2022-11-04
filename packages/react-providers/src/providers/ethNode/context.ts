@@ -1,10 +1,9 @@
 import React from 'react'
-const ethers = require("ethers")
+import { providers } from "ethers"
 
-type EthNodeContextType = typeof ethers.providers.JsonRpcProvider
-  | typeof ethers.providers.BaseProvider
+type EthNodeContextType = providers.JsonRpcProvider | providers.BaseProvider | undefined
 
-export const EthNodeContext = React.createContext<EthNodeContextType>({})
+export const EthNodeContext = React.createContext<EthNodeContextType>(providers.getDefaultProvider())
 
 export function useEthNode() {
   return React.useContext(EthNodeContext)
