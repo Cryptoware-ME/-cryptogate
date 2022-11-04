@@ -26,7 +26,6 @@ const CoinBaseWallet = () => {
   // }, 1000);  
 
 
-  setTimeout(() => {
     coinbaseWallet = new CoinbaseWalletSDK({
       appName: "My Awesome App",
       appLogoUrl: "https://example.com/logo.png",
@@ -36,7 +35,6 @@ const CoinBaseWallet = () => {
       "https://goerli.infura.io/v3/7e3e924eb24f4cb99fb7dc68e559cdff",
       1
     );
-  }, 1000);
 
   const connectCoinWallet = async () => {
     const provider = new ethers.providers.Web3Provider(ethereum as any);
