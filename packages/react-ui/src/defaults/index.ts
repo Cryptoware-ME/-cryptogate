@@ -1,6 +1,8 @@
 import { ConnectedMenu } from "../components/ConnectWalletComponent";
 
-export * from "./components";
+import { Active, Disabled } from "./components";
+
+export { Active, Disabled };
 
 export const defaults = {
   EthWallets: [],

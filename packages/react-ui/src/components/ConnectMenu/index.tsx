@@ -41,7 +41,7 @@ export const ConnectedMenu = ({
           ></div>
           <div
             style={{
-              backgroundColor: Theme.primaryBackground,
+              backgroundColor: "#000",
               boxShadow: "0 15px 15px rgba(0, 0, 0, 0.2)",
               opacity: isOpen ? "1" : "0",
               display: "block",
@@ -49,7 +49,7 @@ export const ConnectedMenu = ({
               top: "80px",
               right: "40px",
               borderRadius: "20px",
-              border: `1px solid ${Theme.secondaryBackground}`,
+              border: `1px solid  #fff`,
               boxSizing: "border-box",
               transform: isOpen ? "translateY(0)" : "translateY(-100%)",
               transition: "all 0.2s ease-in-out",

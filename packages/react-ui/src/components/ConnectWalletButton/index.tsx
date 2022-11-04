@@ -96,7 +96,7 @@ export const ConnectWalletButton = ({
 
   return account ? (
     <>
-      {keyValue && keyValue != {} ? (
+      {keyValue  ? (
         <div onClick={() => setOpenMenu(!openMenu)}>{ConnectedComponent}</div>
       ) : (
         <>{DisabledComponent}</>

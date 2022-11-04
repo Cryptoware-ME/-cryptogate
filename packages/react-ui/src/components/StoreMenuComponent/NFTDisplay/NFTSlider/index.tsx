@@ -1,6 +1,6 @@
 import Slider from "react-slick";
-import "./slick.css";
-import "./slick-theme.css";
+// import "./slick.css";
+// import "./slick-theme.css";
 import NFTImage from "./NFTImage";
 import { build_slider_settings } from "../../../../utils/constants";
 

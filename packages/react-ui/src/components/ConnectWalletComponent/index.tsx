@@ -13,6 +13,7 @@ export enum EthWallets {
   METAMASK = "metamask",
   WALLETCONNECT = "walletconnect",
   COINBASE = "coinbase",
+  BRAVEWALLET = "braveWallet",
 }
 
 export enum SolWallets {

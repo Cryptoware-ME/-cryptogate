@@ -95,7 +95,7 @@ const WalletInformation = ({
         {account && !name && (
           <p
             style={{
-              color: Theme.secondaryText,
+              color: `#fff`,
               margin: "0 10px 0 0",
               opacity: "50%",
               lineHeight: 1,
@@ -135,12 +135,12 @@ const WalletInformation = ({
           padding: 0,
         }}
       >
-        <p style={{ margin: 0, color: Theme.secondaryText }}>Total Balance</p>
+        <p style={{ margin: 0, color: `#fff` }}>Total Balance</p>
         <p
           style={{
             fontWeight: "bold",
             margin: 0,
-            color: Theme.primaryText,
+            color: `#fff`,
           }}
         >
           {etherBalance &&

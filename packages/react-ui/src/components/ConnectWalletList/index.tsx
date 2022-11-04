@@ -61,7 +61,9 @@ export const ConnectWalletList = ({
               Connect with one of the available wallet providers.
             </p>
             <br />
-            {EthWalletList.length > 0 && (
+            { EthWalletList.length}
+            { 
+            EthWalletList.length > 0 && (
               <EthWalletListComp EthWalletList={EthWalletList} />
             )}
             <br />
