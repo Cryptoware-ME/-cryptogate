@@ -61,6 +61,9 @@ export const readContractCall = (params: GetContractCallParams) => {
     return response
 }
 
+// TODO: Get Connected Network
+// TODO: Get Wallet Provider
+// TODO: Wrap with promise 
 export const writeContractCall = (params: GetContractCallParams) => {
     console.log(1)
     const { contract, method, args, enabled } = params;
@@ -70,6 +73,7 @@ export const writeContractCall = (params: GetContractCallParams) => {
     const [response, setResponse]: [response: any, setResponse: React.Dispatch<React.SetStateAction<any>>] = React.useState<any>(undefined)
 
     const getContractObj = async (contracts: EthContract[]) => {
+        // ! UPDATE PROVIDER
         const provider = new ethers.providers.Web3Provider(window.ethereum)
         await provider.send("eth_requestAccounts", []);
         const signer = provider.getSigner()
