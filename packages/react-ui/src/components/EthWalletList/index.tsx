@@ -1,50 +1,68 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useMultichain } from "@cryptogate/react-providers";
 import WalletListing from "./WalletListing";
 import detectEthereumProvider from "@metamask/detect-provider";
 import { isMobile } from "react-device-detect";
 import { EthWallets } from "../ConnectWalletComponent";
-import MetaMask from "../../wallets/MetaMask/meta-mask";
-import BraveWallet from "../../wallets/BraveWallet/brave-wallet";
 import CoinBaseWallet from "../../wallets/CoinbaseWallet/coin-base";
-import TrustWallet from "../../wallets/TrustWallet/trust-wallet";
-
-
-
+import useBrowserWallets from "../../wallets/useBrowserWallets";
+import WalletConnects from "../../wallets/WalletConnects/wallet-connects";
+import WalletConnect from "@walletconnect/client";
+import QRCodeModal from "@walletconnect/qrcode-modal";
+import useConnectors from "./connectors";
 
 const EthWalletListComp = ({
   EthWalletList,
 }: {
   EthWalletList: EthWallets[];
 }) => {
+  let connector: any;
   const { ethereum } = useMultichain();
+  // const { turstWallet } = useConnectors();
   const { activateBrowserWallet, activate, wallets } = ethereum;
   const [openMetamaskAllow, setOpenMetamaskAllow] = useState(false);
-
+  const { metamask, brave } = useBrowserWallets();
   useEffect(() => {
     detectEthereumProvider().then((provider: any) => {
       setOpenMetamaskAllow(!!provider);
     });
   }, []);
 
-  const injectedHandle = () => {
-    const currentLink =
-      window.location.hostname +
-      window.location.pathname +
-      window.location.search;
 
-    const metaMaskDeepLink = "https://metamask.app.link/dapp/" + currentLink;
-
-    if (openMetamaskAllow) {
-      activateBrowserWallet();
-    } else {
-      if (isMobile) {
-        window.open(metaMaskDeepLink, "_blank");
-      } else {
-        alert("You should install MetaMask browser extension");
+    //trustwallet
+    var turstWallet = () => {
+      connector = new WalletConnect({
+        bridge: "https://bridge.walletconnect.org", // Required
+        qrcodeModal: QRCodeModal,
+      });
+      // Check if connection is already established
+      if (!connector.connected) {
+        // create new session
+        connector.createSession();
       }
-    }
-  };
+      // Subscribe to connection events
+      connector.on("connect", (error: any, payload: any) => {
+        if (error) {
+          throw error;
+        }
+        // Get provided accounts and chainId
+        const { accounts, chainId } = payload.params[0];
+      });
+      connector.on("session_update", (error: any, payload: any) => {
+        if (error) {
+          throw error;
+        }
+        // Get updated accounts and chainId
+        const { accounts, chainId } = payload.params[0];
+      });
+      connector.on("disconnect", (error: any, payload: any) => {
+        if (error) {
+          throw error;
+        }
+        // Delete connector
+      });
+    };
+
 
   const regHandle = (name: String, connector: any) => {
     activate(connector);
@@ -60,57 +78,42 @@ const EthWalletListComp = ({
     >
       {(EthWalletList.indexOf(EthWallets.ALL) > -1 ||
         EthWalletList.indexOf(EthWallets.METAMASK) > -1) && (
-        // <WalletListing
-        //   noBottomBorder={
-        //     EthWalletList.indexOf(EthWallets.METAMASK) ==
-        //     EthWalletList.length - 1
-        //       ? true
-        //       : false
-        //   }
-        //   heading="Metamask"
-        //   iconSrc={DCBMetamask}
-        //   onWalletCall={injectedHandle}
-        // />
-        <MetaMask/>
-      )} 
-      
-       {(EthWalletList.indexOf(EthWallets.ALL) > -1 ||
-        EthWalletList.indexOf(EthWallets.BRAVEWALLET) > -1) && (
-        // <WalletListing
-        //   noBottomBorder={
-        //     EthWalletList.indexOf(EthWallets.METAMASK) ==
-        //     EthWalletList.length - 1
-        //       ? true
-        //       : false
-        //   }
-        //   heading="Metamask"
-        //   iconSrc={DCBMetamask}
-        //   onWalletCall={injectedHandle}
-        // />
-        <BraveWallet/>
+        <WalletListing
+          heading="Metamask"
+          iconSrc={"/imgs/meta-mask.png"}
+          onWalletCall={useCallback(
+            () =>
+              metamask &&
+              metamask.send("eth_requestAccounts", []).catch(console.log),
+            [metamask]
+          )}
+        />
+        // <MetaMask/>
       )}
 
-
-
-
+      {(EthWalletList.indexOf(EthWallets.ALL) > -1 ||
+        EthWalletList.indexOf(EthWallets.BRAVEWALLET) > -1) && (
+        <WalletListing
+          heading="Brave Wallet"
+          iconSrc={"/imgs/brave-wallet.png"}
+          onWalletCall={useCallback(
+            () =>
+              brave && brave.send("eth_requestAccounts", []).catch(console.log),
+            [brave]
+          )}
+        />
+        // <BraveWallet/>
+      )}
 
       {(EthWalletList.indexOf(EthWallets.ALL) > -1 ||
         EthWalletList.indexOf(EthWallets.WALLETCONNECT) > -1) && (
-        // <WalletListing
-        //   noBottomBorder={
-        //     EthWalletList.indexOf(EthWallets.COINBASE) ==
-        //     EthWalletList.length - 1
-        //       ? true
-        //       : false
-        //   }
-        //   heading="Coinbase"
-        //   iconSrc={DCBCoinbase}
-        //   onWalletCall={() => regHandle("Coinbase Wallet", wallets.Coinbase)}
-        // />
-        <TrustWallet/>
+        <WalletListing
+          heading="Trust Wallet"
+          iconSrc={"/imgs/trustwallet.png"}
+          onWalletCall={ turstWallet}
+        />
+        // <WalletConnects />
       )}
-
-
 
       {(EthWalletList.indexOf(EthWallets.ALL) > -1 ||
         EthWalletList.indexOf(EthWallets.COINBASE) > -1) && (
@@ -129,7 +132,6 @@ const EthWalletListComp = ({
         //   }
         // />
         <CoinBaseWallet />
-      
       )}
     </div>
   );

@@ -13,7 +13,6 @@ const CoinBaseWallet = () => {
   let coinbaseWallet;
   let ethereum: any = null;
   
-  // setTimeout(() => {
   //   coinbaseWallet = new CoinbaseWalletSDK({
   //     appName: String(coinBaseWalletConfig.APP_NAME),
   //     appLogoUrl: String(coinBaseWalletConfig.APP_LOGO_URL),
@@ -23,8 +22,6 @@ const CoinBaseWallet = () => {
   //     String(coinBaseWalletConfig.DEFAULT_ETH_JSONRPC_URL),
   //     coinBaseWalletConfig.DEFAULT_CHAIN_ID
   //   );
-  // }, 1000);  
-
 
     coinbaseWallet = new CoinbaseWalletSDK({
       appName: "My Awesome App",
@@ -36,9 +33,14 @@ const CoinBaseWallet = () => {
       1
     );
 
+
   const connectCoinWallet = async () => {
+    try {
     const provider = new ethers.providers.Web3Provider(ethereum as any);
     await provider.send("eth_requestAccounts", []);
+    } catch (error:any) {
+      alert(error.message);
+    }
   };
 
   return (

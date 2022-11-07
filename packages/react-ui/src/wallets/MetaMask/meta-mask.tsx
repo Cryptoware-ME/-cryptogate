@@ -1,46 +1,22 @@
 import { NextPage } from "next";
 import { ethers } from "ethers";
 import Image from "next/image";
-import { useState } from "react";
+import { useCallback, useState } from "react";
+import useBrowserWallets from "../useBrowserWallets";
 
 const MetaMask: NextPage = () => {
-  let provider: any = null;
-  const [show, setShow] = useState(false);
-  var connectMetaMask = async () => {
-    debugger;
-    if (typeof window.ethereum !== "undefined") {
-      if (window.ethereum.providers?.length) {
-        window.ethereum.providers.forEach(async (p: any) => {
-          debugger;
-          if (p.isMetaMask) {
-            provider = p;
-            new ethers.providers.Web3Provider(provider);
-          }
-        });
-      }
-      try {
-        await provider.send("eth_requestAccounts", []);
-        const balance = await provider.getBalance("ethers.eth");
-        console.log(ethers.utils.formatEther(balance));
-      } catch (error: any) {
-        alert(error["message"]);
-        return;
-      }
-    } else {
-      setShow(true);
-    }
-  };
 
+  const { metamask } = useBrowserWallets();
+  // const {addErrors} = useErrorsBag();
+  // var connectBraveWallet = useCallback(() => brave && brave.send("eth_requestAccounts", []).catch(addErrors), [brave, addErrors]);
+  var connectMetaMask = useCallback(() => metamask && metamask.send("eth_requestAccounts", []).catch(console.log), [metamask]);
   var Meta = () => {
     return (
       <div>
-        {show && (
-          <p>MetaMask is not installed. Please install MetaMask to continue.</p>
-        )}
+        <p>hi</p>
       </div>
     );
   };
-
   return (
     <>
       {/* <div className="column">

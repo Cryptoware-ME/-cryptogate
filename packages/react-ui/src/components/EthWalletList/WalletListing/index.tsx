@@ -9,7 +9,7 @@ const WalletListing = ({
   heading: any;
   onWalletCall: any;
   isWhite?: boolean;
-  noBottomBorder: boolean;
+  noBottomBorder?: boolean;
 }) => {
   return (
     <div

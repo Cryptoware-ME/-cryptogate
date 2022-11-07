@@ -3,9 +3,8 @@ import React, { Dispatch, SetStateAction } from "react";
 
 const useBrowserWallets = () => {
   const [metamask, setMetamask]: [ethers.providers.Web3Provider | undefined, Dispatch<SetStateAction<ethers.providers.Web3Provider | undefined>>] = React.useState();
-  const [brave, setBrave]: [ethers.providers.Web3Provider | undefined, Dispatch<SetStateAction<ethers.providers.Web3Provider | undefined>>] = React.useState();
+  const [brave, setBrave]:       [ethers.providers.Web3Provider | undefined, Dispatch<SetStateAction<ethers.providers.Web3Provider | undefined>>] = React.useState();
   const [browserProviders, setBrowserProviders] = React.useState(window.ethereum);
-  
   React.useEffect(() => {
     setBrowserProviders(window.ethereum);
   }, []);
@@ -13,12 +12,14 @@ const useBrowserWallets = () => {
     if(typeof browserProviders !== "undefined"){
       if (browserProviders.providers?.length > 0) {
         browserProviders.providers.forEach(async (p: any) => {
-          if (p.isBraveWallet) {
-            setBrave(p)
-          }
+         console.log(p.isMetamask);
           if (p.isMetamask) {
             setMetamask(p)
           }
+          if (p.isBraveWallet) {
+            setBrave(p)
+          }
+    
         });
       }
     }
