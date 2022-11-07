@@ -3,6 +3,8 @@ import { ethers } from "ethers";
 import { EvmAddress } from "../models/types";
 import { useEvmNode } from "../providers";
 
+// TODO: Fix these hooks to work around a UseEffect
+
 export const getAddress = () => {
 
 }

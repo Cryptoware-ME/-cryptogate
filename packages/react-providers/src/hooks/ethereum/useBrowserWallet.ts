@@ -11,11 +11,10 @@ export const useBrowserWallets = () => {
         React.Dispatch<React.SetStateAction<ethers.providers.Web3Provider | undefined>>
     ] = React.useState();
 
-    const [browserProviders, setBrowserProviders] = React.useState(
-        window.ethereum
-    );
+    const [browserProviders, setBrowserProviders] = React.useState<any>();
 
     React.useEffect(() => {
+        setBrowserProviders(window.ethereum)
         if (typeof browserProviders !== "undefined") {
             if (browserProviders.providers?.length > 0) {
                 browserProviders.providers.forEach(async (p: any) => {

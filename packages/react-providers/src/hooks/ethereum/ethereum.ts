@@ -5,22 +5,33 @@ import QRCodeModal from "@walletconnect/qrcode-modal";
 import { ethers } from "ethers";
 import { useBrowserWallets } from "./useBrowserWallet"
 import { useErrorsBag } from "../../providers"
+import { EvmAddress } from "../../models/types";
 
 export const useEthereum = () => {
+    const [address, setAddress]: [EvmAddress, React.Dispatch<React.SetStateAction<EvmAddress>>] = React.useState('' as EvmAddress);
     let coinbaseWallet = null;
     let ethereum: any = null;
     let connector: any = null;
     const { brave, metamask } = useBrowserWallets()
     const { addError } = useErrorsBag()
-    const [account, setAccount]: [string, React.Dispatch<React.SetStateAction<string>>] = React.useState("")
 
-    const activateBraveWallet = React.useCallback(() => brave &&
-        brave.send("eth_requestAccounts", []).then((accounts) => setAccount(accounts.result[0])).catch(addError), [brave])
+    React.useEffect(() => {
+        console.log(1, address)
+    }, [address])
 
-    const activateMetamaskWallet = React.useCallback(() => {
-        metamask &&
-            metamask.send("eth_requestAccounts", []).then((accounts) => setAccount(accounts.result[0])).catch(addError)
-    }, [metamask])
+    const activateBraveWallet = async () => {
+        if (brave) {
+            let res = await brave.send("eth_requestAccounts", []);
+            console.log(res.result[0])
+        }
+    }
+
+    const activateMetamaskWallet = async () => {
+        if (metamask) {
+            let res = await metamask.send("eth_requestAccounts", []);
+            setAddress(res.result[0]);
+        }
+    }
 
     const activateCoinbaseWallet = async () => {
         coinbaseWallet = new CoinbaseWalletSDK({
@@ -33,7 +44,7 @@ export const useEthereum = () => {
             1
         );
         const provider = new ethers.providers.Web3Provider(ethereum);
-        provider.send("eth_requestAccounts", []).then((accounts) => setAccount(accounts[0])).catch(addError);
+        provider.send("eth_requestAccounts", []).then((accounts) => setAddress(accounts[0])).catch(addError);
     }
 
     const activateWalletConnect = () => {
@@ -47,12 +58,12 @@ export const useEthereum = () => {
         connector.on("connect", (error: any, payload: any) => {
             if (error) addError(error)
             const { accounts, chainId } = payload.params[0];
-            setAccount(accounts[0])
+            setAddress(accounts[0])
         });
         connector.on("session_update", (error: any, payload: any) => {
             if (error) addError(error)
             const { accounts, chainId } = payload.params[0];
-            setAccount(accounts[0])
+            setAddress(accounts[0])
         });
         connector.on("disconnect", (error: any, payload: any) => {
             if (error) addError(error)
@@ -67,7 +78,7 @@ export const useEthereum = () => {
     }
 
     return {
-        account,
+        address,
         activateBraveWallet,
         activateMetamaskWallet,
         activateCoinbaseWallet,
