@@ -4,10 +4,9 @@ import { ConnectedMenu } from "../ConnectMenu";
 import { ethSignMessage } from "@cryptogate/core";
 import { setWithExpiry } from "../../localStorage/setWithExpire";
 import { getWithExpiry } from "../../localStorage/getWithExpire";
-import { useDapp } from "@cryptogate/react-providers";
+import { ChainId } from "../../../cryptogate";
 import { ConnectedMenuOptions } from "../ConnectWalletComponent";
 
-const { ChainId } = useDapp;
 
 const signingMessage = async (
   account: any,

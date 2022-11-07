@@ -14,8 +14,8 @@ const network = { chainName: "goerli", chainId: 5 };
 
 export function EvmNodeProvider({ children, readOnlyUrls }: Props) {
   const [provider, setProvider]: [
-    provider: providers.JsonRpcProvider | providers.BaseProvider | undefined,
-    setProvider: React.Dispatch<
+    providers.JsonRpcProvider | providers.BaseProvider | undefined,
+    React.Dispatch<
       React.SetStateAction<
         providers.JsonRpcProvider | providers.BaseProvider | undefined
       >

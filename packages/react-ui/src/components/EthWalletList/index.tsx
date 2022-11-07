@@ -1,30 +1,19 @@
-import { useState, useEffect, useCallback } from "react";
-import { useMultichain } from "@cryptogate/react-providers";
+import React from "react";
 import WalletListing from "./WalletListing";
-import detectEthereumProvider from "@metamask/detect-provider";
-import { isMobile } from "react-device-detect";
 import { EthWallets } from "../ConnectWalletComponent";
-import CoinBaseWallet from "../../wallets/CoinbaseWallet/coin-base";
-import useBrowserWallets from "../../wallets/useBrowserWallets";
-import WalletConnects from "../../wallets/WalletConnects/wallet-connects";
-import WalletConnect from "@walletconnect/client";
-import QRCodeModal from "@walletconnect/qrcode-modal";
-import useConnectors from "./connectors";
+import { useEthereum } from "../../../cryptogate";
 
 const EthWalletListComp = ({
   EthWalletList,
 }: {
   EthWalletList: EthWallets[];
 }) => {
-  let connector: any;
-  const { ethereum } = useMultichain();
-  const { trustWallet,connectCoinWallet } = useConnectors();
-  const { activateBrowserWallet, activate, wallets } = ethereum;
-  const [openMetamaskAllow, setOpenMetamaskAllow] = useState(false);
-  const { metamask, brave } = useBrowserWallets();
-
-
-
+  const {
+    activateBraveWallet,
+    activateMetamaskWallet,
+    activateCoinbaseWallet,
+    activateWalletConnect,
+  } = useEthereum();
 
   return (
     <div
@@ -39,14 +28,8 @@ const EthWalletListComp = ({
         <WalletListing
           heading="Metamask"
           iconSrc={"/imgs/meta-mask.png"}
-          onWalletCall={useCallback(
-            () =>
-              metamask &&
-              metamask.send("eth_requestAccounts", []).catch(console.log),
-            [metamask]
-          )}
+          onWalletCall={activateMetamaskWallet}
         />
-        // <MetaMask/>
       )}
 
       {(EthWalletList.indexOf(EthWallets.ALL) > -1 ||
@@ -54,23 +37,8 @@ const EthWalletListComp = ({
         <WalletListing
           heading="Brave Wallet"
           iconSrc={"/imgs/brave-wallet.png"}
-          onWalletCall={useCallback(
-            () =>
-              brave && brave.send("eth_requestAccounts", []).catch(console.log),
-            [brave]
-          )}
+          onWalletCall={activateBraveWallet}
         />
-        // <BraveWallet/>
-      )}
-
-      {(EthWalletList.indexOf(EthWallets.ALL) > -1 ||
-        EthWalletList.indexOf(EthWallets.WALLETCONNECT) > -1) && (
-        <WalletListing
-          heading="Trust Wallet"
-          iconSrc={"/imgs/trustwallet.png"}
-          onWalletCall={ trustWallet}
-        />
-        // <WalletConnects />
       )}
 
       {(EthWalletList.indexOf(EthWallets.ALL) > -1 ||
@@ -78,9 +46,17 @@ const EthWalletListComp = ({
         <WalletListing
           heading="Coinbase Wallet"
           iconSrc={"/imgs/coinbase.jpg"}
-          onWalletCall={connectCoinWallet}
+          onWalletCall={activateCoinbaseWallet}
         />
-        // <CoinBaseWallet />
+      )}
+
+      {(EthWalletList.indexOf(EthWallets.ALL) > -1 ||
+        EthWalletList.indexOf(EthWallets.WALLETCONNECT) > -1) && (
+        <WalletListing
+          heading="Wallet Connect"
+          iconSrc={"/imgs/trustwallet.png"}
+          onWalletCall={activateWalletConnect}
+        />
       )}
     </div>
   );

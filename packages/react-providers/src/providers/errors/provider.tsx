@@ -7,8 +7,8 @@ interface Props {
 
 export function ErrorsBagProvider({ children }: Props) {
   const [errors, setErrors]: [
-    errors: string[],
-    setErrors: React.Dispatch<React.SetStateAction<string[]>>
+    string[],
+    React.Dispatch<React.SetStateAction<string[]>>
   ] = React.useState([] as string[]);
 
   const addError = (error: any) => {

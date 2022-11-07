@@ -8,7 +8,7 @@ export const getAddress = () => {
 }
 
 export const getBalance = (address: EvmAddress) => {
-    const [balance, setBalance]: [balance: string | undefined, setBalance: React.Dispatch<React.SetStateAction<string | undefined>>] = React.useState()
+    const [balance, setBalance]: [string | undefined, React.Dispatch<React.SetStateAction<string | undefined>>] = React.useState()
     const provider = useEvmNode()
     provider && provider.getBalance(address).then((balanceBigNbWei) => {
         setBalance(ethers.utils.formatEther(balanceBigNbWei.toString()))
@@ -17,7 +17,7 @@ export const getBalance = (address: EvmAddress) => {
 }
 
 export const getENS = (address: EvmAddress) => {
-    const [ens, setEns]: [ens: string, setEns: React.Dispatch<React.SetStateAction<string>>] = React.useState("")
+    const [ens, setEns]: [string, React.Dispatch<React.SetStateAction<string>>] = React.useState("")
     const provider = useEvmNode()
     provider && provider.lookupAddress(address).then((res) => {
         console.log("RES: ", res)
@@ -27,7 +27,7 @@ export const getENS = (address: EvmAddress) => {
 }
 
 export const resolveENS = (ens: string) => {
-    const [address, setAddress]: [address: EvmAddress, setAddress: React.Dispatch<React.SetStateAction<EvmAddress>>] = React.useState("")
+    const [address, setAddress]: [EvmAddress, React.Dispatch<React.SetStateAction<EvmAddress>>] = React.useState("")
     const provider = useEvmNode()
     provider && provider.resolveName(ens).then((res) => {
         res && setAddress(res)

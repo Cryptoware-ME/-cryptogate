@@ -7,8 +7,8 @@ interface Props {
 
 export function WindowProvider({ children }: Props) {
   const [isActiveWindow, setActiveWindow]: [
-    isActiveWindow: boolean,
-    setIsActiveWindow: React.Dispatch<React.SetStateAction<boolean>>
+    boolean,
+    React.Dispatch<React.SetStateAction<boolean>>
   ] = React.useState(true);
 
   React.useEffect(() => {

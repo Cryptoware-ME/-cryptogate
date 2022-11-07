@@ -1,10 +1,9 @@
-import { readContractCall, writeContractCall } from "./contracts"
+import { useBrowserWallets, useEthereum } from "./ethereum"
 import { getBalance, getENS, resolveENS } from "./account"
+import { readContractCall, writeContractCall } from "./contracts"
 
 export {
-    readContractCall,
-    writeContractCall,
-    getBalance,
-    getENS,
-    resolveENS
+    useBrowserWallets, useEthereum,
+    readContractCall, writeContractCall,
+    getBalance, getENS, resolveENS
 }

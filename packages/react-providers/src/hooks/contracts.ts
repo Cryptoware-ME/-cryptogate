@@ -16,7 +16,7 @@ export const readContractCall = (params: GetContractCallParams) => {
     const { ethConfig } = useConfig()
     const provider = useEvmNode()
     const { addError } = useErrorsBag()
-    const [response, setResponse]: [response: any, setResponse: React.Dispatch<React.SetStateAction<any>>] = React.useState<any>(undefined)
+    const [response, setResponse]: [any, React.Dispatch<React.SetStateAction<any>>] = React.useState<any>(undefined)
 
     const callFunction = async (contract: any, name: string, args?: any[]) => {
         try {
@@ -62,18 +62,16 @@ export const readContractCall = (params: GetContractCallParams) => {
 }
 
 // TODO: Get Connected Network
-// TODO: Get Wallet Provider
-// TODO: Wrap with promise 
+// TODO: Update provider source
 export const writeContractCall = (params: GetContractCallParams) => {
     console.log(1)
     const { contract, method, args, enabled } = params;
     const { ethConfig } = useConfig()
     // const provider = useEvmNode()
     const { addError } = useErrorsBag()
-    const [response, setResponse]: [response: any, setResponse: React.Dispatch<React.SetStateAction<any>>] = React.useState<any>(undefined)
+    const [response, setResponse]: [any, React.Dispatch<React.SetStateAction<any>>] = React.useState<any>(undefined)
 
     const getContractObj = async (contracts: EthContract[]) => {
-        // ! UPDATE PROVIDER
         const provider = new ethers.providers.Web3Provider(window.ethereum)
         await provider.send("eth_requestAccounts", []);
         const signer = provider.getSigner()
