@@ -1,6 +1,7 @@
 import { Chain } from "./Chain"
-import { EthConfig, NodeUrls, EthContract, ContractABIUnit, ContractIO, EthAddress } from "./EthConfig"
+import { EvmAddress } from "./common"
+import { EthConfig, NodeUrls, EthContract, ContractABIUnit, ContractIO } from "./EthConfig"
 
 export type {
-    Chain, EthConfig, NodeUrls, EthContract, ContractABIUnit, ContractIO, EthAddress
+    Chain, EthConfig, NodeUrls, EthContract, ContractABIUnit, ContractIO, EvmAddress
 }

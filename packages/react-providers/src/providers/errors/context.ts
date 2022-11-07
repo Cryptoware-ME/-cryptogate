@@ -1,10 +1,10 @@
 import React from 'react'
 
-export const ErrorsContext = React.createContext<{
+export const ErrorsBagContext = React.createContext<{
   errors: string[],
   addError: (error: any) => void;
 }>({ errors: [], addError: (err) => { } })
 
 export function useErrorsBag() {
-  return React.useContext(ErrorsContext)
+  return React.useContext(ErrorsBagContext)
 }

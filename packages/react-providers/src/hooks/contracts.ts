@@ -1,9 +1,9 @@
 import React from "react";
-import { useConfig, useEthNode, useErrorsBag } from "../providers";
+import { useConfig, useEvmNode, useErrorsBag } from "../providers";
 import * as ethers from "ethers"
 import { EthContract } from "../models/types";
 
-export type GetContractCallParams = {
+type GetContractCallParams = {
     contract: string,
     method: string,
     args?: any[],
@@ -11,13 +11,12 @@ export type GetContractCallParams = {
 }
 
 // TODO: Get Connected Network
-// TODO: Enabled flag
-export const getContractCall = (params: GetContractCallParams) => {
+export const readContractCall = (params: GetContractCallParams) => {
     const { contract, method, args, enabled } = params;
     const { ethConfig } = useConfig()
-    const provider = useEthNode()
+    const provider = useEvmNode()
     const { addError } = useErrorsBag()
-    const [response, setResponse] = React.useState<any>(undefined)
+    const [response, setResponse]: [response: any, setResponse: React.Dispatch<React.SetStateAction<any>>] = React.useState<any>(undefined)
 
     const callFunction = async (contract: any, name: string, args?: any[]) => {
         try {
@@ -62,14 +61,19 @@ export const getContractCall = (params: GetContractCallParams) => {
     return response
 }
 
+// TODO: Get Connected Network
+// TODO: Get Wallet Provider
+// TODO: Wrap with promise 
 export const writeContractCall = (params: GetContractCallParams) => {
+    console.log(1)
     const { contract, method, args, enabled } = params;
     const { ethConfig } = useConfig()
-    // const provider = useEthNode()
+    // const provider = useEvmNode()
     const { addError } = useErrorsBag()
-    const [response, setResponse] = React.useState<any>(undefined)
+    const [response, setResponse]: [response: any, setResponse: React.Dispatch<React.SetStateAction<any>>] = React.useState<any>(undefined)
 
     const getContractObj = async (contracts: EthContract[]) => {
+        // ! UPDATE PROVIDER
         const provider = new ethers.providers.Web3Provider(window.ethereum)
         await provider.send("eth_requestAccounts", []);
         const signer = provider.getSigner()
@@ -107,6 +111,7 @@ export const writeContractCall = (params: GetContractCallParams) => {
                                 callFunction(contractObj, methods[0].name)
                             else if (args && args.length == methods[0].inputs.length)
                                 callFunction(contractObj, methods[0].name, args)
+                            else addError(`Incorrect number of arguments`)
                         })
                     } else
                         addError(`Contract method ${method} doesn't exist in contract ${contract}`)

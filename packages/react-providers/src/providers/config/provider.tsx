@@ -8,9 +8,12 @@ interface Props {
 }
 
 export function ConfigProvider({ config, children }: Props) {
-  const [DAppConfig, setDAppConfig] = React.useState(
-    {} as MultiChainProviderConfigProps
-  );
+  const [DAppConfig, setDAppConfig]: [
+    DAppConfig: MultiChainProviderConfigProps,
+    setDAppConfig: React.Dispatch<
+      React.SetStateAction<MultiChainProviderConfigProps>
+    >
+  ] = React.useState({} as MultiChainProviderConfigProps);
 
   React.useEffect(() => {
     setDAppConfig(config);

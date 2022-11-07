@@ -1,13 +1,13 @@
 import { MultiChainProvider } from "./Multichain"
 import { MultiChainProviderConfigProps, MultiChainProviderProps } from "./Multichain"
 import { useConfig, ConfigContext, ConfigProvider } from "./config"
-import { useEthNode, EthNodeContext, EthNodeProvider } from "./ethNode"
+import { useEvmNode, EvmNodeContext, EvmNodeProvider } from "./evmNode"
 import { useWindow, WindowContext, WindowProvider } from "./window"
-import { useErrorsBag, ErrorsContext, ErrorsProvider } from "./errors"
+import { useErrorsBag, ErrorsBagContext, ErrorsBagProvider } from "./errors"
 
 export { MultiChainProvider }
 export type { MultiChainProviderConfigProps, MultiChainProviderProps }
 export { useConfig, ConfigContext, ConfigProvider }
-export { useEthNode, EthNodeContext, EthNodeProvider }
+export { useEvmNode, EvmNodeContext, EvmNodeProvider }
 export { useWindow, WindowContext, WindowProvider }
-export { useErrorsBag, ErrorsContext, ErrorsProvider }
+export { useErrorsBag, ErrorsBagContext, ErrorsBagProvider }
