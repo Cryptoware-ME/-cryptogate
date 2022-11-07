@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { imageURI, isUriIPFS } from "../../../../../utils/helpers";
-import { useTheme } from "@cryptogate/react-providers";
 
 const index = ({
   URI,
@@ -13,7 +12,6 @@ const index = ({
 }) => {
   const [image, setImg] = useState("");
   const [empty, setEmpty] = useState(false);
-  const { Theme } = useTheme();
 
   useEffect(() => {
     if (URI) {

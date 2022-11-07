@@ -1,7 +1,6 @@
 import WalletInformation from "../WalletInformation";
 import StoreMenuComponent from "../StoreMenuComponent";
 import { ConnectedMenuOptions } from "../ConnectWalletComponent";
-import { useTheme } from "@cryptogate/react-providers";
 
 export const ConnectedMenu = ({
   ChosenConnectedMenu,
@@ -16,7 +15,6 @@ export const ConnectedMenu = ({
   onDisconnect?: any;
   Store?: { Tokens?: string[]; NFTs?: string[] };
 }) => {
-  const { Theme } = useTheme();
 
   return (
     <>

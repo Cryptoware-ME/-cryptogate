@@ -2,11 +2,8 @@ import React from "react";
 import { ConnectWalletButton } from "../ConnectWalletButton";
 import { ConnectWalletList } from "../ConnectWalletList";
 import { Identicon } from "../Identicon";
-import { useState } from "react";
-import { useDapp } from "@cryptogate/react-providers";
+import { ChainId } from "../../../react-providers";
 import { defaults, Active, Disabled } from "../../defaults";
-
-const { ChainId } = useDapp;
 
 export enum EthWallets {
   ALL = "all",
@@ -64,7 +61,7 @@ export const ConnectWalletComponent = ({
     chain: typeof ChainId;
   }) => void;
 }) => {
-  const [openOptions, setOpenOptions] = useState(false);
+  const [openOptions, setOpenOptions] = React.useState(false);
 
   return (
     <>

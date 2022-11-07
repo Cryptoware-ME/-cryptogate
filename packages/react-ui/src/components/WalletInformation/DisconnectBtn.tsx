@@ -1,7 +1,6 @@
-import { useTheme } from "@cryptogate/react-providers";
+
 
 const DisconnectBtn = () => {
-  const { Theme } = useTheme();
 
   return (
     <svg

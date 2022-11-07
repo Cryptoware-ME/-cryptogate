@@ -1,6 +1,5 @@
 import React from "react";
 import { useMultichain } from "@cryptogate/react-providers";
-import { useState, useEffect } from "react";
 import { ConnectedMenu } from "../ConnectMenu";
 import { ethSignMessage } from "@cryptogate/core";
 import { setWithExpiry } from "../../localStorage/setWithExpire";
@@ -59,12 +58,12 @@ export const ConnectWalletButton = ({
   }) => void;
   setOpenOptions: any;
 }) => {
-  const [openMenu, setOpenMenu] = useState(false);
-  const [keyValue, setKeyValue] = useState(null as unknown as object);
+  const [openMenu, setOpenMenu] = React.useState(false);
+  const [keyValue, setKeyValue] = React.useState(null as unknown as object);
   const { ethereum, network } = useMultichain();
   const { account, library, deactivate } = ethereum;
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (account && library) {
       if (
         NetworkChainIds.length == 0 ||

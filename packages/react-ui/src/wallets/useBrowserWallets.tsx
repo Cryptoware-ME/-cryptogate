@@ -12,8 +12,8 @@ const useBrowserWallets = () => {
     if(typeof browserProviders !== "undefined"){
       if (browserProviders.providers?.length > 0) {
         browserProviders.providers.forEach(async (p: any) => {
-         console.log(p.isMetamask);
-          if (p.isMetamask) {
+
+          if (p.isMetaMask) {
             setMetamask(p)
           }
           if (p.isBraveWallet) {
@@ -24,7 +24,7 @@ const useBrowserWallets = () => {
       }
     }
   }, [browserProviders]);
-  return { metamask, brave };
+  return { metamask, brave };   
 };
 
 export default useBrowserWallets;

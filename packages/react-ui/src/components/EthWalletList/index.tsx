@@ -18,55 +18,13 @@ const EthWalletListComp = ({
 }) => {
   let connector: any;
   const { ethereum } = useMultichain();
-  // const { turstWallet } = useConnectors();
+  const { trustWallet,connectCoinWallet } = useConnectors();
   const { activateBrowserWallet, activate, wallets } = ethereum;
   const [openMetamaskAllow, setOpenMetamaskAllow] = useState(false);
   const { metamask, brave } = useBrowserWallets();
-  useEffect(() => {
-    detectEthereumProvider().then((provider: any) => {
-      setOpenMetamaskAllow(!!provider);
-    });
-  }, []);
 
 
-    //trustwallet
-    var turstWallet = () => {
-      connector = new WalletConnect({
-        bridge: "https://bridge.walletconnect.org", // Required
-        qrcodeModal: QRCodeModal,
-      });
-      // Check if connection is already established
-      if (!connector.connected) {
-        // create new session
-        connector.createSession();
-      }
-      // Subscribe to connection events
-      connector.on("connect", (error: any, payload: any) => {
-        if (error) {
-          throw error;
-        }
-        // Get provided accounts and chainId
-        const { accounts, chainId } = payload.params[0];
-      });
-      connector.on("session_update", (error: any, payload: any) => {
-        if (error) {
-          throw error;
-        }
-        // Get updated accounts and chainId
-        const { accounts, chainId } = payload.params[0];
-      });
-      connector.on("disconnect", (error: any, payload: any) => {
-        if (error) {
-          throw error;
-        }
-        // Delete connector
-      });
-    };
 
-
-  const regHandle = (name: String, connector: any) => {
-    activate(connector);
-  };
 
   return (
     <div
@@ -110,28 +68,19 @@ const EthWalletListComp = ({
         <WalletListing
           heading="Trust Wallet"
           iconSrc={"/imgs/trustwallet.png"}
-          onWalletCall={ turstWallet}
+          onWalletCall={ trustWallet}
         />
         // <WalletConnects />
       )}
 
       {(EthWalletList.indexOf(EthWallets.ALL) > -1 ||
         EthWalletList.indexOf(EthWallets.COINBASE) > -1) && (
-        // <WalletListing
-        //   noBottomBorder={
-        //     EthWalletList.indexOf(EthWallets.ALL) > -1 ||
-        //     EthWalletList.indexOf(EthWallets.WALLETCONNECT) ==
-        //       EthWalletList.length - 1
-        //       ? true
-        //       : false
-        //   }
-        //   heading="WalletConnect"
-        //   iconSrc={DCBWalletconnect}
-        //   onWalletCall={() =>
-        //     regHandle("Wallet Connect API", wallets.WalletConnect)
-        //   }
-        // />
-        <CoinBaseWallet />
+        <WalletListing
+          heading="Coinbase Wallet"
+          iconSrc={"/imgs/coinbase.jpg"}
+          onWalletCall={connectCoinWallet}
+        />
+        // <CoinBaseWallet />
       )}
     </div>
   );

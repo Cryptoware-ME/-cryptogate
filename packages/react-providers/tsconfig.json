@@ -24,7 +24,7 @@
     "skipLibCheck": true,
     "strict": true
   },
-  "include": ["src", "../../testbed/cryptogate/newProviders"],
+  "include": ["src", "../../testbed/cryptogate/newProviders", "../../testbed/pages/cryptogate/react-providers/constants"],
   "exclude": [
     "node_modules",
     "dist",

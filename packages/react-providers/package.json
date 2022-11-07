@@ -19,33 +19,23 @@
   "author": "Cryptoware",
   "license": "MIT",
   "peerDependencies": {
-    "@ethersproject/contracts": "^5.6.0",
-    "@usedapp/core": "^0.12.9",
-    "@web3-react/ledger-connector": "^6.1.9",
-    "@web3-react/trezor-connector": "^6.1.9",
-    "@web3-react/walletconnect-connector": "^6.2.13",
-    "@web3-react/walletlink-connector": "^6.2.14",
-    "react": "^18.0.0"
+    "react": "^18.0.0",
+    "ethers": "^5.7.1"
   },
   "devDependencies": {
-    "@ethersproject/contracts": "^5.6.0",
     "@rollup/plugin-commonjs": "^21.1.0",
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^13.2.1",
     "@rollup/plugin-typescript": "^8.3.2",
-    "@usedapp/core": "^0.12.9",
-    "@web3-react/ledger-connector": "^6.1.9",
-    "@web3-react/trezor-connector": "^6.1.9",
-    "@web3-react/walletconnect-connector": "^6.2.13",
-    "@web3-react/walletlink-connector": "^6.2.14",
     "autoprefixer": "^10.4.4",
     "react": "^18.0.0",
+    "ethers": "^5.7.1",
     "rollup": "^2.70.2",
     "rollup-plugin-dts": "^4.2.1",
     "rollup-plugin-ignore": "^1.0.10",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-svg": "^2.0.0",
-    "typescript": "^4.7.0-dev.20220416"
+    "typescript": "4.8.4"
   },
   "gitHead": "14db6d2825bab2f40c909293780d91de5df8ec8b"
 }

@@ -1,4 +1,4 @@
-import { useEthereum } from "@cryptogate/react-providers";
+// import { useEthereum } from "@cryptogate/react-providers";
 import {
   useTokenOfOwnerByIndex,
   useTokenURIIndex,
@@ -14,7 +14,7 @@ const index = ({
   balance: number;
   symbol: string;
 }) => {
-  const { account } = useEthereum();
+  // const { account } = useEthereum();
 
   // const tokenIds = useTokenOfOwnerByIndex({
   //   NFT,

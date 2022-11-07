@@ -1,7 +1,6 @@
 import WalletInformation from "../WalletInformation";
 import TokenDetails from "./TokenDetails";
 import NFTDisplay from "./NFTDisplay";
-import { useTheme } from "@cryptogate/react-providers";
 
 const index = ({
   onDisconnect,
@@ -10,7 +9,6 @@ const index = ({
   onDisconnect: any;
   Store?: { Tokens?: string[]; NFTs?: string[] };
 }) => {
-  const { Theme } = useTheme();
 
   return (
     <div>
@@ -22,7 +20,7 @@ const index = ({
             style={{
               width: "100%",
               borderTop: 0,
-              borderBottom: `1px solid ${Theme.secondaryBackground}`,
+              borderBottom: `1px solid #ffffff`,
             }}
           />
           <div
@@ -43,7 +41,7 @@ const index = ({
               Store.NFTs.length && (
                 <div
                   style={{
-                    borderLeft: `1px solid ${Theme.secondaryBackground}`,
+                    borderLeft: `1px solid #ffffff`,
                     margin: "0 2vw 0 0",
                   }}
                 ></div>
