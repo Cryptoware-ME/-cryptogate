@@ -6,7 +6,7 @@ import { setWithExpiry } from "../../localStorage/setWithExpire";
 import { getWithExpiry } from "../../localStorage/getWithExpire";
 import { ChainId } from "../../../cryptogate";
 import { ConnectedMenuOptions } from "../ConnectWalletComponent";
-
+import { useEthereum } from "../../../cryptogate";
 
 const signingMessage = async (
   account: any,
@@ -60,7 +60,9 @@ export const ConnectWalletButton = ({
   const [openMenu, setOpenMenu] = React.useState(false);
   const [keyValue, setKeyValue] = React.useState(null as unknown as object);
   const { ethereum, network } = useMultichain();
-  const { account, library, deactivate } = ethereum;
+  const { library, deactivate } = ethereum;
+
+  const { account } = useEthereum();
 
   React.useEffect(() => {
     if (account && library) {
@@ -94,7 +96,7 @@ export const ConnectWalletButton = ({
 
   return account ? (
     <>
-      {keyValue  ? (
+      {keyValue ? (
         <div onClick={() => setOpenMenu(!openMenu)}>{ConnectedComponent}</div>
       ) : (
         <>{DisabledComponent}</>

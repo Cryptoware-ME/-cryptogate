@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useEthereum } from "@cryptogate/react-providers";
+import { useEthereum } from "../../../../cryptogate";
 import { NFT_CONTRACT_METHODS } from "../../../utils/constants";
 import {
   useNFTMetadataMultiCall,

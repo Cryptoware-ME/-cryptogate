@@ -4,6 +4,7 @@ import { ConfigProvider } from "./config";
 import { ErrorsBagProvider } from "./errors/provider";
 import { EvmNodeProvider } from "./evmNode";
 import { WindowProvider } from "./window";
+import { WalletProvider } from "./wallet";
 
 export interface MultiChainProviderConfigProps {
   ethConfig: EthConfig;
@@ -23,7 +24,7 @@ export const MultiChainProvider = ({
       <ConfigProvider config={config}>
         <ErrorsBagProvider>
           <EvmNodeProvider readOnlyUrls={config.ethConfig.readOnlyUrls}>
-            {children}
+            <WalletProvider>{children}</WalletProvider>
           </EvmNodeProvider>
         </ErrorsBagProvider>
       </ConfigProvider>

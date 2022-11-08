@@ -1,4 +1,4 @@
-import { useEthereum } from "@cryptogate/react-providers";
+import { useEthereum } from "../../../../cryptogate";
 import { useTokensMultiCall } from "../../../hooks/useTokensMultiCall";
 import { toDecimals } from "../../../utils/helpers";
 import { TOKEN_CONTRACT_METHODS } from "../../../utils/constants";

@@ -1,7 +1,6 @@
 import React from "react";
 import WalletListing from "./WalletListing";
 import { EthWallets } from "../ConnectWalletComponent";
-// ! All similar imports will be fixed (to reference cryptogate on npm)
 import { useEthereum } from "../../../cryptogate";
 
 const EthWalletListComp = ({
