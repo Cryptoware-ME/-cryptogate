@@ -1,12 +1,11 @@
 import React from "react";
 import { useMultichain } from "@cryptogate/react-providers";
+import { ChainId, useEthereum } from "../../../cryptogate";
 import { ConnectedMenu } from "../ConnectMenu";
 import { ethSignMessage } from "@cryptogate/core";
 import { setWithExpiry } from "../../localStorage/setWithExpire";
 import { getWithExpiry } from "../../localStorage/getWithExpire";
-import { ChainId } from "../../../cryptogate";
 import { ConnectedMenuOptions } from "../ConnectWalletComponent";
-import { useEthereum } from "../../../cryptogate";
 
 const signingMessage = async (
   account: any,
@@ -59,18 +58,18 @@ export const ConnectWalletButton = ({
 }) => {
   const [openMenu, setOpenMenu] = React.useState(false);
   const [keyValue, setKeyValue] = React.useState(null as unknown as object);
-  const { ethereum, network } = useMultichain();
+  const { ethereum } = useMultichain();
   const { library, deactivate } = ethereum;
 
-  const { account } = useEthereum();
+  const { account, network } = useEthereum();
 
   React.useEffect(() => {
     if (account && library) {
       if (
         NetworkChainIds.length == 0 ||
         (NetworkChainIds.length > 0 &&
-          (network.network.chainId
-            ? NetworkChainIds.includes(network.network.chainId)
+          (network.chainId
+            ? NetworkChainIds.includes(network.chainId)
             : false))
       ) {
         if (onSign) {

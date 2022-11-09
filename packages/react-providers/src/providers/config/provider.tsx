@@ -2,10 +2,10 @@ import React from "react";
 import { MultiChainProviderConfigProps } from "../Multichain";
 import { ConfigContext } from "./context";
 
-interface Props {
+type Props = {
   children: React.ReactNode;
   config: MultiChainProviderConfigProps;
-}
+};
 
 export function ConfigProvider({ config, children }: Props) {
   const [DAppConfig, setDAppConfig]: [

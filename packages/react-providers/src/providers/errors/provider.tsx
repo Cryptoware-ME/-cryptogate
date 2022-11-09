@@ -1,9 +1,9 @@
 import React from "react";
 import { ErrorsBagContext } from "./context";
 
-interface Props {
+type Props = {
   children: React.ReactNode;
-}
+};
 
 export function ErrorsBagProvider({ children }: Props) {
   const [errors, setErrors]: [

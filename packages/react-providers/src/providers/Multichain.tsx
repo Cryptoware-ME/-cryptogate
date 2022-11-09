@@ -5,15 +5,16 @@ import { ErrorsBagProvider } from "./errors/provider";
 import { EvmNodeProvider } from "./evmNode";
 import { WindowProvider } from "./window";
 import { WalletProvider } from "./wallet";
+import { NetworkProvider } from "./network";
 
-export interface MultiChainProviderConfigProps {
+export type MultiChainProviderConfigProps = {
   ethConfig: EthConfig;
-}
+};
 
-export interface MultiChainProviderProps {
+export type MultiChainProviderProps = {
   children: React.ReactNode;
   config: MultiChainProviderConfigProps;
-}
+};
 
 export const MultiChainProvider = ({
   config,
@@ -23,9 +24,11 @@ export const MultiChainProvider = ({
     <WindowProvider>
       <ConfigProvider config={config}>
         <ErrorsBagProvider>
-          <EvmNodeProvider readOnlyUrls={config.ethConfig.readOnlyUrls}>
-            <WalletProvider>{children}</WalletProvider>
-          </EvmNodeProvider>
+          <NetworkProvider>
+            <EvmNodeProvider readOnlyUrls={config.ethConfig.readOnlyUrls}>
+              <WalletProvider>{children}</WalletProvider>
+            </EvmNodeProvider>
+          </NetworkProvider>
         </ErrorsBagProvider>
       </ConfigProvider>
     </WindowProvider>

@@ -1,17 +1,15 @@
 import React from "react";
 import { EvmNodeContext } from "./context";
 import { NodeUrls } from "../../models/types";
-import ethers, { providers } from "ethers";
+import { providers } from "ethers";
+import { useNetwork } from "../network";
 
-interface Props {
+type Props = {
   children: React.ReactNode;
   readOnlyUrls: NodeUrls;
-}
+};
 
-// TODO: Get Connected Network
 // TODO: Get Wallet Provider If Connected
-const network = { chainName: "goerli", chainId: 5 };
-
 export function EvmNodeProvider({ children, readOnlyUrls }: Props) {
   const [provider, setProvider]: [
     providers.JsonRpcProvider | providers.BaseProvider | undefined,
@@ -21,13 +19,14 @@ export function EvmNodeProvider({ children, readOnlyUrls }: Props) {
       >
     >
   ] = React.useState();
+  const { networkData } = useNetwork();
 
   React.useEffect(() => {
     let _provider = new providers.JsonRpcProvider(
-      readOnlyUrls[network.chainId]
+      readOnlyUrls[networkData.chainId]
     );
     setProvider(_provider);
-  }, []);
+  }, [networkData]);
 
   return <EvmNodeContext.Provider value={provider} children={children} />;
 }

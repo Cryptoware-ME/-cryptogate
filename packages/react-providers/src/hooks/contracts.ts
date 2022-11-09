@@ -2,6 +2,7 @@ import React from "react";
 import { useConfig, useEvmNode, useErrorsBag } from "../providers";
 import * as ethers from "ethers"
 import { EthContract } from "../models/types";
+import { useEthereum } from "./ethereum";
 
 type GetContractCallParams = {
     contract: string,
@@ -10,12 +11,12 @@ type GetContractCallParams = {
     enabled: boolean
 }
 
-// TODO: Get Connected Network
 export const readContractCall = (params: GetContractCallParams) => {
     const { contract, method, args, enabled } = params;
     const { ethConfig } = useConfig()
     const provider = useEvmNode()
     const { addError } = useErrorsBag()
+    const { network } = useEthereum()
     const [response, setResponse]: [any, React.Dispatch<React.SetStateAction<any>>] = React.useState<any>(undefined)
 
     const callFunction = async (contract: any, name: string, args?: any[]) => {
@@ -35,8 +36,7 @@ export const readContractCall = (params: GetContractCallParams) => {
                 const contracts = contractList.filter((_contract) => _contract.name == contract)
                 if (contracts && contracts.length) {
                     let contractObj = new ethers.Contract(
-                        // ! NETWORK
-                        contracts[0].addresses[5],
+                        contracts[0].addresses[network.chainId],
                         contracts[0].abi,
                         provider
                     );
@@ -61,12 +61,12 @@ export const readContractCall = (params: GetContractCallParams) => {
     return response
 }
 
-// TODO: Get Connected Network
 // TODO: Update provider source
 export const writeContractCall = (params: GetContractCallParams) => {
     console.log(1)
     const { contract, method, args, enabled } = params;
     const { ethConfig } = useConfig()
+    const { network } = useEthereum()
     // const provider = useEvmNode()
     const { addError } = useErrorsBag()
     const [response, setResponse]: [any, React.Dispatch<React.SetStateAction<any>>] = React.useState<any>(undefined)
@@ -76,8 +76,7 @@ export const writeContractCall = (params: GetContractCallParams) => {
         await provider.send("eth_requestAccounts", []);
         const signer = provider.getSigner()
         return new ethers.Contract(
-            // ! NETWORK
-            contracts[0].addresses[5],
+            contracts[0].addresses[network.chainId],
             contracts[0].abi,
             signer
         );
