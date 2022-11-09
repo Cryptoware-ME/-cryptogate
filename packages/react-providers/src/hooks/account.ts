@@ -1,12 +1,12 @@
 import React from "react";
 import { ethers } from "ethers";
 import { EvmAddress } from "../models/types";
-import { useEvmNode } from "../providers";
+import { useErrorsBag, useEvmNode } from "../providers";
 
 export const useAccount = (address: EvmAddress) => {
     const [ethBalance, setEhBalance]: [string | undefined, React.Dispatch<React.SetStateAction<string | undefined>>] = React.useState()
     const [ens, setEns]: [string | undefined, React.Dispatch<React.SetStateAction<string | undefined>>] = React.useState()
-    const provider = useEvmNode()
+    const { provider } = useEvmNode()
 
     React.useEffect(() => {
         if (provider) {
@@ -21,12 +21,11 @@ export const useAccount = (address: EvmAddress) => {
         ethBalance,
         ens
     }
-
 }
 
 export const resolveENS = (ens: string) => {
     const [address, setAddress]: [EvmAddress, React.Dispatch<React.SetStateAction<EvmAddress>>] = React.useState("")
-    const provider = useEvmNode()
+    const { provider } = useEvmNode()
 
     React.useEffect(() => {
         if (provider)

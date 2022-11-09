@@ -14,7 +14,7 @@ type GetContractCallParams = {
 export const readContractCall = (params: GetContractCallParams) => {
     const { contract, method, args, enabled } = params;
     const { ethConfig } = useConfig()
-    const provider = useEvmNode()
+    const { provider } = useEvmNode()
     const { addError } = useErrorsBag()
     const { network } = useEthereum()
     const [response, setResponse]: [any, React.Dispatch<React.SetStateAction<any>>] = React.useState<any>(undefined)
@@ -30,55 +30,55 @@ export const readContractCall = (params: GetContractCallParams) => {
 
     React.useEffect(() => {
         setResponse(undefined)
-        if (ethConfig && enabled) {
-            const { contractList } = ethConfig
-            if (contractList) {
-                const contracts = contractList.filter((_contract) => _contract.name == contract)
-                if (contracts && contracts.length) {
-                    let contractObj = new ethers.Contract(
-                        contracts[0].addresses[network.chainId],
-                        contracts[0].abi,
-                        provider
-                    );
-                    const methods = contractList[0].abi.filter(
-                        (_method: any) =>
-                            _method.type == "function" && _method.stateMutability == "view" && _method.name == method
-                    )
-                    if (methods && methods.length) {
-                        if (!methods[0].inputs || methods[0].inputs.length == 0)
-                            callFunction(contractObj, methods[0].name)
-                        else if (args && args.length == methods[0].inputs.length)
-                            callFunction(contractObj, methods[0].name, args)
-                        else addError(`Incorrect number of arguments`)
+        if (provider) {
+            if (ethConfig && enabled) {
+                const { contractList } = ethConfig
+                if (contractList) {
+                    const contracts = contractList.filter((_contract) => _contract.name == contract)
+                    if (contracts && contracts.length) {
+                        try {
+                            let contractObj = new ethers.Contract(
+                                contracts[0].addresses[network.chainId],
+                                contracts[0].abi,
+                                provider
+                            );
+                            const methods = contractList[0].abi.filter(
+                                (_method: any) =>
+                                    _method.type == "function" && _method.stateMutability == "view" && _method.name == method
+                            )
+                            if (methods && methods.length) {
+                                if (!methods[0].inputs || methods[0].inputs.length == 0)
+                                    callFunction(contractObj, methods[0].name)
+                                else if (args && args.length == methods[0].inputs.length)
+                                    callFunction(contractObj, methods[0].name, args)
+                                else addError(`Incorrect number of arguments`)
+                            } else
+                                addError(`Contract method ${method} doesn't exist in contract ${contract}`)
+                        } catch (err) { addError(err) }
                     } else
-                        addError(`Contract method ${method} doesn't exist in contract ${contract}`)
-                } else
-                    addError(`Contract ${contract} doesn't exist in your config`)
+                        addError(`Contract ${contract} doesn't exist in your config`)
+                }
             }
         }
+        else addError("No provider available")
     }, [ethConfig, enabled])
 
     return response
 }
 
-// TODO: Update provider source
 export const writeContractCall = (params: GetContractCallParams) => {
-    console.log(1)
     const { contract, method, args, enabled } = params;
     const { ethConfig } = useConfig()
     const { network } = useEthereum()
-    // const provider = useEvmNode()
+    const { provider } = useEvmNode()
     const { addError } = useErrorsBag()
     const [response, setResponse]: [any, React.Dispatch<React.SetStateAction<any>>] = React.useState<any>(undefined)
 
     const getContractObj = async (contracts: EthContract[]) => {
-        const provider = new ethers.providers.Web3Provider(window.ethereum)
-        await provider.send("eth_requestAccounts", []);
-        const signer = provider.getSigner()
         return new ethers.Contract(
             contracts[0].addresses[network.chainId],
             contracts[0].abi,
-            signer
+            provider
         );
     }
 
@@ -93,29 +93,32 @@ export const writeContractCall = (params: GetContractCallParams) => {
     }
 
     React.useEffect(() => {
-        if (ethConfig && enabled) {
-            const { contractList } = ethConfig
-            if (contractList) {
-                const contracts = contractList.filter((_contract) => _contract.name == contract)
-                if (contracts && contracts.length > 0) {
-                    const methods = contractList[0].abi.filter(
-                        (_method: any) =>
-                            _method.type == "function" && _method.name == method
-                    )
-                    if (methods && methods.length > 0) {
-                        getContractObj(contracts).then((contractObj) => {
-                            if (!methods[0].inputs || methods[0].inputs.length == 0)
-                                callFunction(contractObj, methods[0].name)
-                            else if (args && args.length == methods[0].inputs.length)
-                                callFunction(contractObj, methods[0].name, args)
-                            else addError(`Incorrect number of arguments`)
-                        })
+        setResponse(undefined)
+        if (provider) {
+            if (ethConfig && enabled) {
+                const { contractList } = ethConfig
+                if (contractList) {
+                    const contracts = contractList.filter((_contract) => _contract.name == contract)
+                    if (contracts && contracts.length > 0) {
+                        const methods = contractList[0].abi.filter(
+                            (_method: any) =>
+                                _method.type == "function" && _method.name == method
+                        )
+                        if (methods && methods.length > 0) {
+                            getContractObj(contracts).then((contractObj) => {
+                                if (!methods[0].inputs || methods[0].inputs.length == 0)
+                                    callFunction(contractObj, methods[0].name)
+                                else if (args && args.length == methods[0].inputs.length)
+                                    callFunction(contractObj, methods[0].name, args)
+                                else addError(`Incorrect number of arguments`)
+                            })
+                        } else
+                            addError(`Contract method ${method} doesn't exist in contract ${contract}`)
                     } else
-                        addError(`Contract method ${method} doesn't exist in contract ${contract}`)
-                } else
-                    addError(`Contract ${contract} doesn't exist in your config`)
+                        addError(`Contract ${contract} doesn't exist in your config`)
+                }
             }
-        }
+        } else addError("No provider available")
     }, [ethConfig, enabled])
 
     return response

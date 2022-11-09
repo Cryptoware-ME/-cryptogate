@@ -9,7 +9,6 @@ type Props = {
   readOnlyUrls: NodeUrls;
 };
 
-// TODO: Get Wallet Provider If Connected
 export function EvmNodeProvider({ children, readOnlyUrls }: Props) {
   const [provider, setProvider]: [
     providers.JsonRpcProvider | providers.BaseProvider | undefined,
@@ -22,11 +21,18 @@ export function EvmNodeProvider({ children, readOnlyUrls }: Props) {
   const { networkData } = useNetwork();
 
   React.useEffect(() => {
-    let _provider = new providers.JsonRpcProvider(
-      readOnlyUrls[networkData.chainId]
-    );
-    setProvider(_provider);
-  }, [networkData]);
+    if (!provider && readOnlyUrls[networkData.chainId]) {
+      let _provider = new providers.JsonRpcProvider(
+        readOnlyUrls[networkData.chainId]
+      );
+      setProvider(_provider);
+    }
+  }, [networkData, readOnlyUrls]);
 
-  return <EvmNodeContext.Provider value={provider} children={children} />;
+  return (
+    <EvmNodeContext.Provider
+      value={{ provider, setProvider }}
+      children={children}
+    />
+  );
 }

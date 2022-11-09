@@ -1,5 +1,4 @@
 import React from "react";
-import { ChainId } from "../../constants/chains";
 import { EvmAddress } from "../../models/types";
 import { WalletContext } from "./context";
 
@@ -18,7 +17,6 @@ export function WalletProvider({ children }: Props) {
   ] = React.useState({
     account: undefined,
   } as WalletDataInterface);
-
   return (
     <WalletContext.Provider
       value={{
