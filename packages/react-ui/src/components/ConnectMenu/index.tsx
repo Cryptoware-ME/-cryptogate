@@ -15,7 +15,6 @@ export const ConnectedMenu = ({
   onDisconnect?: any;
   Store?: { Tokens?: string[]; NFTs?: string[] };
 }) => {
-
   return (
     <>
       {ChosenConnectedMenu == ConnectedMenuOptions.NOMENU && <></>}
@@ -39,7 +38,7 @@ export const ConnectedMenu = ({
           ></div>
           <div
             style={{
-              backgroundColor: "#000",
+              backgroundColor: "#fff",
               boxShadow: "0 15px 15px rgba(0, 0, 0, 0.2)",
               opacity: isOpen ? "1" : "0",
               display: "block",

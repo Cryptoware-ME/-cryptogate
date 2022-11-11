@@ -1,11 +1,9 @@
-import { useDapp } from "@cryptogate/react-providers";
+import { readContractCalls } from "../../cryptogate";
 import IERC721Metadata from "../abi/IERC721Metadata.json";
 import ERC721 from "../abi/ERC721.json";
 import { convertResultToReadableFormat } from "../utils/helpers";
 import { NFT_CONTRACT_METHODS } from "../utils/constants";
 import { Interface } from "@ethersproject/abi";
-
-const { useContractCalls } = useDapp;
 
 const IERC721MetadataContractInterface = new Interface(IERC721Metadata.abi);
 const ERC721ContractInterface = new Interface(ERC721);
@@ -21,7 +19,7 @@ export const useNFTMetadataMultiCall = ({
   format?: boolean;
   args?: any[];
 }) => {
-  const result = useContractCalls(
+  const result = readContractCalls(
     NFTs
       ? NFTs.map((nft) => ({
         abi: IERC721MetadataContractInterface,
@@ -31,11 +29,12 @@ export const useNFTMetadataMultiCall = ({
       }))
       : []
   );
-  return result[0] && format ? convertResultToReadableFormat(result) : result;
+  console.log(result)
+  return result && format ? convertResultToReadableFormat(result) : result;
 };
 
 export const useTokenURIIndexCover = ({ NFTs }: { NFTs: string[] }) => {
-  return useContractCalls(
+  return readContractCalls(
     NFTs.map((nft) => ({
       abi: ERC721ContractInterface,
       address: "" + nft,
@@ -46,7 +45,7 @@ export const useTokenURIIndexCover = ({ NFTs }: { NFTs: string[] }) => {
 };
 
 export const useTokenURIIndex = ({ NFT, args }: { NFT: string; args: any }) => {
-  const response = useContractCalls(
+  const response = readContractCalls(
     args
       ? args.map((e: number) => {
         return {
@@ -58,7 +57,6 @@ export const useTokenURIIndex = ({ NFT, args }: { NFT: string; args: any }) => {
       })
       : []
   );
-  console.log("URIs: ", response);
   return response;
 };
 
@@ -72,7 +70,7 @@ export const useTokenOfOwnerByIndex = ({
   var range = Array.from(Array(args[1] - 1).keys()).map((x) => x + 1);
   range.unshift(0);
   console.log("Range: ", range);
-  const result = useContractCalls(
+  const result = readContractCalls(
     range
       ? range.map((e) => {
         return {
@@ -84,6 +82,5 @@ export const useTokenOfOwnerByIndex = ({
       })
       : []
   );
-  console.log(result);
   return result[0] ? convertResultToReadableFormat(result) : result;
 };

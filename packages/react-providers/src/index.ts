@@ -19,7 +19,11 @@ import {
     BSC, BSCTestnet
 } from "./models/chains"
 import { Chain, EthConfig, EthContract, NodeUrls, ContractABIUnit, ContractIO, EvmAddress, CoinbaseConfig, WalletsConfig } from "./models/types"
-import { useBrowserWallets, useEthereum, readContractCall, writeContractCall, useAccount, resolveENS } from "./hooks"
+import {
+    useBrowserWallets, useEthereum,
+    readContractCall, readContractCalls, writeContractCall,
+    useAccount, resolveENS
+} from "./hooks"
 
 export {
     MultiChainProvider,
@@ -44,4 +48,8 @@ export {
 }
 export type { Chain, EthConfig, EthContract, NodeUrls, ContractABIUnit, ContractIO, EvmAddress, CoinbaseConfig, WalletsConfig }
 
-export { useBrowserWallets, useEthereum, readContractCall, writeContractCall, useAccount, resolveENS }
+export {
+    useBrowserWallets, useEthereum,
+    readContractCall, readContractCalls, writeContractCall,
+    useAccount, resolveENS
+}

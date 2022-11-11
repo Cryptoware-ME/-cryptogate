@@ -9,7 +9,6 @@ const index = ({
   onDisconnect: any;
   Store?: { Tokens?: string[]; NFTs?: string[] };
 }) => {
-
   return (
     <div>
       <WalletInformation onDisconnect={onDisconnect} direction="x" />
@@ -20,7 +19,7 @@ const index = ({
             style={{
               width: "100%",
               borderTop: 0,
-              borderBottom: `1px solid #ffffff`,
+              borderBottom: `1px solid #000`,
             }}
           />
           <div
@@ -42,7 +41,7 @@ const index = ({
                 <div
                   style={{
                     borderLeft: `1px solid #ffffff`,
-                    margin: "0 2vw 0 0",
+                    margin: "0 2vw 0 2vw",
                   }}
                 ></div>
               )}

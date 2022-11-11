@@ -20,8 +20,8 @@ export const convertResultToReadableFormat = (result: any) => {
   return result.map((e: any) => {
     return e
       ? toDecimals({
-          number: e[0],
-        })
+        number: e[0],
+      })
       : 0;
   });
 };

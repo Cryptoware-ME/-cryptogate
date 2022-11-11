@@ -14,7 +14,7 @@ export const useEthereum = () => {
     const { walletData, setWalletData } = useWallet()
     const { brave, metamask } = useBrowserWallets()
     const { provider, setProvider } = useEvmNode()
-    const { addError } = useErrorsBag()
+    const { errors, addError } = useErrorsBag()
     const config = useConfig()
     let coinbaseWallet = null;
     let ethereum: any = null;
@@ -94,6 +94,7 @@ export const useEthereum = () => {
         connector = null
         ethereum = null
         coinbaseWallet = null
+        setWalletData({ account: undefined })
         config && setProvider(new providers.JsonRpcProvider(
             config.ethConfig.readOnlyUrls[networkData.chainId]
         ))
@@ -108,6 +109,7 @@ export const useEthereum = () => {
         activateMetamaskWallet,
         activateCoinbaseWallet,
         activateWalletConnect,
-        deactivate
+        deactivate,
+        errors
     }
 }

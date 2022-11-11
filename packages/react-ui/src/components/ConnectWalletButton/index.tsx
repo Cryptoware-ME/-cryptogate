@@ -1,5 +1,4 @@
 import React from "react";
-import { useMultichain } from "@cryptogate/react-providers";
 import { ChainId, useEthereum } from "../../../cryptogate";
 import { ConnectedMenu } from "../ConnectMenu";
 import { ethSignMessage } from "@cryptogate/core";
@@ -9,13 +8,13 @@ import { ConnectedMenuOptions } from "../ConnectWalletComponent";
 
 const signingMessage = async (
   account: any,
-  library: any,
+  provider: any,
   SignatureMessage: string
 ) => {
   return new Promise((resolve, reject) => {
     ethSignMessage({
       account,
-      provider: library,
+      provider: provider,
       message: SignatureMessage + "Wallet Address: " + account,
     })
       .then((sig) => {
@@ -33,7 +32,7 @@ export const ConnectWalletButton = ({
   DisabledComponent,
   ConnectedComponent,
   SignatureMessage,
-  NetworkChainIds = [],
+  NetworkChainIds,
   NetworkAlertMessage,
   ChosenConnectedMenu,
   onSign,
@@ -41,10 +40,10 @@ export const ConnectWalletButton = ({
   setOpenOptions,
 }: {
   ActiveComponent: React.ReactNode;
-  DisabledComponent?: React.ReactNode;
-  ConnectedComponent?: React.ReactNode;
+  DisabledComponent: React.ReactNode;
+  ConnectedComponent: React.ReactNode;
   SignatureMessage: string;
-  NetworkChainIds?: number[];
+  NetworkChainIds: number[];
   NetworkAlertMessage: string;
   ChosenConnectedMenu: ConnectedMenuOptions;
   Store: { Tokens?: string[]; NFTs?: string[] };
@@ -58,18 +57,16 @@ export const ConnectWalletButton = ({
 }) => {
   const [openMenu, setOpenMenu] = React.useState(false);
   const [keyValue, setKeyValue] = React.useState(null as unknown as object);
-  const { ethereum } = useMultichain();
-  const { library, deactivate } = ethereum;
 
-  const { account, network } = useEthereum();
+  const { account, network, provider, deactivate } = useEthereum();
 
   React.useEffect(() => {
-    if (account && library) {
+    if (account && provider) {
       if (
         NetworkChainIds.length == 0 ||
         (NetworkChainIds.length > 0 &&
           (network.chainId
-            ? NetworkChainIds.includes(network.chainId)
+            ? NetworkChainIds.includes(Number(network.chainId))
             : false))
       ) {
         if (onSign) {
@@ -78,7 +75,7 @@ export const ConnectWalletButton = ({
             setKeyValue(key);
             onSign(key);
           } else {
-            signingMessage(account, library, SignatureMessage).then((key) => {
+            signingMessage(account, provider, SignatureMessage).then((key) => {
               setKeyValue(key as any);
               onSign(key as any);
             });
@@ -91,7 +88,7 @@ export const ConnectWalletButton = ({
         deactivate();
       }
     }
-  }, [account, library]);
+  }, [account, provider]);
 
   return account ? (
     <>

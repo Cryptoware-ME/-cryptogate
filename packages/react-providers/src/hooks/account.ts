@@ -3,13 +3,13 @@ import { ethers } from "ethers";
 import { EvmAddress } from "../models/types";
 import { useErrorsBag, useEvmNode } from "../providers";
 
-export const useAccount = (address: EvmAddress) => {
+export const useAccount = (address: EvmAddress | undefined) => {
     const [ethBalance, setEhBalance]: [string | undefined, React.Dispatch<React.SetStateAction<string | undefined>>] = React.useState()
     const [ens, setEns]: [string | undefined, React.Dispatch<React.SetStateAction<string | undefined>>] = React.useState()
     const { provider } = useEvmNode()
 
     React.useEffect(() => {
-        if (provider) {
+        if (provider && address) {
             provider.getBalance(address).then((balanceBigNbWei) => {
                 setEhBalance(ethers.utils.formatEther(balanceBigNbWei.toString()))
             })

@@ -1,20 +1,12 @@
-import { ConnectedMenu } from "../components/ConnectWalletComponent";
-
 import { Active, Disabled } from "./components";
+import { ChainId } from "../../cryptogate"
 
 export { Active, Disabled };
 
 export const defaults = {
-  EthWallets: [],
-  SolWallets: [],
-  // ConnectedMenu: ConnectedMenu.WALLETINFORMATION,
-  NetworkChainIds: [1],
+  NetworkChainIds: [ChainId.Mainnet],
   ConnectWalletButtonText: "Connect Wallet",
   SignatureMessage:
     "This is the default signaure message provided by Cryptogate.",
   NetworkAlertMessage: "Selected network is not supported.",
-  WalletListStyle: {
-    background: "white",
-    top: "0",
-  },
 };

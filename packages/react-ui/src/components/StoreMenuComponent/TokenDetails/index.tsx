@@ -3,11 +3,9 @@ import { useTokensMultiCall } from "../../../hooks/useTokensMultiCall";
 import { toDecimals } from "../../../utils/helpers";
 import { TOKEN_CONTRACT_METHODS } from "../../../utils/constants";
 import styles from "./TokenDetails.module.css";
-import { useTheme } from "@cryptogate/react-providers";
 
 const index = ({ tokens }: { tokens?: string[] }) => {
   const { account } = useEthereum();
-  const { Theme } = useTheme();
 
   const balance = useTokensMultiCall({
     tokenList: tokens as string[],
@@ -32,16 +30,16 @@ const index = ({ tokens }: { tokens?: string[] }) => {
         style={{
           fontWeight: "bold",
           lineHeight: 0,
-          color: Theme.primaryText,
+          color: "#000",
         }}
       >
         TOKENS
       </p>
       <div className={styles.FtokenDetailsContainer}>
-        {balance[0] &&
-          symbol[0] &&
-          decimals[0] &&
-          balance.map((e, index) => (
+        {balance &&
+          symbol &&
+          decimals &&
+          balance.map((e: any, index: any) => (
             <div key={`token-mainlist-${index}`}>
               {e && (
                 <div>
@@ -57,15 +55,15 @@ const index = ({ tokens }: { tokens?: string[] }) => {
                         style={{
                           margin: 0,
                           fontWeight: "500",
-                          color: Theme.primaryText,
+                          color: "#000",
                         }}
                       >
                         {symbol[index]}
                       </p>
-                      <p style={{ margin: 0, color: Theme.secondaryText }}>
+                      <p style={{ margin: 0, color: "#323232" }}>
                         {toDecimals({
-                          number: e[0],
-                          precision: 7,
+                          number: e,
+                          precision: 5,
                           tokenDecimals: decimals[index],
                         })}
                       </p>

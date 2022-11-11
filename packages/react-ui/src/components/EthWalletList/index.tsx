@@ -18,8 +18,11 @@ const EthWalletListComp = ({
   return (
     <div
       style={{
-        border: "black 1px solid",
-        borderRadius: "8px",
+        borderLeft: "black 1px solid",
+        borderTop: "black 1px solid",
+        borderRight: "black 1px solid",
+        borderTopLeftRadius: "8px",
+        borderTopRightRadius: "8px",
         marginBottom: "20px",
       }}
     >

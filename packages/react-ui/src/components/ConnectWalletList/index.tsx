@@ -5,28 +5,21 @@ import SolWalletListComp from "../SolWalletList";
 export const ConnectWalletList = ({
   openOptions,
   setOpenOptions,
-  EthWalletList = [],
-  SolWalletList = [],
-  WalletListStyle,
+  EthWalletList,
+  SolWalletList,
 }: {
   openOptions: boolean;
   setOpenOptions: any;
-  EthWalletList?: EthWallets[];
-  SolWalletList?: SolWallets[];
-  WalletListStyle?: {
-    top?: any;
-    background?: string;
-  };
+  EthWalletList: EthWallets[];
+  SolWalletList: SolWallets[];
 }) => {
   return (
     <>
       <div
         style={{
           width: 270,
-          top: WalletListStyle?.top ? WalletListStyle.top : 0,
-          backgroundColor: WalletListStyle?.background
-            ? WalletListStyle.background
-            : "white",
+          top: 0,
+          backgroundColor: "white",
           transition: "0.5s",
           zIndex: 10001,
           position: "fixed",
@@ -61,9 +54,7 @@ export const ConnectWalletList = ({
               Connect with one of the available wallet providers.
             </p>
             <br />
-            { EthWalletList.length}
-            { 
-            EthWalletList.length > 0 && (
+            {EthWalletList.length > 0 && (
               <EthWalletListComp EthWalletList={EthWalletList} />
             )}
             <br />

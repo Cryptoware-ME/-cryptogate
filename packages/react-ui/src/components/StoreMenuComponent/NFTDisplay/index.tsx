@@ -8,12 +8,10 @@ import {
 import { areAllElementsValid } from "../../../utils/helpers";
 import NFTSlider from "./NFTSlider";
 import NFTCollection from "./NFTCollection";
-import { useTheme } from "@cryptogate/react-providers";
 
 const index = ({ NFTs, Full }: { NFTs: string[]; Full: boolean }) => {
   const [clicked, setClicked] = useState(-1);
   const { account } = useEthereum();
-  const { Theme } = useTheme();
 
   var balances = useNFTMetadataMultiCall({
     NFTs,
@@ -21,15 +19,17 @@ const index = ({ NFTs, Full }: { NFTs: string[]; Full: boolean }) => {
     format: true,
     args: [account],
   });
+  console.log("BALANCES: ", balances);
 
   var tpmNFTs = [];
   var tpmBalances = [];
-  for (var i = 0; i < balances.length; i++) {
-    if (balances[i] > 0) {
-      tpmNFTs.push(NFTs[i]);
-      tpmBalances.push(balances[i]);
+  if (balances)
+    for (var i = 0; i < balances.length; i++) {
+      if (balances[i] > 0) {
+        tpmNFTs.push(NFTs[i]);
+        tpmBalances.push(balances[i]);
+      }
     }
-  }
   balances = tpmBalances;
   NFTs = tpmNFTs;
 
@@ -48,7 +48,7 @@ const index = ({ NFTs, Full }: { NFTs: string[]; Full: boolean }) => {
       }}
     >
       <p
-        style={{ fontWeight: "bold", lineHeight: 0, color: Theme.primaryText }}
+        style={{ fontWeight: "bold", lineHeight: 0, color: "#000" }}
         onClick={() => {
           if (clicked != -1) {
             setClicked(-1);

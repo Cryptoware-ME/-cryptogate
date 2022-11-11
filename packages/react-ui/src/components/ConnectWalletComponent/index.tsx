@@ -30,14 +30,13 @@ export const ConnectWalletComponent = ({
   ActiveComponent = <Active />,
   DisabledComponent = <Disabled />,
   ConnectedComponent = <Identicon />,
-  EthWalletList = defaults.EthWallets,
-  SolWalletList = defaults.SolWallets,
+  EthWalletList = [EthWallets.ALL],
+  SolWalletList = [],
   SignatureMessage = defaults.SignatureMessage,
   NetworkChainIds = defaults.NetworkChainIds,
   NetworkAlertMessage = defaults.NetworkAlertMessage,
   ConnectedMenuChosen = ConnectedMenuOptions.WALLETINFORMATION,
   Store = {},
-  WalletListStyle = defaults.WalletListStyle,
   onSign,
 }: {
   ActiveComponent?: React.ReactNode;
@@ -50,10 +49,6 @@ export const ConnectWalletComponent = ({
   NetworkAlertMessage?: string;
   ConnectedMenuChosen?: ConnectedMenuOptions;
   Store?: { Tokens?: string[]; NFTs?: string[] };
-  WalletListStyle?: {
-    top?: any;
-    background?: string;
-  };
   onSign?: (key: {
     address: string;
     message: string;
@@ -83,7 +78,6 @@ export const ConnectWalletComponent = ({
           setOpenOptions={setOpenOptions}
           EthWalletList={EthWalletList}
           SolWalletList={SolWalletList}
-          WalletListStyle={WalletListStyle}
         />
       ) : (
         <></>
