@@ -1,0 +1,88 @@
+import React from "react";
+import { writeContractCall } from "../../../../cryptogate";
+import {
+  ContractABIUnit,
+  EvmAddress,
+} from "../../../../cryptogate/models/types";
+import Loader from "../../Loader";
+import styles from "./WriteMethodComponent.module.css";
+
+const WriteMethodComponent = ({
+  method,
+  contractObj,
+}: {
+  method: ContractABIUnit;
+  contractObj: {
+    address: EvmAddress;
+    abi: ContractABIUnit[];
+  };
+}) => {
+  const [args, setArgs] = React.useState([]);
+  const [enabled, setEnabled] = React.useState(false);
+  const [isLoading, setLoading] = React.useState(false);
+  const { send, loading, error, response } = writeContractCall({
+    address: contractObj.address,
+    abi: contractObj.abi,
+    method: method.name,
+  });
+
+  React.useEffect(() => {
+    if (response || error) setLoading(false);
+  }, [response, error]);
+
+  const extractErrorMessage = (msg: string) => {
+    if (msg.startsWith("sending a transaction requires a signer"))
+      return "Authentication error: Connect wallet to send a transaction";
+    else if (msg.includes("Ownable: caller is not the owner"))
+      return "Authorization error: Function can only be called by contract owner";
+    else return msg;
+  };
+
+  const queryContract = async (e: any, method: any) => {
+    e.preventDefault();
+    setLoading(true);
+    let args: any = [];
+    if (method.inputs && method.inputs.length) {
+      method.inputs.map((input: any) =>
+        args.push(
+          document.getElementById(method.name + "-" + input.name)?.value
+        )
+      );
+      setEnabled(true);
+      setArgs(args);
+    } else {
+      setEnabled(true);
+      setArgs([]);
+    }
+    send(args);
+  };
+
+  return (
+    <form
+      method="POST"
+      onSubmit={(e) => queryContract(e, method)}
+      className={styles.methodComponent}
+    >
+      <h1>{method.name}</h1>
+      {method.inputs &&
+        method.inputs.map((input, index) => (
+          <input
+            key={index}
+            id={`${method.name}-${input.name}`}
+            placeholder={input.name}
+            required
+          />
+        ))}
+      <button type="submit">Query</button> <br /> <br />
+      {isLoading && <Loader />}
+      {response}
+      {!isLoading && (
+        <span className={styles.error}>
+          {error && extractErrorMessage(error.message.toString())}
+        </span>
+      )}
+    </form>
+  );
+};
+
+export default WriteMethodComponent;

@@ -1,0 +1,44 @@
+.methodComponent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 24px;
+  margin: 10px 0;
+  background: #e7e0ec;
+  border-color: transparent;
+  border-radius: 20px;
+}
+.methodComponent input {
+  box-sizing: border-box;
+  width: 329px;
+  height: 34px;
+  margin-bottom: 10px;
+  padding-left: 10px;
+  background: #ffffff;
+  border: 1px solid #79747e;
+  border-radius: 4px;
+}
+.methodComponent button {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 24px;
+  gap: 10px;
+  width: 86px;
+  height: 40px;
+  background: #ab92ec;
+  border: 1px solid transparent;
+  border-radius: 20px;
+  color: white;
+}
+.methodComponent button:hover {
+  cursor: pointer;
+  border-color: #ab92ec;
+  color: #ab92ec;
+  background-color: white;
+}
+
+.error {
+  color: red;
+}

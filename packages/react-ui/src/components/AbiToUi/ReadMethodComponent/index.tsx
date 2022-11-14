@@ -1,0 +1,79 @@
+import React from "react";
+import { readContractCall } from "../../../../cryptogate";
+import {
+  ContractABIUnit,
+  EvmAddress,
+} from "../../../../cryptogate/models/types";
+import Loader from "../../Loader";
+import styles from "./ReadMethodComponent.module.css";
+
+const ReadMethodComponent = ({
+  method,
+  contractObj,
+}: {
+  method: ContractABIUnit;
+  contractObj: {
+    address: EvmAddress;
+    abi: ContractABIUnit[];
+  };
+}) => {
+  const [args, setArgs] = React.useState<any[] | undefined>();
+  const [enabled, setEnabled] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
+  const { response, error } = readContractCall({
+    address: contractObj.address,
+    abi: contractObj.abi,
+    method: method.name,
+    args,
+    enabled,
+  });
+
+  React.useEffect(() => {
+    if (response || error) setLoading(false);
+  }, [response, error]);
+
+  const queryContract = async (e: any, method: any) => {
+    e.preventDefault();
+    setLoading(true);
+    let args: any = [];
+    if (method.inputs && method.inputs.length) {
+      method.inputs.map((input: any) =>
+        args.push(
+          document.getElementById(method.name + "-" + input.name)?.value
+        )
+      );
+      setEnabled(true);
+      setArgs(args);
+    } else {
+      setEnabled(true);
+      setArgs([]);
+    }
+  };
+
+  return (
+    <form
+      method="POST"
+      onSubmit={(e) => queryContract(e, method)}
+      className={styles.methodComponent}
+    >
+      <h1>{method.name}</h1>
+      {method.inputs &&
+        method.inputs.map((input, index) => (
+          <input
+            key={index}
+            id={`${method.name}-${input.name}`}
+            placeholder={input.name}
+            required
+          />
+        ))}
+      <button type="submit">Query</button> <br /> <br />
+      {loading && <Loader />}
+      {!loading && response}
+      {!loading && (
+        <span className={styles.error}>{error && error.toString()}</span>
+      )}
+    </form>
+  );
+};
+
+export default ReadMethodComponent;

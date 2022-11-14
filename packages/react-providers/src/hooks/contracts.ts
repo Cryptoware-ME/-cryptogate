@@ -1,10 +1,10 @@
 import React from "react";
 import { useConfig, useEvmNode, useErrorsBag } from "../providers";
 import * as ethers from "ethers"
-import { EthContract, EvmAddress } from "../models/types";
+import { ContractABIUnit, EthContract, EvmAddress } from "../models/types";
 import { useEthereum } from "./ethereum";
 
-type GetContractCallParams = {
+interface GetContractCallParams {
     abi?: ethers.ContractInterface
     address?: EvmAddress
     contract?: string,
@@ -19,12 +19,14 @@ export const readContractCall = ({ abi, address, contract, method, args, enabled
     const { addError } = useErrorsBag()
     const { network } = useEthereum()
     const [response, setResponse]: [any, React.Dispatch<React.SetStateAction<any>>] = React.useState<any>(undefined)
+    const [error, setError]: [any, React.Dispatch<React.SetStateAction<any>>] = React.useState<any>(undefined)
 
-    const callFunction = async (contract: any, name: string, args?: any[]) => {
+    const callFunction = async (contract: any, args?: any[]) => {
         try {
-            const res = args ? await contract[name](...args) : await contract[name]();
+            const res = args ? await contract[method](...args) : await contract[method]();
             setResponse(res.toString())
         } catch (err) {
+            setError(err)
             addError(err)
         }
     }
@@ -33,62 +35,60 @@ export const readContractCall = ({ abi, address, contract, method, args, enabled
         setResponse(undefined)
         if (provider) {
             if (enabled) {
+                let _abi: ethers.ContractInterface | ContractABIUnit[] | undefined = undefined;
+                let _address: EvmAddress | undefined = undefined;
                 if (abi && address) {
-                    let contractObj = new ethers.Contract(
-                        address,
-                        abi,
-                        provider
-                    );
-                    callFunction(contractObj, method, args)
+                    _abi = abi;
+                    _address = address
                 }
                 else if (ethConfig) {
                     const { contractList } = ethConfig
                     if (contractList) {
                         const contracts = contractList.filter((_contract) => _contract.name == contract)
                         if (contracts && contracts.length) {
-                            try {
-                                let contractObj = new ethers.Contract(
-                                    contracts[0].addresses[network.chainId],
-                                    contracts[0].abi,
-                                    provider
-                                );
-                                const methods = contractList[0].abi.filter(
-                                    (_method: any) =>
-                                        _method.type == "function" && _method.stateMutability == "view" && _method.name == method
-                                )
-                                if (methods && methods.length) {
-                                    if (!methods[0].inputs || methods[0].inputs.length == 0)
-                                        callFunction(contractObj, method)
-                                    else if (args && args.length == methods[0].inputs.length)
-                                        callFunction(contractObj, method, args)
-                                    else addError(`Incorrect number of arguments`)
-                                } else
-                                    addError(`Contract method ${method} doesn't exist in contract ${contract}`)
-                            } catch (err) { addError(err) }
-                        } else
+                            _abi = contracts[0].abi;
+                            _address = contracts[0].addresses[network.chainId]
+                        } else {
+                            setError(`Contract ${contract} doesn't exist in your config`);
                             addError(`Contract ${contract} doesn't exist in your config`)
+                        }
+                    }
+                }
+                if (_abi && _address) {
+                    try {
+                        const contractObj = new ethers.Contract(_address, _abi, provider);
+                        callFunction(contractObj, args)
+                    } catch (err) {
+                        setError(err);
+                        addError(err)
                     }
                 }
             }
         }
-        else addError("No provider available")
-    }, [ethConfig, enabled])
+        else {
+            setError("No provider available");
+            addError("No provider available")
+        }
+    }, [ethConfig, enabled, args])
 
-    return response
+    return { response, error }
 }
 
+// TODO:: TEST IN CONNECT MENU
 export const readContractCalls = (params: GetContractCallParams[]) => {
     const { ethConfig } = useConfig()
     const { provider } = useEvmNode()
     const { addError } = useErrorsBag()
     const { network } = useEthereum()
     const [response, setResponse]: [any, React.Dispatch<React.SetStateAction<any>>] = React.useState<any>([])
+    const [error, setError]: [any, React.Dispatch<React.SetStateAction<any>>] = React.useState<any>(undefined)
 
     const callFunction = async (contract: any, name: string, args?: any[]) => {
         try {
             const res = args ? await contract[name](...args) : await contract[name]();
             return res
         } catch (err) {
+            setError(err)
             addError(err)
         }
     }
@@ -96,41 +96,37 @@ export const readContractCalls = (params: GetContractCallParams[]) => {
     React.useEffect(() => {
         setResponse(undefined)
         if (provider) {
+            let _abi: ethers.ContractInterface | ContractABIUnit[] | undefined = undefined;
+            let _address: EvmAddress | undefined = undefined;
             const res = params.map(async (param) => {
                 if (param.abi && param.address) {
-                    let contractObj = new ethers.Contract(
-                        param.address,
-                        param.abi,
-                        provider
-                    );
-                    return await callFunction(contractObj, param.method, param.args)
+                    _abi = param.abi;
+                    _address = param.address
                 }
                 else if (ethConfig) {
                     const { contractList } = ethConfig
                     if (contractList) {
                         const contracts = contractList.filter((_contract) => _contract.name == param.contract)
                         if (contracts && contracts.length) {
-                            try {
-                                let contractObj = new ethers.Contract(
-                                    contracts[0].addresses[network.chainId],
-                                    contracts[0].abi,
-                                    provider
-                                );
-                                const methods = contractList[0].abi.filter(
-                                    (_method: any) =>
-                                        _method.type == "function" && _method.stateMutability == "view" && _method.name == param.method
-                                )
-                                if (methods && methods.length) {
-                                    if (!methods[0].inputs || methods[0].inputs.length == 0)
-                                        callFunction(contractObj, param.method)
-                                    else if (param.args && param.args.length == methods[0].inputs.length)
-                                        callFunction(contractObj, param.method, param.args)
-                                    else addError(`Incorrect number of arguments`)
-                                } else
-                                    addError(`Contract method ${param.method} doesn't exist in contract ${param.contract}`)
-                            } catch (err) { addError(err) }
-                        } else
+                            _abi = contracts[0].abi;
+                            _address = contracts[0].addresses[network.chainId]
+                        } else {
+                            setError(`Contract ${param.contract} doesn't exist in your config`)
                             addError(`Contract ${param.contract} doesn't exist in your config`)
+                        }
+                    }
+                }
+                if (_abi && _address) {
+                    try {
+                        const contractObj = new ethers.Contract(
+                            _address,
+                            _abi,
+                            provider
+                        );
+                        callFunction(contractObj, param.method, param.args)
+                    } catch (err) {
+                        setError(err)
+                        addError(err)
                     }
                 }
             })
@@ -139,114 +135,82 @@ export const readContractCalls = (params: GetContractCallParams[]) => {
         else addError("No provider available")
     }, [ethConfig])
 
-    return response
+    return { response, error }
 }
 
-export const writeContractCall = (params: GetContractCallParams) => {
-    const { contract, method, args, enabled } = params;
+interface PostContractCallParams {
+    abi?: ethers.ContractInterface
+    address?: EvmAddress
+    contract?: string,
+    method: string,
+}
+
+export const writeContractCall = ({ abi, address, contract, method }: PostContractCallParams) => {
     const { ethConfig } = useConfig()
-    const { network } = useEthereum()
-    const { provider } = useEvmNode()
     const { addError } = useErrorsBag()
-    const [response, setResponse]: [any, React.Dispatch<React.SetStateAction<any>>] = React.useState<any>(undefined)
+    const { network, provider } = useEthereum()
+    const [contractObj, setContractObj]: [ethers.Contract | undefined, React.Dispatch<React.SetStateAction<ethers.Contract | undefined>>] = React.useState()
+    const [response, setResponse]: [any, React.Dispatch<React.SetStateAction<any>>] = React.useState(undefined)
+    const [error, setError]: [any, React.Dispatch<React.SetStateAction<any>>] = React.useState(undefined)
+    const [loading, setLoading]: [boolean, React.Dispatch<React.SetStateAction<boolean>>] = React.useState(false)
 
-    const getContractObj = async (contracts: EthContract[]) => {
-        return new ethers.Contract(
-            contracts[0].addresses[network.chainId],
-            contracts[0].abi,
-            provider
-        );
-    }
-
-    const callFunction = async (contract: any, name: string, args?: any[]) => {
-        try {
-            // ! Wrap with promise to resolve & reject
-            const res = args ? await contract[name](...args) : await contract[name]();
-            setResponse(res.toString())
-        } catch (err) {
-            addError(err)
+    const send = async (_contractObj: ethers.Contract | undefined, args?: any) => {
+        if (_contractObj) {
+            setLoading(true)
+            try {
+                const res = args ? await _contractObj[method](...args) : await _contractObj[method]();
+                setResponse(res.toString())
+                setLoading(false)
+            } catch (err) {
+                setError(err)
+                addError(err)
+            }
         }
     }
 
     React.useEffect(() => {
         setResponse(undefined)
         if (provider) {
-            if (ethConfig && enabled) {
+            let _abi: ethers.ContractInterface | ContractABIUnit[] | undefined = undefined;
+            let _address: EvmAddress | undefined = undefined;
+            if (abi && address) {
+                _abi = abi;
+                _address = address
+            }
+            else if (ethConfig) {
                 const { contractList } = ethConfig
                 if (contractList) {
                     const contracts = contractList.filter((_contract) => _contract.name == contract)
-                    if (contracts && contracts.length > 0) {
-                        const methods = contractList[0].abi.filter(
-                            (_method: any) =>
-                                _method.type == "function" && _method.name == method
-                        )
-                        if (methods && methods.length > 0) {
-                            getContractObj(contracts).then((contractObj) => {
-                                if (!methods[0].inputs || methods[0].inputs.length == 0)
-                                    callFunction(contractObj, method)
-                                else if (args && args.length == methods[0].inputs.length)
-                                    callFunction(contractObj, method, args)
-                                else addError(`Incorrect number of arguments`)
-                            })
-                        } else
-                            addError(`Contract method ${method} doesn't exist in contract ${contract}`)
-                    } else
+                    if (contracts && contracts.length) {
+                        _abi = contracts[0].abi;
+                        _address = contracts[0].addresses[network.chainId]
+                    } else {
+                        setError(`Contract ${contract} doesn't exist in your config`);
                         addError(`Contract ${contract} doesn't exist in your config`)
+                    }
                 }
             }
-        } else addError("No provider available")
-    }, [ethConfig, enabled])
+            if (_abi && _address) {
+                try {
+                    const _contractObj = new ethers.Contract(_address, _abi, provider)
+                    setContractObj(_contractObj);
+                } catch (err) {
+                    setError(err);
+                    addError(err)
+                }
+            }
 
-    return response
+        }
+        else {
+            setError("No provider available");
+            addError("No provider available")
+        }
+    }, [ethConfig, provider])
+
+    return {
+        send: (args?: any) => { send(contractObj, args) },
+        loading,
+        response,
+        error
+    }
 }
-
-// export const getContractCall = (method: string) => {
-//     const { ethConfig } = useConfig()
-//     const [contracts, setContracts] = React.useState<EthContract[]>()
-//     const [methods, setMethods] = React.useState<ContractMethod>()
-
-//     React.useEffect(() => {
-//         if (ethConfig) {
-//             const { contractList } = ethConfig
-//             setContracts(contractList)
-//         }
-//     }, [ethConfig])
-
-//     React.useEffect(() => {
-//         if (contracts) {
-//             let provider = new ethers.providers.JsonRpcProvider(
-//                 "https://goerli.infura.io/v3/98d5cf1c763f4224afa492b70366effa"
-//             );
-//             let contract = new ethers.Contract(
-//                 contracts[0].addresses[5],
-//                 contracts[0].abi,
-//                 provider
-//             );
-//             let methodsObj: ContractMethod = {};
-//             contracts[0].abi.filter(
-//                 (item: any) =>
-//                     item.type == "function"
-//             ).map((method: any) => {
-//                 methodsObj[method.name] = (params: any) => {
-//                     return new Promise(async (resolve, reject) => {
-//                         let tx = await contract[`${method.name}`](...params);
-//                         console.log(tx)
-//                         resolve
-//                         /// listen to TX, when TX done
-//                         /// call resolve or reject
-//                     })
-//                 }
-//             })
-//             setMethods(methodsObj)
-//         }
-//     }, [contracts])
-
-//     return methods
-
-
-//     // let contract = new ethers.Contract(
-//     //     args.address,
-//     //     Spartan721A.abi,
-//     //     provider
-//     // );
-// }

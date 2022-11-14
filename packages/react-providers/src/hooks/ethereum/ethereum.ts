@@ -25,7 +25,7 @@ export const useEthereum = () => {
     const setData = (_account: EvmAddress, _chainId: number, _provider: any) => {
         setWalletData({ account: _account })
         setNetworkData({ chainId: _chainId, chain: getChainById(_chainId) })
-        _provider && setProvider(new providers.Web3Provider(_provider))
+        _provider && setProvider(new ethers.providers.Web3Provider(_provider).getSigner())
     }
 
     const activateBraveWallet = async () => {
@@ -51,7 +51,7 @@ export const useEthereum = () => {
     const activateCoinbaseWallet = async () => {
         if (config && config.walletsConfig && config.walletsConfig.coinbase) {
             coinbaseWallet = new CoinbaseWalletSDK(config.walletsConfig.coinbase);
-            // TODO: DOUBLE CCECK THE RES OF ethereum.
+            // TODO:: DOUBLE CECK THE RES OF ethereum.
             // Might not need providers.Web3Provider
             ethereum = coinbaseWallet.makeWeb3Provider(
                 "https://goerli.infura.io/v3/7e3e924eb24f4cb99fb7dc68e559cdff",
