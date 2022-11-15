@@ -15,7 +15,7 @@ const index = ({
 
   useEffect(() => {
     if (URI) {
-      const validURI = isUriIPFS(URI[0]);
+      const validURI = isUriIPFS(URI);
       if (validURI) {
         const newURI = `https://gateway.ipfs.io/ipfs/${validURI}`;
         fetch(newURI)
@@ -78,7 +78,6 @@ const index = ({
           backgroundColor: "#666666",
           borderRadius: "0px 0px 10px 10px",
           color: "white",
-          width: "100%",
           padding: "1px 1vw",
         }}
       >

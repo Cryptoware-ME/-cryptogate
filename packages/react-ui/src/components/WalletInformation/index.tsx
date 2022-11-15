@@ -1,4 +1,4 @@
-import { useEthereum, useAccount } from "../../../cryptogate";
+import { useEthereum } from "../../../cryptogate";
 import { Identicon } from "../Identicon";
 import DisconnectBtn from "./DisconnectBtn";
 
@@ -9,8 +9,7 @@ const WalletInformation = ({
   onDisconnect: any;
   direction?: string;
 }) => {
-  const { account, deactivate } = useEthereum();
-  const { ethBalance, ens } = useAccount(account);
+  const { account, deactivate, ethBalance, ens } = useEthereum();
   const handleDisconnect = () => {
     account && deactivate();
     onDisconnect();

@@ -12,18 +12,16 @@ export const NFT_CONTRACT_METHODS = {
 };
 
 export const build_slider_settings = ({
-  full = false,
   rows = 1,
 }: {
-  full?: boolean;
   rows?: number;
 }) => ({
   autoplay: true,
   autoplaySpeed: 2000,
-  dots: true,
+  dots: false,
   infinite: true,
   speed: 500,
-  slidesToShow: full ? 2 : 1,
-  slidesToScroll: full ? 2 : 1,
+  slidesToShow: 1,
+  slidesToScroll: 1,
   rows,
 });

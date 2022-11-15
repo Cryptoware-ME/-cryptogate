@@ -1,31 +1,31 @@
-
+import { ethers, providers } from "ethers";
 import CoinbaseWalletSDK from "@coinbase/wallet-sdk";
 import WalletConnect from "@walletconnect/client";
 import QRCodeModal from "@walletconnect/qrcode-modal";
-import { ethers, providers } from "ethers";
-import { useBrowserWallets } from "./useBrowserWallet"
 import { useConfig, useErrorsBag, useEvmNode, useNetwork } from "../../providers"
+import { useBrowserWallets } from "./useBrowserWallet"
 import { useWallet } from "../../providers/wallet";
 import { getChainById } from "../../helpers";
 import { EvmAddress } from "../../models/types";
+import { useAccount } from "../account";
 
 export const useEthereum = () => {
     const { networkData, setNetworkData } = useNetwork()
     const { walletData, setWalletData } = useWallet()
+    const { account } = walletData;
     const { brave, metamask } = useBrowserWallets()
     const { provider, setProvider } = useEvmNode()
     const { errors, addError } = useErrorsBag()
+    const { ens, ethBalance } = useAccount(account)
     const config = useConfig()
     let coinbaseWallet = null;
     let ethereum: any = null;
     let connector: any = null;
 
-    const { account } = walletData;
-
     const setData = (_account: EvmAddress, _chainId: number, _provider: any) => {
         setWalletData({ account: _account })
         setNetworkData({ chainId: _chainId, chain: getChainById(_chainId) })
-        _provider && setProvider(new ethers.providers.Web3Provider(_provider).getSigner())
+        _provider && setProvider(new ethers.providers.Web3Provider(_provider))
     }
 
     const activateBraveWallet = async () => {
@@ -51,7 +51,7 @@ export const useEthereum = () => {
     const activateCoinbaseWallet = async () => {
         if (config && config.walletsConfig && config.walletsConfig.coinbase) {
             coinbaseWallet = new CoinbaseWalletSDK(config.walletsConfig.coinbase);
-            // TODO:: DOUBLE CECK THE RES OF ethereum.
+            // TODO: DOUBLE CCECK THE RES OF ethereum.
             // Might not need providers.Web3Provider
             ethereum = coinbaseWallet.makeWeb3Provider(
                 "https://goerli.infura.io/v3/7e3e924eb24f4cb99fb7dc68e559cdff",
@@ -102,6 +102,8 @@ export const useEthereum = () => {
 
     return {
         account,
+        ethBalance,
+        ens,
         provider,
         active: !!provider,
         network: networkData,
@@ -110,6 +112,6 @@ export const useEthereum = () => {
         activateCoinbaseWallet,
         activateWalletConnect,
         deactivate,
-        errors
+        errors,
     }
 }

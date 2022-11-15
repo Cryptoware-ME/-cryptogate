@@ -9,19 +9,19 @@ export const toDecimals = ({
   precision?: any;
   tokenDecimals?: any;
 }) => {
+  if (number._hex == "0x00") return 0
   const decimals = new BigNumber(10).exponentiatedBy(tokenDecimals);
   if (precision === 0) {
     return new BigNumber(number._hex).dividedBy(decimals).toNumber();
   }
-  return new BigNumber(number._hex).dividedBy(decimals).toPrecision(precision);
+  const res = new BigNumber(number._hex).dividedBy(decimals).toString().split(".")
+  return Number(res[0] + "." + res[1].slice(0, precision))
 };
 
 export const convertResultToReadableFormat = (result: any) => {
   return result.map((e: any) => {
     return e
-      ? toDecimals({
-        number: e[0],
-      })
+      ? e.toString()
       : 0;
   });
 };

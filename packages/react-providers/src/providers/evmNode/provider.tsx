@@ -11,18 +11,10 @@ type Props = {
 
 export function EvmNodeProvider({ children, readOnlyUrls }: Props) {
   const [provider, setProvider]: [
-    (
-      | providers.JsonRpcProvider
-      | providers.JsonRpcSigner
-      | providers.BaseProvider
-      | undefined
-    ),
+    providers.JsonRpcProvider | providers.Web3Provider | undefined,
     React.Dispatch<
       React.SetStateAction<
-        | providers.JsonRpcProvider
-        | providers.JsonRpcSigner
-        | providers.BaseProvider
-        | undefined
+        providers.JsonRpcProvider | providers.Web3Provider | undefined
       >
     >
   ] = React.useState();

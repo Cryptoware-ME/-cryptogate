@@ -47,10 +47,7 @@ const index = ({
               )}
 
             {Store.NFTs && Store.NFTs.length > 0 && (
-              <NFTDisplay
-                NFTs={Store.NFTs}
-                Full={!(Store.Tokens && Store.Tokens.length)}
-              />
+              <NFTDisplay NFTs={Store.NFTs} />
             )}
           </div>
         </>

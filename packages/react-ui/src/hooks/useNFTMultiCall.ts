@@ -29,7 +29,6 @@ export const useNFTMetadataMultiCall = ({
       }))
       : []
   );
-  console.log(result)
   return result && format ? convertResultToReadableFormat(result) : result;
 };
 
@@ -37,7 +36,7 @@ export const useTokenURIIndexCover = ({ NFTs }: { NFTs: string[] }) => {
   return readContractCalls(
     NFTs.map((nft) => ({
       abi: ERC721ContractInterface,
-      address: "" + nft,
+      address: nft,
       method: NFT_CONTRACT_METHODS.TOKEN_URI,
       args: [1],
     }))
@@ -69,7 +68,6 @@ export const useTokenOfOwnerByIndex = ({
 }) => {
   var range = Array.from(Array(args[1] - 1).keys()).map((x) => x + 1);
   range.unshift(0);
-  console.log("Range: ", range);
   const result = readContractCalls(
     range
       ? range.map((e) => {

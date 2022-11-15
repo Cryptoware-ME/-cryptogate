@@ -13,13 +13,6 @@ export enum EthWallets {
   BRAVEWALLET = "braveWallet",
 }
 
-export enum SolWallets {
-  ALL = "all",
-  PHANTOM = "phantom",
-  SLOPE = "slope",
-  SOLFLARE = "solflare",
-}
-
 export enum ConnectedMenuOptions {
   NOMENU = "nomenu",
   WALLETINFORMATION = "walletinformation",
@@ -31,7 +24,6 @@ export const ConnectWalletComponent = ({
   DisabledComponent = <Disabled />,
   ConnectedComponent = <Identicon />,
   EthWalletList = [EthWallets.ALL],
-  SolWalletList = [],
   SignatureMessage = defaults.SignatureMessage,
   NetworkChainIds = defaults.NetworkChainIds,
   NetworkAlertMessage = defaults.NetworkAlertMessage,
@@ -43,7 +35,6 @@ export const ConnectWalletComponent = ({
   DisabledComponent?: React.ReactNode;
   ConnectedComponent?: React.ReactNode;
   EthWalletList?: EthWallets[];
-  SolWalletList?: SolWallets[];
   SignatureMessage?: string;
   NetworkChainIds?: number[];
   NetworkAlertMessage?: string;
@@ -77,7 +68,6 @@ export const ConnectWalletComponent = ({
           openOptions={openOptions}
           setOpenOptions={setOpenOptions}
           EthWalletList={EthWalletList}
-          SolWalletList={SolWalletList}
         />
       ) : (
         <></>

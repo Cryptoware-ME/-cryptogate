@@ -17,8 +17,6 @@ const WriteMethodComponent = ({
     abi: ContractABIUnit[];
   };
 }) => {
-  const [args, setArgs] = React.useState([]);
-  const [enabled, setEnabled] = React.useState(false);
   const [isLoading, setLoading] = React.useState(false);
   const { send, loading, error, response } = writeContractCall({
     address: contractObj.address,
@@ -48,11 +46,6 @@ const WriteMethodComponent = ({
           document.getElementById(method.name + "-" + input.name)?.value
         )
       );
-      setEnabled(true);
-      setArgs(args);
-    } else {
-      setEnabled(true);
-      setArgs([]);
     }
     send(args);
   };

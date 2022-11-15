@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useEthereum } from "../../../../cryptogate";
 import { NFT_CONTRACT_METHODS } from "../../../utils/constants";
 import {
@@ -7,9 +7,9 @@ import {
 } from "../../../hooks/useNFTMultiCall";
 import { areAllElementsValid } from "../../../utils/helpers";
 import NFTSlider from "./NFTSlider";
-import NFTCollection from "./NFTCollection";
+// import NFTCollection from "./NFTCollection";
 
-const index = ({ NFTs, Full }: { NFTs: string[]; Full: boolean }) => {
+const index = ({ NFTs }: { NFTs: string[] }) => {
   const [clicked, setClicked] = useState(-1);
   const { account } = useEthereum();
 
@@ -19,19 +19,6 @@ const index = ({ NFTs, Full }: { NFTs: string[]; Full: boolean }) => {
     format: true,
     args: [account],
   });
-  console.log("BALANCES: ", balances);
-
-  var tpmNFTs = [];
-  var tpmBalances = [];
-  if (balances)
-    for (var i = 0; i < balances.length; i++) {
-      if (balances[i] > 0) {
-        tpmNFTs.push(NFTs[i]);
-        tpmBalances.push(balances[i]);
-      }
-    }
-  balances = tpmBalances;
-  NFTs = tpmNFTs;
 
   const symbols = useNFTMetadataMultiCall({
     NFTs,
@@ -47,16 +34,6 @@ const index = ({ NFTs, Full }: { NFTs: string[]; Full: boolean }) => {
         flexDirection: "column",
       }}
     >
-      <p
-        style={{ fontWeight: "bold", lineHeight: 0, color: "#000" }}
-        onClick={() => {
-          if (clicked != -1) {
-            setClicked(-1);
-          }
-        }}
-      >
-        {clicked >= 0 ? `< ${symbols[clicked][0]}'s ` : ""} COLLECTIBLES
-      </p>
       {clicked == -1 &&
         areAllElementsValid(URIs) &&
         areAllElementsValid(balances) && (
@@ -64,18 +41,8 @@ const index = ({ NFTs, Full }: { NFTs: string[]; Full: boolean }) => {
             symbols={symbols}
             URIs={URIs}
             numbers={balances}
-            full={Full}
-            // onCollectionSelected={setClicked}
             onCollectionSelected={() => {}}
-          />
-        )}
-      {clicked != -1 &&
-        areAllElementsValid(URIs) &&
-        areAllElementsValid(balances) && (
-          <NFTCollection
-            NFT={NFTs[clicked]}
-            symbol={symbols[clicked][0]}
-            balance={balances[clicked]}
+            // onCollectionSelected={setClicked}
           />
         )}
     </div>

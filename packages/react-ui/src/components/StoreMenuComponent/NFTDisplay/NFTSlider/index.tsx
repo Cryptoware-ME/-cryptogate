@@ -1,6 +1,6 @@
 import Slider from "react-slick";
-// import "./slick.css";
-// import "./slick-theme.css";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import NFTImage from "./NFTImage";
 import { build_slider_settings } from "../../../../utils/constants";
 
@@ -8,13 +8,11 @@ const index = ({
   URIs,
   symbols,
   numbers,
-  full,
   onCollectionSelected,
 }: {
   URIs: any;
   symbols: any;
   numbers: any;
-  full: boolean;
   onCollectionSelected: any;
 }) => {
   return (
@@ -26,7 +24,7 @@ const index = ({
       }}
     >
       {URIs.length > 0 ? (
-        <Slider {...build_slider_settings({ full: full })}>
+        <Slider {...build_slider_settings({})}>
           {URIs.map((uri: string[], index: number) => {
             return (
               <div
