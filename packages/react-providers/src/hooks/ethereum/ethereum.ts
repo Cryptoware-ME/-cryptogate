@@ -1,4 +1,5 @@
-import { ethers, providers } from "ethers";
+import React from "react";
+import * as ethers from "ethers";
 import CoinbaseWalletSDK from "@coinbase/wallet-sdk";
 import WalletConnect from "@walletconnect/client";
 import QRCodeModal from "@walletconnect/qrcode-modal";
@@ -10,17 +11,13 @@ import { EvmAddress } from "../../models/types";
 import { useAccount } from "../account";
 
 export const useEthereum = () => {
+    const { walletData: { account }, setWalletData } = useWallet()
+    const { brave, metamask, coinbase } = useBrowserWallets()
     const { networkData, setNetworkData } = useNetwork()
-    const { walletData, setWalletData } = useWallet()
-    const { account } = walletData;
-    const { brave, metamask } = useBrowserWallets()
+    const { ethConfig, walletsConfig } = useConfig()
+    const { ens, ethBalance } = useAccount(account)
     const { provider, setProvider } = useEvmNode()
     const { errors, addError } = useErrorsBag()
-    const { ens, ethBalance } = useAccount(account)
-    const config = useConfig()
-    let coinbaseWallet = null;
-    let ethereum: any = null;
-    let connector: any = null;
 
     const setData = (_account: EvmAddress, _chainId: number, _provider: any) => {
         setWalletData({ account: _account })
@@ -28,77 +25,70 @@ export const useEthereum = () => {
         _provider && setProvider(new ethers.providers.Web3Provider(_provider))
     }
 
-    const activateBraveWallet = async () => {
-        if (brave) {
-            try {
-                const res = await brave.send("eth_requestAccounts", []);
-                const chainIdRes = await brave.send("eth_chainId", []);
-                setData(res.result[0], chainIdRes.result.split("x")[1], brave)
-            } catch (err) { addError(err) }
+    const activateWallet = async (_provider: any) => {
+        try {
+            const res = await _provider.send("eth_requestAccounts", []);
+            const chainIdRes = await _provider.send("eth_chainId", []);
+            if (res.result)
+                setData(res.result[0], chainIdRes.result.split("x")[1], _provider)
+            else
+                setData(res[0], chainIdRes.split("x")[1], _provider)
+        } catch (err) { addError(err) }
+    }
+
+    const activateBraveWallet = React.useCallback(async () => {
+        if (brave) activateWallet(brave)
+    }, [brave])
+
+    const activateMetamaskWallet = React.useCallback(async () => {
+        if (metamask) activateWallet(metamask)
+    }, [metamask])
+
+    const activateCoinbaseWallet = React.useCallback(async () => {
+        if (coinbase) activateWallet(coinbase)
+        // @Cryptogate: Might remove this later (handles popup if no extension found)
+        else if (walletsConfig?.coinbase) {
+            const _coinbase = new CoinbaseWalletSDK(walletsConfig.coinbase).makeWeb3Provider()
+            activateWallet(_coinbase)
         }
-    }
+    }, [coinbase, walletsConfig])
 
-    const activateMetamaskWallet = async () => {
-        if (metamask) {
-            try {
-                const res = await metamask.send("eth_requestAccounts", []);
-                const chainIdRes = await metamask.send("eth_chainId", []);
-                setData(res.result[0], chainIdRes.result.split("x")[1], metamask)
-            } catch (err) { addError(err) }
-        }
-    }
-
-    const activateCoinbaseWallet = async () => {
-        if (config && config.walletsConfig && config.walletsConfig.coinbase) {
-            coinbaseWallet = new CoinbaseWalletSDK(config.walletsConfig.coinbase);
-            // TODO: DOUBLE CCECK THE RES OF ethereum.
-            // Might not need providers.Web3Provider
-            ethereum = coinbaseWallet.makeWeb3Provider(
-                "https://goerli.infura.io/v3/7e3e924eb24f4cb99fb7dc68e559cdff",
-                1
-            );
-            try {
-                const _provider = new ethers.providers.Web3Provider(ethereum);
-                const accounts = await _provider.send("eth_requestAccounts", [])
-                const chainIdRes = await _provider.send("eth_chainId", []);
-                setData(accounts[0], chainIdRes.split("x")[1], _provider)
-            } catch (err) { addError(err) }
-        } else addError("Missing coinbase wallet configuration")
-    }
-
+    // @Cryptogate: REBUILD THIS METHODs
     const activateWalletConnect = () => {
-        connector = new WalletConnect({
+        let connector: WalletConnect | undefined = new WalletConnect({
             bridge: "https://bridge.walletconnect.org",
             qrcodeModal: QRCodeModal,
-        });
-        if (!connector.connected) {
-            connector.createSession();
+        })
+        if (connector) {
+            if (!connector.connected) {
+                connector.createSession();
+            }
+            connector.on("connect", (error: any, payload: any) => {
+                if (error) addError(error)
+                const { accounts, chainId } = payload.params[0];
+                setData(accounts[0], chainId, undefined)
+            });
+            connector.on("session_update", (error: any, payload: any) => {
+                if (error) addError(error)
+                const { accounts, chainId } = payload.params[0];
+                setData(accounts[0], chainId, undefined)
+            });
+            connector.on("disconnect", (error: any, payload: any) => {
+                if (error) addError(error)
+                connector = undefined
+            });
         }
-        connector.on("connect", (error: any, payload: any) => {
-            if (error) addError(error)
-            const { accounts, chainId } = payload.params[0];
-            setData(accounts[0], chainId, undefined)
-        });
-        connector.on("session_update", (error: any, payload: any) => {
-            if (error) addError(error)
-            const { accounts, chainId } = payload.params[0];
-            setData(accounts[0], chainId, undefined)
-        });
-        connector.on("disconnect", (error: any, payload: any) => {
-            if (error) addError(error)
-            connector = null
-        });
     }
 
-    const deactivate = () => {
-        connector = null
-        ethereum = null
-        coinbaseWallet = null
+    const deactivate = React.useCallback(() => {
         setWalletData({ account: undefined })
-        config && setProvider(new providers.JsonRpcProvider(
-            config.ethConfig.readOnlyUrls[networkData.chainId]
-        ))
-    }
+        if (ethConfig) {
+            setNetworkData({ chainId: ethConfig.defaultNetwork.chainId, chain: ethConfig.defaultNetwork })
+            setProvider(new ethers.providers.JsonRpcProvider(
+                ethConfig.readOnlyUrls[ethConfig.defaultNetwork.chainId]
+            ))
+        }
+    }, [ethConfig])
 
     return {
         account,

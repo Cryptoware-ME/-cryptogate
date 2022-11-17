@@ -22,14 +22,12 @@ export function NetworkProvider({ children, config }: Props) {
   ] = React.useState({} as NetworkDataInterface);
 
   useEffect(() => {
-    setNetworkData({
-      chainId:
-        config.ethConfig.defaultNetwork?.chainId ??
-        Number(Object.keys(config.ethConfig.readOnlyUrls)[0]),
-      chain:
-        config.ethConfig.defaultNetwork ??
-        getChainById(Number(Object.keys(config.ethConfig.readOnlyUrls)[0])),
-    });
+    if (config) {
+      setNetworkData({
+        chainId: config.ethConfig.defaultNetwork.chainId,
+        chain: config.ethConfig.defaultNetwork,
+      });
+    }
   }, [config]);
 
   return (

@@ -4,9 +4,10 @@ import { EvmAddress } from "../models/types";
 import { useEvmNode } from "../providers";
 
 export const useAccount = (address: EvmAddress | undefined) => {
+    const { provider } = useEvmNode()
+
     const [ethBalance, setEhBalance]: [string | undefined, React.Dispatch<React.SetStateAction<string | undefined>>] = React.useState()
     const [ens, setEns]: [string | undefined, React.Dispatch<React.SetStateAction<string | undefined>>] = React.useState()
-    const { provider } = useEvmNode()
 
     React.useEffect(() => {
         if (provider && address) {
@@ -24,8 +25,9 @@ export const useAccount = (address: EvmAddress | undefined) => {
 }
 
 export const resolveENS = (ens: string) => {
-    const [address, setAddress]: [EvmAddress, React.Dispatch<React.SetStateAction<EvmAddress>>] = React.useState("")
     const { provider } = useEvmNode()
+
+    const [address, setAddress]: [EvmAddress, React.Dispatch<React.SetStateAction<EvmAddress>>] = React.useState("")
 
     React.useEffect(() => {
         if (provider && ens)

@@ -9,14 +9,17 @@ import {
 } from "./providers"
 import {
     ChainId, DEFAULT_SUPPORTED_CHAINS,
-    goerliEtherscanUrl, mainnetEtherscanUrl, kovanEtherscanUrl, rinkebyEtherscanUrl, ropstenEtherscanUrl,
-    bscScanUrl, bscTestnetScanUrl
+    goerliEtherscanUrl, mainnetEtherscanUrl,
+    bscScanUrl, bscTestnetScanUrl,
+    polygonScanUrl, mumbaiPolygonScanUrl,
+    avalancheExplorerUrl, testAvalancheExplorerUrl
 } from "./constants/chains"
-import { DEFAULT_ETH_CONFIG, DEFAULT_MULTICHAIN_CONFIG, DEFAULT_NODE_URLS } from "./constants/config"
 import { getAddressLink, getChainById, getTransactionLink } from "./helpers"
 import {
-    Goerli, Mainnet, Kovan, Rinkeby, Ropsten,
-    BSC, BSCTestnet
+    Goerli, Mainnet,
+    BSC, BSCTestnet,
+    Polygon, Mumbai,
+    Avalanche, AvalancheTestnet
 } from "./models/chains"
 import { Chain, EthConfig, EthContract, NodeUrls, ContractABIUnit, ContractIO, EvmAddress, CoinbaseConfig, WalletsConfig } from "./models/types"
 import {
@@ -37,14 +40,17 @@ export {
 export type { MultiChainProviderConfigProps, MultiChainProviderProps }
 export {
     ChainId, DEFAULT_SUPPORTED_CHAINS,
-    goerliEtherscanUrl, mainnetEtherscanUrl, kovanEtherscanUrl, rinkebyEtherscanUrl, ropstenEtherscanUrl,
-    bscScanUrl, bscTestnetScanUrl
+    goerliEtherscanUrl, mainnetEtherscanUrl,
+    bscScanUrl, bscTestnetScanUrl,
+    polygonScanUrl, mumbaiPolygonScanUrl,
+    avalancheExplorerUrl, testAvalancheExplorerUrl
 }
-export { DEFAULT_ETH_CONFIG, DEFAULT_MULTICHAIN_CONFIG, DEFAULT_NODE_URLS }
 export { getAddressLink, getChainById, getTransactionLink }
 export {
-    Goerli, Mainnet, Kovan, Rinkeby, Ropsten,
-    BSC, BSCTestnet
+    Goerli, Mainnet,
+    BSC, BSCTestnet,
+    Polygon, Mumbai,
+    Avalanche, AvalancheTestnet
 }
 export type { Chain, EthConfig, EthContract, NodeUrls, ContractABIUnit, ContractIO, EvmAddress, CoinbaseConfig, WalletsConfig }
 

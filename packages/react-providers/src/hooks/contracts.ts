@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { useConfig, useErrorsBag } from "../providers";
 import * as ethers from "ethers"
 import { ContractABIUnit, EvmAddress } from "../models/types";
@@ -14,13 +14,14 @@ interface GetContractCallParams {
 }
 
 export const readContractCall = ({ abi, address, contract, method, args, enabled = true }: GetContractCallParams) => {
-    const { ethConfig } = useConfig()
+    const { ethConfig: { contractList } } = useConfig()
     const { addError } = useErrorsBag()
     const { network, provider } = useEthereum()
+
     const [response, setResponse]: [any, React.Dispatch<React.SetStateAction<any>>] = React.useState<any>(undefined)
     const [error, setError]: [any, React.Dispatch<React.SetStateAction<any>>] = React.useState<any>(undefined)
 
-    const callFunction = async (contract: any, args?: any[]) => {
+    const callFunction = React.useCallback(async (contract: any, args?: any[]) => {
         try {
             const res = args ? await contract[method](...args) : await contract[method]();
             setResponse(res.toString())
@@ -28,10 +29,9 @@ export const readContractCall = ({ abi, address, contract, method, args, enabled
             setError(err)
             addError(err)
         }
-    }
+    }, [method])
 
     React.useEffect(() => {
-        setResponse(undefined)
         if (provider) {
             if (enabled) {
                 let _abi: ethers.ContractInterface | ContractABIUnit[] | undefined = undefined;
@@ -40,18 +40,16 @@ export const readContractCall = ({ abi, address, contract, method, args, enabled
                     _abi = abi;
                     _address = address
                 }
-                else if (ethConfig) {
-                    const { contractList } = ethConfig
-                    if (contractList) {
-                        const contracts = contractList.filter((_contract) => _contract.name == contract)
-                        if (contracts && contracts.length) {
-                            _abi = contracts[0].abi;
-                            _address = contracts[0].addresses[network.chainId]
-                        } else {
-                            setError(`Contract ${contract} doesn't exist in your config`);
-                            addError(`Contract ${contract} doesn't exist in your config`)
-                        }
+                else if (contractList) {
+                    const contracts = contractList.filter((_contract) => _contract.name == contract)
+                    if (contracts && contracts.length) {
+                        _abi = contracts[0].abi;
+                        _address = contracts[0].addresses[network.chainId]
+                    } else {
+                        setError(`Contract ${contract} doesn't exist in your config`);
+                        addError(`Contract ${contract} doesn't exist in your config`)
                     }
+
                 }
                 if (_abi && _address) {
                     try {
@@ -68,15 +66,16 @@ export const readContractCall = ({ abi, address, contract, method, args, enabled
             setError("No provider available");
             addError("No provider available")
         }
-    }, [ethConfig, enabled, args])
+    }, [provider, contractList, enabled, args])
 
     return { response, error }
 }
 
 export const readContractCalls = (params: GetContractCallParams[]) => {
-    const { ethConfig } = useConfig()
+    const { ethConfig: { contractList } } = useConfig()
     const { addError } = useErrorsBag()
     const { network, provider } = useEthereum()
+
     const [response, setResponse]: [any[], React.Dispatch<React.SetStateAction<any[]>>] = React.useState<any>([])
 
     const callFunction = async (contract: any, name: string, args?: any[]) => {
@@ -95,16 +94,14 @@ export const readContractCalls = (params: GetContractCallParams[]) => {
                     _abi = param.abi;
                     _address = param.address
                 }
-                else if (ethConfig) {
-                    const { contractList } = ethConfig
-                    if (contractList) {
-                        const contracts = contractList.filter((_contract) => _contract.name == param.contract)
-                        if (contracts && contracts.length) {
-                            _abi = contracts[0].abi;
-                            _address = contracts[0].addresses[network.chainId]
-                        } else addError(`Contract ${param.contract} doesn't exist in your config`)
+                else if (contractList) {
+                    const contracts = contractList.filter((_contract) => _contract.name == param.contract)
+                    if (contracts && contracts.length) {
+                        _abi = contracts[0].abi;
+                        _address = contracts[0].addresses[network.chainId]
+                    } else addError(`Contract ${param.contract} doesn't exist in your config`)
 
-                    }
+
                 }
                 if (_abi && _address) {
                     try {
@@ -120,7 +117,7 @@ export const readContractCalls = (params: GetContractCallParams[]) => {
             Promise.all(res).then((result) => setResponse(result))
         }
         else addError("No provider available")
-    }, [provider, ethConfig])
+    }, [provider, contractList])
 
     return response
 }
@@ -133,15 +130,16 @@ interface PostContractCallParams {
 }
 
 export const writeContractCall = ({ abi, address, contract, method }: PostContractCallParams) => {
-    const { ethConfig } = useConfig()
+    const { ethConfig: { contractList } } = useConfig()
     const { addError } = useErrorsBag()
     const { network, provider } = useEthereum()
+
     const [contractObj, setContractObj]: [ethers.Contract | undefined, React.Dispatch<React.SetStateAction<ethers.Contract | undefined>>] = React.useState()
+    const [loading, setLoading]: [boolean, React.Dispatch<React.SetStateAction<boolean>>] = React.useState(false)
     const [response, setResponse]: [any, React.Dispatch<React.SetStateAction<any>>] = React.useState(undefined)
     const [error, setError]: [any, React.Dispatch<React.SetStateAction<any>>] = React.useState(undefined)
-    const [loading, setLoading]: [boolean, React.Dispatch<React.SetStateAction<boolean>>] = React.useState(false)
 
-    const send = async (_contractObj: ethers.Contract | undefined, args?: any) => {
+    const send = useCallback(async (_contractObj: ethers.Contract | undefined, args?: any) => {
         if (_contractObj) {
             setLoading(true)
             try {
@@ -151,12 +149,12 @@ export const writeContractCall = ({ abi, address, contract, method }: PostContra
             } catch (err) {
                 setError(err)
                 addError(err)
+                setLoading(false)
             }
         }
-    }
+    }, [method])
 
     React.useEffect(() => {
-        setResponse(undefined)
         if (provider) {
             let _abi: ethers.ContractInterface | ContractABIUnit[] | undefined = undefined;
             let _address: EvmAddress | undefined = undefined;
@@ -164,18 +162,16 @@ export const writeContractCall = ({ abi, address, contract, method }: PostContra
                 _abi = abi;
                 _address = address
             }
-            else if (ethConfig) {
-                const { contractList } = ethConfig
-                if (contractList) {
-                    const contracts = contractList.filter((_contract) => _contract.name == contract)
-                    if (contracts && contracts.length) {
-                        _abi = contracts[0].abi;
-                        _address = contracts[0].addresses[network.chainId]
-                    } else {
-                        setError(`Contract ${contract} doesn't exist in your config`);
-                        addError(`Contract ${contract} doesn't exist in your config`)
-                    }
+            else if (contractList) {
+                const contracts = contractList.filter((_contract) => _contract.name == contract)
+                if (contracts && contracts.length) {
+                    _abi = contracts[0].abi;
+                    _address = contracts[0].addresses[network.chainId]
+                } else {
+                    setError(`Contract ${contract} doesn't exist in your config`);
+                    addError(`Contract ${contract} doesn't exist in your config`)
                 }
+
             }
             if (_abi && _address) {
                 try {
@@ -193,7 +189,7 @@ export const writeContractCall = ({ abi, address, contract, method }: PostContra
             setError("No provider available");
             addError("No provider available")
         }
-    }, [ethConfig, provider])
+    }, [provider, contractList])
 
     return {
         send: (args?: any) => { send(contractObj, args) },

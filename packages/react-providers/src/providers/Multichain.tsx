@@ -2,7 +2,7 @@ import React from "react";
 import { EthConfig, WalletsConfig } from "../models/types";
 import { ConfigProvider } from "./config";
 import { ErrorsBagProvider } from "./errors/provider";
-import { EvmNodeProvider, useEvmNode } from "./evmNode";
+import { EvmNodeProvider } from "./evmNode";
 import { WindowProvider } from "./window";
 import { WalletProvider } from "./wallet";
 import { NetworkProvider } from "./network";

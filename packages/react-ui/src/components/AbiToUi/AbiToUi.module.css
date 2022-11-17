@@ -1,5 +1,8 @@
 .radioToolbar {
   margin: 20px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .radioToolbar input[type="radio"] {
@@ -20,7 +23,8 @@
 }
 
 .radioToolbar label:hover {
-  background-color: #ab92ec;
+  cursor: pointer;
+  border-color: #6750a4;
 }
 
 .radioToolbar input[type="radio"]:focus + label {
@@ -30,4 +34,16 @@
 .radioToolbar input[type="radio"]:checked + label {
   background-color: #ab92ec;
   border-color: #6750a4;
+}
+
+.searchBar {
+  padding: 10px 20px;
+  outline: none;
+  border: 2px solid transparent;
+  border-bottom: 2px solid #6750a4;
+  background-color: #e7e0ec;
+}
+
+.searchBar:focus {
+  border: 2px solid #6750a4;
 }

@@ -26,7 +26,7 @@ export type EthContract = {
 }
 
 export type EthConfig = {
-    defaultNetwork: Chain | undefined
+    defaultNetwork: Chain
     allowedNetworks?: (Chain | undefined)[];
     readOnlyUrls: NodeUrls;
     contractList?: EthContract[];

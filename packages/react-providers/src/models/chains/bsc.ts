@@ -12,6 +12,7 @@ export const BSC: Chain = {
         symbol: 'BNB',
         decimals: 18,
     },
+    blockExplorerUrl: bscScanUrl,
     getExplorerAddressLink: (address: EvmAddress) => getAddressLink(bscScanUrl, address),
     getExplorerTransactionLink: (txnId: string) => getTransactionLink(bscScanUrl, txnId)
 }
@@ -21,6 +22,7 @@ export const BSCTestnet: Chain = {
     chainName: 'BSCTestnet',
     isTestChain: true,
     isLocalChain: false,
+    blockExplorerUrl: bscTestnetScanUrl,
     getExplorerAddressLink: (address: EvmAddress) => getAddressLink(bscTestnetScanUrl, address),
     getExplorerTransactionLink: (txnId: string) => getTransactionLink(bscTestnetScanUrl, txnId)
 }

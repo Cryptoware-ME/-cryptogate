@@ -10,7 +10,10 @@ export const useBrowserWallets = () => {
         ethers.providers.Web3Provider | undefined,
         React.Dispatch<React.SetStateAction<ethers.providers.Web3Provider | undefined>>
     ] = React.useState();
-
+    const [coinbase, setCoinbase]: [
+        ethers.providers.Web3Provider | undefined,
+        React.Dispatch<React.SetStateAction<ethers.providers.Web3Provider | undefined>>
+    ] = React.useState();
     const [browserProviders, setBrowserProviders] = React.useState<any>();
 
     React.useEffect(() => {
@@ -24,13 +27,17 @@ export const useBrowserWallets = () => {
                     if (p.isBraveWallet) {
                         setBrave(p);
                     }
+                    if (p.isWalletLink || p.isCoinbaseWallet) {
+                        setCoinbase(p)
+                    }
                 });
             } else {
                 if (browserProviders.isMetaMask) setMetamask(browserProviders);
                 if (browserProviders.isBraveWallet) setBrave(browserProviders);
+                if (browserProviders.isCoinbase) setCoinbase(browserProviders);
             }
         }
     }, [browserProviders]);
 
-    return { metamask, brave };
+    return { metamask, brave, coinbase };
 };

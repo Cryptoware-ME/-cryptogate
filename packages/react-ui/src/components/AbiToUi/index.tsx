@@ -19,6 +19,7 @@ export const AbiToUi = ({
     abi: ContractABIUnit[];
   }>();
   const [type, setType] = React.useState(0);
+  const [searched, setSearched] = React.useState("");
   const { network } = useEthereum();
   const config = useConfig();
 
@@ -32,6 +33,10 @@ export const AbiToUi = ({
     const response = await res.json();
     if (response.status != "1") return null;
     return JSON.parse(await response.result);
+  };
+
+  const handleSearch = (e: any) => {
+    setSearched(e.target.value);
   };
 
   React.useEffect(() => {
@@ -65,28 +70,37 @@ export const AbiToUi = ({
       {contractObj && contractObj.abi && (
         <>
           <form className={styles.radioToolbar}>
+            <div>
+              <input
+                type="radio"
+                id="read"
+                name="type"
+                defaultChecked
+                onChange={(e) => setType(0)}
+              />
+              <label htmlFor="read">Read</label>
+              <input
+                type="radio"
+                id="write"
+                name="type"
+                onChange={(e) => setType(1)}
+              />
+              <label htmlFor="write">Write</label>
+            </div>
             <input
-              type="radio"
-              id="read"
-              name="type"
-              defaultChecked
-              onChange={(e) => setType(0)}
+              type="text"
+              placeholder="Search..."
+              className={styles.searchBar}
+              onChange={handleSearch}
             />
-            <label htmlFor="read">Read</label>
-
-            <input
-              type="radio"
-              id="write"
-              name="type"
-              onChange={(e) => setType(1)}
-            />
-            <label htmlFor="write">Write</label>
           </form>
           {type == 0 &&
             contractObj.abi
               .filter(
                 (item) =>
-                  item.type == "function" && item.stateMutability == "view"
+                  item.type == "function" &&
+                  item.stateMutability == "view" &&
+                  item.name.includes(searched)
               )
               .map((method, index) => (
                 <ReadMethodComponent
@@ -99,7 +113,9 @@ export const AbiToUi = ({
             contractObj.abi
               .filter(
                 (item) =>
-                  item.type == "function" && item.stateMutability != "view"
+                  item.type == "function" &&
+                  item.stateMutability != "view" &&
+                  item.name.includes(searched)
               )
               .map((method, index) => (
                 <WriteMethodComponent
