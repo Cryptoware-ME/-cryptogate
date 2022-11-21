@@ -23,8 +23,8 @@
     "react": "^18.0.0"
   },
   "dependencies": {
-    "@cryptogate/core": "",
-    "@cryptogate/react-providers": "",
+    "@cryptogate/core": "1.0.0-alpha.0",
+    "@cryptogate/react-providers": "1.0.0-alpha.0",
     "react-device-detect": "^2.2.2",
     "react-jazzicon": "^1.0.3",
     "react-slick": "^0.29.0",

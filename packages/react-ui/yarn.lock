@@ -23,16 +23,6 @@
     chalk "^2.0.0"
     js-tokens "^4.0.0"
 
-"@cryptogate/core@*":
-  version "0.0.13"
-  resolved "https://registry.yarnpkg.com/@cryptogate/core/-/core-0.0.13.tgz#9b9fe734ae55a4baca6087cdb093099fbb32932b"
-  integrity sha512-lc/K3yow/cC6ep+hrdLheG7qXLjuMv0SvG1eiO8Fa8rmFtSMdvEM1YfNe97qESBmrT1nrcVtT/MOu5H0kpk/Rg==
-
-"@cryptogate/react-providers@*":
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/@cryptogate/react-providers/-/react-providers-0.1.3.tgz#7d936957855d335b2a637d65ac0ed9b092751a7c"
-  integrity sha512-swO6BbiYSJClaqg8H8J6qNWBOEPzSbcrims1Y6r4EX+qbx/ffm9KJsfWvbFE1DpzC91TI1MW1c2R/CAXoUaagg==
-
 "@rollup/plugin-commonjs@^21.1.0":
   version "21.1.0"
   resolved "https://registry.yarnpkg.com/@rollup/plugin-commonjs/-/plugin-commonjs-21.1.0.tgz#45576d7b47609af2db87f55a6d4b46e44fc3a553"
