@@ -1,6 +1,6 @@
 {
   "name": "@cryptogate/passport-web3-strategy",
-  "version": "0.0.27",
+  "version": "0.0.28-alpha.0",
   "publishConfig": {
     "access": "public"
   },
