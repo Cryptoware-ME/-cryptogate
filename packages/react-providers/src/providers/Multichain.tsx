@@ -12,10 +12,10 @@ export type MultiChainProviderConfigProps = {
   walletsConfig?: WalletsConfig;
 };
 
-export type MultiChainProviderProps = {
+export interface MultiChainProviderProps {
   children: React.ReactNode;
   config: MultiChainProviderConfigProps;
-};
+}
 
 export const MultiChainProvider = ({
   config,

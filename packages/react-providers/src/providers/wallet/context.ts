@@ -1,12 +1,12 @@
 import React from 'react'
-import { WalletDataInterface } from './provider'
+import { WalletDataType } from './provider'
 
-interface WalletContextInterface {
-  walletData: WalletDataInterface,
-  setWalletData: React.Dispatch<React.SetStateAction<WalletDataInterface>>
+type WalletContextType = {
+  walletData: WalletDataType,
+  setWalletData: React.Dispatch<React.SetStateAction<WalletDataType>>
 }
 
-export const WalletContext = React.createContext<WalletContextInterface>({ walletData: { account: undefined }, setWalletData: () => { } })
+export const WalletContext = React.createContext<WalletContextType>({ walletData: { account: undefined }, setWalletData: () => { } })
 
 export function useWallet() {
   const context = React.useContext(WalletContext)

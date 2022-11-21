@@ -2,21 +2,21 @@ import React from "react";
 import { EvmAddress } from "../../models/types";
 import { WalletContext } from "./context";
 
-type Props = {
+interface Props {
   children: React.ReactNode;
-};
-
-export interface WalletDataInterface {
-  account: EvmAddress | undefined;
 }
+
+export type WalletDataType = {
+  account: EvmAddress | undefined;
+};
 
 export function WalletProvider({ children }: Props) {
   const [walletData, setWalletData]: [
-    WalletDataInterface,
-    React.Dispatch<React.SetStateAction<WalletDataInterface>>
+    WalletDataType,
+    React.Dispatch<React.SetStateAction<WalletDataType>>
   ] = React.useState({
     account: undefined,
-  } as WalletDataInterface);
+  } as WalletDataType);
   return (
     <WalletContext.Provider
       value={{

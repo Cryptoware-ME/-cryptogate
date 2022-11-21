@@ -3,6 +3,9 @@ import { avalancheExplorerUrl, testAvalancheExplorerUrl } from "../../constants/
 import { getAddressLink, getTransactionLink } from "../../helpers";
 import { Chain, EvmAddress } from "../types";
 
+/*
+ * @Cryptogate: For intertanl use only, reference at your own risk
+*/
 export const Avalanche: Chain = {
     chainId: 43114,
     chainName: 'Avalanche',
@@ -18,6 +21,9 @@ export const Avalanche: Chain = {
     getExplorerTransactionLink: (txnId: string) => getTransactionLink(avalancheExplorerUrl, txnId)
 }
 
+/*
+ * @Cryptogate: For intertanl use only, reference at your own risk
+*/
 export const AvalancheTestnet: Chain = {
     chainId: 43113,
     chainName: 'AvalancheTestnet',

@@ -1,12 +1,11 @@
-import { useEthereum } from "../../../cryptogate";
+import { useEthereum } from "@cryptogate/react-providers";
 import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
-import { isMobile } from "react-device-detect";
 
 export const Identicon = ({ walletAddress }: { walletAddress?: string }) => {
   const { account } = useEthereum();
   return (
     <Jazzicon
-      diameter={isMobile ? 30 : 40}
+      diameter={35}
       seed={jsNumberForAddress(
         walletAddress ? walletAddress : account?.toString() || ""
       )}

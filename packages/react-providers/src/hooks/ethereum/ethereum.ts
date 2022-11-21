@@ -10,6 +10,9 @@ import { getChainById } from "../../helpers";
 import { EvmAddress } from "../../models/types";
 import { useAccount } from "../account";
 
+/**
+ * @public 
+*/
 export const useEthereum = () => {
     const { walletData: { account }, setWalletData } = useWallet()
     const { brave, metamask, coinbase } = useBrowserWallets()
@@ -53,7 +56,7 @@ export const useEthereum = () => {
         }
     }, [coinbase, walletsConfig])
 
-    // @Cryptogate: REBUILD THIS METHODs
+    // @Cryptogate: REBUILD THIS METHOD
     const activateWalletConnect = () => {
         let connector: WalletConnect | undefined = new WalletConnect({
             bridge: "https://bridge.walletconnect.org",

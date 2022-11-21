@@ -1,6 +1,12 @@
 import React from "react";
-import { ethers } from "ethers";
+import * as ethers from "ethers";
 
+/**
+ * @internal INTENDED FOR INTERNAL USE ONLY. USE AT YOUR OWN 
+ * @return Providers (if available) for metamask, brave wallet and coinbase
+ * @example 
+ *  const {metamask, brave, coinbase} = useBrowserWallets()
+*/
 export const useBrowserWallets = () => {
     const [metamask, setMetamask]: [
         ethers.providers.Web3Provider | undefined,

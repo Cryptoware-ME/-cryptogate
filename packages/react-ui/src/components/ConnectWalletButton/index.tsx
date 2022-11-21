@@ -1,5 +1,5 @@
 import React from "react";
-import { ChainId, useEthereum } from "../../../cryptogate";
+import { ChainId, useEthereum } from "@cryptogate/react-providers";
 import { ConnectedMenu } from "../ConnectMenu";
 import { ethSignMessage } from "@cryptogate/core";
 import { setWithExpiry } from "../../localStorage/setWithExpire";

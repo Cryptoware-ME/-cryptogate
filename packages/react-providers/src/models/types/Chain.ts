@@ -1,11 +1,14 @@
 import { EvmAddress } from "./common"
 
+/**
+ * @public
+ * @typedef {object} Chain
+*/
 export type Chain = {
     chainId: number
     chainName: string
     isTestChain: boolean
     isLocalChain: boolean
-    rpcUrl?: string
     blockExplorerUrl?: string
     nativeCurrency?: {
         name: string

@@ -1,9 +1,9 @@
 import React, { ReactNode } from "react";
 import { WindowContext } from "./context";
 
-type Props = {
+interface Props {
   children: ReactNode;
-};
+}
 
 export function WindowProvider({ children }: Props) {
   const [isActiveWindow, setActiveWindow]: [

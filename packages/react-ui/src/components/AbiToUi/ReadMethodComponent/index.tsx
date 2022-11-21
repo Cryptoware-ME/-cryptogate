@@ -1,11 +1,11 @@
 import React from "react";
-import { readContractCall } from "../../../../cryptogate";
 import {
+  readContractCall,
   ContractABIUnit,
   EvmAddress,
-} from "../../../../cryptogate/models/types";
+} from "@cryptogate/react-providers";
 import Loader from "../../Loader";
-import styles from "./ReadMethodComponent.module.css";
+import "./ReadMethodComponent.module.css";
 
 const ReadMethodComponent = ({
   method,
@@ -54,7 +54,7 @@ const ReadMethodComponent = ({
     <form
       method="POST"
       onSubmit={(e) => queryContract(e, method)}
-      className={styles.methodComponent}
+      className="methodComponent"
     >
       <h1>{method.name}</h1>
       {method.inputs &&
@@ -70,7 +70,7 @@ const ReadMethodComponent = ({
       {loading && <Loader />}
       {!loading && response}
       {!loading && (
-        <span className={styles.error}>{error && error.toString()}</span>
+        <span className="error">{error && error.toString()}</span>
       )}
     </form>
   );

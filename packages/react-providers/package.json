@@ -22,6 +22,11 @@
     "react": "^18.0.0",
     "ethers": "^5.7.1"
   },
+  "dependencies": {
+    "@coinbase/wallet-sdk": "^3.5.3",
+    "@walletconnect/client": "^1.8.0",
+    "@walletconnect/qrcode-modal": "^1.8.0"
+  },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^21.1.0",
     "@rollup/plugin-json": "^4.1.0",
@@ -30,8 +35,6 @@
     "autoprefixer": "^10.4.4",
     "react": "^18.0.0",
     "ethers": "^5.7.1",
-    "@walletconnect/client": "^1.8.0",
-    "@walletconnect/qrcode-modal": "^1.8.0",
     "rollup": "^2.70.2",
     "rollup-plugin-dts": "^4.2.1",
     "rollup-plugin-ignore": "^1.0.10",

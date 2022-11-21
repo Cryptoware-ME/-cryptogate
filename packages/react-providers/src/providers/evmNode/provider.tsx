@@ -4,10 +4,10 @@ import { NodeUrls } from "../../models/types";
 import { providers } from "ethers";
 import { useNetwork } from "../network";
 
-type Props = {
+interface Props {
   children: React.ReactNode;
   readOnlyUrls: NodeUrls;
-};
+}
 
 export function EvmNodeProvider({ children, readOnlyUrls }: Props) {
   const [provider, setProvider]: [

@@ -1,4 +1,4 @@
-import { useEthereum } from "../../../cryptogate";
+import { useEthereum } from "@cryptogate/react-providers";
 import { Identicon } from "../Identicon";
 import DisconnectBtn from "./DisconnectBtn";
 

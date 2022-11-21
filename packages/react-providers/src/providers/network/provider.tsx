@@ -1,25 +1,24 @@
 import React, { useEffect } from "react";
 import { ChainId } from "../../constants/chains";
-import { getChainById } from "../../helpers";
 import { Chain } from "../../models/types";
 import { MultiChainProviderConfigProps } from "../Multichain";
 import { NetworkContext } from "./context";
 
-type Props = {
+interface Props {
   children: React.ReactNode;
   config: MultiChainProviderConfigProps;
-};
+}
 
-export interface NetworkDataInterface {
+export type NetworkDataType = {
   chainId: ChainId;
   chain: Chain | undefined;
-}
+};
 
 export function NetworkProvider({ children, config }: Props) {
   const [networkData, setNetworkData]: [
-    NetworkDataInterface,
-    React.Dispatch<React.SetStateAction<NetworkDataInterface>>
-  ] = React.useState({} as NetworkDataInterface);
+    NetworkDataType,
+    React.Dispatch<React.SetStateAction<NetworkDataType>>
+  ] = React.useState({} as NetworkDataType);
 
   useEffect(() => {
     if (config) {

@@ -1,12 +1,7 @@
-import { readContractCalls } from "../../cryptogate";
-import IERC721Metadata from "../abi/IERC721Metadata.json";
-import ERC721 from "../abi/ERC721.json";
+import { readContractCalls } from "@cryptogate/react-providers";
+import { ERC721, IERC721Metadata } from "@cryptogate/core";
 import { convertResultToReadableFormat } from "../utils/helpers";
 import { NFT_CONTRACT_METHODS } from "../utils/constants";
-import { Interface } from "@ethersproject/abi";
-
-const IERC721MetadataContractInterface = new Interface(IERC721Metadata.abi);
-const ERC721ContractInterface = new Interface(ERC721);
 
 export const useNFTMetadataMultiCall = ({
   NFTs,
@@ -22,7 +17,7 @@ export const useNFTMetadataMultiCall = ({
   const result = readContractCalls(
     NFTs
       ? NFTs.map((nft) => ({
-        abi: IERC721MetadataContractInterface,
+        abi: IERC721Metadata,
         address: nft,
         method,
         args,
@@ -35,7 +30,7 @@ export const useNFTMetadataMultiCall = ({
 export const useTokenURIIndexCover = ({ NFTs }: { NFTs: string[] }) => {
   return readContractCalls(
     NFTs.map((nft) => ({
-      abi: ERC721ContractInterface,
+      abi: ERC721,
       address: nft,
       method: NFT_CONTRACT_METHODS.TOKEN_URI,
       args: [1],
@@ -48,7 +43,7 @@ export const useTokenURIIndex = ({ NFT, args }: { NFT: string; args: any }) => {
     args
       ? args.map((e: number) => {
         return {
-          abi: ERC721ContractInterface,
+          abi: ERC721,
           address: "" + NFT,
           method: NFT_CONTRACT_METHODS.TOKEN_URI,
           args: e ? [e] : [],
@@ -72,7 +67,7 @@ export const useTokenOfOwnerByIndex = ({
     range
       ? range.map((e) => {
         return {
-          abi: ERC721ContractInterface,
+          abi: ERC721,
           address: "" + NFT,
           method: NFT_CONTRACT_METHODS.TOKEN_OF_OWNER_BY_INDEX,
           args: [args[0], e],

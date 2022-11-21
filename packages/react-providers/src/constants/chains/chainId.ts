@@ -6,6 +6,10 @@ import {
 } from "../../models/chains";
 import { Chain } from "../../models/types";
 
+/**
+ * @array
+ * @description The Default Chains Supported By Cryptogate
+*/
 export const DEFAULT_SUPPORTED_CHAINS: Chain[] = [
     Goerli, Mainnet,
     BSC, BSCTestnet,
@@ -13,6 +17,10 @@ export const DEFAULT_SUPPORTED_CHAINS: Chain[] = [
     Avalanche, AvalancheTestnet
 ]
 
+/** 
+ * @enum
+ * @description ChainIds Of The Default Chains Supported By Cryptogate 
+*/
 export enum ChainId {
     Mainnet = 1, Goerli = 5,
     BSC = 56, BSCTestnet = 97,

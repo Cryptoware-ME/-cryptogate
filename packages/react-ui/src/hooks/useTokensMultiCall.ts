@@ -1,7 +1,5 @@
-import { readContractCalls } from "../../cryptogate"
-import { useDapp } from "@cryptogate/react-providers";
-
-const { ERC20Interface } = useDapp;
+import { readContractCalls } from "@cryptogate/react-providers"
+import { ERC20 } from "@cryptogate/core"
 
 export const useTokensMultiCall = ({
   tokenList,
@@ -17,7 +15,7 @@ export const useTokensMultiCall = ({
   return readContractCalls(
     tokenList
       ? tokenList.map((token) => ({
-        abi: ERC20Interface,
+        abi: ERC20,
         address: token,
         method,
         args,

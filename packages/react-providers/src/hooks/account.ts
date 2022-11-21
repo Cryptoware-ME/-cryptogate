@@ -1,9 +1,16 @@
 import React from "react";
-import { ethers } from "ethers";
+import * as ethers from "ethers";
 import { EvmAddress } from "../models/types";
 import { useEvmNode } from "../providers";
 
-export const useAccount = (address: EvmAddress | undefined) => {
+/**
+ * @public
+ * @param {EvmAddress | undefined} address Base URL of the chain explorer
+ * @return Eth balance and ENS of the provided address
+ * @example 
+ *  const {ethbalance, ens} = useAccount("0x00")
+*/
+export const useAccount = (address: EvmAddress | undefined): { ethBalance: string | undefined, ens: string | undefined } => {
     const { provider } = useEvmNode()
 
     const [ethBalance, setEhBalance]: [string | undefined, React.Dispatch<React.SetStateAction<string | undefined>>] = React.useState()
@@ -24,10 +31,17 @@ export const useAccount = (address: EvmAddress | undefined) => {
     }
 }
 
-export const resolveENS = (ens: string) => {
+/**
+ * @public
+ * @param {string} ens ENS Name
+ * @return {EvmAddress | undefined} Wallet or contract address resolved from the provided ENS
+ * @example 
+ *  const address = resolveENS("ens.eth")
+*/
+export const resolveENS = (ens: string): EvmAddress | undefined => {
     const { provider } = useEvmNode()
 
-    const [address, setAddress]: [EvmAddress, React.Dispatch<React.SetStateAction<EvmAddress>>] = React.useState("")
+    const [address, setAddress]: [EvmAddress | undefined, React.Dispatch<React.SetStateAction<EvmAddress | undefined>>] = React.useState()
 
     React.useEffect(() => {
         if (provider && ens)

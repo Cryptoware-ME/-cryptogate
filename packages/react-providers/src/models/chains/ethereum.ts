@@ -3,6 +3,9 @@ import { goerliEtherscanUrl, mainnetEtherscanUrl } from "../../constants/chains"
 import { getAddressLink, getTransactionLink } from "../../helpers";
 import { Chain, EvmAddress } from "../types";
 
+/*
+ * @Cryptogate: For intertanl use only, reference at your own risk
+*/
 export const Mainnet: Chain = {
     chainId: 1,
     chainName: 'Mainnet',
@@ -13,6 +16,9 @@ export const Mainnet: Chain = {
     getExplorerTransactionLink: (txnId: string) => getTransactionLink(mainnetEtherscanUrl, txnId)
 }
 
+/*
+ * @Cryptogate: For intertanl use only, reference at your own risk
+*/
 export const Goerli: Chain = {
     chainId: 5,
     chainName: 'Goerli',

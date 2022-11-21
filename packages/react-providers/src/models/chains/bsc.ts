@@ -2,6 +2,9 @@ import { bscScanUrl, bscTestnetScanUrl } from "../../constants/chains"
 import { getAddressLink, getTransactionLink } from "../../helpers"
 import { Chain, EvmAddress } from "../types"
 
+/*
+ * @Cryptogate: For intertanl use only, reference at your own risk
+*/
 export const BSC: Chain = {
     chainId: 56,
     chainName: 'BSC',
@@ -17,6 +20,9 @@ export const BSC: Chain = {
     getExplorerTransactionLink: (txnId: string) => getTransactionLink(bscScanUrl, txnId)
 }
 
+/*
+ * @Cryptogate: For intertanl use only, reference at your own risk
+*/
 export const BSCTestnet: Chain = {
     chainId: 97,
     chainName: 'BSCTestnet',

@@ -2,7 +2,7 @@ import React from "react";
 import { ConnectWalletButton } from "../ConnectWalletButton";
 import { ConnectWalletList } from "../ConnectWalletList";
 import { Identicon } from "../Identicon";
-import { ChainId } from "../../../cryptogate";
+import { ChainId } from "@cryptogate/react-providers";
 import { defaults, Active, Disabled } from "../../defaults";
 
 export enum EthWallets {

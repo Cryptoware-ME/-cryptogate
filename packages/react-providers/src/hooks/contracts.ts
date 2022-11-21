@@ -5,7 +5,7 @@ import { ContractABIUnit, EvmAddress } from "../models/types";
 import { useEthereum } from "./ethereum";
 
 interface GetContractCallParams {
-    abi?: ethers.ContractInterface
+    abi?: ContractABIUnit[] | ethers.ContractInterface,
     address?: EvmAddress
     contract?: string,
     method: string,
@@ -13,7 +13,12 @@ interface GetContractCallParams {
     enabled?: boolean
 }
 
-export const readContractCall = ({ abi, address, contract, method, args, enabled = true }: GetContractCallParams) => {
+/**
+ * @public
+ * @param {GetContractCallParams} ContractCallObject
+ * @return Call response and error
+*/
+export const readContractCall = ({ abi, address, contract, method, args, enabled = true }: GetContractCallParams): { response: any, error: any } => {
     const { ethConfig: { contractList } } = useConfig()
     const { addError } = useErrorsBag()
     const { network, provider } = useEthereum()
@@ -59,6 +64,9 @@ export const readContractCall = ({ abi, address, contract, method, args, enabled
                         setError(err);
                         addError(err)
                     }
+                } else {
+                    setError(`You need to either provide a contract name from your contracts config or a contract address & abi`);
+                    addError(`You need to either provide a contract name from your contracts config or a contract address & abi`)
                 }
             }
         }
@@ -71,7 +79,12 @@ export const readContractCall = ({ abi, address, contract, method, args, enabled
     return { response, error }
 }
 
-export const readContractCalls = (params: GetContractCallParams[]) => {
+/**
+ * @public
+ * @param {GetContractCallParams[]} params
+ * @return {any[]} Call response
+*/
+export const readContractCalls = (params: GetContractCallParams[]): any[] => {
     const { ethConfig: { contractList } } = useConfig()
     const { addError } = useErrorsBag()
     const { network, provider } = useEthereum()
@@ -112,7 +125,8 @@ export const readContractCalls = (params: GetContractCallParams[]) => {
                         );
                         return callFunction(contractObj, param.method, param.args)
                     } catch (err) { addError(err) }
-                }
+                } else
+                    addError(`You need to either provide a contract name from your contracts config or a contract address & abi`)
             })
             Promise.all(res).then((result) => setResponse(result))
         }
@@ -123,13 +137,23 @@ export const readContractCalls = (params: GetContractCallParams[]) => {
 }
 
 interface PostContractCallParams {
-    abi?: ethers.ContractInterface
+    abi?: ContractABIUnit[] | ethers.ContractInterface,
     address?: EvmAddress
     contract?: string,
     method: string,
 }
 
-export const writeContractCall = ({ abi, address, contract, method }: PostContractCallParams) => {
+/**
+ * @public
+ * @param {PostContractCallParams} ContractCallObject
+ * @return send, loading, response & error
+*/
+export const writeContractCall = ({ abi, address, contract, method }: PostContractCallParams): {
+    send: (args?: any[]) => void,
+    loading: boolean,
+    response: any,
+    error: any
+} => {
     const { ethConfig: { contractList } } = useConfig()
     const { addError } = useErrorsBag()
     const { network, provider } = useEthereum()
@@ -182,8 +206,10 @@ export const writeContractCall = ({ abi, address, contract, method }: PostContra
                     setError(err);
                     addError(err)
                 }
+            } else {
+                setError(`You need to either provide a contract name from your contracts config or a contract address & abi`);
+                addError(`You need to either provide a contract name from your contracts config or a contract address & abi`)
             }
-
         }
         else {
             setError("No provider available");
@@ -192,7 +218,7 @@ export const writeContractCall = ({ abi, address, contract, method }: PostContra
     }, [provider, contractList])
 
     return {
-        send: (args?: any) => { send(contractObj, args) },
+        send: (args?: any[]) => { send(contractObj, args) },
         loading,
         response,
         error
