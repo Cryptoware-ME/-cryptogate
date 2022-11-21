@@ -13,7 +13,7 @@
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "noImplicitAny": true,
-    "target": "es5",
+    "target": "es6",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "strictNullChecks": true,

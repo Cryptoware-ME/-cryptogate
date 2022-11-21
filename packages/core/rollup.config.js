@@ -23,11 +23,11 @@ export default [
       },
     ],
     plugins: [
-      json(),
       typescript({
         tsconfig: "./tsconfig.json",
       }),
-      commonjs(),
+      commonjs({requireReturnsDefault: true}),
+      json({ compact: true }),
     ],
   },
   {

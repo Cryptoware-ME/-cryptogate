@@ -1,5 +1,5 @@
-import ERC20 from "./ERC20.json"
-import ERC721 from "./ERC721.json"
-import IERC721Metadata from "./IERC721Metadata.json"
+const ERC20 = require("./ERC20.json")
+const ERC721 = require("./ERC721.json")
+const IERC721Metadata = require("./IERC721Metadata.json")
 
-export { ERC721, ERC20, IERC721Metadata }
+export { ERC20, ERC721, IERC721Metadata }

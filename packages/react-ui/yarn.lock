@@ -23,6 +23,16 @@
     chalk "^2.0.0"
     js-tokens "^4.0.0"
 
+"@cryptogate/core@^1.0.2-alpha.0":
+  version "1.0.2-alpha.0"
+  resolved "https://registry.yarnpkg.com/@cryptogate/core/-/core-1.0.2-alpha.0.tgz#b0c54f1593eed2e14b552c84511e4cfe43173d44"
+  integrity sha512-nRiB+nivV8pYIAWOYmOmg1nc26ivO1PS7ZJI5dCmrQlUnnXUlKH/aAmFtcNdlK3JwLjoLJ5EcZTWtWdUqnYYkw==
+
+"@cryptogate/react-providers@^1.0.3-alpha.0":
+  version "1.0.3-alpha.0"
+  resolved "https://registry.yarnpkg.com/@cryptogate/react-providers/-/react-providers-1.0.3-alpha.0.tgz#f513366153f21da7098fc13379950281a161e120"
+  integrity sha512-VTw6uYCftz37PluHwr+ac8maksc+w5RlfB7KfBr/oB+YXfEd+NAxvujCiku+syMaomBTmD41HtI7OdyB+xtciQ==
+
 "@rollup/plugin-commonjs@^21.1.0":
   version "21.1.0"
   resolved "https://registry.yarnpkg.com/@rollup/plugin-commonjs/-/plugin-commonjs-21.1.0.tgz#45576d7b47609af2db87f55a6d4b46e44fc3a553"
@@ -502,7 +512,7 @@ rollup-plugin-ignore@^1.0.10:
   resolved "https://registry.yarnpkg.com/rollup-plugin-ignore/-/rollup-plugin-ignore-1.0.10.tgz#0b8453ebf977fca1b4b0634062dded45288bf764"
   integrity sha512-VsbnfwwaTv2Dxl2onubetX/3RnSnplNnjdix0hvF8y2YpqdzlZrjIq6zkcuVJ08XysS8zqW3gt3ORBndFDgsrg==
 
-rollup-plugin-import-css@*:
+rollup-plugin-import-css@:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/rollup-plugin-import-css/-/rollup-plugin-import-css-3.1.0.tgz#7982d85a1c762c730ff75a58bf4403c8c81dfd60"
   integrity sha512-+azurUk2QrUNWs1V5EzpuvV9bRQDEjG+aQDadM6ZEc5LbU6VvFiR3+MPIBnqKrg/miBNag/9H1TWhEUv4TH+jQ==

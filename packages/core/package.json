@@ -1,12 +1,15 @@
 {
   "name": "@cryptogate/core",
   "private": false,
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "publishConfig": {
     "access": "public"
   },
   "version": "1.0.2-alpha.0",
   "description": "Cryptogate core libraries",
-  "types": "dist/index.d.ts",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "scripts": {
