@@ -20,9 +20,7 @@
   "license": "MIT",
   "gitHead": "73cd5732a2ee99af5039544f8977656abe081ac5",
   "peerDependencies": {
-    "react": "^18.0.0"
-  },
-  "dependencies": {
+    "react": "^18.0.0",
     "@cryptogate/core": "1.0.0-alpha.0",
     "@cryptogate/react-providers": "1.0.0-alpha.0",
     "react-device-detect": "^2.2.2",
@@ -31,6 +29,12 @@
     "slick-carousel": "^1.8.1"
   },
   "devDependencies": {
+    "@cryptogate/core": "1.0.1-alpha.0",
+    "@cryptogate/react-providers": "1.0.1-alpha.0",
+    "react-device-detect": "^2.2.2",
+    "react-jazzicon": "^1.0.3",
+    "react-slick": "^0.29.0",
+    "slick-carousel": "^1.8.1",
     "@rollup/plugin-commonjs": "^21.1.0",
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^13.2.1",

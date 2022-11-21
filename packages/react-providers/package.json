@@ -20,9 +20,7 @@
   "license": "MIT",
   "peerDependencies": {
     "ethers": "^5.7.1",
-    "react": "^18.0.0"
-  },
-  "dependencies": {
+    "react": "^18.0.0",
     "@coinbase/wallet-sdk": "^3.5.3",
     "@walletconnect/client": "^1.8.0",
     "@walletconnect/qrcode-modal": "^1.8.0"
@@ -40,7 +38,10 @@
     "rollup-plugin-ignore": "^1.0.10",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-svg": "^2.0.0",
-    "typescript": "4.8.4"
+    "typescript": "4.8.4",
+    "@coinbase/wallet-sdk": "^3.5.3",
+    "@walletconnect/client": "^1.8.0",
+    "@walletconnect/qrcode-modal": "^1.8.0"
   },
   "gitHead": "14db6d2825bab2f40c909293780d91de5df8ec8b"
 }

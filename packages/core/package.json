@@ -15,12 +15,15 @@
   },
   "author": "Cryptoware",
   "license": "MIT",
-  "dependencies": {
+  "peerDependencies": {
     "@metamask/eth-sig-util": "^4.0.0",
     "@solana/web3.js": "^1.39.1",
     "tweetnacl": "^1.0.3"
   },
   "devDependencies": {
+    "@metamask/eth-sig-util": "^4.0.0",
+    "@solana/web3.js": "^1.39.1",
+    "tweetnacl": "^1.0.3",
     "@rollup/plugin-commonjs": "^21.1.0",
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-typescript": "^8.3.2",
