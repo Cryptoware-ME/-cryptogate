@@ -1,12 +1,10 @@
-import {
+export {
   ConnectWalletComponent,
   ConnectedMenuOptions,
   EthWallets,
 } from "./components/ConnectWalletComponent";
-import { Identicon } from "./components/Identicon";
-import { ConnectedMenu } from "./components/ConnectMenu";
-import { AbiToUi } from "./components/AbiToUi"
-import { getWithExpiry } from "./localStorage/getWithExpire";
-import { setWithExpiry } from "./localStorage/setWithExpire";
-
-export { ConnectWalletComponent, ConnectedMenu, ConnectedMenuOptions, EthWallets, Identicon, AbiToUi, getWithExpiry, setWithExpiry }
+export { Identicon } from "./components/Identicon";
+export { ConnectedMenu } from "./components/ConnectMenu";
+export { AbiToUi } from "./components/AbiToUi"
+export { getWithExpiry } from "./localStorage/getWithExpire";
+export { setWithExpiry } from "./localStorage/setWithExpire";
