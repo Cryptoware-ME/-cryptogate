@@ -9,8 +9,6 @@ var Jazzicon = require('react-jazzicon');
 var core = require('@cryptogate/core');
 var BigNumber = require('bignumber.js');
 var Slider = require('react-slick');
-require('slick-carousel/slick/slick.css');
-require('slick-carousel/slick/slick-theme.css');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 

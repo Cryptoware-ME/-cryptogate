@@ -5,8 +5,6 @@ import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
 import { ERC20, IERC721Metadata, ERC721, ethSignMessage } from '@cryptogate/core';
 import BigNumber from 'bignumber.js';
 import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation.

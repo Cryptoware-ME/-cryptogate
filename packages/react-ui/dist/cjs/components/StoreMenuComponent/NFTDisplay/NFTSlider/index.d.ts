@@ -1,6 +1,6 @@
 /// <reference types="react" />
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import "./slick.css";
+import "./slick-theme.css";
 declare const index: ({ URIs, symbols, numbers, onCollectionSelected, }: {
     URIs: any;
     symbols: any;
