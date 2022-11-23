@@ -1,7 +1,11 @@
 import React from "react";
-import { writeContractCall, ContractABIUnit, EvmAddress } from "@cryptogate/react-providers";
+import {
+  writeContractCall,
+  ContractABIUnit,
+  EvmAddress,
+} from "@cryptogate/react-providers";
 import Loader from "../../Loader";
-import "./WriteMethodComponent.module.css";
+import styles from "./WriteMethodComponent.module.css";
 
 const WriteMethodComponent = ({
   method,
@@ -50,7 +54,7 @@ const WriteMethodComponent = ({
     <form
       method="POST"
       onSubmit={(e) => queryContract(e, method)}
-      className="methodComponent"
+      className={styles.methodComponent}
     >
       <h1>{method.name}</h1>
       {method.inputs &&
@@ -66,7 +70,7 @@ const WriteMethodComponent = ({
       {isLoading && <Loader />}
       {response}
       {!isLoading && (
-        <span className="error">
+        <span className={styles.error}>
           {error && extractErrorMessage(error.message.toString())}
         </span>
       )}

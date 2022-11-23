@@ -5,7 +5,7 @@ import {
   EvmAddress,
 } from "@cryptogate/react-providers";
 import Loader from "../../Loader";
-import "./ReadMethodComponent.module.css";
+import styles from "./ReadMethodComponent.module.css";
 
 const ReadMethodComponent = ({
   method,
@@ -54,7 +54,7 @@ const ReadMethodComponent = ({
     <form
       method="POST"
       onSubmit={(e) => queryContract(e, method)}
-      className="methodComponent"
+      className={styles.methodComponent}
     >
       <h1>{method.name}</h1>
       {method.inputs &&
@@ -70,7 +70,7 @@ const ReadMethodComponent = ({
       {loading && <Loader />}
       {!loading && response}
       {!loading && (
-        <span className="error">{error && error.toString()}</span>
+        <span className={styles.error}>{error && error.toString()}</span>
       )}
     </form>
   );

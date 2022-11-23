@@ -1,6 +1,10 @@
 import WalletListing from "./WalletListing";
 import { EthWallets } from "../ConnectWalletComponent";
 import { useEthereum } from "@cryptogate/react-providers";
+import Metamask from "../wallets/Metamask";
+import Brave from "../wallets/Brave";
+import Coinbase from "../wallets/Coinbase";
+import WalletConnect from "../wallets/WalletConnect";
 
 const EthWalletListComp = ({
   EthWalletList,
@@ -29,7 +33,7 @@ const EthWalletListComp = ({
         EthWalletList.indexOf(EthWallets.METAMASK) > -1) && (
         <WalletListing
           heading="Metamask"
-          iconSrc={"/imgs/meta-mask.png"}
+          Icon={<Metamask />}
           onWalletCall={activateMetamaskWallet}
         />
       )}
@@ -38,7 +42,7 @@ const EthWalletListComp = ({
         EthWalletList.indexOf(EthWallets.BRAVEWALLET) > -1) && (
         <WalletListing
           heading="Brave Wallet"
-          iconSrc={"/imgs/brave-wallet.png"}
+          Icon={<Brave />}
           onWalletCall={activateBraveWallet}
         />
       )}
@@ -46,8 +50,8 @@ const EthWalletListComp = ({
       {(EthWalletList.indexOf(EthWallets.ALL) > -1 ||
         EthWalletList.indexOf(EthWallets.COINBASE) > -1) && (
         <WalletListing
-          heading="Coinbase Wallet"
-          iconSrc={"/imgs/coinbase.jpg"}
+          heading="Coinbase"
+          Icon={<Coinbase />}
           onWalletCall={activateCoinbaseWallet}
         />
       )}
@@ -56,7 +60,7 @@ const EthWalletListComp = ({
         EthWalletList.indexOf(EthWallets.WALLETCONNECT) > -1) && (
         <WalletListing
           heading="Wallet Connect"
-          iconSrc={"/imgs/trustwallet.png"}
+          Icon={<WalletConnect />}
           onWalletCall={activateWalletConnect}
         />
       )}

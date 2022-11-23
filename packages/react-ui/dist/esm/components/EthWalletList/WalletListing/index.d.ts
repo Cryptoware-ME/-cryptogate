@@ -1,6 +1,6 @@
-/// <reference types="react" />
-declare const WalletListing: ({ iconSrc, heading, onWalletCall, }: {
-    iconSrc: any;
+import React from "react";
+declare const WalletListing: ({ Icon, heading, onWalletCall, }: {
+    Icon: React.ReactNode;
     heading: any;
     onWalletCall: any;
 }) => JSX.Element;

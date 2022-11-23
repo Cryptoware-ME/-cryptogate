@@ -18,7 +18,7 @@ export const Active = () => {
         color: isHovering ? "#ffffff" : "#000000",
         borderRadius: "5px",
         padding: "1vh 2vw",
-        cursor: isHovering ? "pointer" : "",
+        cursor: isHovering ? "pointer" : "auto",
       }}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}

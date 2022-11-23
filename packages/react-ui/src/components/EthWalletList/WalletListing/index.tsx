@@ -1,9 +1,11 @@
+import React from "react";
+
 const WalletListing = ({
-  iconSrc,
+  Icon,
   heading,
   onWalletCall,
 }: {
-  iconSrc: any;
+  Icon: React.ReactNode;
   heading: any;
   onWalletCall: any;
 }) => {
@@ -19,9 +21,7 @@ const WalletListing = ({
       }}
       onClick={onWalletCall}
     >
-      <span style={{ paddingRight: "15px" }}>
-        <img src={iconSrc} alt={heading} width="25px" height="25px" />
-      </span>
+      <span style={{ paddingRight: "15px" }}>{Icon}</span>
 
       <h6
         style={{
