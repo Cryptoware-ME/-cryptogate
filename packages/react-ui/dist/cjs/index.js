@@ -733,6 +733,7 @@ var WriteMethodComponent = function (_a) {
                 method.inputs.map(function (input, index) { return (jsxRuntime.jsx("input", { id: "".concat(method.name, "-").concat(input.name), placeholder: input.name, required: true }, index)); }), jsxRuntime.jsx("button", __assign({ type: "submit" }, { children: "Query" })), " ", jsxRuntime.jsx("br", {}), " ", jsxRuntime.jsx("br", {}), isLoading && jsxRuntime.jsx(Loader, {}), response, !isLoading && (jsxRuntime.jsx("span", __assign({ className: "error" }, { children: error && extractErrorMessage(error.message.toString()) })))] })));
 };
 
+// import styles from "./AbiToUi.module.css";
 var AbiToUi = function (_a) {
     var contract = _a.contract, address = _a.address, abi = _a.abi;
     var _b = React__default["default"].useState(), contractObj = _b[0], setContractObj = _b[1];

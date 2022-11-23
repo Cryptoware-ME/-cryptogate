@@ -722,6 +722,7 @@ var WriteMethodComponent = function (_a) {
                 method.inputs.map(function (input, index) { return (jsx("input", { id: "".concat(method.name, "-").concat(input.name), placeholder: input.name, required: true }, index)); }), jsx("button", __assign({ type: "submit" }, { children: "Query" })), " ", jsx("br", {}), " ", jsx("br", {}), isLoading && jsx(Loader, {}), response, !isLoading && (jsx("span", __assign({ className: "error" }, { children: error && extractErrorMessage(error.message.toString()) })))] })));
 };
 
+// import styles from "./AbiToUi.module.css";
 var AbiToUi = function (_a) {
     var contract = _a.contract, address = _a.address, abi = _a.abi;
     var _b = React.useState(), contractObj = _b[0], setContractObj = _b[1];

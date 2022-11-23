@@ -7,6 +7,7 @@ import {
 } from "@cryptogate/react-providers";
 import ReadMethodComponent from "./ReadMethodComponent";
 import WriteMethodComponent from "./WriteMethodComponent";
+// import styles from "./AbiToUi.module.css";
 
 export const AbiToUi = ({
   contract,
