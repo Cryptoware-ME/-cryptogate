@@ -7,7 +7,6 @@ import {
 } from "@cryptogate/react-providers";
 import ReadMethodComponent from "./ReadMethodComponent";
 import WriteMethodComponent from "./WriteMethodComponent";
-import styles from "./AbiToUi.module.css";
 
 export const AbiToUi = ({
   contract,
@@ -73,7 +72,7 @@ export const AbiToUi = ({
     <>
       {contractObj && contractObj.abi && (
         <>
-          <form className={styles.radioToolbar}>
+          <form className="radioToolbar">
             <div>
               <input
                 type="radio"
@@ -94,7 +93,7 @@ export const AbiToUi = ({
             <input
               type="text"
               placeholder="Search..."
-              className={styles.searchBar}
+              className="searchBar"
               onChange={handleSearch}
             />
           </form>

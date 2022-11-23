@@ -722,8 +722,6 @@ var WriteMethodComponent = function (_a) {
                 method.inputs.map(function (input, index) { return (jsx("input", { id: "".concat(method.name, "-").concat(input.name), placeholder: input.name, required: true }, index)); }), jsx("button", __assign({ type: "submit" }, { children: "Query" })), " ", jsx("br", {}), " ", jsx("br", {}), isLoading && jsx(Loader, {}), response, !isLoading && (jsx("span", __assign({ className: "error" }, { children: error && extractErrorMessage(error.message.toString()) })))] })));
 };
 
-var styles = ".radioToolbar {\r\n  margin: 20px 10px;\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n}\r\n\r\n.radioToolbar input[type=\"radio\"] {\r\n  opacity: 0;\r\n  position: fixed;\r\n  width: 0;\r\n}\r\n\r\n.radioToolbar label {\r\n  display: inline-block;\r\n  background-color: #e7e0ec;\r\n  padding: 10px 20px;\r\n  font-family: sans-serif, Arial;\r\n  font-size: 16px;\r\n  border: 2px solid transparent;\r\n  border-radius: 4px;\r\n  margin-right: 10px;\r\n}\r\n\r\n.radioToolbar label:hover {\r\n  cursor: pointer;\r\n  border-color: #6750a4;\r\n}\r\n\r\n.radioToolbar input[type=\"radio\"]:focus + label {\r\n  border: 2px solid transparent;\r\n}\r\n\r\n.radioToolbar input[type=\"radio\"]:checked + label {\r\n  background-color: #ab92ec;\r\n  border-color: #6750a4;\r\n}\r\n\r\n.searchBar {\r\n  padding: 10px 20px;\r\n  outline: none;\r\n  border: 2px solid transparent;\r\n  border-bottom: 2px solid #6750a4;\r\n  background-color: #e7e0ec;\r\n}\r\n\r\n.searchBar:focus {\r\n  border: 2px solid #6750a4;\r\n}\r\n";
-
 var AbiToUi = function (_a) {
     var contract = _a.contract, address = _a.address, abi = _a.abi;
     var _b = React.useState(), contractObj = _b[0], setContractObj = _b[1];
@@ -779,7 +777,7 @@ var AbiToUi = function (_a) {
         else
             console.error("Insufficient data");
     }, [network, config]);
-    return (jsx(Fragment, { children: contractObj && contractObj.abi && (jsxs(Fragment, { children: [jsxs("form", __assign({ className: styles.radioToolbar }, { children: [jsxs("div", { children: [jsx("input", { type: "radio", id: "read", name: "type", defaultChecked: true, onChange: function (e) { return setType(0); } }), jsx("label", __assign({ htmlFor: "read" }, { children: "Read" })), jsx("input", { type: "radio", id: "write", name: "type", onChange: function (e) { return setType(1); } }), jsx("label", __assign({ htmlFor: "write" }, { children: "Write" }))] }), jsx("input", { type: "text", placeholder: "Search...", className: styles.searchBar, onChange: handleSearch })] })), type == 0 &&
+    return (jsx(Fragment, { children: contractObj && contractObj.abi && (jsxs(Fragment, { children: [jsxs("form", __assign({ className: "radioToolbar" }, { children: [jsxs("div", { children: [jsx("input", { type: "radio", id: "read", name: "type", defaultChecked: true, onChange: function (e) { return setType(0); } }), jsx("label", __assign({ htmlFor: "read" }, { children: "Read" })), jsx("input", { type: "radio", id: "write", name: "type", onChange: function (e) { return setType(1); } }), jsx("label", __assign({ htmlFor: "write" }, { children: "Write" }))] }), jsx("input", { type: "text", placeholder: "Search...", className: "searchBar", onChange: handleSearch })] })), type == 0 &&
                     contractObj.abi
                         .filter(function (item) {
                         return item.type == "function" &&
