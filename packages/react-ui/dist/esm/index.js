@@ -202,8 +202,6 @@ var build_slider_settings = function (_a) {
     });
 };
 
-var styles$3 = ".tokenDetailsContainer {\r\n  overflow-x: hidden;\r\n  overflow-y: scroll;\r\n  padding-right: 2vw;\r\n}\r\n.tokenDetailsContainer::-webkit-scrollbar {\r\n  width: 0.3vw;\r\n}\r\n.tokenDetailsContainer::-webkit-scrollbar-track {\r\n  background: #f1f1f1;\r\n}\r\n.tokenDetailsContainer::-webkit-scrollbar-thumb {\r\n  background: #888;\r\n}\r\n.tokenDetailsContainer::-webkit-scrollbar-thumb:hover {\r\n  background: #555;\r\n}\r\n";
-
 var index$4 = function (_a) {
     var tokens = _a.tokens;
     var account = useEthereum().account;
@@ -225,7 +223,7 @@ var index$4 = function (_a) {
                     fontWeight: "bold",
                     lineHeight: 0,
                     color: "#000",
-                } }, { children: "TOKENS" })), jsx("div", __assign({ className: styles$3.tokenDetailsContainer }, { children: balance &&
+                } }, { children: "TOKENS" })), jsx("div", __assign({ className: "tokenDetailsContainer" }, { children: balance &&
                     symbol &&
                     decimals &&
                     balance.map(function (e, index) { return (jsx("div", { children: e && (jsx("div", { children: jsx("div", __assign({ style: {
@@ -643,8 +641,6 @@ var Loader = function () {
     return jsx("div", { className: "loader" });
 };
 
-var styles$2 = ".methodComponent {\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: flex-start;\r\n  padding: 24px;\r\n  margin: 10px 0;\r\n  background: #e7e0ec;\r\n  border-color: transparent;\r\n  border-radius: 20px;\r\n}\r\n.methodComponent input {\r\n  box-sizing: border-box;\r\n  width: 329px;\r\n  height: 34px;\r\n  margin-bottom: 10px;\r\n  padding-left: 10px;\r\n  background: #ffffff;\r\n  border: 1px solid #79747e;\r\n  border-radius: 4px;\r\n}\r\n.methodComponent button {\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n  align-items: center;\r\n  padding: 10px 24px;\r\n  gap: 10px;\r\n  width: 86px;\r\n  height: 40px;\r\n  background: #ab92ec;\r\n  border: 1px solid transparent;\r\n  border-radius: 20px;\r\n  color: white;\r\n}\r\n.methodComponent button:hover {\r\n  cursor: pointer;\r\n  border-color: #ab92ec;\r\n  color: #ab92ec;\r\n  background-color: white;\r\n}\r\n\r\n.error {\r\n  color: red;\r\n}";
-
 var ReadMethodComponent = function (_a) {
     var method = _a.method, contractObj = _a.contractObj;
     var _b = React.useState(), args = _b[0], setArgs = _b[1];
@@ -682,11 +678,9 @@ var ReadMethodComponent = function (_a) {
             return [2 /*return*/];
         });
     }); };
-    return (jsxs("form", __assign({ method: "POST", onSubmit: function (e) { return queryContract(e, method); }, className: styles$2.methodComponent }, { children: [jsx("h1", { children: method.name }), method.inputs &&
-                method.inputs.map(function (input, index) { return (jsx("input", { id: "".concat(method.name, "-").concat(input.name), placeholder: input.name, required: true }, index)); }), jsx("button", __assign({ type: "submit" }, { children: "Query" })), " ", jsx("br", {}), " ", jsx("br", {}), loading && jsx(Loader, {}), !loading && response, !loading && (jsx("span", __assign({ className: styles$2.error }, { children: error && error.toString() })))] })));
+    return (jsxs("form", __assign({ method: "POST", onSubmit: function (e) { return queryContract(e, method); }, className: "methodComponent" }, { children: [jsx("h1", { children: method.name }), method.inputs &&
+                method.inputs.map(function (input, index) { return (jsx("input", { id: "".concat(method.name, "-").concat(input.name), placeholder: input.name, required: true }, index)); }), jsx("button", __assign({ type: "submit" }, { children: "Query" })), " ", jsx("br", {}), " ", jsx("br", {}), loading && jsx(Loader, {}), !loading && response, !loading && jsx("span", __assign({ className: "error" }, { children: error && error.toString() }))] })));
 };
-
-var styles$1 = ".methodComponent {\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: flex-start;\r\n  padding: 24px;\r\n  margin: 10px 0;\r\n  background: #e7e0ec;\r\n  border-color: transparent;\r\n  border-radius: 20px;\r\n}\r\n.methodComponent input {\r\n  box-sizing: border-box;\r\n  width: 329px;\r\n  height: 34px;\r\n  margin-bottom: 10px;\r\n  padding-left: 10px;\r\n  background: #ffffff;\r\n  border: 1px solid #79747e;\r\n  border-radius: 4px;\r\n}\r\n.methodComponent button {\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n  align-items: center;\r\n  padding: 10px 24px;\r\n  gap: 10px;\r\n  width: 86px;\r\n  height: 40px;\r\n  background: #ab92ec;\r\n  border: 1px solid transparent;\r\n  border-radius: 100px;\r\n  color: white;\r\n}\r\n.methodComponent button:hover {\r\n  cursor: pointer;\r\n  border-color: #ab92ec;\r\n  color: #ab92ec;\r\n  background-color: white;\r\n}\r\n\r\n.error {\r\n  color: red;\r\n}";
 
 var WriteMethodComponent = function (_a) {
     var method = _a.method, contractObj = _a.contractObj;
@@ -724,8 +718,8 @@ var WriteMethodComponent = function (_a) {
             return [2 /*return*/];
         });
     }); };
-    return (jsxs("form", __assign({ method: "POST", onSubmit: function (e) { return queryContract(e, method); }, className: styles$1.methodComponent }, { children: [jsx("h1", { children: method.name }), method.inputs &&
-                method.inputs.map(function (input, index) { return (jsx("input", { id: "".concat(method.name, "-").concat(input.name), placeholder: input.name, required: true }, index)); }), jsx("button", __assign({ type: "submit" }, { children: "Query" })), " ", jsx("br", {}), " ", jsx("br", {}), isLoading && jsx(Loader, {}), response, !isLoading && (jsx("span", __assign({ className: styles$1.error }, { children: error && extractErrorMessage(error.message.toString()) })))] })));
+    return (jsxs("form", __assign({ method: "POST", onSubmit: function (e) { return queryContract(e, method); }, className: "methodComponent" }, { children: [jsx("h1", { children: method.name }), method.inputs &&
+                method.inputs.map(function (input, index) { return (jsx("input", { id: "".concat(method.name, "-").concat(input.name), placeholder: input.name, required: true }, index)); }), jsx("button", __assign({ type: "submit" }, { children: "Query" })), " ", jsx("br", {}), " ", jsx("br", {}), isLoading && jsx(Loader, {}), response, !isLoading && (jsx("span", __assign({ className: "error" }, { children: error && extractErrorMessage(error.message.toString()) })))] })));
 };
 
 var styles = ".radioToolbar {\r\n  margin: 20px 10px;\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n}\r\n\r\n.radioToolbar input[type=\"radio\"] {\r\n  opacity: 0;\r\n  position: fixed;\r\n  width: 0;\r\n}\r\n\r\n.radioToolbar label {\r\n  display: inline-block;\r\n  background-color: #e7e0ec;\r\n  padding: 10px 20px;\r\n  font-family: sans-serif, Arial;\r\n  font-size: 16px;\r\n  border: 2px solid transparent;\r\n  border-radius: 4px;\r\n  margin-right: 10px;\r\n}\r\n\r\n.radioToolbar label:hover {\r\n  cursor: pointer;\r\n  border-color: #6750a4;\r\n}\r\n\r\n.radioToolbar input[type=\"radio\"]:focus + label {\r\n  border: 2px solid transparent;\r\n}\r\n\r\n.radioToolbar input[type=\"radio\"]:checked + label {\r\n  background-color: #ab92ec;\r\n  border-color: #6750a4;\r\n}\r\n\r\n.searchBar {\r\n  padding: 10px 20px;\r\n  outline: none;\r\n  border: 2px solid transparent;\r\n  border-bottom: 2px solid #6750a4;\r\n  background-color: #e7e0ec;\r\n}\r\n\r\n.searchBar:focus {\r\n  border: 2px solid #6750a4;\r\n}\r\n";
