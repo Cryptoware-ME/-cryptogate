@@ -23,15 +23,15 @@
     chalk "^2.0.0"
     js-tokens "^4.0.0"
 
-"@cryptogate/core@^1.0.2-alpha.0":
-  version "1.0.2-alpha.0"
-  resolved "https://registry.yarnpkg.com/@cryptogate/core/-/core-1.0.2-alpha.0.tgz#b0c54f1593eed2e14b552c84511e4cfe43173d44"
-  integrity sha512-nRiB+nivV8pYIAWOYmOmg1nc26ivO1PS7ZJI5dCmrQlUnnXUlKH/aAmFtcNdlK3JwLjoLJ5EcZTWtWdUqnYYkw==
+"@cryptogate/core@*":
+  version "0.0.13"
+  resolved "https://registry.yarnpkg.com/@cryptogate/core/-/core-0.0.13.tgz#9b9fe734ae55a4baca6087cdb093099fbb32932b"
+  integrity sha512-lc/K3yow/cC6ep+hrdLheG7qXLjuMv0SvG1eiO8Fa8rmFtSMdvEM1YfNe97qESBmrT1nrcVtT/MOu5H0kpk/Rg==
 
-"@cryptogate/react-providers@^1.0.3-alpha.0":
-  version "1.0.3-alpha.0"
-  resolved "https://registry.yarnpkg.com/@cryptogate/react-providers/-/react-providers-1.0.3-alpha.0.tgz#f513366153f21da7098fc13379950281a161e120"
-  integrity sha512-VTw6uYCftz37PluHwr+ac8maksc+w5RlfB7KfBr/oB+YXfEd+NAxvujCiku+syMaomBTmD41HtI7OdyB+xtciQ==
+"@cryptogate/react-providers@*":
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/@cryptogate/react-providers/-/react-providers-0.1.3.tgz#7d936957855d335b2a637d65ac0ed9b092751a7c"
+  integrity sha512-swO6BbiYSJClaqg8H8J6qNWBOEPzSbcrims1Y6r4EX+qbx/ffm9KJsfWvbFE1DpzC91TI1MW1c2R/CAXoUaagg==
 
 "@rollup/plugin-commonjs@^21.1.0":
   version "21.1.0"
@@ -512,7 +512,7 @@ rollup-plugin-ignore@^1.0.10:
   resolved "https://registry.yarnpkg.com/rollup-plugin-ignore/-/rollup-plugin-ignore-1.0.10.tgz#0b8453ebf977fca1b4b0634062dded45288bf764"
   integrity sha512-VsbnfwwaTv2Dxl2onubetX/3RnSnplNnjdix0hvF8y2YpqdzlZrjIq6zkcuVJ08XysS8zqW3gt3ORBndFDgsrg==
 
-rollup-plugin-import-css@:
+rollup-plugin-import-css@*:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/rollup-plugin-import-css/-/rollup-plugin-import-css-3.1.0.tgz#7982d85a1c762c730ff75a58bf4403c8c81dfd60"
   integrity sha512-+azurUk2QrUNWs1V5EzpuvV9bRQDEjG+aQDadM6ZEc5LbU6VvFiR3+MPIBnqKrg/miBNag/9H1TWhEUv4TH+jQ==

@@ -19,23 +19,21 @@
   "author": "Cryptoware",
   "license": "MIT",
   "peerDependencies": {
+    "react": "^18.0.0"
+  },
+  "dependencies": {
     "@coinbase/wallet-sdk": "^3.5.3",
     "@walletconnect/client": "^1.8.0",
     "@walletconnect/qrcode-modal": "^1.8.0",
-    "ethers": "^5.7.1",
-    "react": "^18.0.0"
+    "ethers": "^5.7.1"
   },
   "devDependencies": {
-    "@coinbase/wallet-sdk": "^3.5.3",
     "@rollup/plugin-commonjs": "^21.1.0",
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^13.2.1",
     "@rollup/plugin-typescript": "^8.3.2",
     "@types/react": "^18.0.25",
-    "@walletconnect/client": "^1.8.0",
-    "@walletconnect/qrcode-modal": "^1.8.0",
     "autoprefixer": "^10.4.4",
-    "ethers": "^5.7.1",
     "react": "^18.0.0",
     "rollup": "^2.70.2",
     "rollup-plugin-dts": "^4.2.1",
