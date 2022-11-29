@@ -152,7 +152,7 @@ type optionsType = { gasLimit: Number, gasPrice: string, nounce: Number, value: 
  * @return send, loading, response & error
 */
 export const writeContractCall = ({ abi, address, contract, method }: PostContractCallParams): {
-    send: (args?: any[]) => void,
+    send: (args?: any[], options?: optionsType) => void,
     loading: boolean,
     response: any,
     error: any

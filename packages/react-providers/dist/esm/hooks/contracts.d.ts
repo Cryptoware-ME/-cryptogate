@@ -29,13 +29,20 @@ interface PostContractCallParams {
     contract?: string;
     method: string;
 }
+declare type optionsType = {
+    gasLimit: Number;
+    gasPrice: string;
+    nounce: Number;
+    value: string;
+    chainId: Number;
+};
 /**
  * @public
  * @param {PostContractCallParams} ContractCallObject
  * @return send, loading, response & error
 */
 export declare const writeContractCall: ({ abi, address, contract, method }: PostContractCallParams) => {
-    send: (args?: any[]) => void;
+    send: (args?: any[], options?: optionsType) => void;
     loading: boolean;
     response: any;
     error: any;

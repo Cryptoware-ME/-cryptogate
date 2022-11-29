@@ -238,6 +238,16 @@ declare const useEthereum: () => {
 
 /**
  * @public
+ * @return Gas Price
+ * @example
+ *  const {gasPrice} = useNetworkInfo()
+*/
+declare const useNetworkInfo: () => {
+    gasPrice: ethers.BigNumber | undefined;
+};
+
+/**
+ * @public
  * @param {EvmAddress | undefined} address Base URL of the chain explorer
  * @return Eth balance and ENS of the provided address
  * @example
@@ -285,16 +295,23 @@ interface PostContractCallParams {
     contract?: string;
     method: string;
 }
+declare type optionsType = {
+    gasLimit: Number;
+    gasPrice: string;
+    nounce: Number;
+    value: string;
+    chainId: Number;
+};
 /**
  * @public
  * @param {PostContractCallParams} ContractCallObject
  * @return send, loading, response & error
 */
 declare const writeContractCall: ({ abi, address, contract, method }: PostContractCallParams) => {
-    send: (args?: any[]) => void;
+    send: (args?: any[], options?: optionsType) => void;
     loading: boolean;
     response: any;
     error: any;
 };
 
-export { Avalanche, AvalancheTestnet, BSC, BSCTestnet, Chain, ChainId, CoinbaseConfig, ConfigContext, ConfigProvider, ContractABIUnit, ContractIO, DEFAULT_SUPPORTED_CHAINS, ErrorsBagContext, ErrorsBagProvider, EthConfig, EthContract, EvmAddress, EvmNodeContext, EvmNodeProvider, Goerli, Mainnet, MultiChainProvider, MultiChainProviderConfigProps, MultiChainProviderProps, Mumbai, NetworkContext, NetworkProvider, NodeUrls, Polygon, WalletContext, WalletProvider, WalletsConfig, WindowContext, WindowProvider, avalancheExplorerUrl, bscScanUrl, bscTestnetScanUrl, getAddressLink, getChainById, getTransactionLink, goerliEtherscanUrl, mainnetEtherscanUrl, mumbaiPolygonScanUrl, polygonScanUrl, readContractCall, readContractCalls, resolveENS, testAvalancheExplorerUrl, useAccount, useConfig, useErrorsBag, useEthereum, useEvmNode, useNetwork, useWallet, useWindow, writeContractCall };
+export { Avalanche, AvalancheTestnet, BSC, BSCTestnet, Chain, ChainId, CoinbaseConfig, ConfigContext, ConfigProvider, ContractABIUnit, ContractIO, DEFAULT_SUPPORTED_CHAINS, ErrorsBagContext, ErrorsBagProvider, EthConfig, EthContract, EvmAddress, EvmNodeContext, EvmNodeProvider, Goerli, Mainnet, MultiChainProvider, MultiChainProviderConfigProps, MultiChainProviderProps, Mumbai, NetworkContext, NetworkProvider, NodeUrls, Polygon, WalletContext, WalletProvider, WalletsConfig, WindowContext, WindowProvider, avalancheExplorerUrl, bscScanUrl, bscTestnetScanUrl, getAddressLink, getChainById, getTransactionLink, goerliEtherscanUrl, mainnetEtherscanUrl, mumbaiPolygonScanUrl, polygonScanUrl, readContractCall, readContractCalls, resolveENS, testAvalancheExplorerUrl, useAccount, useConfig, useErrorsBag, useEthereum, useEvmNode, useNetwork, useNetworkInfo, useWallet, useWindow, writeContractCall };

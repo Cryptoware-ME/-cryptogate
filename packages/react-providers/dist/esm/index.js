@@ -528,6 +528,28 @@ const useEthereum = () => {
 
 /**
  * @public
+ * @return Gas Price
+ * @example
+ *  const {gasPrice} = useNetworkInfo()
+*/
+const useNetworkInfo = () => {
+    const { provider } = useEvmNode();
+    const [gasPrice, setGasPrice] = React.useState();
+    React.useEffect(() => {
+        if (provider) {
+            provider.getGasPrice().then((_gasPrice) => {
+                if (_gasPrice)
+                    setGasPrice(_gasPrice);
+            });
+        }
+    }, [provider]);
+    return {
+        gasPrice
+    };
+};
+
+/**
+ * @public
  * @param {GetContractCallParams} ContractCallObject
  * @return Call response and error
 */
@@ -732,5 +754,5 @@ const writeContractCall = ({ abi, address, contract, method }) => {
     };
 };
 
-export { Avalanche, AvalancheTestnet, BSC, BSCTestnet, ChainId, ConfigContext, ConfigProvider, DEFAULT_SUPPORTED_CHAINS, ErrorsBagContext, ErrorsBagProvider, EvmNodeContext, EvmNodeProvider, Goerli, Mainnet, MultiChainProvider, Mumbai, NetworkContext, NetworkProvider, Polygon, WalletContext, WalletProvider, WindowContext, WindowProvider, avalancheExplorerUrl, bscScanUrl, bscTestnetScanUrl, getAddressLink, getChainById, getTransactionLink, goerliEtherscanUrl, mainnetEtherscanUrl, mumbaiPolygonScanUrl, polygonScanUrl, readContractCall, readContractCalls, resolveENS, testAvalancheExplorerUrl, useAccount, useConfig, useErrorsBag, useEthereum, useEvmNode, useNetwork, useWallet, useWindow, writeContractCall };
+export { Avalanche, AvalancheTestnet, BSC, BSCTestnet, ChainId, ConfigContext, ConfigProvider, DEFAULT_SUPPORTED_CHAINS, ErrorsBagContext, ErrorsBagProvider, EvmNodeContext, EvmNodeProvider, Goerli, Mainnet, MultiChainProvider, Mumbai, NetworkContext, NetworkProvider, Polygon, WalletContext, WalletProvider, WindowContext, WindowProvider, avalancheExplorerUrl, bscScanUrl, bscTestnetScanUrl, getAddressLink, getChainById, getTransactionLink, goerliEtherscanUrl, mainnetEtherscanUrl, mumbaiPolygonScanUrl, polygonScanUrl, readContractCall, readContractCalls, resolveENS, testAvalancheExplorerUrl, useAccount, useConfig, useErrorsBag, useEthereum, useEvmNode, useNetwork, useNetworkInfo, useWallet, useWindow, writeContractCall };
 //# sourceMappingURL=index.js.map

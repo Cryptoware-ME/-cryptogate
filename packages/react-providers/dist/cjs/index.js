@@ -557,6 +557,28 @@ const useEthereum = () => {
 
 /**
  * @public
+ * @return Gas Price
+ * @example
+ *  const {gasPrice} = useNetworkInfo()
+*/
+const useNetworkInfo = () => {
+    const { provider } = useEvmNode();
+    const [gasPrice, setGasPrice] = React__default["default"].useState();
+    React__default["default"].useEffect(() => {
+        if (provider) {
+            provider.getGasPrice().then((_gasPrice) => {
+                if (_gasPrice)
+                    setGasPrice(_gasPrice);
+            });
+        }
+    }, [provider]);
+    return {
+        gasPrice
+    };
+};
+
+/**
+ * @public
  * @param {GetContractCallParams} ContractCallObject
  * @return Call response and error
 */
@@ -803,6 +825,7 @@ exports.useErrorsBag = useErrorsBag;
 exports.useEthereum = useEthereum;
 exports.useEvmNode = useEvmNode;
 exports.useNetwork = useNetwork;
+exports.useNetworkInfo = useNetworkInfo;
 exports.useWallet = useWallet;
 exports.useWindow = useWindow;
 exports.writeContractCall = writeContractCall;
