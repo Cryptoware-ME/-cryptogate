@@ -20,7 +20,7 @@ interface GetContractCallParams {
 */
 export const readContractCall = ({ abi, address, contract, method, args, enabled = true }: GetContractCallParams): { response: any, error: any } => {
     const config = useConfig()
-    const { addError } = useErrorsBag()
+    const { addError, clearErrors } = useErrorsBag()
     const { network, provider } = useEthereum()
 
     const [response, setResponse]: [any, React.Dispatch<React.SetStateAction<any>>] = React.useState<any>(undefined)
@@ -38,6 +38,7 @@ export const readContractCall = ({ abi, address, contract, method, args, enabled
 
     React.useEffect(() => {
         if (provider) {
+            clearErrors()
             if (enabled) {
                 let _abi: ethers.ContractInterface | ContractABIUnit[] | undefined = undefined;
                 let _address: EvmAddress | undefined = undefined;
@@ -46,6 +47,7 @@ export const readContractCall = ({ abi, address, contract, method, args, enabled
                     _address = address
                 }
                 else if (config) {
+                    clearErrors()
                     const contracts = config.ethConfig.contractList?.filter((_contract) => _contract.name == contract)
                     if (contracts && contracts.length) {
                         _abi = contracts[0].abi;
@@ -57,6 +59,7 @@ export const readContractCall = ({ abi, address, contract, method, args, enabled
 
                 }
                 if (_abi && _address) {
+                    clearErrors()
                     try {
                         const contractObj = new ethers.Contract(_address, _abi, provider);
                         callFunction(contractObj, args)
@@ -141,6 +144,8 @@ interface PostContractCallParams {
     method: string,
 }
 
+type optionsType = { gasLimit: Number, gasPrice: string, nounce: Number, value: string, chainId: Number }
+
 /**
  * @public
  * @param {PostContractCallParams} ContractCallObject
@@ -153,7 +158,7 @@ export const writeContractCall = ({ abi, address, contract, method }: PostContra
     error: any
 } => {
     const config = useConfig()
-    const { addError } = useErrorsBag()
+    const { addError, clearErrors } = useErrorsBag()
     const { network, provider } = useEthereum()
 
     const [contractObj, setContractObj]: [ethers.Contract | undefined, React.Dispatch<React.SetStateAction<ethers.Contract | undefined>>] = React.useState()
@@ -161,11 +166,11 @@ export const writeContractCall = ({ abi, address, contract, method }: PostContra
     const [response, setResponse]: [any, React.Dispatch<React.SetStateAction<any>>] = React.useState(undefined)
     const [error, setError]: [any, React.Dispatch<React.SetStateAction<any>>] = React.useState(undefined)
 
-    const send = useCallback(async (_contractObj: ethers.Contract | undefined, args?: any) => {
+    const send = useCallback(async (_contractObj: ethers.Contract | undefined, args?: any, options?: optionsType) => {
         if (_contractObj) {
             setLoading(true)
             try {
-                const res = args ? await _contractObj[method](...args) : await _contractObj[method]();
+                const res = args ? (options ? await _contractObj[method](...args, options) : await _contractObj[method](...args)) : (options ? await _contractObj[method](options) : await _contractObj[method]());
                 setResponse(res.toString())
                 setLoading(false)
             } catch (err) {
@@ -178,6 +183,7 @@ export const writeContractCall = ({ abi, address, contract, method }: PostContra
 
     React.useEffect(() => {
         if (provider) {
+            clearErrors()
             let _abi: ethers.ContractInterface | ContractABIUnit[] | undefined = undefined;
             let _address: EvmAddress | undefined = undefined;
             if (abi && address) {
@@ -187,6 +193,7 @@ export const writeContractCall = ({ abi, address, contract, method }: PostContra
             else if (config) {
                 const contracts = config.ethConfig.contractList?.filter((_contract) => _contract.name == contract)
                 if (contracts && contracts.length) {
+                    clearErrors()
                     _abi = contracts[0].abi;
                     _address = contracts[0].addresses[network.chainId]
                 } else {
@@ -196,7 +203,9 @@ export const writeContractCall = ({ abi, address, contract, method }: PostContra
 
             }
             if (_abi && _address) {
+                clearErrors()
                 try {
+                    clearErrors()
                     const signer = provider.getSigner()
                     const _contractObj = new ethers.Contract(_address, _abi, signer)
                     setContractObj(_contractObj);
@@ -216,7 +225,7 @@ export const writeContractCall = ({ abi, address, contract, method }: PostContra
     }, [provider, config])
 
     return {
-        send: (args?: any[]) => { send(contractObj, args) },
+        send: (args?: any[], options?: optionsType) => { send(contractObj, args, options) },
         loading,
         response,
         error

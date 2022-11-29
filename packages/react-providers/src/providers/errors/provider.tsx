@@ -15,9 +15,13 @@ export function ErrorsBagProvider({ children }: Props) {
     setErrors([...errors, error]);
   };
 
+  const clearErrors = () => {
+    setErrors([]);
+  };
+
   return (
     <ErrorsBagContext.Provider
-      value={{ errors: errors, addError: addError }}
+      value={{ errors: errors, addError: addError, clearErrors: clearErrors }}
       children={children}
     />
   );

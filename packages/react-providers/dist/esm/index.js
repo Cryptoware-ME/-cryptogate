@@ -19,7 +19,7 @@ function ConfigProvider({ config, children }) {
     return React.createElement(ConfigContext.Provider, { value: DAppConfig, children: children });
 }
 
-const ErrorsBagContext = React.createContext({ errors: [], addError: (err) => { } });
+const ErrorsBagContext = React.createContext({ errors: [], addError: (err) => { }, clearErrors: () => { } });
 function useErrorsBag() {
     return React.useContext(ErrorsBagContext);
 }
@@ -29,7 +29,10 @@ function ErrorsBagProvider({ children }) {
     const addError = (error) => {
         setErrors([...errors, error]);
     };
-    return (React.createElement(ErrorsBagContext.Provider, { value: { errors: errors, addError: addError }, children: children }));
+    const clearErrors = () => {
+        setErrors([]);
+    };
+    return (React.createElement(ErrorsBagContext.Provider, { value: { errors: errors, addError: addError, clearErrors: clearErrors }, children: children }));
 }
 
 const EvmNodeContext = React.createContext({ provider: undefined, setProvider: () => { } });
@@ -530,7 +533,7 @@ const useEthereum = () => {
 */
 const readContractCall = ({ abi, address, contract, method, args, enabled = true }) => {
     const config = useConfig();
-    const { addError } = useErrorsBag();
+    const { addError, clearErrors } = useErrorsBag();
     const { network, provider } = useEthereum();
     const [response, setResponse] = React.useState(undefined);
     const [error, setError] = React.useState(undefined);
@@ -547,6 +550,7 @@ const readContractCall = ({ abi, address, contract, method, args, enabled = true
     React.useEffect(() => {
         var _a;
         if (provider) {
+            clearErrors();
             if (enabled) {
                 let _abi = undefined;
                 let _address = undefined;
@@ -555,6 +559,7 @@ const readContractCall = ({ abi, address, contract, method, args, enabled = true
                     _address = address;
                 }
                 else if (config) {
+                    clearErrors();
                     const contracts = (_a = config.ethConfig.contractList) === null || _a === void 0 ? void 0 : _a.filter((_contract) => _contract.name == contract);
                     if (contracts && contracts.length) {
                         _abi = contracts[0].abi;
@@ -566,6 +571,7 @@ const readContractCall = ({ abi, address, contract, method, args, enabled = true
                     }
                 }
                 if (_abi && _address) {
+                    clearErrors();
                     try {
                         const contractObj = new ethers.Contract(_address, _abi, provider);
                         callFunction(contractObj, args);
@@ -652,17 +658,17 @@ const readContractCalls = (params) => {
 */
 const writeContractCall = ({ abi, address, contract, method }) => {
     const config = useConfig();
-    const { addError } = useErrorsBag();
+    const { addError, clearErrors } = useErrorsBag();
     const { network, provider } = useEthereum();
     const [contractObj, setContractObj] = React.useState();
     const [loading, setLoading] = React.useState(false);
     const [response, setResponse] = React.useState(undefined);
     const [error, setError] = React.useState(undefined);
-    const send = useCallback((_contractObj, args) => __awaiter(void 0, void 0, void 0, function* () {
+    const send = useCallback((_contractObj, args, options) => __awaiter(void 0, void 0, void 0, function* () {
         if (_contractObj) {
             setLoading(true);
             try {
-                const res = args ? yield _contractObj[method](...args) : yield _contractObj[method]();
+                const res = args ? (options ? yield _contractObj[method](...args, options) : yield _contractObj[method](...args)) : (options ? yield _contractObj[method](options) : yield _contractObj[method]());
                 setResponse(res.toString());
                 setLoading(false);
             }
@@ -676,6 +682,7 @@ const writeContractCall = ({ abi, address, contract, method }) => {
     React.useEffect(() => {
         var _a;
         if (provider) {
+            clearErrors();
             let _abi = undefined;
             let _address = undefined;
             if (abi && address) {
@@ -685,6 +692,7 @@ const writeContractCall = ({ abi, address, contract, method }) => {
             else if (config) {
                 const contracts = (_a = config.ethConfig.contractList) === null || _a === void 0 ? void 0 : _a.filter((_contract) => _contract.name == contract);
                 if (contracts && contracts.length) {
+                    clearErrors();
                     _abi = contracts[0].abi;
                     _address = contracts[0].addresses[network.chainId];
                 }
@@ -694,7 +702,9 @@ const writeContractCall = ({ abi, address, contract, method }) => {
                 }
             }
             if (_abi && _address) {
+                clearErrors();
                 try {
+                    clearErrors();
                     const signer = provider.getSigner();
                     const _contractObj = new ethers.Contract(_address, _abi, signer);
                     setContractObj(_contractObj);
@@ -715,7 +725,7 @@ const writeContractCall = ({ abi, address, contract, method }) => {
         }
     }, [provider, config]);
     return {
-        send: (args) => { send(contractObj, args); },
+        send: (args, options) => { send(contractObj, args, options); },
         loading,
         response,
         error
