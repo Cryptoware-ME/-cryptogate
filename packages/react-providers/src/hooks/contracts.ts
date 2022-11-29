@@ -19,7 +19,7 @@ interface GetContractCallParams {
  * @return Call response and error
 */
 export const readContractCall = ({ abi, address, contract, method, args, enabled = true }: GetContractCallParams): { response: any, error: any } => {
-    const { ethConfig: { contractList } } = useConfig()
+    const { ethConfig } = useConfig()
     const { addError } = useErrorsBag()
     const { network, provider } = useEthereum()
 
@@ -45,8 +45,8 @@ export const readContractCall = ({ abi, address, contract, method, args, enabled
                     _abi = abi;
                     _address = address
                 }
-                else if (contractList) {
-                    const contracts = contractList.filter((_contract) => _contract.name == contract)
+                else if (ethConfig) {
+                    const contracts = ethConfig.contractList?.filter((_contract) => _contract.name == contract)
                     if (contracts && contracts.length) {
                         _abi = contracts[0].abi;
                         _address = contracts[0].addresses[network.chainId]
@@ -74,7 +74,7 @@ export const readContractCall = ({ abi, address, contract, method, args, enabled
             setError("No provider available");
             addError("No provider available")
         }
-    }, [provider, contractList, enabled, args])
+    }, [provider, ethConfig, enabled, args])
 
     return { response, error }
 }
@@ -85,7 +85,7 @@ export const readContractCall = ({ abi, address, contract, method, args, enabled
  * @return {any[]} Call response
 */
 export const readContractCalls = (params: GetContractCallParams[]): any[] => {
-    const { ethConfig: { contractList } } = useConfig()
+    const { ethConfig } = useConfig()
     const { addError } = useErrorsBag()
     const { network, provider } = useEthereum()
 
@@ -107,14 +107,12 @@ export const readContractCalls = (params: GetContractCallParams[]): any[] => {
                     _abi = param.abi;
                     _address = param.address
                 }
-                else if (contractList) {
-                    const contracts = contractList.filter((_contract) => _contract.name == param.contract)
+                else if (ethConfig) {
+                    const contracts = ethConfig.contractList?.filter((_contract) => _contract.name == param.contract)
                     if (contracts && contracts.length) {
                         _abi = contracts[0].abi;
                         _address = contracts[0].addresses[network.chainId]
                     } else addError(`Contract ${param.contract} doesn't exist in your config`)
-
-
                 }
                 if (_abi && _address) {
                     try {
@@ -131,7 +129,7 @@ export const readContractCalls = (params: GetContractCallParams[]): any[] => {
             Promise.all(res).then((result) => setResponse(result))
         }
         else addError("No provider available")
-    }, [provider, contractList])
+    }, [provider, ethConfig])
 
     return response
 }
@@ -154,7 +152,7 @@ export const writeContractCall = ({ abi, address, contract, method }: PostContra
     response: any,
     error: any
 } => {
-    const { ethConfig: { contractList } } = useConfig()
+    const { ethConfig } = useConfig()
     const { addError } = useErrorsBag()
     const { network, provider } = useEthereum()
 
@@ -186,8 +184,8 @@ export const writeContractCall = ({ abi, address, contract, method }: PostContra
                 _abi = abi;
                 _address = address
             }
-            else if (contractList) {
-                const contracts = contractList.filter((_contract) => _contract.name == contract)
+            else if (ethConfig) {
+                const contracts = ethConfig.contractList?.filter((_contract) => _contract.name == contract)
                 if (contracts && contracts.length) {
                     _abi = contracts[0].abi;
                     _address = contracts[0].addresses[network.chainId]
@@ -215,7 +213,7 @@ export const writeContractCall = ({ abi, address, contract, method }: PostContra
             setError("No provider available");
             addError("No provider available")
         }
-    }, [provider, contractList])
+    }, [provider, ethConfig])
 
     return {
         send: (args?: any[]) => { send(contractObj, args) },
