@@ -529,7 +529,7 @@ const useEthereum = () => {
  * @return Call response and error
 */
 const readContractCall = ({ abi, address, contract, method, args, enabled = true }) => {
-    const { ethConfig } = useConfig();
+    const config = useConfig();
     const { addError } = useErrorsBag();
     const { network, provider } = useEthereum();
     const [response, setResponse] = React.useState(undefined);
@@ -554,8 +554,8 @@ const readContractCall = ({ abi, address, contract, method, args, enabled = true
                     _abi = abi;
                     _address = address;
                 }
-                else if (ethConfig) {
-                    const contracts = (_a = ethConfig.contractList) === null || _a === void 0 ? void 0 : _a.filter((_contract) => _contract.name == contract);
+                else if (config) {
+                    const contracts = (_a = config.ethConfig.contractList) === null || _a === void 0 ? void 0 : _a.filter((_contract) => _contract.name == contract);
                     if (contracts && contracts.length) {
                         _abi = contracts[0].abi;
                         _address = contracts[0].addresses[network.chainId];
@@ -585,7 +585,7 @@ const readContractCall = ({ abi, address, contract, method, args, enabled = true
             setError("No provider available");
             addError("No provider available");
         }
-    }, [provider, ethConfig, enabled, args]);
+    }, [provider, config, enabled, args]);
     return { response, error };
 };
 /**
@@ -594,7 +594,7 @@ const readContractCall = ({ abi, address, contract, method, args, enabled = true
  * @return {any[]} Call response
 */
 const readContractCalls = (params) => {
-    const { ethConfig } = useConfig();
+    const config = useConfig();
     const { addError } = useErrorsBag();
     const { network, provider } = useEthereum();
     const [response, setResponse] = React.useState([]);
@@ -617,8 +617,8 @@ const readContractCalls = (params) => {
                     _abi = param.abi;
                     _address = param.address;
                 }
-                else if (ethConfig) {
-                    const contracts = (_a = ethConfig.contractList) === null || _a === void 0 ? void 0 : _a.filter((_contract) => _contract.name == param.contract);
+                else if (config) {
+                    const contracts = (_a = config.ethConfig.contractList) === null || _a === void 0 ? void 0 : _a.filter((_contract) => _contract.name == param.contract);
                     if (contracts && contracts.length) {
                         _abi = contracts[0].abi;
                         _address = contracts[0].addresses[network.chainId];
@@ -642,7 +642,7 @@ const readContractCalls = (params) => {
         }
         else
             addError("No provider available");
-    }, [provider, ethConfig]);
+    }, [provider, config]);
     return response;
 };
 /**
@@ -651,7 +651,7 @@ const readContractCalls = (params) => {
  * @return send, loading, response & error
 */
 const writeContractCall = ({ abi, address, contract, method }) => {
-    const { ethConfig } = useConfig();
+    const config = useConfig();
     const { addError } = useErrorsBag();
     const { network, provider } = useEthereum();
     const [contractObj, setContractObj] = React.useState();
@@ -682,8 +682,8 @@ const writeContractCall = ({ abi, address, contract, method }) => {
                 _abi = abi;
                 _address = address;
             }
-            else if (ethConfig) {
-                const contracts = (_a = ethConfig.contractList) === null || _a === void 0 ? void 0 : _a.filter((_contract) => _contract.name == contract);
+            else if (config) {
+                const contracts = (_a = config.ethConfig.contractList) === null || _a === void 0 ? void 0 : _a.filter((_contract) => _contract.name == contract);
                 if (contracts && contracts.length) {
                     _abi = contracts[0].abi;
                     _address = contracts[0].addresses[network.chainId];
@@ -713,7 +713,7 @@ const writeContractCall = ({ abi, address, contract, method }) => {
             setError("No provider available");
             addError("No provider available");
         }
-    }, [provider, ethConfig]);
+    }, [provider, config]);
     return {
         send: (args) => { send(contractObj, args); },
         loading,
