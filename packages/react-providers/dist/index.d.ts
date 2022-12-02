@@ -296,11 +296,11 @@ interface PostContractCallParams {
     method: string;
 }
 declare type optionsType = {
-    gasLimit: Number;
-    gasPrice: string;
-    nounce: Number;
-    value: string;
-    chainId: Number;
+    gasLimit?: Number;
+    gasPrice?: string;
+    nounce?: Number;
+    value?: string;
+    chainId?: Number;
 };
 /**
  * @public

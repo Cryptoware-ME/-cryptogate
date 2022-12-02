@@ -144,7 +144,7 @@ interface PostContractCallParams {
     method: string,
 }
 
-type optionsType = { gasLimit: Number, gasPrice: string, nounce: Number, value: string, chainId: Number }
+type optionsType = { gasLimit?: Number, gasPrice?: string, nounce?: Number, value?: string, chainId?: Number }
 
 /**
  * @public
