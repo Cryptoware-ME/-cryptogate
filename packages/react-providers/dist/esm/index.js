@@ -670,7 +670,7 @@ const readContractCalls = (params) => {
         }
         else
             addError("No provider available");
-    }, [provider, config]);
+    }, [provider, config, params]);
     return response;
 };
 /**

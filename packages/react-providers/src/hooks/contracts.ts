@@ -132,7 +132,7 @@ export const readContractCalls = (params: GetContractCallParams[]): any[] => {
             Promise.all(res).then((result) => setResponse(result))
         }
         else addError("No provider available")
-    }, [provider, config])
+    }, [provider, config, params])
 
     return response
 }
