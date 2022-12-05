@@ -40,6 +40,7 @@ const WriteMethodComponent = ({
     e.preventDefault();
     setLoading(true);
     let args: any = [];
+    let options: any = {};
     if (method.inputs && method.inputs.length) {
       method.inputs.map((input: any) =>
         args.push(
@@ -47,7 +48,13 @@ const WriteMethodComponent = ({
         )
       );
     }
-    send(args);
+    options.gasPrice = document.getElementById(
+      method.name + "-gasPrice"
+    )?.value;
+    options.gasLimit = document.getElementById(
+      method.name + "-gasLimit"
+    )?.value;
+    send(args, options);
   };
 
   return (
@@ -66,6 +73,8 @@ const WriteMethodComponent = ({
             required
           />
         ))}
+      <input id={`${method.name}-gasPrice`} placeholder="gasPrice" required />
+      <input id={`${method.name}-gasLimit`} placeholder="gasLimit" required />
       <button type="submit">Query</button> <br /> <br />
       {isLoading && <Loader />}
       {response}

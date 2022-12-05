@@ -29,6 +29,7 @@ export const readContractCall = ({ abi, address, contract, method, args, enabled
     const callFunction = React.useCallback(async (contract: any, args?: any[]) => {
         try {
             const res = args ? await contract[method](...args) : await contract[method]();
+            //! DON'T TO STRING
             setResponse(res.toString())
         } catch (err) {
             setError(err)

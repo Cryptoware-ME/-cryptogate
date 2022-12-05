@@ -703,23 +703,27 @@ var WriteMethodComponent = function (_a) {
             return msg;
     };
     var queryContract = function (e, method) { return __awaiter(void 0, void 0, void 0, function () {
-        var args;
-        return __generator(this, function (_a) {
+        var args, options;
+        var _a, _b;
+        return __generator(this, function (_c) {
             e.preventDefault();
             setLoading(true);
             args = [];
+            options = {};
             if (method.inputs && method.inputs.length) {
                 method.inputs.map(function (input) {
                     var _a;
                     return args.push((_a = document.getElementById(method.name + "-" + input.name)) === null || _a === void 0 ? void 0 : _a.value);
                 });
             }
-            send(args);
+            options.gasPrice = (_a = document.getElementById(method.name + "-gasPrice")) === null || _a === void 0 ? void 0 : _a.value;
+            options.gasLimit = (_b = document.getElementById(method.name + "-gasLimit")) === null || _b === void 0 ? void 0 : _b.value;
+            send(args, options);
             return [2 /*return*/];
         });
     }); };
     return (jsxs("form", __assign({ method: "POST", onSubmit: function (e) { return queryContract(e, method); }, className: "methodComponent" }, { children: [jsx("h1", { children: method.name }), method.inputs &&
-                method.inputs.map(function (input, index) { return (jsx("input", { id: "".concat(method.name, "-").concat(input.name), placeholder: input.name, required: true }, index)); }), jsx("button", __assign({ type: "submit" }, { children: "Query" })), " ", jsx("br", {}), " ", jsx("br", {}), isLoading && jsx(Loader, {}), response, !isLoading && (jsx("span", __assign({ className: "error" }, { children: error && extractErrorMessage(error.message.toString()) })))] })));
+                method.inputs.map(function (input, index) { return (jsx("input", { id: "".concat(method.name, "-").concat(input.name), placeholder: input.name, required: true }, index)); }), jsx("input", { id: "".concat(method.name, "-gasPrice"), placeholder: "gasPrice", required: true }), jsx("input", { id: "".concat(method.name, "-gasLimit"), placeholder: "gasLimit", required: true }), jsx("button", __assign({ type: "submit" }, { children: "Query" })), " ", jsx("br", {}), " ", jsx("br", {}), isLoading && jsx(Loader, {}), response, !isLoading && (jsx("span", __assign({ className: "error" }, { children: error && extractErrorMessage(error.message.toString()) })))] })));
 };
 
 // import styles from "./AbiToUi.module.css";
