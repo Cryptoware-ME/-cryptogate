@@ -78,7 +78,7 @@ export const readContractCall = ({ abi, address, contract, method, args, enabled
             setError("No provider available");
             addError("No provider available")
         }
-    }, [provider, config, enabled, args])
+    }, [provider, config, abi, address, contract, method, args, enabled])
 
     return { response, error }
 }

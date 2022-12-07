@@ -591,6 +591,7 @@ const readContractCall = ({ abi, address, contract, method, args, enabled = true
     const callFunction = React__default["default"].useCallback((contract, args) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             const res = args ? yield contract[method](...args) : yield contract[method]();
+            //! DON'T TO STRING
             setResponse(res.toString());
         }
         catch (err) {
@@ -642,7 +643,7 @@ const readContractCall = ({ abi, address, contract, method, args, enabled = true
             setError("No provider available");
             addError("No provider available");
         }
-    }, [provider, config, enabled, args]);
+    }, [provider, config, abi, address, contract, method, args, enabled]);
     return { response, error };
 };
 /**
