@@ -1,8 +1,5 @@
-export declare type CoinbaseConfig = {
+export declare type WalletsConfig = {
     appName: string;
     appLogoUrl: string;
     darkMode: boolean;
-};
-export declare type WalletsConfig = {
-    coinbase?: CoinbaseConfig;
 };

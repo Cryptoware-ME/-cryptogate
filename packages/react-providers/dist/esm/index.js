@@ -469,8 +469,8 @@ const useEthereum = () => {
         if (coinbase)
             activateWallet(coinbase);
         // @Cryptogate: Might remove this later (handles popup if no extension found)
-        else if (walletsConfig === null || walletsConfig === void 0 ? void 0 : walletsConfig.coinbase) {
-            const _coinbase = new CoinbaseWalletSDK(walletsConfig.coinbase).makeWeb3Provider();
+        else if (walletsConfig) {
+            const _coinbase = new CoinbaseWalletSDK(Object.assign({}, walletsConfig)).makeWeb3Provider();
             activateWallet(_coinbase);
         }
     }), [coinbase, walletsConfig]);
@@ -561,6 +561,8 @@ const readContractCall = ({ abi, address, contract, method, args, enabled = true
     const [error, setError] = React.useState(undefined);
     const callFunction = React.useCallback((contract, args) => __awaiter(void 0, void 0, void 0, function* () {
         try {
+            clearErrors();
+            setError(undefined);
             const res = args ? yield contract[method](...args) : yield contract[method]();
             //! DON'T TO STRING
             setResponse(res.toString());
@@ -574,6 +576,7 @@ const readContractCall = ({ abi, address, contract, method, args, enabled = true
         var _a;
         if (provider) {
             clearErrors();
+            setError(undefined);
             if (enabled) {
                 let _abi = undefined;
                 let _address = undefined;
@@ -583,6 +586,7 @@ const readContractCall = ({ abi, address, contract, method, args, enabled = true
                 }
                 else if (config) {
                     clearErrors();
+                    setError(undefined);
                     const contracts = (_a = config.ethConfig.contractList) === null || _a === void 0 ? void 0 : _a.filter((_contract) => _contract.name == contract);
                     if (contracts && contracts.length) {
                         _abi = contracts[0].abi;
@@ -595,7 +599,10 @@ const readContractCall = ({ abi, address, contract, method, args, enabled = true
                 }
                 if (_abi && _address) {
                     clearErrors();
+                    setError(undefined);
                     try {
+                        clearErrors();
+                        setError(undefined);
                         const contractObj = new ethers.Contract(_address, _abi, provider);
                         callFunction(contractObj, args);
                     }
@@ -624,7 +631,7 @@ const readContractCall = ({ abi, address, contract, method, args, enabled = true
 */
 const readContractCalls = (params) => {
     const config = useConfig();
-    const { addError } = useErrorsBag();
+    const { addError, clearErrors } = useErrorsBag();
     const { network, provider } = useEthereum();
     const [response, setResponse] = React.useState([]);
     const callFunction = (contract, name, args) => __awaiter(void 0, void 0, void 0, function* () {
@@ -638,6 +645,7 @@ const readContractCalls = (params) => {
     });
     React.useEffect(() => {
         if (provider) {
+            clearErrors();
             let _abi = undefined;
             let _address = undefined;
             const res = params.map((param) => {
@@ -649,6 +657,7 @@ const readContractCalls = (params) => {
                 else if (config) {
                     const contracts = (_a = config.ethConfig.contractList) === null || _a === void 0 ? void 0 : _a.filter((_contract) => _contract.name == param.contract);
                     if (contracts && contracts.length) {
+                        clearErrors();
                         _abi = contracts[0].abi;
                         _address = contracts[0].addresses[network.chainId];
                     }
@@ -656,7 +665,9 @@ const readContractCalls = (params) => {
                         addError(`Contract ${param.contract} doesn't exist in your config`);
                 }
                 if (_abi && _address) {
+                    clearErrors();
                     try {
+                        clearErrors();
                         const contractObj = new ethers.Contract(_address, _abi, provider);
                         return callFunction(contractObj, param.method, param.args);
                     }
@@ -692,7 +703,8 @@ const writeContractCall = ({ abi, address, contract, method }) => {
             setLoading(true);
             try {
                 const res = args ? (options ? yield _contractObj[method](...args, options) : yield _contractObj[method](...args)) : (options ? yield _contractObj[method](options) : yield _contractObj[method]());
-                setResponse(res.toString());
+                setResponse(res);
+                setError(undefined);
                 setLoading(false);
             }
             catch (err) {
@@ -706,6 +718,7 @@ const writeContractCall = ({ abi, address, contract, method }) => {
         var _a;
         if (provider) {
             clearErrors();
+            setError(undefined);
             let _abi = undefined;
             let _address = undefined;
             if (abi && address) {
@@ -716,6 +729,7 @@ const writeContractCall = ({ abi, address, contract, method }) => {
                 const contracts = (_a = config.ethConfig.contractList) === null || _a === void 0 ? void 0 : _a.filter((_contract) => _contract.name == contract);
                 if (contracts && contracts.length) {
                     clearErrors();
+                    setError(undefined);
                     _abi = contracts[0].abi;
                     _address = contracts[0].addresses[network.chainId];
                 }
@@ -726,8 +740,10 @@ const writeContractCall = ({ abi, address, contract, method }) => {
             }
             if (_abi && _address) {
                 clearErrors();
+                setError(undefined);
                 try {
                     clearErrors();
+                    setError(undefined);
                     const signer = provider.getSigner();
                     const _contractObj = new ethers.Contract(_address, _abi, signer);
                     setContractObj(_contractObj);

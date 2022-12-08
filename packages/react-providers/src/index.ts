@@ -26,7 +26,7 @@ export {
     Avalanche, AvalancheTestnet
 } from "./models/chains"
 
-export type { Chain, EthConfig, EthContract, NodeUrls, ContractABIUnit, ContractIO, EvmAddress, CoinbaseConfig, WalletsConfig } from "./models/types"
+export type { Chain, EthConfig, EthContract, NodeUrls, ContractABIUnit, ContractIO, EvmAddress, WalletsConfig } from "./models/types"
 
 export {
     useEthereum,

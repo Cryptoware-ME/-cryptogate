@@ -50,8 +50,8 @@ export const useEthereum = () => {
     const activateCoinbaseWallet = React.useCallback(async () => {
         if (coinbase) activateWallet(coinbase)
         // @Cryptogate: Might remove this later (handles popup if no extension found)
-        else if (walletsConfig?.coinbase) {
-            const _coinbase = new CoinbaseWalletSDK(walletsConfig.coinbase).makeWeb3Provider()
+        else if (walletsConfig) {
+            const _coinbase = new CoinbaseWalletSDK({ ...walletsConfig }).makeWeb3Provider()
             activateWallet(_coinbase)
         }
     }, [coinbase, walletsConfig])

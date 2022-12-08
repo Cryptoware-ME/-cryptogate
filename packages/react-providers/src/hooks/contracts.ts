@@ -28,6 +28,8 @@ export const readContractCall = ({ abi, address, contract, method, args, enabled
 
     const callFunction = React.useCallback(async (contract: any, args?: any[]) => {
         try {
+            clearErrors()
+            setError(undefined)
             const res = args ? await contract[method](...args) : await contract[method]();
             //! DON'T TO STRING
             setResponse(res.toString())
@@ -40,6 +42,7 @@ export const readContractCall = ({ abi, address, contract, method, args, enabled
     React.useEffect(() => {
         if (provider) {
             clearErrors()
+            setError(undefined)
             if (enabled) {
                 let _abi: ethers.ContractInterface | ContractABIUnit[] | undefined = undefined;
                 let _address: EvmAddress | undefined = undefined;
@@ -49,6 +52,7 @@ export const readContractCall = ({ abi, address, contract, method, args, enabled
                 }
                 else if (config) {
                     clearErrors()
+                    setError(undefined)
                     const contracts = config.ethConfig.contractList?.filter((_contract) => _contract.name == contract)
                     if (contracts && contracts.length) {
                         _abi = contracts[0].abi;
@@ -61,7 +65,10 @@ export const readContractCall = ({ abi, address, contract, method, args, enabled
                 }
                 if (_abi && _address) {
                     clearErrors()
+                    setError(undefined)
                     try {
+                        clearErrors()
+                        setError(undefined)
                         const contractObj = new ethers.Contract(_address, _abi, provider);
                         callFunction(contractObj, args)
                     } catch (err) {
@@ -90,7 +97,7 @@ export const readContractCall = ({ abi, address, contract, method, args, enabled
 */
 export const readContractCalls = (params: GetContractCallParams[]): any[] => {
     const config = useConfig()
-    const { addError } = useErrorsBag()
+    const { addError, clearErrors } = useErrorsBag()
     const { network, provider } = useEthereum()
 
     const [response, setResponse]: [any[], React.Dispatch<React.SetStateAction<any[]>>] = React.useState<any>([])
@@ -104,6 +111,7 @@ export const readContractCalls = (params: GetContractCallParams[]): any[] => {
 
     React.useEffect(() => {
         if (provider) {
+            clearErrors()
             let _abi: ethers.ContractInterface | ContractABIUnit[] | undefined = undefined;
             let _address: EvmAddress | undefined = undefined;
             const res = params.map((param) => {
@@ -114,12 +122,15 @@ export const readContractCalls = (params: GetContractCallParams[]): any[] => {
                 else if (config) {
                     const contracts = config.ethConfig.contractList?.filter((_contract) => _contract.name == param.contract)
                     if (contracts && contracts.length) {
+                        clearErrors()
                         _abi = contracts[0].abi;
                         _address = contracts[0].addresses[network.chainId]
                     } else addError(`Contract ${param.contract} doesn't exist in your config`)
                 }
                 if (_abi && _address) {
+                    clearErrors()
                     try {
+                        clearErrors()
                         const contractObj = new ethers.Contract(
                             _address,
                             _abi,
@@ -172,7 +183,8 @@ export const writeContractCall = ({ abi, address, contract, method }: PostContra
             setLoading(true)
             try {
                 const res = args ? (options ? await _contractObj[method](...args, options) : await _contractObj[method](...args)) : (options ? await _contractObj[method](options) : await _contractObj[method]());
-                setResponse(res.toString())
+                setResponse(res)
+                setError(undefined)
                 setLoading(false)
             } catch (err) {
                 setError(err)
@@ -185,6 +197,7 @@ export const writeContractCall = ({ abi, address, contract, method }: PostContra
     React.useEffect(() => {
         if (provider) {
             clearErrors()
+            setError(undefined)
             let _abi: ethers.ContractInterface | ContractABIUnit[] | undefined = undefined;
             let _address: EvmAddress | undefined = undefined;
             if (abi && address) {
@@ -195,6 +208,7 @@ export const writeContractCall = ({ abi, address, contract, method }: PostContra
                 const contracts = config.ethConfig.contractList?.filter((_contract) => _contract.name == contract)
                 if (contracts && contracts.length) {
                     clearErrors()
+                    setError(undefined)
                     _abi = contracts[0].abi;
                     _address = contracts[0].addresses[network.chainId]
                 } else {
@@ -205,8 +219,10 @@ export const writeContractCall = ({ abi, address, contract, method }: PostContra
             }
             if (_abi && _address) {
                 clearErrors()
+                setError(undefined)
                 try {
                     clearErrors()
+                    setError(undefined)
                     const signer = provider.getSigner()
                     const _contractObj = new ethers.Contract(_address, _abi, signer)
                     setContractObj(_contractObj);

@@ -1,9 +1,5 @@
-export type CoinbaseConfig = {
+export type WalletsConfig = {
     appName: string,
     appLogoUrl: string,
     darkMode: boolean,
-}
-
-export type WalletsConfig = {
-    coinbase?: CoinbaseConfig
 }

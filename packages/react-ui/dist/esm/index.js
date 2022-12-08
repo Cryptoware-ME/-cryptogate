@@ -1,6 +1,6 @@
 import { jsx, jsxs, Fragment } from 'react/jsx-runtime';
 import React, { useState, useEffect } from 'react';
-import { useEthereum, readContractCalls, ChainId, readContractCall, writeContractCall, useConfig } from '@cryptogate/react-providers';
+import { useEthereum, readContractCalls, useConfig, ChainId, readContractCall, writeContractCall } from '@cryptogate/react-providers';
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
 import { ERC20, IERC721Metadata, ERC721, ethSignMessage } from '@cryptogate/core';
 import BigNumber from 'bignumber.js';
@@ -455,17 +455,16 @@ var signingMessage = function (account, provider, SignatureMessage) { return __a
     });
 }); };
 var ConnectWalletButton = function (_a) {
-    var ActiveComponent = _a.ActiveComponent, DisabledComponent = _a.DisabledComponent, ConnectedComponent = _a.ConnectedComponent, SignatureMessage = _a.SignatureMessage, NetworkChainIds = _a.NetworkChainIds, NetworkAlertMessage = _a.NetworkAlertMessage, ChosenConnectedMenu = _a.ChosenConnectedMenu, onSign = _a.onSign, Store = _a.Store, setOpenOptions = _a.setOpenOptions;
+    var ActiveComponent = _a.ActiveComponent, DisabledComponent = _a.DisabledComponent, ConnectedComponent = _a.ConnectedComponent, SignatureMessage = _a.SignatureMessage; _a.NetworkChainIds; var NetworkAlertMessage = _a.NetworkAlertMessage, ChosenConnectedMenu = _a.ChosenConnectedMenu, onSign = _a.onSign, Store = _a.Store, setOpenOptions = _a.setOpenOptions;
     var _b = React.useState(false), openMenu = _b[0], setOpenMenu = _b[1];
     var _c = React.useState(null), keyValue = _c[0], setKeyValue = _c[1];
     var _d = useEthereum(), account = _d.account, network = _d.network, provider = _d.provider, deactivate = _d.deactivate;
+    var ethConfig = useConfig().ethConfig;
     React.useEffect(function () {
         if (account && provider) {
-            if (NetworkChainIds.length == 0 ||
-                (NetworkChainIds.length > 0 &&
-                    (network.chainId
-                        ? NetworkChainIds.includes(Number(network.chainId))
-                        : false))) {
+            if (ethConfig.allowedNetworks &&
+                ethConfig.allowedNetworks.length &&
+                ethConfig.allowedNetworks.filter(function (chain) { return (chain === null || chain === void 0 ? void 0 : chain.chainId) == network.chainId; }).length) {
                 if (onSign) {
                     var key = getWithExpiry("sig-".concat(account === null || account === void 0 ? void 0 : account.toLowerCase()));
                     if (key) {

@@ -1,5 +1,10 @@
 import React from "react";
-import { ChainId, useEthereum } from "@cryptogate/react-providers";
+import {
+  ChainId,
+  useEthereum,
+  useConfig,
+  getChainById,
+} from "@cryptogate/react-providers";
 import { ConnectedMenu } from "../ConnectMenu";
 import { ethSignMessage } from "@cryptogate/core";
 import { setWithExpiry } from "../../localStorage/setWithExpire";
@@ -59,15 +64,16 @@ export const ConnectWalletButton = ({
   const [keyValue, setKeyValue] = React.useState(null as unknown as object);
 
   const { account, network, provider, deactivate } = useEthereum();
+  const { ethConfig } = useConfig();
 
   React.useEffect(() => {
     if (account && provider) {
       if (
-        NetworkChainIds.length == 0 ||
-        (NetworkChainIds.length > 0 &&
-          (network.chainId
-            ? NetworkChainIds.includes(Number(network.chainId))
-            : false))
+        ethConfig.allowedNetworks &&
+        ethConfig.allowedNetworks.length &&
+        ethConfig.allowedNetworks.filter(
+          (chain) => chain?.chainId == network.chainId
+        ).length
       ) {
         if (onSign) {
           let key = getWithExpiry(`sig-${account?.toLowerCase()}`);
