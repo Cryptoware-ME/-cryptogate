@@ -69,7 +69,11 @@ const ReadMethodComponent = ({
       <button type="submit">Query</button> <br /> <br />
       {loading && <Loader />}
       {!loading && response ? response.toString() : <></>}
-      {!loading && <span className="error">{error && error.toString()}</span>}
+      {!loading && error ? (
+        <span className="error">{error && error.toString()}</span>
+      ) : (
+        <></>
+      )}
     </form>
   );
 };

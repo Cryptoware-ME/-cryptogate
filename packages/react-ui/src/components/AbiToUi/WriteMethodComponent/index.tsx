@@ -78,10 +78,12 @@ const WriteMethodComponent = ({
       <button type="submit">Query</button> <br /> <br />
       {isLoading && <Loader />}
       {!loading && response ? response.toString() : <></>}
-      {!isLoading && (
+      {!isLoading && error ? (
         <span className="error">
           {error && extractErrorMessage(error.message.toString())}
         </span>
+      ) : (
+        <></>
       )}
     </form>
   );

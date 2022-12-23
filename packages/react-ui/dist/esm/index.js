@@ -678,7 +678,7 @@ var ReadMethodComponent = function (_a) {
         });
     }); };
     return (jsxs("form", __assign({ method: "POST", onSubmit: function (e) { return queryContract(e, method); }, className: "methodComponent" }, { children: [jsx("h1", { children: method.name }), method.inputs &&
-                method.inputs.map(function (input, index) { return (jsx("input", { id: "".concat(method.name, "-").concat(input.name), placeholder: input.name, required: true }, index)); }), jsx("button", __assign({ type: "submit" }, { children: "Query" })), " ", jsx("br", {}), " ", jsx("br", {}), loading && jsx(Loader, {}), !loading && response ? response.toString() : jsx(Fragment, {}), !loading && jsx("span", __assign({ className: "error" }, { children: error && error.toString() }))] })));
+                method.inputs.map(function (input, index) { return (jsx("input", { id: "".concat(method.name, "-").concat(input.name), placeholder: input.name, required: true }, index)); }), jsx("button", __assign({ type: "submit" }, { children: "Query" })), " ", jsx("br", {}), " ", jsx("br", {}), loading && jsx(Loader, {}), !loading && response ? response.toString() : jsx(Fragment, {}), !loading && error ? (jsx("span", __assign({ className: "error" }, { children: error && error.toString() }))) : (jsx(Fragment, {}))] })));
 };
 
 var WriteMethodComponent = function (_a) {
@@ -722,7 +722,7 @@ var WriteMethodComponent = function (_a) {
         });
     }); };
     return (jsxs("form", __assign({ method: "POST", onSubmit: function (e) { return queryContract(e, method); }, className: "methodComponent" }, { children: [jsx("h1", { children: method.name }), method.inputs &&
-                method.inputs.map(function (input, index) { return (jsx("input", { id: "".concat(method.name, "-").concat(input.name), placeholder: input.name, required: true }, index)); }), jsx("input", { id: "".concat(method.name, "-gasPrice"), placeholder: "gasPrice", required: true }), jsx("input", { id: "".concat(method.name, "-gasLimit"), placeholder: "gasLimit", required: true }), jsx("button", __assign({ type: "submit" }, { children: "Query" })), " ", jsx("br", {}), " ", jsx("br", {}), isLoading && jsx(Loader, {}), !loading && response ? response.toString() : jsx(Fragment, {}), !isLoading && (jsx("span", __assign({ className: "error" }, { children: error && extractErrorMessage(error.message.toString()) })))] })));
+                method.inputs.map(function (input, index) { return (jsx("input", { id: "".concat(method.name, "-").concat(input.name), placeholder: input.name, required: true }, index)); }), jsx("input", { id: "".concat(method.name, "-gasPrice"), placeholder: "gasPrice", required: true }), jsx("input", { id: "".concat(method.name, "-gasLimit"), placeholder: "gasLimit", required: true }), jsx("button", __assign({ type: "submit" }, { children: "Query" })), " ", jsx("br", {}), " ", jsx("br", {}), isLoading && jsx(Loader, {}), !loading && response ? response.toString() : jsx(Fragment, {}), !isLoading && error ? (jsx("span", __assign({ className: "error" }, { children: error && extractErrorMessage(error.message.toString()) }))) : (jsx(Fragment, {}))] })));
 };
 
 // import styles from "./AbiToUi.module.css";
