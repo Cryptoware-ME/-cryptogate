@@ -80,7 +80,9 @@ const WriteMethodComponent = ({
       {!loading && response ? response.toString() : <></>}
       {!isLoading && error ? (
         <span className="error">
-          {error && extractErrorMessage(error.message.toString())}
+          {error.message
+            ? extractErrorMessage(error.message.toString())
+            : extractErrorMessage(error.toString())}
         </span>
       ) : (
         <></>
