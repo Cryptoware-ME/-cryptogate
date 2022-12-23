@@ -77,7 +77,7 @@ const WriteMethodComponent = ({
       <input id={`${method.name}-gasLimit`} placeholder="gasLimit" required />
       <button type="submit">Query</button> <br /> <br />
       {isLoading && <Loader />}
-      {response.toString()}
+      {!loading && response && response.toString()}
       {!isLoading && (
         <span className="error">
           {error && extractErrorMessage(error.message.toString())}
