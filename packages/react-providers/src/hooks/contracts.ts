@@ -31,6 +31,7 @@ export const readContractCall = ({ abi, address, contract, method, args, enabled
             clearErrors()
             setError(undefined)
             const res = args ? await contract[method](...args) : await contract[method]();
+            setResponse(undefined)
             //! DON'T TO STRING
             setResponse(res.toString())
         } catch (err) {
