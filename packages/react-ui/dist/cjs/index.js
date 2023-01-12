@@ -230,11 +230,11 @@ var index$4 = function (_a) {
         tokenList: tokens,
         method: TOKEN_CONTRACT_METHODS.DECIMALS,
     });
-    return (jsxRuntime.jsxs("div", __assign({ style: { display: "flex", flexDirection: "".concat(nfts ? "column" : "row") } }, { children: [jsxRuntime.jsx("p", __assign({ style: {
+    return (jsxRuntime.jsxs("div", __assign({ style: { display: "flex", flexDirection: "column" } }, { children: [jsxRuntime.jsx("p", __assign({ style: {
                     fontWeight: "bold",
                     lineHeight: 0,
                     color: "#000",
-                } }, { children: "TOKENS" })), jsxRuntime.jsx("div", __assign({ className: "tokenDetailsContainer" }, { children: balance &&
+                } }, { children: "TOKENS" })), jsxRuntime.jsx("div", __assign({ className: "tokenDetailsContainer", style: { display: "flex", flexDirection: "".concat(nfts ? "column" : "row") } }, { children: balance &&
                     symbol &&
                     decimals &&
                     balance.map(function (e, index) { return (jsxRuntime.jsx("div", { children: e && (jsxRuntime.jsx("div", { children: jsxRuntime.jsx("div", __assign({ style: {

@@ -219,11 +219,11 @@ var index$4 = function (_a) {
         tokenList: tokens,
         method: TOKEN_CONTRACT_METHODS.DECIMALS,
     });
-    return (jsxs("div", __assign({ style: { display: "flex", flexDirection: "".concat(nfts ? "column" : "row") } }, { children: [jsx("p", __assign({ style: {
+    return (jsxs("div", __assign({ style: { display: "flex", flexDirection: "column" } }, { children: [jsx("p", __assign({ style: {
                     fontWeight: "bold",
                     lineHeight: 0,
                     color: "#000",
-                } }, { children: "TOKENS" })), jsx("div", __assign({ className: "tokenDetailsContainer" }, { children: balance &&
+                } }, { children: "TOKENS" })), jsx("div", __assign({ className: "tokenDetailsContainer", style: { display: "flex", flexDirection: "".concat(nfts ? "column" : "row") } }, { children: balance &&
                     symbol &&
                     decimals &&
                     balance.map(function (e, index) { return (jsx("div", { children: e && (jsx("div", { children: jsx("div", __assign({ style: {

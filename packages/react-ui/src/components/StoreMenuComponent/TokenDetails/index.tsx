@@ -25,9 +25,7 @@ const index = ({ tokens, nfts }: { tokens?: string[]; nfts: Boolean }) => {
   });
 
   return (
-    <div
-      style={{ display: "flex", flexDirection: `${nfts ? "column" : "row"}` }}
-    >
+    <div style={{ display: "flex", flexDirection: "column" }}>
       <p
         style={{
           fontWeight: "bold",
@@ -37,7 +35,10 @@ const index = ({ tokens, nfts }: { tokens?: string[]; nfts: Boolean }) => {
       >
         TOKENS
       </p>
-      <div className="tokenDetailsContainer">
+      <div
+        className="tokenDetailsContainer"
+        style={{ display: "flex", flexDirection: `${nfts ? "column" : "row"}` }}
+      >
         {balance &&
           symbol &&
           decimals &&
