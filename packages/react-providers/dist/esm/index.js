@@ -564,6 +564,7 @@ const readContractCall = ({ abi, address, contract, method, args, enabled = true
             clearErrors();
             setError(undefined);
             const res = args ? yield contract[method](...args) : yield contract[method]();
+            setResponse(undefined);
             //! DON'T TO STRING
             setResponse(res.toString());
         }

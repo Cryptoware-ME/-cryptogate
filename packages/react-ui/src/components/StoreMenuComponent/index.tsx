@@ -31,7 +31,8 @@ const index = ({
             }}
           >
             {Store.Tokens && Store.Tokens.length > 0 && (
-              <TokenDetails tokens={Store.Tokens} />
+              <TokenDetails tokens={Store.Tokens} nfts={Boolean(Store.Tokens &&
+              Store.Tokens.length)}/>
             )}
 
             {Store.Tokens &&

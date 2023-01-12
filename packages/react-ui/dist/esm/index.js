@@ -130,7 +130,7 @@ var WalletInformation = function (_a) {
                             fontWeight: "bold",
                             margin: 0,
                             color: "#000",
-                        } }, { children: [account && ethBalance && ethBalance.slice(0, 7), "ETH"] }))] }))] })));
+                        } }, { children: [account && ethBalance && (ethBalance === null || ethBalance === void 0 ? void 0 : ethBalance.slice(0, 7)), "ETH"] }))] }))] })));
 };
 
 var useTokensMultiCall = function (_a) {
@@ -203,7 +203,7 @@ var build_slider_settings = function (_a) {
 };
 
 var index$4 = function (_a) {
-    var tokens = _a.tokens;
+    var tokens = _a.tokens, nfts = _a.nfts;
     var account = useEthereum().account;
     var balance = useTokensMultiCall({
         tokenList: tokens,
@@ -219,7 +219,7 @@ var index$4 = function (_a) {
         tokenList: tokens,
         method: TOKEN_CONTRACT_METHODS.DECIMALS,
     });
-    return (jsxs("div", __assign({ style: { display: "flex", flexDirection: "column" } }, { children: [jsx("p", __assign({ style: {
+    return (jsxs("div", __assign({ style: { display: "flex", flexDirection: "".concat(nfts ? "column" : "row") } }, { children: [jsx("p", __assign({ style: {
                     fontWeight: "bold",
                     lineHeight: 0,
                     color: "#000",
@@ -369,7 +369,8 @@ var index = function (_a) {
                             justifyContent: "flex-start",
                             alignItems: "felx-start",
                             maxHeight: "320px",
-                        } }, { children: [Store.Tokens && Store.Tokens.length > 0 && (jsx(index$4, { tokens: Store.Tokens })), Store.Tokens &&
+                        } }, { children: [Store.Tokens && Store.Tokens.length > 0 && (jsx(index$4, { tokens: Store.Tokens, nfts: Boolean(Store.Tokens &&
+                                    Store.Tokens.length) })), Store.Tokens &&
                                 Store.Tokens.length &&
                                 Store.NFTs &&
                                 Store.NFTs.length && (jsx("div", { style: {

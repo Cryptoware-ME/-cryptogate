@@ -112,7 +112,7 @@ const WalletInformation = ({
             color: `#000`,
           }}
         >
-          {account && ethBalance && ethBalance.slice(0, 7)}
+          {account && ethBalance && ethBalance?.slice(0, 7)}
           ETH
         </p>
       </div>

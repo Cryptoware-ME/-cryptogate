@@ -4,7 +4,7 @@ import { toDecimals } from "../../../utils/helpers";
 import { TOKEN_CONTRACT_METHODS } from "../../../utils/constants";
 import "./TokenDetails.module.css";
 
-const index = ({ tokens }: { tokens?: string[] }) => {
+const index = ({ tokens, nfts }: { tokens?: string[]; nfts: Boolean }) => {
   const { account } = useEthereum();
 
   const balance = useTokensMultiCall({
@@ -25,7 +25,9 @@ const index = ({ tokens }: { tokens?: string[] }) => {
   });
 
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
+    <div
+      style={{ display: "flex", flexDirection: `${nfts ? "column" : "row"}` }}
+    >
       <p
         style={{
           fontWeight: "bold",
