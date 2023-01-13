@@ -12,7 +12,6 @@ import NFTSlider from "./NFTSlider";
 const index = ({ NFTs }: { NFTs: string[] }) => {
   const [clicked, setClicked] = useState(-1);
   const { account } = useEthereum();
-
   var balances = useNFTMetadataMultiCall({
     NFTs,
     method: NFT_CONTRACT_METHODS.BALANCE_OF,

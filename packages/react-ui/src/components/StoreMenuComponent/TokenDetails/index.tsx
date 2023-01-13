@@ -6,7 +6,6 @@ import "./TokenDetails.module.css";
 
 const index = ({ tokens, nfts }: { tokens?: string[]; nfts: Boolean }) => {
   const { account } = useEthereum();
-
   const balance = useTokensMultiCall({
     tokenList: tokens as string[],
     method: TOKEN_CONTRACT_METHODS.BALANCE_OF,
@@ -37,7 +36,11 @@ const index = ({ tokens, nfts }: { tokens?: string[]; nfts: Boolean }) => {
       </p>
       <div
         className="tokenDetailsContainer"
-        style={{ display: "flex", flexDirection: `${nfts ? "column" : "row"}` }}
+        style={{
+          display: "flex",
+          flexDirection: `${nfts ? "column" : "row"}`,
+          flexWrap: `${nfts ? "nowrap" : "wrap"}`,
+        }}
       >
         {balance &&
           symbol &&
@@ -50,7 +53,7 @@ const index = ({ tokens, nfts }: { tokens?: string[]; nfts: Boolean }) => {
                     style={{
                       display: "flex",
                       alignItems: "center",
-                      margin: "1vh 0",
+                      margin: `${nfts ? "1vh 0" : "1vh 1vw"}`,
                     }}
                   >
                     <div>

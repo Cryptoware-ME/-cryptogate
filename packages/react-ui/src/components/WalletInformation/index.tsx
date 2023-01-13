@@ -100,7 +100,7 @@ const WalletInformation = ({
       )}
       <div
         style={{
-          marginRight: direction == "x" ? "10vw" : "0",
+          marginRight: direction == "x" ? "3vw" : "0",
           padding: 0,
         }}
       >

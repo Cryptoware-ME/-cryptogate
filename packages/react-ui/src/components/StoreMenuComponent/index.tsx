@@ -10,7 +10,13 @@ const index = ({
   Store?: { Tokens?: string[]; NFTs?: string[] };
 }) => {
   return (
-    <div>
+    <div
+      style={{
+        maxWidth: `${
+          Store && Store.NFTs && Store.NFTs.length ? "50vw" : "25vw"
+        }`,
+      }}
+    >
       <WalletInformation onDisconnect={onDisconnect} direction="x" />
 
       {Store && (Store.Tokens || Store.NFTs) && (
@@ -31,8 +37,10 @@ const index = ({
             }}
           >
             {Store.Tokens && Store.Tokens.length > 0 && (
-              <TokenDetails tokens={Store.Tokens} nfts={Boolean(Store.Tokens &&
-              Store.Tokens.length)}/>
+              <TokenDetails
+                tokens={Store.Tokens}
+                nfts={Boolean(Store.NFTs && Store.NFTs.length)}
+              />
             )}
 
             {Store.Tokens &&

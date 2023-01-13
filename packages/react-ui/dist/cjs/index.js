@@ -135,7 +135,7 @@ var WalletInformation = function (_a) {
                             display: direction == "x" ? "flex" : "none",
                             margin: "0 0 0 4vw",
                         } }, { children: jsxRuntime.jsx(Identicon, {}) }))] })), direction == "y" && (jsxRuntime.jsx("hr", { style: { width: "100%", marginBottom: "2vh" } })), jsxRuntime.jsxs("div", __assign({ style: {
-                    marginRight: direction == "x" ? "10vw" : "0",
+                    marginRight: direction == "x" ? "3vw" : "0",
                     padding: 0,
                 } }, { children: [jsxRuntime.jsx("p", __assign({ style: { margin: 0, color: "#000" } }, { children: "Total Balance" })), jsxRuntime.jsxs("p", __assign({ style: {
                             fontWeight: "bold",
@@ -234,13 +234,17 @@ var index$4 = function (_a) {
                     fontWeight: "bold",
                     lineHeight: 0,
                     color: "#000",
-                } }, { children: "TOKENS" })), jsxRuntime.jsx("div", __assign({ className: "tokenDetailsContainer", style: { display: "flex", flexDirection: "".concat(nfts ? "column" : "row") } }, { children: balance &&
+                } }, { children: "TOKENS" })), jsxRuntime.jsx("div", __assign({ className: "tokenDetailsContainer", style: {
+                    display: "flex",
+                    flexDirection: "".concat(nfts ? "column" : "row"),
+                    flexWrap: "".concat(nfts ? "nowrap" : "wrap"),
+                } }, { children: balance &&
                     symbol &&
                     decimals &&
                     balance.map(function (e, index) { return (jsxRuntime.jsx("div", { children: e && (jsxRuntime.jsx("div", { children: jsxRuntime.jsx("div", __assign({ style: {
                                     display: "flex",
                                     alignItems: "center",
-                                    margin: "1vh 0",
+                                    margin: "".concat(nfts ? "1vh 0" : "1vh 1vw"),
                                 } }, { children: jsxRuntime.jsxs("div", { children: [jsxRuntime.jsx("p", __assign({ style: {
                                                 margin: 0,
                                                 fontWeight: "500",
@@ -371,7 +375,9 @@ var index$1 = function (_a) {
 
 var index = function (_a) {
     var onDisconnect = _a.onDisconnect, Store = _a.Store;
-    return (jsxRuntime.jsxs("div", { children: [jsxRuntime.jsx(WalletInformation, { onDisconnect: onDisconnect, direction: "x" }), Store && (Store.Tokens || Store.NFTs) && (jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [jsxRuntime.jsx("hr", { style: {
+    return (jsxRuntime.jsxs("div", __assign({ style: {
+            maxWidth: "".concat(Store && Store.NFTs && Store.NFTs.length ? "50vw" : "25vw"),
+        } }, { children: [jsxRuntime.jsx(WalletInformation, { onDisconnect: onDisconnect, direction: "x" }), Store && (Store.Tokens || Store.NFTs) && (jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [jsxRuntime.jsx("hr", { style: {
                             width: "100%",
                             borderTop: 0,
                             borderBottom: "1px solid #000",
@@ -380,14 +386,13 @@ var index = function (_a) {
                             justifyContent: "flex-start",
                             alignItems: "felx-start",
                             maxHeight: "320px",
-                        } }, { children: [Store.Tokens && Store.Tokens.length > 0 && (jsxRuntime.jsx(index$4, { tokens: Store.Tokens, nfts: Boolean(Store.Tokens &&
-                                    Store.Tokens.length) })), Store.Tokens &&
+                        } }, { children: [Store.Tokens && Store.Tokens.length > 0 && (jsxRuntime.jsx(index$4, { tokens: Store.Tokens, nfts: Boolean(Store.NFTs && Store.NFTs.length) })), Store.Tokens &&
                                 Store.Tokens.length &&
                                 Store.NFTs &&
                                 Store.NFTs.length && (jsxRuntime.jsx("div", { style: {
                                     borderLeft: "1px solid #ffffff",
                                     margin: "0 2vw 0 2vw",
-                                } })), Store.NFTs && Store.NFTs.length > 0 && (jsxRuntime.jsx(index$1, { NFTs: Store.NFTs }))] }))] }))] }));
+                                } })), Store.NFTs && Store.NFTs.length > 0 && (jsxRuntime.jsx(index$1, { NFTs: Store.NFTs }))] }))] }))] })));
 };
 
 var ConnectedMenu = function (_a) {
