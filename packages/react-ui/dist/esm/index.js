@@ -150,11 +150,12 @@ var toDecimals = function (_a) {
     if (number._hex == "0x00")
         return 0;
     var decimals = new BigNumber(10).exponentiatedBy(tokenDecimals);
-    if (precision === 0) {
+    if (precision === 0)
         return new BigNumber(number._hex).dividedBy(decimals).toNumber();
-    }
     var res = new BigNumber(number._hex).dividedBy(decimals).toString().split(".");
-    return Number(res[0] + "." + res[1].slice(0, precision));
+    if (res[1])
+        return Number(res[0] + "." + res[1].slice(0, precision));
+    return Number(res[0]);
 };
 var convertResultToReadableFormat = function (result) {
     return result.map(function (e) {
@@ -225,24 +226,21 @@ var index$4 = function (_a) {
                     color: "#000",
                 } }, { children: "TOKENS" })), jsx("div", __assign({ className: "tokenDetailsContainer", style: {
                     display: "flex",
-                    flexDirection: "".concat(nfts ? "column" : "row"),
-                    flexWrap: "".concat(nfts ? "nowrap" : "wrap"),
+                    flexDirection: "column",
                 } }, { children: balance &&
                     symbol &&
                     decimals &&
-                    balance.map(function (e, index) { return (jsx("div", { children: e && (jsx("div", { children: jsx("div", __assign({ style: {
-                                    display: "flex",
-                                    alignItems: "center",
+                    balance.map(function (e, index) { return (jsx("div", { children: e && (jsx("div", { children: jsxs("div", __assign({ style: {
                                     margin: "".concat(nfts ? "1vh 0" : "1vh 1vw"),
-                                } }, { children: jsxs("div", { children: [jsx("p", __assign({ style: {
-                                                margin: 0,
-                                                fontWeight: "500",
-                                                color: "#000",
-                                            } }, { children: symbol[index] })), jsx("p", __assign({ style: { margin: 0, color: "#323232" } }, { children: toDecimals({
-                                                number: e,
-                                                precision: 5,
-                                                tokenDecimals: decimals[index],
-                                            }) }))] }) })) })) }, "token-mainlist-".concat(index))); }) }))] })));
+                                } }, { children: [jsx("p", __assign({ style: {
+                                            margin: 0,
+                                            fontWeight: "500",
+                                            color: "#000",
+                                        } }, { children: symbol[index] })), jsx("p", __assign({ style: { margin: 0, color: "#323232" } }, { children: toDecimals({
+                                            number: e,
+                                            precision: 3,
+                                            tokenDecimals: decimals[index],
+                                        }) }))] })) })) }, "token-mainlist-".concat(index))); }) }))] })));
 };
 
 var useNFTMetadataMultiCall = function (_a) {
@@ -365,8 +363,8 @@ var index$1 = function (_a) {
 var index = function (_a) {
     var onDisconnect = _a.onDisconnect, Store = _a.Store;
     return (jsxs("div", __assign({ style: {
-            maxWidth: "".concat(Store && Store.NFTs && Store.NFTs.length ? "50vw" : "25vw"),
-        } }, { children: [jsx(WalletInformation, { onDisconnect: onDisconnect, direction: "x" }), Store && (Store.Tokens || Store.NFTs) && (jsxs(Fragment, { children: [jsx("hr", { style: {
+            maxWidth: "".concat(Store && Store.NFTs && Store.NFTs.length ? "50vw" : "auto"),
+        } }, { children: [jsx(WalletInformation, { onDisconnect: onDisconnect, direction: Store && Store.NFTs && Store.NFTs.length ? "x" : "y" }), Store && (Store.Tokens || Store.NFTs) && (jsxs(Fragment, { children: [jsx("hr", { style: {
                             width: "100%",
                             borderTop: 0,
                             borderBottom: "1px solid #000",
@@ -647,7 +645,7 @@ var Loader = function () {
 };
 
 var ReadMethodComponent = function (_a) {
-    var method = _a.method, contractObj = _a.contractObj;
+    var method = _a.method, contractObj = _a.contractObj, descriptions = _a.descriptions;
     var _b = React.useState(), args = _b[0], setArgs = _b[1];
     var _c = React.useState(false), enabled = _c[0], setEnabled = _c[1];
     var _d = React.useState(false), loading = _d[0], setLoading = _d[1];
@@ -683,12 +681,12 @@ var ReadMethodComponent = function (_a) {
             return [2 /*return*/];
         });
     }); };
-    return (jsxs("form", __assign({ method: "POST", onSubmit: function (e) { return queryContract(e, method); }, className: "methodComponent" }, { children: [jsx("h1", { children: method.name }), method.inputs &&
+    return (jsxs("form", __assign({ method: "POST", onSubmit: function (e) { return queryContract(e, method); }, className: "methodComponent" }, { children: [jsx("h1", { children: method.name }), descriptions && descriptions[method.name] ? (jsx("p", { children: descriptions[method.name] })) : (jsx(Fragment, {})), method.inputs &&
                 method.inputs.map(function (input, index) { return (jsx("input", { id: "".concat(method.name, "-").concat(input.name), placeholder: input.name, required: true }, index)); }), jsx("button", __assign({ type: "submit" }, { children: "Query" })), " ", jsx("br", {}), " ", jsx("br", {}), loading && jsx(Loader, {}), !loading && response ? response.toString() : jsx(Fragment, {}), !loading && error ? (jsx("span", __assign({ className: "error" }, { children: error && error.toString() }))) : (jsx(Fragment, {}))] })));
 };
 
 var WriteMethodComponent = function (_a) {
-    var method = _a.method, contractObj = _a.contractObj;
+    var method = _a.method, contractObj = _a.contractObj, descriptions = _a.descriptions;
     var _b = React.useState(false), isLoading = _b[0], setLoading = _b[1];
     var _c = writeContractCall({
         address: contractObj.address,
@@ -727,7 +725,7 @@ var WriteMethodComponent = function (_a) {
             return [2 /*return*/];
         });
     }); };
-    return (jsxs("form", __assign({ method: "POST", onSubmit: function (e) { return queryContract(e, method); }, className: "methodComponent" }, { children: [jsx("h1", { children: method.name }), method.inputs &&
+    return (jsxs("form", __assign({ method: "POST", onSubmit: function (e) { return queryContract(e, method); }, className: "methodComponent" }, { children: [jsx("h1", { children: method.name }), descriptions && descriptions[method.name] ? (jsx("p", { children: descriptions[method.name] })) : (jsx(Fragment, {})), method.inputs &&
                 method.inputs.map(function (input, index) { return (jsx("input", { id: "".concat(method.name, "-").concat(input.name), placeholder: input.name, required: true }, index)); }), jsx("input", { id: "".concat(method.name, "-gasPrice"), placeholder: "gasPrice", required: true }), jsx("input", { id: "".concat(method.name, "-gasLimit"), placeholder: "gasLimit", required: true }), jsx("button", __assign({ type: "submit" }, { children: "Query" })), " ", jsx("br", {}), " ", jsx("br", {}), isLoading && jsx(Loader, {}), !loading && response ? response.toString() : jsx(Fragment, {}), !isLoading && error ? (jsx("span", __assign({ className: "error" }, { children: error.message
                     ? extractErrorMessage(error.message.toString())
                     : extractErrorMessage(error.toString()) }))) : (jsx(Fragment, {}))] })));
@@ -735,7 +733,7 @@ var WriteMethodComponent = function (_a) {
 
 // import styles from "./AbiToUi.module.css";
 var AbiToUi = function (_a) {
-    var contract = _a.contract, address = _a.address, abi = _a.abi;
+    var contract = _a.contract, address = _a.address, abi = _a.abi, descriptions = _a.descriptions;
     var _b = React.useState(), contractObj = _b[0], setContractObj = _b[1];
     var _c = React.useState(0), type = _c[0], setType = _c[1];
     var _d = React.useState(""), searched = _d[0], setSearched = _d[1];
@@ -796,14 +794,14 @@ var AbiToUi = function (_a) {
                             item.stateMutability == "view" &&
                             item.name.includes(searched);
                     })
-                        .map(function (method, index) { return (jsx(ReadMethodComponent, { method: method, contractObj: contractObj }, index)); }), type == 1 &&
+                        .map(function (method, index) { return (jsx(ReadMethodComponent, { method: method, contractObj: contractObj, descriptions: descriptions }, index)); }), type == 1 &&
                     contractObj.abi
                         .filter(function (item) {
                         return item.type == "function" &&
                             item.stateMutability != "view" &&
                             item.name.includes(searched);
                     })
-                        .map(function (method, index) { return (jsx(WriteMethodComponent, { method: method, contractObj: contractObj }, index)); })] })) }));
+                        .map(function (method, index) { return (jsx(WriteMethodComponent, { method: method, contractObj: contractObj, descriptions: descriptions }, index)); })] })) }));
 };
 
 export { AbiToUi, ConnectWalletComponent, ConnectedMenu, ConnectedMenuOptions, EthWallets, Identicon, getWithExpiry, setWithExpiry };

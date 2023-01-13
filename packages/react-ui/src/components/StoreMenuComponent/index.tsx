@@ -13,11 +13,14 @@ const index = ({
     <div
       style={{
         maxWidth: `${
-          Store && Store.NFTs && Store.NFTs.length ? "50vw" : "25vw"
+          Store && Store.NFTs && Store.NFTs.length ? "50vw" : "auto"
         }`,
       }}
     >
-      <WalletInformation onDisconnect={onDisconnect} direction="x" />
+      <WalletInformation
+        onDisconnect={onDisconnect}
+        direction={Store && Store.NFTs && Store.NFTs.length ? "x" : "y"}
+      />
 
       {Store && (Store.Tokens || Store.NFTs) && (
         <>

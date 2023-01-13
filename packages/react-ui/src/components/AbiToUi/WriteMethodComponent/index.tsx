@@ -10,11 +10,13 @@ import "./WriteMethodComponent.module.css";
 const WriteMethodComponent = ({
   method,
   contractObj,
+  descriptions,
 }: {
   method: ContractABIUnit;
   contractObj: {
     address: EvmAddress;
     abi: ContractABIUnit[];
+    descriptions?: any;
   };
 }) => {
   const [isLoading, setLoading] = React.useState(false);
@@ -64,6 +66,11 @@ const WriteMethodComponent = ({
       className="methodComponent"
     >
       <h1>{method.name}</h1>
+      {descriptions && descriptions[method.name] ? (
+        <p>{descriptions[method.name]}</p>
+      ) : (
+        <></>
+      )}
       {method.inputs &&
         method.inputs.map((input, index) => (
           <input

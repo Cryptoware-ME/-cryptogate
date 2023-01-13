@@ -38,8 +38,7 @@ const index = ({ tokens, nfts }: { tokens?: string[]; nfts: Boolean }) => {
         className="tokenDetailsContainer"
         style={{
           display: "flex",
-          flexDirection: `${nfts ? "column" : "row"}`,
-          flexWrap: `${nfts ? "nowrap" : "wrap"}`,
+          flexDirection: `column`,
         }}
       >
         {balance &&
@@ -51,29 +50,25 @@ const index = ({ tokens, nfts }: { tokens?: string[]; nfts: Boolean }) => {
                 <div>
                   <div
                     style={{
-                      display: "flex",
-                      alignItems: "center",
                       margin: `${nfts ? "1vh 0" : "1vh 1vw"}`,
                     }}
                   >
-                    <div>
-                      <p
-                        style={{
-                          margin: 0,
-                          fontWeight: "500",
-                          color: "#000",
-                        }}
-                      >
-                        {symbol[index]}
-                      </p>
-                      <p style={{ margin: 0, color: "#323232" }}>
-                        {toDecimals({
-                          number: e,
-                          precision: 5,
-                          tokenDecimals: decimals[index],
-                        })}
-                      </p>
-                    </div>
+                    <p
+                      style={{
+                        margin: 0,
+                        fontWeight: "500",
+                        color: "#000",
+                      }}
+                    >
+                      {symbol[index]}
+                    </p>
+                    <p style={{ margin: 0, color: "#323232" }}>
+                      {toDecimals({
+                        number: e,
+                        precision: 3,
+                        tokenDecimals: decimals[index],
+                      })}
+                    </p>
                   </div>
                 </div>
               )}

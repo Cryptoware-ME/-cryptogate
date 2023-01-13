@@ -161,11 +161,12 @@ var toDecimals = function (_a) {
     if (number._hex == "0x00")
         return 0;
     var decimals = new BigNumber__default["default"](10).exponentiatedBy(tokenDecimals);
-    if (precision === 0) {
+    if (precision === 0)
         return new BigNumber__default["default"](number._hex).dividedBy(decimals).toNumber();
-    }
     var res = new BigNumber__default["default"](number._hex).dividedBy(decimals).toString().split(".");
-    return Number(res[0] + "." + res[1].slice(0, precision));
+    if (res[1])
+        return Number(res[0] + "." + res[1].slice(0, precision));
+    return Number(res[0]);
 };
 var convertResultToReadableFormat = function (result) {
     return result.map(function (e) {
@@ -236,24 +237,21 @@ var index$4 = function (_a) {
                     color: "#000",
                 } }, { children: "TOKENS" })), jsxRuntime.jsx("div", __assign({ className: "tokenDetailsContainer", style: {
                     display: "flex",
-                    flexDirection: "".concat(nfts ? "column" : "row"),
-                    flexWrap: "".concat(nfts ? "nowrap" : "wrap"),
+                    flexDirection: "column",
                 } }, { children: balance &&
                     symbol &&
                     decimals &&
-                    balance.map(function (e, index) { return (jsxRuntime.jsx("div", { children: e && (jsxRuntime.jsx("div", { children: jsxRuntime.jsx("div", __assign({ style: {
-                                    display: "flex",
-                                    alignItems: "center",
+                    balance.map(function (e, index) { return (jsxRuntime.jsx("div", { children: e && (jsxRuntime.jsx("div", { children: jsxRuntime.jsxs("div", __assign({ style: {
                                     margin: "".concat(nfts ? "1vh 0" : "1vh 1vw"),
-                                } }, { children: jsxRuntime.jsxs("div", { children: [jsxRuntime.jsx("p", __assign({ style: {
-                                                margin: 0,
-                                                fontWeight: "500",
-                                                color: "#000",
-                                            } }, { children: symbol[index] })), jsxRuntime.jsx("p", __assign({ style: { margin: 0, color: "#323232" } }, { children: toDecimals({
-                                                number: e,
-                                                precision: 5,
-                                                tokenDecimals: decimals[index],
-                                            }) }))] }) })) })) }, "token-mainlist-".concat(index))); }) }))] })));
+                                } }, { children: [jsxRuntime.jsx("p", __assign({ style: {
+                                            margin: 0,
+                                            fontWeight: "500",
+                                            color: "#000",
+                                        } }, { children: symbol[index] })), jsxRuntime.jsx("p", __assign({ style: { margin: 0, color: "#323232" } }, { children: toDecimals({
+                                            number: e,
+                                            precision: 3,
+                                            tokenDecimals: decimals[index],
+                                        }) }))] })) })) }, "token-mainlist-".concat(index))); }) }))] })));
 };
 
 var useNFTMetadataMultiCall = function (_a) {
@@ -376,8 +374,8 @@ var index$1 = function (_a) {
 var index = function (_a) {
     var onDisconnect = _a.onDisconnect, Store = _a.Store;
     return (jsxRuntime.jsxs("div", __assign({ style: {
-            maxWidth: "".concat(Store && Store.NFTs && Store.NFTs.length ? "50vw" : "25vw"),
-        } }, { children: [jsxRuntime.jsx(WalletInformation, { onDisconnect: onDisconnect, direction: "x" }), Store && (Store.Tokens || Store.NFTs) && (jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [jsxRuntime.jsx("hr", { style: {
+            maxWidth: "".concat(Store && Store.NFTs && Store.NFTs.length ? "50vw" : "auto"),
+        } }, { children: [jsxRuntime.jsx(WalletInformation, { onDisconnect: onDisconnect, direction: Store && Store.NFTs && Store.NFTs.length ? "x" : "y" }), Store && (Store.Tokens || Store.NFTs) && (jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [jsxRuntime.jsx("hr", { style: {
                             width: "100%",
                             borderTop: 0,
                             borderBottom: "1px solid #000",
@@ -658,7 +656,7 @@ var Loader = function () {
 };
 
 var ReadMethodComponent = function (_a) {
-    var method = _a.method, contractObj = _a.contractObj;
+    var method = _a.method, contractObj = _a.contractObj, descriptions = _a.descriptions;
     var _b = React__default["default"].useState(), args = _b[0], setArgs = _b[1];
     var _c = React__default["default"].useState(false), enabled = _c[0], setEnabled = _c[1];
     var _d = React__default["default"].useState(false), loading = _d[0], setLoading = _d[1];
@@ -694,12 +692,12 @@ var ReadMethodComponent = function (_a) {
             return [2 /*return*/];
         });
     }); };
-    return (jsxRuntime.jsxs("form", __assign({ method: "POST", onSubmit: function (e) { return queryContract(e, method); }, className: "methodComponent" }, { children: [jsxRuntime.jsx("h1", { children: method.name }), method.inputs &&
+    return (jsxRuntime.jsxs("form", __assign({ method: "POST", onSubmit: function (e) { return queryContract(e, method); }, className: "methodComponent" }, { children: [jsxRuntime.jsx("h1", { children: method.name }), descriptions && descriptions[method.name] ? (jsxRuntime.jsx("p", { children: descriptions[method.name] })) : (jsxRuntime.jsx(jsxRuntime.Fragment, {})), method.inputs &&
                 method.inputs.map(function (input, index) { return (jsxRuntime.jsx("input", { id: "".concat(method.name, "-").concat(input.name), placeholder: input.name, required: true }, index)); }), jsxRuntime.jsx("button", __assign({ type: "submit" }, { children: "Query" })), " ", jsxRuntime.jsx("br", {}), " ", jsxRuntime.jsx("br", {}), loading && jsxRuntime.jsx(Loader, {}), !loading && response ? response.toString() : jsxRuntime.jsx(jsxRuntime.Fragment, {}), !loading && error ? (jsxRuntime.jsx("span", __assign({ className: "error" }, { children: error && error.toString() }))) : (jsxRuntime.jsx(jsxRuntime.Fragment, {}))] })));
 };
 
 var WriteMethodComponent = function (_a) {
-    var method = _a.method, contractObj = _a.contractObj;
+    var method = _a.method, contractObj = _a.contractObj, descriptions = _a.descriptions;
     var _b = React__default["default"].useState(false), isLoading = _b[0], setLoading = _b[1];
     var _c = reactProviders.writeContractCall({
         address: contractObj.address,
@@ -738,7 +736,7 @@ var WriteMethodComponent = function (_a) {
             return [2 /*return*/];
         });
     }); };
-    return (jsxRuntime.jsxs("form", __assign({ method: "POST", onSubmit: function (e) { return queryContract(e, method); }, className: "methodComponent" }, { children: [jsxRuntime.jsx("h1", { children: method.name }), method.inputs &&
+    return (jsxRuntime.jsxs("form", __assign({ method: "POST", onSubmit: function (e) { return queryContract(e, method); }, className: "methodComponent" }, { children: [jsxRuntime.jsx("h1", { children: method.name }), descriptions && descriptions[method.name] ? (jsxRuntime.jsx("p", { children: descriptions[method.name] })) : (jsxRuntime.jsx(jsxRuntime.Fragment, {})), method.inputs &&
                 method.inputs.map(function (input, index) { return (jsxRuntime.jsx("input", { id: "".concat(method.name, "-").concat(input.name), placeholder: input.name, required: true }, index)); }), jsxRuntime.jsx("input", { id: "".concat(method.name, "-gasPrice"), placeholder: "gasPrice", required: true }), jsxRuntime.jsx("input", { id: "".concat(method.name, "-gasLimit"), placeholder: "gasLimit", required: true }), jsxRuntime.jsx("button", __assign({ type: "submit" }, { children: "Query" })), " ", jsxRuntime.jsx("br", {}), " ", jsxRuntime.jsx("br", {}), isLoading && jsxRuntime.jsx(Loader, {}), !loading && response ? response.toString() : jsxRuntime.jsx(jsxRuntime.Fragment, {}), !isLoading && error ? (jsxRuntime.jsx("span", __assign({ className: "error" }, { children: error.message
                     ? extractErrorMessage(error.message.toString())
                     : extractErrorMessage(error.toString()) }))) : (jsxRuntime.jsx(jsxRuntime.Fragment, {}))] })));
@@ -746,7 +744,7 @@ var WriteMethodComponent = function (_a) {
 
 // import styles from "./AbiToUi.module.css";
 var AbiToUi = function (_a) {
-    var contract = _a.contract, address = _a.address, abi = _a.abi;
+    var contract = _a.contract, address = _a.address, abi = _a.abi, descriptions = _a.descriptions;
     var _b = React__default["default"].useState(), contractObj = _b[0], setContractObj = _b[1];
     var _c = React__default["default"].useState(0), type = _c[0], setType = _c[1];
     var _d = React__default["default"].useState(""), searched = _d[0], setSearched = _d[1];
@@ -807,14 +805,14 @@ var AbiToUi = function (_a) {
                             item.stateMutability == "view" &&
                             item.name.includes(searched);
                     })
-                        .map(function (method, index) { return (jsxRuntime.jsx(ReadMethodComponent, { method: method, contractObj: contractObj }, index)); }), type == 1 &&
+                        .map(function (method, index) { return (jsxRuntime.jsx(ReadMethodComponent, { method: method, contractObj: contractObj, descriptions: descriptions }, index)); }), type == 1 &&
                     contractObj.abi
                         .filter(function (item) {
                         return item.type == "function" &&
                             item.stateMutability != "view" &&
                             item.name.includes(searched);
                     })
-                        .map(function (method, index) { return (jsxRuntime.jsx(WriteMethodComponent, { method: method, contractObj: contractObj }, index)); })] })) }));
+                        .map(function (method, index) { return (jsxRuntime.jsx(WriteMethodComponent, { method: method, contractObj: contractObj, descriptions: descriptions }, index)); })] })) }));
 };
 
 exports.AbiToUi = AbiToUi;

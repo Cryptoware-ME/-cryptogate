@@ -11,11 +11,12 @@ export const toDecimals = ({
 }) => {
   if (number._hex == "0x00") return 0
   const decimals = new BigNumber(10).exponentiatedBy(tokenDecimals);
-  if (precision === 0) {
+  if (precision === 0)
     return new BigNumber(number._hex).dividedBy(decimals).toNumber();
-  }
   const res = new BigNumber(number._hex).dividedBy(decimals).toString().split(".")
-  return Number(res[0] + "." + res[1].slice(0, precision))
+  if (res[1])
+    return Number(res[0] + "." + res[1].slice(0, precision))
+  return Number(res[0])
 };
 
 export const convertResultToReadableFormat = (result: any) => {

@@ -13,10 +13,12 @@ export const AbiToUi = ({
   contract,
   address,
   abi,
+  descriptions,
 }: {
   contract?: string;
   address?: EvmAddress;
   abi?: ContractABIUnit[];
+  descriptions?: any;
 }) => {
   const [contractObj, setContractObj] = React.useState<{
     address: EvmAddress;
@@ -111,6 +113,7 @@ export const AbiToUi = ({
                   key={index}
                   method={method}
                   contractObj={contractObj}
+                  descriptions={descriptions}
                 />
               ))}
           {type == 1 &&
@@ -126,6 +129,7 @@ export const AbiToUi = ({
                   key={index}
                   method={method}
                   contractObj={contractObj}
+                  descriptions={descriptions}
                 />
               ))}
         </>

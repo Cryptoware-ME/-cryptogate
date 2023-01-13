@@ -1,7 +1,7 @@
 .tokenDetailsContainer {
   overflow-x: hidden;
-  overflow-y: scroll;
-  padding-right: 2vw;
+  overflow-y: auto;
+  padding-right: 1vw;
 }
 .tokenDetailsContainer::-webkit-scrollbar {
   width: 0.3vw;

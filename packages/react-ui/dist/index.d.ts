@@ -50,10 +50,11 @@ declare const ConnectedMenu: ({ ChosenConnectedMenu, onClose, onDisconnect, isOp
     } | undefined;
 }) => JSX.Element;
 
-declare const AbiToUi: ({ contract, address, abi, }: {
+declare const AbiToUi: ({ contract, address, abi, descriptions, }: {
     contract?: string | undefined;
     address?: any;
     abi?: ContractABIUnit[] | undefined;
+    descriptions?: any;
 }) => JSX.Element;
 
 declare const getWithExpiry: (key: any) => any;
