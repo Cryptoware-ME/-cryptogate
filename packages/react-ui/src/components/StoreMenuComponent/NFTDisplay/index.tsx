@@ -10,8 +10,8 @@ import NFTSlider from "./NFTSlider";
 // import NFTCollection from "./NFTCollection";
 
 const index = ({ NFTs }: { NFTs: string[] }) => {
-  const [clicked, setClicked] = useState(-1);
   const { account } = useEthereum();
+  
   var balances = useNFTMetadataMultiCall({
     NFTs,
     method: NFT_CONTRACT_METHODS.BALANCE_OF,
@@ -33,17 +33,14 @@ const index = ({ NFTs }: { NFTs: string[] }) => {
         flexDirection: "column",
       }}
     >
-      {clicked == -1 &&
-        areAllElementsValid(URIs) &&
-        areAllElementsValid(balances) && (
-          <NFTSlider
-            symbols={symbols}
-            URIs={URIs}
-            numbers={balances}
-            onCollectionSelected={() => {}}
-            // onCollectionSelected={setClicked}
-          />
-        )}
+      {areAllElementsValid(URIs) && areAllElementsValid(balances) && (
+        <NFTSlider
+          symbols={symbols}
+          URIs={URIs}
+          numbers={balances}
+          onCollectionSelected={() => {}}
+        />
+      )}
     </div>
   );
 };

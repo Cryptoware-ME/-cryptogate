@@ -3,6 +3,7 @@ import "./slick.css";
 import "./slick-theme.css";
 import NFTImage from "./NFTImage";
 import { build_slider_settings } from "../../../../utils/constants";
+import { imageURI, isUriIPFS } from "../../../../utils/helpers";
 
 const index = ({
   URIs,
@@ -25,7 +26,29 @@ const index = ({
     >
       {URIs.length > 0 ? (
         <Slider {...build_slider_settings({})}>
-          {URIs.map((uri: string[], index: number) => {
+          {URIs.map(async (uri: string[], index: number) => {
+            let realURI = "";
+            if (uri) {
+              const validURI = isUriIPFS(uri);
+              if (validURI) {
+                try {
+                  const newURI = `https://gateway.ipfs.io/ipfs/${validURI}`;
+                  const res = await fetch(newURI);
+                  const parsedRes = await res.json();
+                  realURI = imageURI(parsedRes);
+                } catch (e) {
+                  console.log(e);
+                }
+              } else {
+                try {
+                  const res = await fetch(uri[0]);
+                  const parsedRes = await res.json();
+                  realURI = imageURI(parsedRes);
+                } catch (e) {
+                  console.log(e);
+                }
+              }
+            }
             return (
               <div
                 onClick={() => {
@@ -37,7 +60,7 @@ const index = ({
               >
                 <NFTImage
                   key={index}
-                  URI={uri}
+                  URI={realURI}
                   number={numbers[index]}
                   symbol={Array.isArray(symbols) ? symbols[index] : symbols}
                 />

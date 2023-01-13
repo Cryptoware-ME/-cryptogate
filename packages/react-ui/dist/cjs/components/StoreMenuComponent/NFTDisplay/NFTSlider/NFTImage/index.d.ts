@@ -1,6 +1,6 @@
 /// <reference types="react" />
 declare const index: ({ URI, number, symbol, }: {
-    URI: string[];
+    URI: string;
     number: number;
     symbol: any;
 }) => JSX.Element;

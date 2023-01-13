@@ -1,50 +1,12 @@
-import { useState, useEffect } from "react";
-import { imageURI, isUriIPFS } from "../../../../../utils/helpers";
-
 const index = ({
   URI,
   number,
   symbol,
 }: {
-  URI: string[];
+  URI: string;
   number: number;
   symbol: any;
 }) => {
-  const [image, setImg] = useState("");
-  const [empty, setEmpty] = useState(false);
-
-  useEffect(() => {
-    if (URI) {
-      const validURI = isUriIPFS(URI);
-      if (validURI) {
-        const newURI = `https://gateway.ipfs.io/ipfs/${validURI}`;
-        fetch(newURI)
-          .then((d) => {
-            return d.json();
-          })
-          .then((d) => {
-            setImg(imageURI(d.image));
-          })
-          .catch((e) => {
-            console.log(e);
-            setEmpty(true);
-          });
-      } else {
-        fetch(URI[0])
-          .then((d) => {
-            return d.json();
-          })
-          .then((d) => {
-            setImg(imageURI(d.image));
-          })
-          .catch((e) => {
-            console.log(e);
-            setEmpty(true);
-          });
-      }
-    }
-  }, [URI]);
-
   return (
     <div
       style={{
@@ -61,16 +23,14 @@ const index = ({
           alignItems: "center",
         }}
       >
-        {empty && (
+        {!URI && (
           <img
             alt={`${symbol}-${number}`}
             src="https://airnfts.s3.amazonaws.com/nft-images/20211121/Blur_1637529258562.png"
             width="100%"
           />
         )}
-        {!empty && image && (
-          <img alt={`${symbol}-${number}`} src={image} width="100%" />
-        )}
+        {URI && <img alt={`${symbol}-${number}`} src={URI} width="100%" />}
       </div>
       <div
         style={{

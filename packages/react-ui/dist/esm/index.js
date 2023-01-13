@@ -1,5 +1,5 @@
 import { jsx, jsxs, Fragment } from 'react/jsx-runtime';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useEthereum, readContractCalls, useConfig, ChainId, readContractCall, writeContractCall } from '@cryptogate/react-providers';
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
 import { ERC20, IERC721Metadata, ERC721, ethSignMessage } from '@cryptogate/core';
@@ -267,40 +267,6 @@ var useTokenURIIndexCover = function (_a) {
 
 var index$3 = function (_a) {
     var URI = _a.URI, number = _a.number, symbol = _a.symbol;
-    var _b = useState(""), image = _b[0], setImg = _b[1];
-    var _c = useState(false), empty = _c[0], setEmpty = _c[1];
-    useEffect(function () {
-        if (URI) {
-            var validURI = isUriIPFS(URI);
-            if (validURI) {
-                var newURI = "https://gateway.ipfs.io/ipfs/".concat(validURI);
-                fetch(newURI)
-                    .then(function (d) {
-                    return d.json();
-                })
-                    .then(function (d) {
-                    setImg(imageURI(d.image));
-                })
-                    .catch(function (e) {
-                    console.log(e);
-                    setEmpty(true);
-                });
-            }
-            else {
-                fetch(URI[0])
-                    .then(function (d) {
-                    return d.json();
-                })
-                    .then(function (d) {
-                    setImg(imageURI(d.image));
-                })
-                    .catch(function (e) {
-                    console.log(e);
-                    setEmpty(true);
-                });
-            }
-        }
-    }, [URI]);
     return (jsxs("div", __assign({ style: {
             borderRadius: "10px",
             border: "1px solid black",
@@ -310,7 +276,7 @@ var index$3 = function (_a) {
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
-                } }, { children: [empty && (jsx("img", { alt: "".concat(symbol, "-").concat(number), src: "https://airnfts.s3.amazonaws.com/nft-images/20211121/Blur_1637529258562.png", width: "100%" })), !empty && image && (jsx("img", { alt: "".concat(symbol, "-").concat(number), src: image, width: "100%" }))] })), jsxs("div", __assign({ style: {
+                } }, { children: [!URI && (jsx("img", { alt: "".concat(symbol, "-").concat(number), src: "https://airnfts.s3.amazonaws.com/nft-images/20211121/Blur_1637529258562.png", width: "100%" })), URI && jsx("img", { alt: "".concat(symbol, "-").concat(number), src: URI, width: "100%" })] })), jsxs("div", __assign({ style: {
                     display: "flex",
                     backgroundColor: "#666666",
                     borderRadius: "0px 0px 10px 10px",
@@ -325,11 +291,52 @@ var index$2 = function (_a) {
             minWidth: "300px",
             maxWidth: "300px",
             padding: "1vh 25px 0 25px",
-        } }, { children: URIs.length > 0 ? (jsx(Slider, __assign({}, build_slider_settings({}), { children: URIs.map(function (uri, index) {
-                return (jsx("div", __assign({ onClick: function () {
-                        onCollectionSelected(index);
-                    } }, { children: jsx(index$3, { URI: uri, number: numbers[index], symbol: Array.isArray(symbols) ? symbols[index] : symbols }, index) }), "".concat(Array.isArray(symbols) ? symbols[index] : symbols, "-").concat(numbers[index])));
-            }) }))) : (jsxs("div", __assign({ style: {
+        } }, { children: URIs.length > 0 ? (jsx(Slider, __assign({}, build_slider_settings({}), { children: URIs.map(function (uri, index) { return __awaiter(void 0, void 0, void 0, function () {
+                var realURI, validURI, newURI, res, parsedRes, e_1, res, parsedRes, e_2;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            realURI = "";
+                            if (!uri) return [3 /*break*/, 10];
+                            validURI = isUriIPFS(uri);
+                            if (!validURI) return [3 /*break*/, 6];
+                            _a.label = 1;
+                        case 1:
+                            _a.trys.push([1, 4, , 5]);
+                            newURI = "https://gateway.ipfs.io/ipfs/".concat(validURI);
+                            return [4 /*yield*/, fetch(newURI)];
+                        case 2:
+                            res = _a.sent();
+                            return [4 /*yield*/, res.json()];
+                        case 3:
+                            parsedRes = _a.sent();
+                            realURI = imageURI(parsedRes);
+                            return [3 /*break*/, 5];
+                        case 4:
+                            e_1 = _a.sent();
+                            console.log(e_1);
+                            return [3 /*break*/, 5];
+                        case 5: return [3 /*break*/, 10];
+                        case 6:
+                            _a.trys.push([6, 9, , 10]);
+                            return [4 /*yield*/, fetch(uri[0])];
+                        case 7:
+                            res = _a.sent();
+                            return [4 /*yield*/, res.json()];
+                        case 8:
+                            parsedRes = _a.sent();
+                            realURI = imageURI(parsedRes);
+                            return [3 /*break*/, 10];
+                        case 9:
+                            e_2 = _a.sent();
+                            console.log(e_2);
+                            return [3 /*break*/, 10];
+                        case 10: return [2 /*return*/, (jsx("div", __assign({ onClick: function () {
+                                    onCollectionSelected(index);
+                                } }, { children: jsx(index$3, { URI: realURI, number: numbers[index], symbol: Array.isArray(symbols) ? symbols[index] : symbols }, index) }), "".concat(Array.isArray(symbols) ? symbols[index] : symbols, "-").concat(numbers[index])))];
+                    }
+                });
+            }); }) }))) : (jsxs("div", __assign({ style: {
                 textAlign: "center",
                 display: "flex",
                 alignItems: "center",
@@ -339,7 +346,6 @@ var index$2 = function (_a) {
 // import NFTCollection from "./NFTCollection";
 var index$1 = function (_a) {
     var NFTs = _a.NFTs;
-    var _b = useState(-1), clicked = _b[0]; _b[1];
     var account = useEthereum().account;
     var balances = useNFTMetadataMultiCall({
         NFTs: NFTs,
@@ -355,9 +361,7 @@ var index$1 = function (_a) {
     return (jsx("div", __assign({ style: {
             display: "flex",
             flexDirection: "column",
-        } }, { children: clicked == -1 &&
-            areAllElementsValid(URIs) &&
-            areAllElementsValid(balances) && (jsx(index$2, { symbols: symbols, URIs: URIs, numbers: balances, onCollectionSelected: function () { } })) })));
+        } }, { children: areAllElementsValid(URIs) && areAllElementsValid(balances) && (jsx(index$2, { symbols: symbols, URIs: URIs, numbers: balances, onCollectionSelected: function () { } })) })));
 };
 
 var index = function (_a) {
@@ -376,10 +380,10 @@ var index = function (_a) {
                         } }, { children: [Store.Tokens && Store.Tokens.length > 0 && (jsx(index$4, { tokens: Store.Tokens, nfts: Boolean(Store.NFTs && Store.NFTs.length) })), Store.Tokens &&
                                 Store.Tokens.length &&
                                 Store.NFTs &&
-                                Store.NFTs.length && (jsx("div", { style: {
+                                Store.NFTs.length ? (jsx("div", { style: {
                                     borderLeft: "1px solid #ffffff",
                                     margin: "0 2vw 0 2vw",
-                                } })), Store.NFTs && Store.NFTs.length > 0 && (jsx(index$1, { NFTs: Store.NFTs }))] }))] }))] })));
+                                } })) : (jsx(Fragment, {})), Store.NFTs && Store.NFTs.length > 0 ? (jsx(index$1, { NFTs: Store.NFTs })) : (jsx(Fragment, {}))] }))] }))] })));
 };
 
 var ConnectedMenu = function (_a) {

@@ -47,19 +47,23 @@ const index = ({
             )}
 
             {Store.Tokens &&
-              Store.Tokens.length &&
-              Store.NFTs &&
-              Store.NFTs.length && (
-                <div
-                  style={{
-                    borderLeft: `1px solid #ffffff`,
-                    margin: "0 2vw 0 2vw",
-                  }}
-                ></div>
-              )}
+            Store.Tokens.length &&
+            Store.NFTs &&
+            Store.NFTs.length ? (
+              <div
+                style={{
+                  borderLeft: `1px solid #ffffff`,
+                  margin: "0 2vw 0 2vw",
+                }}
+              ></div>
+            ) : (
+              <></>
+            )}
 
-            {Store.NFTs && Store.NFTs.length > 0 && (
+            {Store.NFTs && Store.NFTs.length > 0 ? (
               <NFTDisplay NFTs={Store.NFTs} />
+            ) : (
+              <></>
             )}
           </div>
         </>
