@@ -13,16 +13,18 @@ export const AbiToUi = ({
   contract,
   address,
   abi,
-  descriptions,
+  methodData,
   gasPrice,
   gasLimit,
 }: {
   contract?: string;
   address?: EvmAddress;
   abi?: ContractABIUnit[];
-  descriptions?: any;
+  methodData?: {
+    [name: string]: { description: string; gasLimit: number };
+  };
   gasPrice?: string;
-  gasLimit?: string;
+  gasLimit?: number;
 }) => {
   const [contractObj, setContractObj] = React.useState<{
     address: EvmAddress;
@@ -117,7 +119,7 @@ export const AbiToUi = ({
                   key={index}
                   method={method}
                   contractObj={contractObj}
-                  descriptions={descriptions}
+                  methodData={methodData}
                 />
               ))}
           {type == 1 &&
@@ -133,7 +135,7 @@ export const AbiToUi = ({
                   key={index}
                   method={method}
                   contractObj={contractObj}
-                  descriptions={descriptions}
+                  methodData={methodData}
                   gasPrice={gasPrice}
                   gasLimit={gasLimit}
                 />

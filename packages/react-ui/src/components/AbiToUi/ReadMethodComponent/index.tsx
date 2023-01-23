@@ -10,14 +10,16 @@ import "./ReadMethodComponent.module.css";
 const ReadMethodComponent = ({
   method,
   contractObj,
-  descriptions,
+  methodData,
 }: {
   method: ContractABIUnit;
   contractObj: {
     address: EvmAddress;
     abi: ContractABIUnit[];
   };
-  descriptions?: any;
+  methodData?: {
+    [name: string]: { description: string; gasLimit: number };
+  };
 }) => {
   const [args, setArgs] = React.useState<any[] | undefined>();
   const [enabled, setEnabled] = React.useState(false);
@@ -59,8 +61,8 @@ const ReadMethodComponent = ({
       className="methodComponent"
     >
       <h1>{method.name}</h1>
-      {descriptions && descriptions[method.name] ? (
-        <p>{descriptions[method.name]}</p>
+      {methodData && methodData[method.name] ? (
+        <p>{methodData[method.name].description}</p>
       ) : (
         <></>
       )}

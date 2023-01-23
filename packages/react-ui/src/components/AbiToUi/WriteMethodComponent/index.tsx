@@ -10,7 +10,7 @@ import "./WriteMethodComponent.module.css";
 const WriteMethodComponent = ({
   method,
   contractObj,
-  descriptions,
+  methodData,
   gasPrice,
   gasLimit,
 }: {
@@ -18,10 +18,12 @@ const WriteMethodComponent = ({
   contractObj: {
     address: EvmAddress;
     abi: ContractABIUnit[];
-    descriptions?: any;
-    gasPrice?: string;
-    gasLimit?: string;
   };
+  methodData?: {
+    [name: string]: { description: string; gasLimit: number };
+  };
+  gasPrice?: string;
+  gasLimit?: number;
 }) => {
   const [isLoading, setLoading] = React.useState(false);
   const { send, loading, error, response } = writeContractCall({
@@ -56,8 +58,12 @@ const WriteMethodComponent = ({
     }
     options.gasPrice =
       gasPrice ?? document.getElementById(method.name + "-gasPrice")?.value;
+
     options.gasLimit =
-      gasLimit ?? document.getElementById(method.name + "-gasLimit")?.value;
+      methodData && methodData[method.name] && methodData[method.name].gasLimit
+        ? methodData[method.name].gasLimit
+        : gasLimit ?? document.getElementById(method.name + "-gasLimit")?.value;
+
     send(args, options);
   };
 
@@ -68,8 +74,8 @@ const WriteMethodComponent = ({
       className="methodComponent"
     >
       <h1>{method.name}</h1>
-      {descriptions && descriptions[method.name] ? (
-        <p>{descriptions[method.name]}</p>
+      {methodData && methodData[method.name] ? (
+        <p>{methodData[method.name].description}</p>
       ) : (
         <></>
       )}
@@ -85,9 +91,16 @@ const WriteMethodComponent = ({
       {!gasPrice && (
         <input id={`${method.name}-gasPrice`} placeholder="gasPrice" required />
       )}
-      {!gasLimit && (
-        <input id={`${method.name}-gasLimit`} placeholder="gasLimit" required />
-      )}
+      {(!methodData ||
+        !methodData[method.name] ||
+        !methodData[method.name].gasLimit) &&
+        !gasLimit && (
+          <input
+            id={`${method.name}-gasLimit`}
+            placeholder="gasLimit"
+            required
+          />
+        )}
       <button type="submit">Query</button> <br /> <br />
       {isLoading && <Loader />}
       {!loading && response ? response.toString() : <></>}

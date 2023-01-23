@@ -1,10 +1,15 @@
 /// <reference types="react" />
 import { ContractABIUnit, EvmAddress } from "@cryptogate/react-providers";
-export declare const AbiToUi: ({ contract, address, abi, descriptions, gasPrice, gasLimit, }: {
+export declare const AbiToUi: ({ contract, address, abi, methodData, gasPrice, gasLimit, }: {
     contract?: string | undefined;
     address?: any;
     abi?: ContractABIUnit[] | undefined;
-    descriptions?: any;
+    methodData?: {
+        [name: string]: {
+            description: string;
+            gasLimit: number;
+        };
+    } | undefined;
     gasPrice?: string | undefined;
-    gasLimit?: string | undefined;
+    gasLimit?: number | undefined;
 }) => JSX.Element;

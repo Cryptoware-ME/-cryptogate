@@ -652,7 +652,7 @@ var Loader = function () {
 };
 
 var ReadMethodComponent = function (_a) {
-    var method = _a.method, contractObj = _a.contractObj, descriptions = _a.descriptions;
+    var method = _a.method, contractObj = _a.contractObj, methodData = _a.methodData;
     var _b = React.useState(), args = _b[0], setArgs = _b[1];
     var _c = React.useState(false), enabled = _c[0], setEnabled = _c[1];
     var _d = React.useState(false), loading = _d[0], setLoading = _d[1];
@@ -688,12 +688,12 @@ var ReadMethodComponent = function (_a) {
             return [2 /*return*/];
         });
     }); };
-    return (jsxs("form", __assign({ method: "POST", onSubmit: function (e) { return queryContract(e, method); }, className: "methodComponent" }, { children: [jsx("h1", { children: method.name }), descriptions && descriptions[method.name] ? (jsx("p", { children: descriptions[method.name] })) : (jsx(Fragment, {})), method.inputs &&
+    return (jsxs("form", __assign({ method: "POST", onSubmit: function (e) { return queryContract(e, method); }, className: "methodComponent" }, { children: [jsx("h1", { children: method.name }), methodData && methodData[method.name] ? (jsx("p", { children: methodData[method.name].description })) : (jsx(Fragment, {})), method.inputs &&
                 method.inputs.map(function (input, index) { return (jsx("input", { id: "".concat(method.name, "-").concat(input.name), placeholder: input.name, required: true }, index)); }), jsx("button", __assign({ type: "submit" }, { children: "Query" })), " ", jsx("br", {}), " ", jsx("br", {}), loading && jsx(Loader, {}), !loading && response ? response.toString() : jsx(Fragment, {}), !loading && error ? (jsx("span", __assign({ className: "error" }, { children: error && error.toString() }))) : (jsx(Fragment, {}))] })));
 };
 
 var WriteMethodComponent = function (_a) {
-    var method = _a.method, contractObj = _a.contractObj, descriptions = _a.descriptions, gasPrice = _a.gasPrice, gasLimit = _a.gasLimit;
+    var method = _a.method, contractObj = _a.contractObj, methodData = _a.methodData, gasPrice = _a.gasPrice, gasLimit = _a.gasLimit;
     var _b = React.useState(false), isLoading = _b[0], setLoading = _b[1];
     var _c = writeContractCall({
         address: contractObj.address,
@@ -729,20 +729,25 @@ var WriteMethodComponent = function (_a) {
             options.gasPrice =
                 gasPrice !== null && gasPrice !== void 0 ? gasPrice : (_a = document.getElementById(method.name + "-gasPrice")) === null || _a === void 0 ? void 0 : _a.value;
             options.gasLimit =
-                gasLimit !== null && gasLimit !== void 0 ? gasLimit : (_b = document.getElementById(method.name + "-gasLimit")) === null || _b === void 0 ? void 0 : _b.value;
+                methodData && methodData[method.name] && methodData[method.name].gasLimit
+                    ? methodData[method.name].gasLimit
+                    : gasLimit !== null && gasLimit !== void 0 ? gasLimit : (_b = document.getElementById(method.name + "-gasLimit")) === null || _b === void 0 ? void 0 : _b.value;
             send(args, options);
             return [2 /*return*/];
         });
     }); };
-    return (jsxs("form", __assign({ method: "POST", onSubmit: function (e) { return queryContract(e, method); }, className: "methodComponent" }, { children: [jsx("h1", { children: method.name }), descriptions && descriptions[method.name] ? (jsx("p", { children: descriptions[method.name] })) : (jsx(Fragment, {})), method.inputs &&
-                method.inputs.map(function (input, index) { return (jsx("input", { id: "".concat(method.name, "-").concat(input.name), placeholder: input.name, required: true }, index)); }), !gasPrice && (jsx("input", { id: "".concat(method.name, "-gasPrice"), placeholder: "gasPrice", required: true })), !gasLimit && (jsx("input", { id: "".concat(method.name, "-gasLimit"), placeholder: "gasLimit", required: true })), jsx("button", __assign({ type: "submit" }, { children: "Query" })), " ", jsx("br", {}), " ", jsx("br", {}), isLoading && jsx(Loader, {}), !loading && response ? response.toString() : jsx(Fragment, {}), !isLoading && error ? (jsx("span", __assign({ className: "error" }, { children: error.message
+    return (jsxs("form", __assign({ method: "POST", onSubmit: function (e) { return queryContract(e, method); }, className: "methodComponent" }, { children: [jsx("h1", { children: method.name }), methodData && methodData[method.name] ? (jsx("p", { children: methodData[method.name].description })) : (jsx(Fragment, {})), method.inputs &&
+                method.inputs.map(function (input, index) { return (jsx("input", { id: "".concat(method.name, "-").concat(input.name), placeholder: input.name, required: true }, index)); }), !gasPrice && (jsx("input", { id: "".concat(method.name, "-gasPrice"), placeholder: "gasPrice", required: true })), (!methodData ||
+                !methodData[method.name] ||
+                !methodData[method.name].gasLimit) &&
+                !gasLimit && (jsx("input", { id: "".concat(method.name, "-gasLimit"), placeholder: "gasLimit", required: true })), jsx("button", __assign({ type: "submit" }, { children: "Query" })), " ", jsx("br", {}), " ", jsx("br", {}), isLoading && jsx(Loader, {}), !loading && response ? response.toString() : jsx(Fragment, {}), !isLoading && error ? (jsx("span", __assign({ className: "error" }, { children: error.message
                     ? extractErrorMessage(error.message.toString())
                     : extractErrorMessage(error.toString()) }))) : (jsx(Fragment, {}))] })));
 };
 
 // import styles from "./AbiToUi.module.css";
 var AbiToUi = function (_a) {
-    var contract = _a.contract, address = _a.address, abi = _a.abi, descriptions = _a.descriptions, gasPrice = _a.gasPrice, gasLimit = _a.gasLimit;
+    var contract = _a.contract, address = _a.address, abi = _a.abi, methodData = _a.methodData, gasPrice = _a.gasPrice, gasLimit = _a.gasLimit;
     var _b = React.useState(), contractObj = _b[0], setContractObj = _b[1];
     var _c = React.useState(0), type = _c[0], setType = _c[1];
     var _d = React.useState(""), searched = _d[0], setSearched = _d[1];
@@ -803,14 +808,14 @@ var AbiToUi = function (_a) {
                             item.stateMutability == "view" &&
                             item.name.includes(searched);
                     })
-                        .map(function (method, index) { return (jsx(ReadMethodComponent, { method: method, contractObj: contractObj, descriptions: descriptions }, index)); }), type == 1 &&
+                        .map(function (method, index) { return (jsx(ReadMethodComponent, { method: method, contractObj: contractObj, methodData: methodData }, index)); }), type == 1 &&
                     contractObj.abi
                         .filter(function (item) {
                         return item.type == "function" &&
                             item.stateMutability != "view" &&
                             item.name.includes(searched);
                     })
-                        .map(function (method, index) { return (jsx(WriteMethodComponent, { method: method, contractObj: contractObj, descriptions: descriptions, gasPrice: gasPrice, gasLimit: gasLimit }, index)); })] })) }));
+                        .map(function (method, index) { return (jsx(WriteMethodComponent, { method: method, contractObj: contractObj, methodData: methodData, gasPrice: gasPrice, gasLimit: gasLimit }, index)); })] })) }));
 };
 
 export { AbiToUi, ConnectWalletComponent, ConnectedMenu, ConnectedMenuOptions, EthWallets, Identicon, getWithExpiry, setWithExpiry };

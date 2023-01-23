@@ -663,7 +663,7 @@ var Loader = function () {
 };
 
 var ReadMethodComponent = function (_a) {
-    var method = _a.method, contractObj = _a.contractObj, descriptions = _a.descriptions;
+    var method = _a.method, contractObj = _a.contractObj, methodData = _a.methodData;
     var _b = React__default["default"].useState(), args = _b[0], setArgs = _b[1];
     var _c = React__default["default"].useState(false), enabled = _c[0], setEnabled = _c[1];
     var _d = React__default["default"].useState(false), loading = _d[0], setLoading = _d[1];
@@ -699,12 +699,12 @@ var ReadMethodComponent = function (_a) {
             return [2 /*return*/];
         });
     }); };
-    return (jsxRuntime.jsxs("form", __assign({ method: "POST", onSubmit: function (e) { return queryContract(e, method); }, className: "methodComponent" }, { children: [jsxRuntime.jsx("h1", { children: method.name }), descriptions && descriptions[method.name] ? (jsxRuntime.jsx("p", { children: descriptions[method.name] })) : (jsxRuntime.jsx(jsxRuntime.Fragment, {})), method.inputs &&
+    return (jsxRuntime.jsxs("form", __assign({ method: "POST", onSubmit: function (e) { return queryContract(e, method); }, className: "methodComponent" }, { children: [jsxRuntime.jsx("h1", { children: method.name }), methodData && methodData[method.name] ? (jsxRuntime.jsx("p", { children: methodData[method.name].description })) : (jsxRuntime.jsx(jsxRuntime.Fragment, {})), method.inputs &&
                 method.inputs.map(function (input, index) { return (jsxRuntime.jsx("input", { id: "".concat(method.name, "-").concat(input.name), placeholder: input.name, required: true }, index)); }), jsxRuntime.jsx("button", __assign({ type: "submit" }, { children: "Query" })), " ", jsxRuntime.jsx("br", {}), " ", jsxRuntime.jsx("br", {}), loading && jsxRuntime.jsx(Loader, {}), !loading && response ? response.toString() : jsxRuntime.jsx(jsxRuntime.Fragment, {}), !loading && error ? (jsxRuntime.jsx("span", __assign({ className: "error" }, { children: error && error.toString() }))) : (jsxRuntime.jsx(jsxRuntime.Fragment, {}))] })));
 };
 
 var WriteMethodComponent = function (_a) {
-    var method = _a.method, contractObj = _a.contractObj, descriptions = _a.descriptions, gasPrice = _a.gasPrice, gasLimit = _a.gasLimit;
+    var method = _a.method, contractObj = _a.contractObj, methodData = _a.methodData, gasPrice = _a.gasPrice, gasLimit = _a.gasLimit;
     var _b = React__default["default"].useState(false), isLoading = _b[0], setLoading = _b[1];
     var _c = reactProviders.writeContractCall({
         address: contractObj.address,
@@ -740,20 +740,25 @@ var WriteMethodComponent = function (_a) {
             options.gasPrice =
                 gasPrice !== null && gasPrice !== void 0 ? gasPrice : (_a = document.getElementById(method.name + "-gasPrice")) === null || _a === void 0 ? void 0 : _a.value;
             options.gasLimit =
-                gasLimit !== null && gasLimit !== void 0 ? gasLimit : (_b = document.getElementById(method.name + "-gasLimit")) === null || _b === void 0 ? void 0 : _b.value;
+                methodData && methodData[method.name] && methodData[method.name].gasLimit
+                    ? methodData[method.name].gasLimit
+                    : gasLimit !== null && gasLimit !== void 0 ? gasLimit : (_b = document.getElementById(method.name + "-gasLimit")) === null || _b === void 0 ? void 0 : _b.value;
             send(args, options);
             return [2 /*return*/];
         });
     }); };
-    return (jsxRuntime.jsxs("form", __assign({ method: "POST", onSubmit: function (e) { return queryContract(e, method); }, className: "methodComponent" }, { children: [jsxRuntime.jsx("h1", { children: method.name }), descriptions && descriptions[method.name] ? (jsxRuntime.jsx("p", { children: descriptions[method.name] })) : (jsxRuntime.jsx(jsxRuntime.Fragment, {})), method.inputs &&
-                method.inputs.map(function (input, index) { return (jsxRuntime.jsx("input", { id: "".concat(method.name, "-").concat(input.name), placeholder: input.name, required: true }, index)); }), !gasPrice && (jsxRuntime.jsx("input", { id: "".concat(method.name, "-gasPrice"), placeholder: "gasPrice", required: true })), !gasLimit && (jsxRuntime.jsx("input", { id: "".concat(method.name, "-gasLimit"), placeholder: "gasLimit", required: true })), jsxRuntime.jsx("button", __assign({ type: "submit" }, { children: "Query" })), " ", jsxRuntime.jsx("br", {}), " ", jsxRuntime.jsx("br", {}), isLoading && jsxRuntime.jsx(Loader, {}), !loading && response ? response.toString() : jsxRuntime.jsx(jsxRuntime.Fragment, {}), !isLoading && error ? (jsxRuntime.jsx("span", __assign({ className: "error" }, { children: error.message
+    return (jsxRuntime.jsxs("form", __assign({ method: "POST", onSubmit: function (e) { return queryContract(e, method); }, className: "methodComponent" }, { children: [jsxRuntime.jsx("h1", { children: method.name }), methodData && methodData[method.name] ? (jsxRuntime.jsx("p", { children: methodData[method.name].description })) : (jsxRuntime.jsx(jsxRuntime.Fragment, {})), method.inputs &&
+                method.inputs.map(function (input, index) { return (jsxRuntime.jsx("input", { id: "".concat(method.name, "-").concat(input.name), placeholder: input.name, required: true }, index)); }), !gasPrice && (jsxRuntime.jsx("input", { id: "".concat(method.name, "-gasPrice"), placeholder: "gasPrice", required: true })), (!methodData ||
+                !methodData[method.name] ||
+                !methodData[method.name].gasLimit) &&
+                !gasLimit && (jsxRuntime.jsx("input", { id: "".concat(method.name, "-gasLimit"), placeholder: "gasLimit", required: true })), jsxRuntime.jsx("button", __assign({ type: "submit" }, { children: "Query" })), " ", jsxRuntime.jsx("br", {}), " ", jsxRuntime.jsx("br", {}), isLoading && jsxRuntime.jsx(Loader, {}), !loading && response ? response.toString() : jsxRuntime.jsx(jsxRuntime.Fragment, {}), !isLoading && error ? (jsxRuntime.jsx("span", __assign({ className: "error" }, { children: error.message
                     ? extractErrorMessage(error.message.toString())
                     : extractErrorMessage(error.toString()) }))) : (jsxRuntime.jsx(jsxRuntime.Fragment, {}))] })));
 };
 
 // import styles from "./AbiToUi.module.css";
 var AbiToUi = function (_a) {
-    var contract = _a.contract, address = _a.address, abi = _a.abi, descriptions = _a.descriptions, gasPrice = _a.gasPrice, gasLimit = _a.gasLimit;
+    var contract = _a.contract, address = _a.address, abi = _a.abi, methodData = _a.methodData, gasPrice = _a.gasPrice, gasLimit = _a.gasLimit;
     var _b = React__default["default"].useState(), contractObj = _b[0], setContractObj = _b[1];
     var _c = React__default["default"].useState(0), type = _c[0], setType = _c[1];
     var _d = React__default["default"].useState(""), searched = _d[0], setSearched = _d[1];
@@ -814,14 +819,14 @@ var AbiToUi = function (_a) {
                             item.stateMutability == "view" &&
                             item.name.includes(searched);
                     })
-                        .map(function (method, index) { return (jsxRuntime.jsx(ReadMethodComponent, { method: method, contractObj: contractObj, descriptions: descriptions }, index)); }), type == 1 &&
+                        .map(function (method, index) { return (jsxRuntime.jsx(ReadMethodComponent, { method: method, contractObj: contractObj, methodData: methodData }, index)); }), type == 1 &&
                     contractObj.abi
                         .filter(function (item) {
                         return item.type == "function" &&
                             item.stateMutability != "view" &&
                             item.name.includes(searched);
                     })
-                        .map(function (method, index) { return (jsxRuntime.jsx(WriteMethodComponent, { method: method, contractObj: contractObj, descriptions: descriptions, gasPrice: gasPrice, gasLimit: gasLimit }, index)); })] })) }));
+                        .map(function (method, index) { return (jsxRuntime.jsx(WriteMethodComponent, { method: method, contractObj: contractObj, methodData: methodData, gasPrice: gasPrice, gasLimit: gasLimit }, index)); })] })) }));
 };
 
 exports.AbiToUi = AbiToUi;
