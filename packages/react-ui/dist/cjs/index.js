@@ -257,24 +257,26 @@ var index$4 = function (_a) {
 
 var useNFTMetadataMultiCall = function (_a) {
     var NFTs = _a.NFTs, method = _a.method, _b = _a.format, format = _b === void 0 ? false : _b, _c = _a.args, args = _c === void 0 ? [] : _c;
-    var result = reactProviders.readContractCalls(NFTs
+    var _d = React__default["default"].useState(NFTs
         ? NFTs.map(function (nft) { return ({
             abi: core.IERC721Metadata,
             address: nft,
             method: method,
             args: args,
         }); })
-        : []);
+        : []), data = _d[0]; _d[1];
+    var result = reactProviders.readContractCalls(data);
     return result && format ? convertResultToReadableFormat(result) : result;
 };
 var useTokenURIIndexCover = function (_a) {
     var NFTs = _a.NFTs;
-    return reactProviders.readContractCalls(NFTs.map(function (nft) { return ({
+    var _b = React__default["default"].useState(NFTs.map(function (nft) { return ({
         abi: core.ERC721,
         address: nft,
         method: NFT_CONTRACT_METHODS.TOKEN_URI,
         args: [1],
-    }); }));
+    }); })), data = _b[0]; _b[1];
+    return reactProviders.readContractCalls(data);
 };
 
 var index$3 = function (_a) {

@@ -2,6 +2,7 @@ import { readContractCalls } from "@cryptogate/react-providers";
 import { ERC721, IERC721Metadata } from "@cryptogate/core";
 import { convertResultToReadableFormat } from "../utils/helpers";
 import { NFT_CONTRACT_METHODS } from "../utils/constants";
+import React from "react";
 
 export const useNFTMetadataMultiCall = ({
   NFTs,
@@ -14,43 +15,45 @@ export const useNFTMetadataMultiCall = ({
   format?: boolean;
   args?: any[];
 }) => {
-  const result = readContractCalls(
-    NFTs
-      ? NFTs.map((nft) => ({
-        abi: IERC721Metadata,
-        address: nft,
-        method,
-        args,
-      }))
-      : []
-  );
+  const [data, setData] = React.useState(NFTs
+    ? NFTs.map((nft) => ({
+      abi: IERC721Metadata,
+      address: nft,
+      method,
+      args,
+    }))
+    : [])
+
+  const result = readContractCalls(data);
   return result && format ? convertResultToReadableFormat(result) : result;
 };
 
 export const useTokenURIIndexCover = ({ NFTs }: { NFTs: string[] }) => {
+  const [data, setData] = React.useState(NFTs.map((nft) => ({
+    abi: ERC721,
+    address: nft,
+    method: NFT_CONTRACT_METHODS.TOKEN_URI,
+    args: [1],
+  })))
+
   return readContractCalls(
-    NFTs.map((nft) => ({
-      abi: ERC721,
-      address: nft,
-      method: NFT_CONTRACT_METHODS.TOKEN_URI,
-      args: [1],
-    }))
+    data
   );
 };
 
 export const useTokenURIIndex = ({ NFT, args }: { NFT: string; args: any }) => {
-  const response = readContractCalls(
-    args
-      ? args.map((e: number) => {
-        return {
-          abi: ERC721,
-          address: "" + NFT,
-          method: NFT_CONTRACT_METHODS.TOKEN_URI,
-          args: e ? [e] : [],
-        };
-      })
-      : []
-  );
+  const [data, setData] = React.useState(args
+    ? args.map((e: number) => {
+      return {
+        abi: ERC721,
+        address: "" + NFT,
+        method: NFT_CONTRACT_METHODS.TOKEN_URI,
+        args: e ? [e] : [],
+      };
+    })
+    : [])
+
+  const response = readContractCalls(data);
   return response;
 };
 
@@ -63,17 +66,18 @@ export const useTokenOfOwnerByIndex = ({
 }) => {
   var range = Array.from(Array(args[1] - 1).keys()).map((x) => x + 1);
   range.unshift(0);
-  const result = readContractCalls(
-    range
-      ? range.map((e) => {
-        return {
-          abi: ERC721,
-          address: "" + NFT,
-          method: NFT_CONTRACT_METHODS.TOKEN_OF_OWNER_BY_INDEX,
-          args: [args[0], e],
-        };
-      })
-      : []
-  );
+
+  const [data, setData] = React.useState(range
+    ? range.map((e) => {
+      return {
+        abi: ERC721,
+        address: "" + NFT,
+        method: NFT_CONTRACT_METHODS.TOKEN_OF_OWNER_BY_INDEX,
+        args: [args[0], e],
+      };
+    })
+    : [])
+
+  const result = readContractCalls(data);
   return result[0] ? convertResultToReadableFormat(result) : result;
 };
