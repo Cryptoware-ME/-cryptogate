@@ -11,12 +11,16 @@ const WriteMethodComponent = ({
   method,
   contractObj,
   descriptions,
+  gasPrice,
+  gasLimit,
 }: {
   method: ContractABIUnit;
   contractObj: {
     address: EvmAddress;
     abi: ContractABIUnit[];
     descriptions?: any;
+    gasPrice?: string;
+    gasLimit?: string;
   };
 }) => {
   const [isLoading, setLoading] = React.useState(false);
@@ -50,12 +54,10 @@ const WriteMethodComponent = ({
         )
       );
     }
-    options.gasPrice = document.getElementById(
-      method.name + "-gasPrice"
-    )?.value;
-    options.gasLimit = document.getElementById(
-      method.name + "-gasLimit"
-    )?.value;
+    options.gasPrice =
+      gasPrice ?? document.getElementById(method.name + "-gasPrice")?.value;
+    options.gasLimit =
+      gasLimit ?? document.getElementById(method.name + "-gasLimit")?.value;
     send(args, options);
   };
 
@@ -80,8 +82,12 @@ const WriteMethodComponent = ({
             required
           />
         ))}
-      <input id={`${method.name}-gasPrice`} placeholder="gasPrice" required />
-      <input id={`${method.name}-gasLimit`} placeholder="gasLimit" required />
+      {!gasPrice && (
+        <input id={`${method.name}-gasPrice`} placeholder="gasPrice" required />
+      )}
+      {!gasLimit && (
+        <input id={`${method.name}-gasLimit`} placeholder="gasLimit" required />
+      )}
       <button type="submit">Query</button> <br /> <br />
       {isLoading && <Loader />}
       {!loading && response ? response.toString() : <></>}
