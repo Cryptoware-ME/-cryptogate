@@ -7,7 +7,12 @@ import {
 } from "../../../hooks/useNFTMultiCall";
 import { areAllElementsValid } from "../../../utils/helpers";
 import NFTSlider from "./NFTSlider";
-// import NFTCollection from "./NFTCollection";
+
+/**
+ * NFTDisplay component to display NFT information in a slider format.
+ * @param  props The properties passed to the component.
+ * @param  props.NFTs The list of NFT contract addresses. 
+ */
 
 const index = ({ NFTs }: { NFTs: string[] }) => {
   const { account } = useEthereum();

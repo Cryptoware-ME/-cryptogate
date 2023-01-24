@@ -1,5 +1,8 @@
 import { useState } from "react";
 
+/**
+ * Active component is the active state of the Connect Wallet button that the user sees on the screen.
+ */
 export const Active = () => {
   const [isHovering, setIsHovering] = useState(false);
 

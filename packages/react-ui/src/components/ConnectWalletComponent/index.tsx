@@ -5,6 +5,9 @@ import { Identicon } from "../Identicon";
 import { ChainId } from "@cryptogate/react-providers";
 import { defaults, Active, Disabled } from "../../defaults";
 
+/**
+ * Enum representing different Ethereum wallets.
+ */
 export enum EthWallets {
   ALL = "all",
   METAMASK = "metamask",
@@ -13,12 +16,20 @@ export enum EthWallets {
   BRAVEWALLET = "braveWallet",
 }
 
+/**
+ * Enum representing different options for the connected menu.
+ */
 export enum ConnectedMenuOptions {
   NOMENU = "nomenu",
   WALLETINFORMATION = "walletinformation",
   STORE = "store",
 }
 
+/**
+ * ConnectWalletComponent is a React component that renders the Connect Wallet button.
+ * It can display different components based on the user's wallet connection status (Active, Disabled, Connected).
+ * It also allows users to connect to different Ethereum wallets and can display a store to interact with ERC20/NFT tokens. 
+ */
 export const ConnectWalletComponent = ({
   ActiveComponent = <Active />,
   DisabledComponent = <Disabled />,

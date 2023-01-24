@@ -8,7 +8,13 @@ import {
 import ReadMethodComponent from "./ReadMethodComponent";
 import WriteMethodComponent from "./WriteMethodComponent";
 // import styles from "./AbiToUi.module.css";
-
+/**
+ * A component that renders the ABI of a contract in a user-friendly format.
+ *@param contract - The contract name
+ *@param address - The address of the contract on the Ethereum network
+ *@param abi - The ABI of the contract
+ *@param descriptions - Additional information about the contract's methods
+ */
 export const AbiToUi = ({
   contract,
   address,
@@ -28,7 +34,11 @@ export const AbiToUi = ({
   const [searched, setSearched] = React.useState("");
   const { network } = useEthereum();
   const config = useConfig();
-
+  /**
+   * Function to fetch the ABI of a contract from Etherscan
+   * @param {string} contractAddrss - The address of the contract
+   * @returns {Promise<ContractABIUnit[]>} - The ABI of the contract
+   */
   const getAbiFromEtherscan = async (contractAddrss: string) => {
     const res = await fetch(
       "https://api.etherscan.io/api?module=contract&action=getabi&address=" +
@@ -45,6 +55,13 @@ export const AbiToUi = ({
     setSearched(e.target.value);
   };
 
+  /**
+
+ * useEffect hook to set the contract object state when the component is first rendered or network/config changes
+ * If contract and config are present, it filters the contract object from config and sets the contract address based on the current network.
+ * @param  config - The configuration object containing the contract list
+ * @param network - The current Ethereum network object
+*/
   React.useEffect(() => {
     if (contract && config && network) {
       const _contractObj = config?.ethConfig?.contractList?.filter(

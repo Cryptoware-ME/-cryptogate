@@ -1,6 +1,9 @@
 import { Active, Disabled } from "./components";
 import { ChainId } from "@cryptogate/react-providers"
 
+/**
+ * This is the default export for the ConnectWalletButton component.
+ */
 export { Active, Disabled };
 
 export const defaults = {

@@ -6,6 +6,10 @@ import Brave from "../wallets/Brave";
 import Coinbase from "../wallets/Coinbase";
 import WalletConnect from "../wallets/WalletConnect";
 
+/**
+ * This function displays a list of Ethereum wallets that the user can connect to, based on the EthWalletList prop.
+ * @param EthWalletList  An array of EthWallets enum representing the Ethereum wallets that the component supports.
+ */
 const EthWalletListComp = ({
   EthWalletList,
 }: {

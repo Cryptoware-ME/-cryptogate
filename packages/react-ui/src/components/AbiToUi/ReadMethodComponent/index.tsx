@@ -7,6 +7,15 @@ import {
 import Loader from "../../Loader";
 import "./ReadMethodComponent.module.css";
 
+/**
+* ReadMethodComponent is a functional component that allows for reading data from a smart contract.
+* It uses the readContractCall function from the @cryptogate/react-providers library to handle the reading of the contract data.
+* It also has the option to display a Loader component while the data is being fetched and to handle the response and error from the readContractCall function.
+* @param {ContractABIUnit} method - The method to be called for reading the data.
+* @param contractObj - An object containing the address and abi of the smart contract.
+* @param descriptions - (optional) Additional data to be used for the component.
+*/
+
 const ReadMethodComponent = ({
   method,
   contractObj,
@@ -34,6 +43,16 @@ const ReadMethodComponent = ({
     if (response || error) setLoading(false);
   }, [response, error]);
 
+  /**
+
+ * ReadMethodComponent is a functional component that allows for reading data from a smart contract.
+ * It uses the readContractCall function from the @cryptogate/react-providers library to handle the reading of the contract data.
+ * It also has the option to display a Loader component while the data is being fetched and to handle the response and error from the readContractCall function.
+ * The component also includes a form for the user to submit the query for the contract data and for the inputs for the smart contract method.
+ * The queryContract function is used to handle the form submission, and it sets the loading state, and it will populate the args state with the input values from the form.
+ * The component will return the form with the method name as the title, a description if provided, and inputs for the method's input parameters.
+ 
+ */
   const queryContract = async (e: any, method: any) => {
     e.preventDefault();
     setLoading(true);

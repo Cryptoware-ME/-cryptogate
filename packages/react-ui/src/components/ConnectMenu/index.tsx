@@ -2,6 +2,15 @@ import WalletInformation from "../WalletInformation";
 import StoreMenuComponent from "../StoreMenuComponent";
 import { ConnectedMenuOptions } from "../ConnectWalletComponent";
 
+/**
+
+* @description It checks the ChosenConnectedMenu prop and renders the appropriate component based on its value.
+* @param ChosenConnectedMenu - The chosen connected menu option.
+* @param onClose - Callback function to close the connected menu.
+* @param onDisconnect - Callback function to handle disconnection from wallet.
+* @param isOpen - Flag to determine if the menu is open.
+* @param Store - An object containing the token and NFT lists.
+*/
 export const ConnectedMenu = ({
   ChosenConnectedMenu,
   onClose,

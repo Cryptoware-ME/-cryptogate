@@ -11,6 +11,16 @@ import { setWithExpiry } from "../../localStorage/setWithExpire";
 import { getWithExpiry } from "../../localStorage/getWithExpire";
 import { ConnectedMenuOptions } from "../ConnectWalletComponent";
 
+
+/**
+
+signingMessage is a function that signs a message using the ethSignMessage function from the @cryptogate/core library.
+It also stores and retrieves the signature using the setWithExpiry and getWithExpiry functions from the localStorage library.
+@param {string} account - The account address to be used for signing the message.
+@param {any} provider - The provider to be used for signing the message.
+@param {string} SignatureMessage - The message to be signed.
+*/
+
 const signingMessage = async (
   account: any,
   provider: any,
@@ -31,6 +41,22 @@ const signingMessage = async (
       });
   });
 };
+
+/**
+ * ConnectWalletButton is a functional component that allows for connecting to a wallet and signing a message.
+ * It uses the useEthereum and useConfig hooks from the @cryptogate/react-providers library to handle the connection and network checking.
+ * @param ActiveComponent - The component to be displayed when the wallet is not connected.
+ * @param DisabledComponent - The component to be displayed when the wallet is connected but signing is disabled.
+ * @param ConnectedComponent - The component to be displayed when the wallet is connected and signing is enabled.
+ * @param SignatureMessage - The message to be signed by the connected wallet.
+ * @param NetworkChainIds - An array of chainIds that are allowed for the wallet connection.
+ * @param NetworkAlertMessage - The alert message to be displayed when the connected network is not allowed.
+ * @param ChosenConnectedMenu - The options to be passed to the ConnectedMenu component.
+ * @param Store An object containing data to be passed to the ConnectedMenu component.
+ * @param onSign A function to be called when the signature is obtained.
+ * @param  setOpenOptions - A function to open the options for connecting to the wallet
+ * @returns 
+ */
 
 export const ConnectWalletButton = ({
   ActiveComponent,

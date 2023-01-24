@@ -2,6 +2,13 @@ import WalletInformation from "../WalletInformation";
 import TokenDetails from "./TokenDetails";
 import NFTDisplay from "./NFTDisplay";
 
+/**
+* index is a React functional component that displays the wallet information and token or NFT details.
+* @param {{onDisconnect: any; Store?: { Tokens?: string[]; NFTs?: string[] }}} - An object with the following properties:
+* onDisconnect: A callback function to be executed when the user disconnects their wallet.
+* Store: An object that contains the token and NFT addresses.
+*/
+
 const index = ({
   onDisconnect,
   Store,

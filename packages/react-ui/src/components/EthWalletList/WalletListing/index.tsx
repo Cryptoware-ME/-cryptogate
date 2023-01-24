@@ -1,5 +1,11 @@
 import React from "react";
 
+/**
+ * It displays an icon, a heading and a onClick function that is called when the item is clicked.
+ * @param Icon - An icon to be displayed next to the heading.
+ * @param heading - The text to be displayed as the heading.
+ * @param onWalletCall - A function that is called when the item is clicked.
+ */
 const WalletListing = ({
   Icon,
   heading,

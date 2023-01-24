@@ -7,6 +7,15 @@ import {
 import Loader from "../../Loader";
 import "./WriteMethodComponent.module.css";
 
+/**
+
+* @function WriteMethodComponent
+* @param props - component props
+* @param  props.method - ContractABIUnit object representing the method to be called
+* @param  props.contractObj - object containing the contract address and ABI
+* @param  props.descriptions - optional object containing descriptions for the methods
+* @returns  a form for calling write methods on a smart contract
+*/
 const WriteMethodComponent = ({
   method,
   contractObj,
@@ -30,6 +39,13 @@ const WriteMethodComponent = ({
     if (response || error) setLoading(false);
   }, [response, error]);
 
+  /**
+ *
+  * @param props.contractObj.address - The address of the contract
+  * @param props.contractObj.abi - The abi of the contract
+  * This component is used to call a write method of a smart contract. 
+  * It takes in the method to be called and the contract object containing its address and ABI. It also takes in an optional descriptions object that contains the description of the method. It uses the writeContractCall hook from @cryptogate/react-providers to call the method and handle the response and errors.
+ */
   const extractErrorMessage = (msg: string) => {
     if (msg.startsWith("sending a transaction requires a signer"))
       return "Authentication error: Connect wallet to send a transaction";

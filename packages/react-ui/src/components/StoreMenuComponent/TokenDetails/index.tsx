@@ -4,6 +4,13 @@ import { toDecimals } from "../../../utils/helpers";
 import { TOKEN_CONTRACT_METHODS } from "../../../utils/constants";
 import "./TokenDetails.module.css";
 
+/**
+ * index is a React functional component that displays the balance and symbol of ERC-20 tokens and the NFTs.
+ * @param {{tokens?: string[]; nfts: Boolean}} - An object with the following properties: 
+ * tokens: An array of token address strings. 
+ * nfts: A boolean value to indicate if NFTs are displayed.
+ * useTokensMultiCall is a custom hook that allows you to make multiple calls to a smart contract method on multiple tokens simultaneously.
+ */
 const index = ({ tokens, nfts }: { tokens?: string[]; nfts: Boolean }) => {
   const { account } = useEthereum();
   const balance = useTokensMultiCall({

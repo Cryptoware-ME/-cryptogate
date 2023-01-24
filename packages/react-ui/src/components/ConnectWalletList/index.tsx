@@ -1,6 +1,14 @@
 import { EthWallets } from "../ConnectWalletComponent";
 import EthWalletListComp from "../EthWalletList";
 
+
+/**
+
+* It displays a list of Ethereum wallets that the user can connect to.
+* @param openOptions - A boolean indicating if the list should be open or not
+* @param setOpenOptions - A function to update the openOptions state
+* @param EthWalletList - An array of EthWallets enum representing the Ethereum wallets that the component supports
+*/
 export const ConnectWalletList = ({
   openOptions,
   setOpenOptions,

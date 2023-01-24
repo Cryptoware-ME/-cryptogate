@@ -3,6 +3,9 @@ import { ERC721, IERC721Metadata } from "@cryptogate/core";
 import { convertResultToReadableFormat } from "../utils/helpers";
 import { NFT_CONTRACT_METHODS } from "../utils/constants";
 
+/**
+ * A hook for performing multiple calls to the metadata of multiple NFTs at once.
+ */
 export const useNFTMetadataMultiCall = ({
   NFTs,
   method,
@@ -27,6 +30,9 @@ export const useNFTMetadataMultiCall = ({
   return result && format ? convertResultToReadableFormat(result) : result;
 };
 
+/**
+ * useTokenURIIndexCover is a hook that returns the URI of an NFT at a given index.
+ */
 export const useTokenURIIndexCover = ({ NFTs }: { NFTs: string[] }) => {
   return readContractCalls(
     NFTs.map((nft) => ({
@@ -38,6 +44,9 @@ export const useTokenURIIndexCover = ({ NFTs }: { NFTs: string[] }) => {
   );
 };
 
+/**
+ * Returns the token URI of an NFT at the given index
+ */
 export const useTokenURIIndex = ({ NFT, args }: { NFT: string; args: any }) => {
   const response = readContractCalls(
     args
@@ -54,6 +63,9 @@ export const useTokenURIIndex = ({ NFT, args }: { NFT: string; args: any }) => {
   return response;
 };
 
+/**
+ * useTokenOfOwnerByIndex is a hook function that takes in an NFT contract address and an array of arguments as input.
+ */
 export const useTokenOfOwnerByIndex = ({
   NFT,
   args,

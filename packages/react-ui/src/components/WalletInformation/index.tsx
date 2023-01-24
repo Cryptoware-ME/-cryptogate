@@ -2,6 +2,11 @@ import { useEthereum } from "@cryptogate/react-providers";
 import { Identicon } from "../Identicon";
 import DisconnectBtn from "./DisconnectBtn";
 
+/**
+ * WalletInformation component displays information about the currently connected wallet such as the address, and the balance in ether.
+ * @param onDisconnect - a callback function that will be called when the disconnect button is clicked.
+ * @param direction - the direction in which the layout of the component should be displayed, either 'x' or 'y'.
+ */
 const WalletInformation = ({
   onDisconnect,
   direction = "y",
