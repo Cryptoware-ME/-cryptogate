@@ -2,7 +2,7 @@ import React from 'react'
 
 export const ErrorsBagContext = React.createContext<{
   errors: string[],
-  addError: (error: any) => void;
+  addError: (_: any) => void;
   clearErrors: () => void;
 }>({ errors: [], addError: (_) => { }, clearErrors: () => { } })
 

@@ -100,12 +100,12 @@ declare function WindowProvider({ children }: Props$3): JSX.Element;
 
 declare const ErrorsBagContext: React.Context<{
     errors: string[];
-    addError: (error: any) => void;
+    addError: (_: any) => void;
     clearErrors: () => void;
 }>;
 declare function useErrorsBag(): {
     errors: string[];
-    addError: (error: any) => void;
+    addError: (_: any) => void;
     clearErrors: () => void;
 };
 

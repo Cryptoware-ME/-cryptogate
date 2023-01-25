@@ -11,7 +11,7 @@ export const useTokensMultiCall = ({
   method: string;
   args?: any[];
 }) => {
-  const [data, setData] = React.useState(tokenList
+  const [data, _] = React.useState(tokenList
     ? tokenList.map((token) => ({
       abi: ERC20,
       address: token,

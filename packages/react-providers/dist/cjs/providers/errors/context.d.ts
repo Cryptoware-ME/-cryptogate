@@ -1,11 +1,11 @@
 import React from 'react';
 export declare const ErrorsBagContext: React.Context<{
     errors: string[];
-    addError: (error: any) => void;
+    addError: (_: any) => void;
     clearErrors: () => void;
 }>;
 export declare function useErrorsBag(): {
     errors: string[];
-    addError: (error: any) => void;
+    addError: (_: any) => void;
     clearErrors: () => void;
 };

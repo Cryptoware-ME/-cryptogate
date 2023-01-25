@@ -15,7 +15,7 @@ export const useNFTMetadataMultiCall = ({
   format?: boolean;
   args?: any[];
 }) => {
-  const [data, setData] = React.useState(NFTs
+  const [data, _] = React.useState(NFTs
     ? NFTs.map((nft) => ({
       abi: IERC721Metadata,
       address: nft,
@@ -29,7 +29,7 @@ export const useNFTMetadataMultiCall = ({
 };
 
 export const useTokenURIIndexCover = ({ NFTs }: { NFTs: string[] }) => {
-  const [data, setData] = React.useState(NFTs.map((nft) => ({
+  const [data, _] = React.useState(NFTs.map((nft) => ({
     abi: ERC721,
     address: nft,
     method: NFT_CONTRACT_METHODS.TOKEN_URI,
@@ -42,7 +42,7 @@ export const useTokenURIIndexCover = ({ NFTs }: { NFTs: string[] }) => {
 };
 
 export const useTokenURIIndex = ({ NFT, args }: { NFT: string; args: any }) => {
-  const [data, setData] = React.useState(args
+  const [data, _] = React.useState(args
     ? args.map((e: number) => {
       return {
         abi: ERC721,
@@ -67,7 +67,7 @@ export const useTokenOfOwnerByIndex = ({
   var range = Array.from(Array(args[1] - 1).keys()).map((x) => x + 1);
   range.unshift(0);
 
-  const [data, setData] = React.useState(range
+  const [data, _] = React.useState(range
     ? range.map((e) => {
       return {
         abi: ERC721,
