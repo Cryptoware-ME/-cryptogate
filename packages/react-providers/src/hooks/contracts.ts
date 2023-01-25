@@ -138,9 +138,14 @@ export const readContractCalls = (params: GetContractCallParams[]): any[] => {
                             provider
                         );
                         return callFunction(contractObj, param.method, param.args)
-                    } catch (err) { addError(err) }
-                } else
-                    addError(`You need to either provide a contract name from your contracts config or a contract address & abi`)
+                    } catch (err) {
+                        addError(err);
+                        return [];
+                    }
+                } else {
+                    addError(`You need to either provide a contract name from your contracts config or a contract address & abi`);
+                    return []
+                }
             })
             Promise.all(res).then((result) => setResponse(result))
         }

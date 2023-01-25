@@ -9,7 +9,6 @@ const index = ({ tokens, nfts }: { tokens?: string[]; nfts: Boolean }) => {
   const balance = useTokensMultiCall({
     tokenList: tokens as string[],
     method: TOKEN_CONTRACT_METHODS.BALANCE_OF,
-    format: true,
     args: [account],
   });
 

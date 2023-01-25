@@ -25,7 +25,6 @@ export const ConnectWalletComponent = ({
   ConnectedComponent = <Identicon />,
   EthWalletList = [EthWallets.ALL],
   SignatureMessage = defaults.SignatureMessage,
-  NetworkChainIds = defaults.NetworkChainIds,
   NetworkAlertMessage = defaults.NetworkAlertMessage,
   ConnectedMenuChosen = ConnectedMenuOptions.WALLETINFORMATION,
   Store = {},
@@ -36,7 +35,6 @@ export const ConnectWalletComponent = ({
   ConnectedComponent?: React.ReactNode;
   EthWalletList?: EthWallets[];
   SignatureMessage?: string;
-  NetworkChainIds?: number[];
   NetworkAlertMessage?: string;
   ConnectedMenuChosen?: ConnectedMenuOptions;
   Store?: { Tokens?: string[]; NFTs?: string[] };
@@ -55,7 +53,6 @@ export const ConnectWalletComponent = ({
         ActiveComponent={ActiveComponent}
         DisabledComponent={DisabledComponent}
         ConnectedComponent={ConnectedComponent}
-        NetworkChainIds={NetworkChainIds}
         setOpenOptions={setOpenOptions}
         NetworkAlertMessage={NetworkAlertMessage}
         SignatureMessage={SignatureMessage}

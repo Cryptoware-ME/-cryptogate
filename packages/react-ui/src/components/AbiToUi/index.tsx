@@ -54,11 +54,11 @@ export const AbiToUi = ({
   React.useEffect(() => {
     if (contract && config && network) {
       const _contractObj = config?.ethConfig?.contractList?.filter(
-        (item, i) => item.name == contract
+        (item, _) => item.name == contract
       );
       if (_contractObj && _contractObj.length) {
         const res = Object.keys(_contractObj[0].addresses).filter(
-          (key, i) => key == network.chainId.toString()
+          (key, _) => key == network.chainId.toString()
         );
         setContractObj({
           address: _contractObj[0].addresses[Number(res[0])],
@@ -88,14 +88,14 @@ export const AbiToUi = ({
                 id="read"
                 name="type"
                 defaultChecked
-                onChange={(e) => setType(0)}
+                onChange={(_) => setType(0)}
               />
               <label htmlFor="read">Read</label>
               <input
                 type="radio"
                 id="write"
                 name="type"
-                onChange={(e) => setType(1)}
+                onChange={(_) => setType(1)}
               />
               <label htmlFor="write">Write</label>
             </div>

@@ -43,7 +43,11 @@ const ReadMethodComponent = ({
     if (method.inputs && method.inputs.length) {
       method.inputs.map((input: any) =>
         args.push(
-          document.getElementById(method.name + "-" + input.name)?.value
+          (
+            document.getElementById(
+              method.name + "-" + input.name
+            ) as HTMLInputElement
+          )?.value
         )
       );
       setEnabled(true);

@@ -3,7 +3,6 @@ import {
   ChainId,
   useEthereum,
   useConfig,
-  getChainById,
 } from "@cryptogate/react-providers";
 import { ConnectedMenu } from "../ConnectMenu";
 import { ethSignMessage } from "@cryptogate/core";
@@ -37,7 +36,6 @@ export const ConnectWalletButton = ({
   DisabledComponent,
   ConnectedComponent,
   SignatureMessage,
-  NetworkChainIds,
   NetworkAlertMessage,
   ChosenConnectedMenu,
   onSign,
@@ -48,7 +46,6 @@ export const ConnectWalletButton = ({
   DisabledComponent: React.ReactNode;
   ConnectedComponent: React.ReactNode;
   SignatureMessage: string;
-  NetworkChainIds: number[];
   NetworkAlertMessage: string;
   ChosenConnectedMenu: ConnectedMenuOptions;
   Store: { Tokens?: string[]; NFTs?: string[] };

@@ -76,7 +76,7 @@ export const useEthereum = () => {
                 const { accounts, chainId } = payload.params[0];
                 setData(accounts[0], chainId, undefined)
             });
-            connector.on("disconnect", (error: any, payload: any) => {
+            connector.on("disconnect", (error: any, _) => {
                 if (error) addError(error)
                 connector = undefined
             });

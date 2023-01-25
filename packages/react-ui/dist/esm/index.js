@@ -134,15 +134,15 @@ var WalletInformation = function (_a) {
 };
 
 var useTokensMultiCall = function (_a) {
-    var tokenList = _a.tokenList, method = _a.method; _a.format; var _c = _a.args, args = _c === void 0 ? [] : _c;
-    var _d = React.useState(tokenList
+    var tokenList = _a.tokenList, method = _a.method, _b = _a.args, args = _b === void 0 ? [] : _b;
+    var _c = React.useState(tokenList
         ? tokenList.map(function (token) { return ({
             abi: ERC20,
             address: token,
             method: method,
             args: args,
         }); })
-        : []), data = _d[0]; _d[1];
+        : []), data = _c[0]; _c[1];
     return readContractCalls(data);
 };
 
@@ -210,7 +210,6 @@ var index$4 = function (_a) {
     var balance = useTokensMultiCall({
         tokenList: tokens,
         method: TOKEN_CONTRACT_METHODS.BALANCE_OF,
-        format: true,
         args: [account],
     });
     var symbol = useTokensMultiCall({
@@ -466,7 +465,7 @@ var signingMessage = function (account, provider, SignatureMessage) { return __a
     });
 }); };
 var ConnectWalletButton = function (_a) {
-    var ActiveComponent = _a.ActiveComponent, DisabledComponent = _a.DisabledComponent, ConnectedComponent = _a.ConnectedComponent, SignatureMessage = _a.SignatureMessage; _a.NetworkChainIds; var NetworkAlertMessage = _a.NetworkAlertMessage, ChosenConnectedMenu = _a.ChosenConnectedMenu, onSign = _a.onSign, Store = _a.Store, setOpenOptions = _a.setOpenOptions;
+    var ActiveComponent = _a.ActiveComponent, DisabledComponent = _a.DisabledComponent, ConnectedComponent = _a.ConnectedComponent, SignatureMessage = _a.SignatureMessage, NetworkAlertMessage = _a.NetworkAlertMessage, ChosenConnectedMenu = _a.ChosenConnectedMenu, onSign = _a.onSign, Store = _a.Store, setOpenOptions = _a.setOpenOptions;
     var _b = React.useState(false), openMenu = _b[0], setOpenMenu = _b[1];
     var _c = React.useState(null), keyValue = _c[0], setKeyValue = _c[1];
     var _d = useEthereum(), account = _d.account, network = _d.network, provider = _d.provider, deactivate = _d.deactivate;
@@ -642,9 +641,9 @@ var ConnectedMenuOptions;
     ConnectedMenuOptions["STORE"] = "store";
 })(ConnectedMenuOptions || (ConnectedMenuOptions = {}));
 var ConnectWalletComponent = function (_a) {
-    var _b = _a.ActiveComponent, ActiveComponent = _b === void 0 ? jsx(Active, {}) : _b, _c = _a.DisabledComponent, DisabledComponent = _c === void 0 ? jsx(Disabled, {}) : _c, _d = _a.ConnectedComponent, ConnectedComponent = _d === void 0 ? jsx(Identicon, {}) : _d, _e = _a.EthWalletList, EthWalletList = _e === void 0 ? [EthWallets.ALL] : _e, _f = _a.SignatureMessage, SignatureMessage = _f === void 0 ? defaults.SignatureMessage : _f, _g = _a.NetworkChainIds, NetworkChainIds = _g === void 0 ? defaults.NetworkChainIds : _g, _h = _a.NetworkAlertMessage, NetworkAlertMessage = _h === void 0 ? defaults.NetworkAlertMessage : _h, _j = _a.ConnectedMenuChosen, ConnectedMenuChosen = _j === void 0 ? ConnectedMenuOptions.WALLETINFORMATION : _j, _k = _a.Store, Store = _k === void 0 ? {} : _k, onSign = _a.onSign;
-    var _l = React.useState(false), openOptions = _l[0], setOpenOptions = _l[1];
-    return (jsxs(Fragment, { children: [jsx(ConnectWalletButton, { ActiveComponent: ActiveComponent, DisabledComponent: DisabledComponent, ConnectedComponent: ConnectedComponent, NetworkChainIds: NetworkChainIds, setOpenOptions: setOpenOptions, NetworkAlertMessage: NetworkAlertMessage, SignatureMessage: SignatureMessage, onSign: onSign, ChosenConnectedMenu: ConnectedMenuChosen, Store: Store }), openOptions ? (jsx(ConnectWalletList, { openOptions: openOptions, setOpenOptions: setOpenOptions, EthWalletList: EthWalletList })) : (jsx(Fragment, {}))] }));
+    var _b = _a.ActiveComponent, ActiveComponent = _b === void 0 ? jsx(Active, {}) : _b, _c = _a.DisabledComponent, DisabledComponent = _c === void 0 ? jsx(Disabled, {}) : _c, _d = _a.ConnectedComponent, ConnectedComponent = _d === void 0 ? jsx(Identicon, {}) : _d, _e = _a.EthWalletList, EthWalletList = _e === void 0 ? [EthWallets.ALL] : _e, _f = _a.SignatureMessage, SignatureMessage = _f === void 0 ? defaults.SignatureMessage : _f, _g = _a.NetworkAlertMessage, NetworkAlertMessage = _g === void 0 ? defaults.NetworkAlertMessage : _g, _h = _a.ConnectedMenuChosen, ConnectedMenuChosen = _h === void 0 ? ConnectedMenuOptions.WALLETINFORMATION : _h, _j = _a.Store, Store = _j === void 0 ? {} : _j, onSign = _a.onSign;
+    var _k = React.useState(false), openOptions = _k[0], setOpenOptions = _k[1];
+    return (jsxs(Fragment, { children: [jsx(ConnectWalletButton, { ActiveComponent: ActiveComponent, DisabledComponent: DisabledComponent, ConnectedComponent: ConnectedComponent, setOpenOptions: setOpenOptions, NetworkAlertMessage: NetworkAlertMessage, SignatureMessage: SignatureMessage, onSign: onSign, ChosenConnectedMenu: ConnectedMenuChosen, Store: Store }), openOptions ? (jsx(ConnectWalletList, { openOptions: openOptions, setOpenOptions: setOpenOptions, EthWalletList: EthWalletList })) : (jsx(Fragment, {}))] }));
 };
 
 var Loader = function () {
@@ -779,9 +778,9 @@ var AbiToUi = function (_a) {
     React.useEffect(function () {
         var _a, _b;
         if (contract && config && network) {
-            var _contractObj = (_b = (_a = config === null || config === void 0 ? void 0 : config.ethConfig) === null || _a === void 0 ? void 0 : _a.contractList) === null || _b === void 0 ? void 0 : _b.filter(function (item, i) { return item.name == contract; });
+            var _contractObj = (_b = (_a = config === null || config === void 0 ? void 0 : config.ethConfig) === null || _a === void 0 ? void 0 : _a.contractList) === null || _b === void 0 ? void 0 : _b.filter(function (item, _) { return item.name == contract; });
             if (_contractObj && _contractObj.length) {
-                var res = Object.keys(_contractObj[0].addresses).filter(function (key, i) { return key == network.chainId.toString(); });
+                var res = Object.keys(_contractObj[0].addresses).filter(function (key, _) { return key == network.chainId.toString(); });
                 setContractObj({
                     address: _contractObj[0].addresses[Number(res[0])],
                     abi: _contractObj[0].abi,
@@ -801,7 +800,7 @@ var AbiToUi = function (_a) {
         else
             console.error("Insufficient data");
     }, [network, config]);
-    return (jsx(Fragment, { children: contractObj && contractObj.abi && (jsxs(Fragment, { children: [jsxs("form", __assign({ className: "radioToolbar" }, { children: [jsxs("div", { children: [jsx("input", { type: "radio", id: "read", name: "type", defaultChecked: true, onChange: function (e) { return setType(0); } }), jsx("label", __assign({ htmlFor: "read" }, { children: "Read" })), jsx("input", { type: "radio", id: "write", name: "type", onChange: function (e) { return setType(1); } }), jsx("label", __assign({ htmlFor: "write" }, { children: "Write" }))] }), jsx("input", { type: "text", placeholder: "Search...", className: "searchBar", onChange: handleSearch })] })), type == 0 &&
+    return (jsx(Fragment, { children: contractObj && contractObj.abi && (jsxs(Fragment, { children: [jsxs("form", __assign({ className: "radioToolbar" }, { children: [jsxs("div", { children: [jsx("input", { type: "radio", id: "read", name: "type", defaultChecked: true, onChange: function (_) { return setType(0); } }), jsx("label", __assign({ htmlFor: "read" }, { children: "Read" })), jsx("input", { type: "radio", id: "write", name: "type", onChange: function (_) { return setType(1); } }), jsx("label", __assign({ htmlFor: "write" }, { children: "Write" }))] }), jsx("input", { type: "text", placeholder: "Search...", className: "searchBar", onChange: handleSearch })] })), type == 0 &&
                     contractObj.abi
                         .filter(function (item) {
                         return item.type == "function" &&

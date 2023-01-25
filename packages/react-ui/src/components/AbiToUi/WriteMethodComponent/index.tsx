@@ -52,17 +52,28 @@ const WriteMethodComponent = ({
     if (method.inputs && method.inputs.length) {
       method.inputs.map((input: any) =>
         args.push(
-          document.getElementById(method.name + "-" + input.name)?.value
+          (
+            document.getElementById(
+              method.name + "-" + input.name
+            ) as HTMLInputElement
+          )?.value
         )
       );
     }
     options.gasPrice =
-      gasPrice ?? document.getElementById(method.name + "-gasPrice")?.value;
+      gasPrice ??
+      (document.getElementById(method.name + "-gasPrice") as HTMLInputElement)
+        ?.value;
 
     options.gasLimit =
       methodData && methodData[method.name] && methodData[method.name].gasLimit
         ? methodData[method.name].gasLimit
-        : gasLimit ?? document.getElementById(method.name + "-gasLimit")?.value;
+        : gasLimit ??
+          (
+            document.getElementById(
+              method.name + "-gasLimit"
+            ) as HTMLInputElement
+          )?.value;
 
     send(args, options);
   };

@@ -4,7 +4,7 @@ export const ErrorsBagContext = React.createContext<{
   errors: string[],
   addError: (error: any) => void;
   clearErrors: () => void;
-}>({ errors: [], addError: (err) => { }, clearErrors: () => { } })
+}>({ errors: [], addError: (_) => { }, clearErrors: () => { } })
 
 export function useErrorsBag() {
   return React.useContext(ErrorsBagContext)

@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { useEthereum } from "@cryptogate/react-providers";
 import { NFT_CONTRACT_METHODS } from "../../../utils/constants";
 import {

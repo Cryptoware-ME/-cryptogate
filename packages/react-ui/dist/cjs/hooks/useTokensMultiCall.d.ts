@@ -1,6 +1,5 @@
-export declare const useTokensMultiCall: ({ tokenList, method, format, args, }: {
+export declare const useTokensMultiCall: ({ tokenList, method, args, }: {
     tokenList: string[];
     method: string;
-    format?: boolean | undefined;
     args?: any[] | undefined;
 }) => any;

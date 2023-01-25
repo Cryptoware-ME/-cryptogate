@@ -12,13 +12,12 @@ export declare enum ConnectedMenuOptions {
     WALLETINFORMATION = "walletinformation",
     STORE = "store"
 }
-export declare const ConnectWalletComponent: ({ ActiveComponent, DisabledComponent, ConnectedComponent, EthWalletList, SignatureMessage, NetworkChainIds, NetworkAlertMessage, ConnectedMenuChosen, Store, onSign, }: {
+export declare const ConnectWalletComponent: ({ ActiveComponent, DisabledComponent, ConnectedComponent, EthWalletList, SignatureMessage, NetworkAlertMessage, ConnectedMenuChosen, Store, onSign, }: {
     ActiveComponent?: React.ReactNode;
     DisabledComponent?: React.ReactNode;
     ConnectedComponent?: React.ReactNode;
     EthWalletList?: EthWallets[] | undefined;
     SignatureMessage?: string | undefined;
-    NetworkChainIds?: number[] | undefined;
     NetworkAlertMessage?: string | undefined;
     ConnectedMenuChosen?: ConnectedMenuOptions | undefined;
     Store?: {

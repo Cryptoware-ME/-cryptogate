@@ -48,7 +48,7 @@ function ConfigProvider({ config, children }) {
     return React__default["default"].createElement(ConfigContext.Provider, { value: DAppConfig, children: children });
 }
 
-const ErrorsBagContext = React__default["default"].createContext({ errors: [], addError: (err) => { }, clearErrors: () => { } });
+const ErrorsBagContext = React__default["default"].createContext({ errors: [], addError: (_) => { }, clearErrors: () => { } });
 function useErrorsBag() {
     return React__default["default"].useContext(ErrorsBagContext);
 }
@@ -525,7 +525,7 @@ const useEthereum = () => {
                 const { accounts, chainId } = payload.params[0];
                 setData(accounts[0], chainId, undefined);
             });
-            connector.on("disconnect", (error, payload) => {
+            connector.on("disconnect", (error, _) => {
                 if (error)
                     addError(error);
                 connector = undefined;
@@ -703,10 +703,13 @@ const readContractCalls = (params) => {
                     }
                     catch (err) {
                         addError(err);
+                        return [];
                     }
                 }
-                else
+                else {
                     addError(`You need to either provide a contract name from your contracts config or a contract address & abi`);
+                    return [];
+                }
             });
             Promise.all(res).then((result) => setResponse(result));
         }

@@ -5,12 +5,10 @@ import { ERC20 } from "@cryptogate/core"
 export const useTokensMultiCall = ({
   tokenList,
   method,
-  format = false,
   args = [],
 }: {
   tokenList: string[];
   method: string;
-  format?: boolean;
   args?: any[];
 }) => {
   const [data, setData] = React.useState(tokenList
