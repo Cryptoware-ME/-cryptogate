@@ -774,6 +774,21 @@ const writeContractCall = ({ abi, address, contract, method }) => {
         error
     };
 };
+/**
+ * @public
+ * @param {PostContractCallParams} ContractCallObject
+ * @return send, loading, response & error
+*/
+const useContract = () => {
+    const { provider } = useEthereum();
+    const deployContract = ({ abi, byteCode, args }) => __awaiter(void 0, void 0, void 0, function* () {
+        const signer = provider === null || provider === void 0 ? void 0 : provider.getSigner();
+        const factory = new ethers.ContractFactory(abi, byteCode, signer);
+        const contract = args ? yield factory.deploy(...args) : yield factory.deploy();
+        return contract;
+    });
+    return { deployContract };
+};
 
-export { Avalanche, AvalancheTestnet, BSC, BSCTestnet, ChainId, ConfigContext, ConfigProvider, DEFAULT_SUPPORTED_CHAINS, ErrorsBagContext, ErrorsBagProvider, EvmNodeContext, EvmNodeProvider, Goerli, Mainnet, MultiChainProvider, Mumbai, NetworkContext, NetworkProvider, Polygon, WalletContext, WalletProvider, WindowContext, WindowProvider, avalancheExplorerUrl, bscScanUrl, bscTestnetScanUrl, getAddressLink, getChainById, getTransactionLink, goerliEtherscanUrl, mainnetEtherscanUrl, mumbaiPolygonScanUrl, polygonScanUrl, readContractCall, readContractCalls, resolveENS, testAvalancheExplorerUrl, useAccount, useConfig, useErrorsBag, useEthereum, useEvmNode, useNetwork, useNetworkInfo, useWallet, useWindow, writeContractCall };
+export { Avalanche, AvalancheTestnet, BSC, BSCTestnet, ChainId, ConfigContext, ConfigProvider, DEFAULT_SUPPORTED_CHAINS, ErrorsBagContext, ErrorsBagProvider, EvmNodeContext, EvmNodeProvider, Goerli, Mainnet, MultiChainProvider, Mumbai, NetworkContext, NetworkProvider, Polygon, WalletContext, WalletProvider, WindowContext, WindowProvider, avalancheExplorerUrl, bscScanUrl, bscTestnetScanUrl, getAddressLink, getChainById, getTransactionLink, goerliEtherscanUrl, mainnetEtherscanUrl, mumbaiPolygonScanUrl, polygonScanUrl, readContractCall, readContractCalls, resolveENS, testAvalancheExplorerUrl, useAccount, useConfig, useContract, useErrorsBag, useEthereum, useEvmNode, useNetwork, useNetworkInfo, useWallet, useWindow, writeContractCall };
 //# sourceMappingURL=index.js.map

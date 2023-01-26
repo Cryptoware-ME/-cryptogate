@@ -31,7 +31,7 @@ export type { Chain, EthConfig, EthContract, NodeUrls, ContractABIUnit, Contract
 export {
     useEthereum,
     useNetworkInfo,
-    readContractCall, readContractCalls, writeContractCall,
+    readContractCall, readContractCalls, writeContractCall, useContract,
     useAccount, resolveENS
 } from "./hooks"
 

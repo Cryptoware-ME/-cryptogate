@@ -254,3 +254,28 @@ export const writeContractCall = ({ abi, address, contract, method }: PostContra
         error
     }
 }
+
+
+interface deployContractParams {
+    abi: ContractABIUnit[] | ethers.ContractInterface,
+    byteCode: any,
+    args?: any,
+}
+
+/**
+ * @public
+ * @param {PostContractCallParams} ContractCallObject
+ * @return send, loading, response & error
+*/
+export const useContract = (): { deployContract: ({ abi, byteCode, args }: deployContractParams) => Promise<ethers.ethers.Contract>, } => {
+    const { provider } = useEthereum()
+
+    const deployContract = async ({ abi, byteCode, args }: deployContractParams): Promise<ethers.ethers.Contract> => {
+        const signer = provider?.getSigner()
+        const factory = new ethers.ContractFactory(abi, byteCode, signer)
+        const contract = args ? await factory.deploy(...args) : await factory.deploy();
+        return contract
+    }
+
+    return { deployContract }
+}

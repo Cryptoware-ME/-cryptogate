@@ -47,4 +47,17 @@ export declare const writeContractCall: ({ abi, address, contract, method }: Pos
     response: any;
     error: any;
 };
+interface deployContractParams {
+    abi: ContractABIUnit[] | ethers.ContractInterface;
+    byteCode: any;
+    args?: any;
+}
+/**
+ * @public
+ * @param {PostContractCallParams} ContractCallObject
+ * @return send, loading, response & error
+*/
+export declare const useContract: () => {
+    deployContract: ({ abi, byteCode, args }: deployContractParams) => Promise<ethers.ethers.Contract>;
+};
 export {};

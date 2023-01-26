@@ -803,6 +803,21 @@ const writeContractCall = ({ abi, address, contract, method }) => {
         error
     };
 };
+/**
+ * @public
+ * @param {PostContractCallParams} ContractCallObject
+ * @return send, loading, response & error
+*/
+const useContract = () => {
+    const { provider } = useEthereum();
+    const deployContract = ({ abi, byteCode, args }) => __awaiter(void 0, void 0, void 0, function* () {
+        const signer = provider === null || provider === void 0 ? void 0 : provider.getSigner();
+        const factory = new ethers__namespace.ContractFactory(abi, byteCode, signer);
+        const contract = args ? yield factory.deploy(...args) : yield factory.deploy();
+        return contract;
+    });
+    return { deployContract };
+};
 
 exports.Avalanche = Avalanche;
 exports.AvalancheTestnet = AvalancheTestnet;
@@ -842,6 +857,7 @@ exports.resolveENS = resolveENS;
 exports.testAvalancheExplorerUrl = testAvalancheExplorerUrl;
 exports.useAccount = useAccount;
 exports.useConfig = useConfig;
+exports.useContract = useContract;
 exports.useErrorsBag = useErrorsBag;
 exports.useEthereum = useEthereum;
 exports.useEvmNode = useEvmNode;
