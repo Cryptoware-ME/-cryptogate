@@ -2,8 +2,8 @@ import React, { useEffect, useCallback } from 'react';
 import * as ethers from 'ethers';
 import { providers } from 'ethers';
 import CoinbaseWalletSDK from '@coinbase/wallet-sdk';
-import WalletConnect from '@walletconnect/client';
 import QRCodeModal from '@walletconnect/qrcode-modal';
+import WalletConnectProvider from '@walletconnect/web3-provider';
 
 const ConfigContext = React.createContext({ ethConfig: { defaultNetwork: undefined, readOnlyUrls: {} } });
 function useConfig() {
@@ -439,6 +439,27 @@ const useEthereum = () => {
     const { ens, ethBalance } = useAccount(account);
     const { provider, setProvider } = useEvmNode();
     const { errors, addError } = useErrorsBag();
+    useEffect(() => {
+        let _provider = provider;
+        let proxyProvider = _provider === null || _provider === void 0 ? void 0 : _provider.provider;
+        if (proxyProvider) {
+            proxyProvider.on("accountsChanged", (accounts) => {
+                console.log("ACCCaC: ", accounts);
+                accounts[0] ? setWalletData({ account: accounts[0] }) : deactivate();
+            });
+            proxyProvider.on("chainChanged", (chainId) => {
+                var _a;
+                console.log("CHAINN: ", chainId);
+                const _chainId = (_a = chainId.toString().split("x")[1]) !== null && _a !== void 0 ? _a : chainId;
+                setNetworkData({
+                    chainId: _chainId,
+                    chain: getChainById(_chainId)
+                });
+            });
+            proxyProvider.on("disconnect", (_) => deactivate);
+            proxyProvider.on("changed", (x) => { console.log(x); });
+        }
+    }, [provider]);
     const setData = (_account, _chainId, _provider) => {
         setWalletData({ account: _account });
         setNetworkData({ chainId: _chainId, chain: getChainById(_chainId) });
@@ -458,10 +479,12 @@ const useEthereum = () => {
         }
     });
     const activateBraveWallet = React.useCallback(() => __awaiter(void 0, void 0, void 0, function* () {
+        console.log("brave: ", brave);
         if (brave)
             activateWallet(brave);
     }), [brave]);
     const activateMetamaskWallet = React.useCallback(() => __awaiter(void 0, void 0, void 0, function* () {
+        console.log("metamask: ", metamask);
         if (metamask)
             activateWallet(metamask);
     }), [metamask]);
@@ -469,40 +492,23 @@ const useEthereum = () => {
         if (coinbase)
             activateWallet(coinbase);
         // @Cryptogate: Might remove this later (handles popup if no extension found)
+        // appLogo is optional
         else if (walletsConfig) {
             const _coinbase = new CoinbaseWalletSDK(Object.assign({}, walletsConfig)).makeWeb3Provider();
             activateWallet(_coinbase);
         }
     }), [coinbase, walletsConfig]);
-    // @Cryptogate: REBUILD THIS METHOD
-    const activateWalletConnect = () => {
-        let connector = new WalletConnect({
+    const activateWalletConnect = () => __awaiter(void 0, void 0, void 0, function* () {
+        const provider = new WalletConnectProvider({
+            infuraId: "98d5cf1c763f4224afa492b70366effa",
             bridge: "https://bridge.walletconnect.org",
             qrcodeModal: QRCodeModal,
         });
-        if (connector) {
-            if (!connector.connected) {
-                connector.createSession();
-            }
-            connector.on("connect", (error, payload) => {
-                if (error)
-                    addError(error);
-                const { accounts, chainId } = payload.params[0];
-                setData(accounts[0], chainId, undefined);
-            });
-            connector.on("session_update", (error, payload) => {
-                if (error)
-                    addError(error);
-                const { accounts, chainId } = payload.params[0];
-                setData(accounts[0], chainId, undefined);
-            });
-            connector.on("disconnect", (error, _) => {
-                if (error)
-                    addError(error);
-                connector = undefined;
-            });
+        if (!provider.connected) {
+            yield provider.enable();
         }
-    };
+        setData(provider.accounts[0], provider.chainId, provider);
+    });
     const deactivate = React.useCallback(() => {
         setWalletData({ account: undefined });
         if (ethConfig) {
@@ -569,6 +575,7 @@ const readContractCall = ({ abi, address, contract, method, args, enabled = true
             setResponse(res.toString());
         }
         catch (err) {
+            console.log("************************ ", err);
             setError(err);
             addError(err);
         }
@@ -622,7 +629,7 @@ const readContractCall = ({ abi, address, contract, method, args, enabled = true
             setError("No provider available");
             addError("No provider available");
         }
-    }, [provider, config, abi, address, contract, method, args, enabled]);
+    }, [network, provider, config, abi, address, contract, method, args, enabled]);
     return { response, error };
 };
 /**

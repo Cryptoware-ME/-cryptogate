@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import * as ethers from "ethers";
 import CoinbaseWalletSDK from "@coinbase/wallet-sdk";
-import WalletConnect from "@walletconnect/client";
 import QRCodeModal from "@walletconnect/qrcode-modal";
+import WalletConnectProvider from "@walletconnect/web3-provider";
 import { useConfig, useErrorsBag, useEvmNode, useNetwork } from "../../providers"
 import { useBrowserWallets } from "./useBrowserWallet"
 import { useWallet } from "../../providers/wallet";
@@ -22,6 +22,27 @@ export const useEthereum = () => {
     const { provider, setProvider } = useEvmNode()
     const { errors, addError } = useErrorsBag()
 
+    useEffect(() => {
+        let _provider = provider as ethers.providers.Web3Provider
+        let proxyProvider = _provider?.provider as unknown as ethers.providers.Web3Provider
+        if (proxyProvider) {
+            proxyProvider.on("accountsChanged", (accounts: any) => {
+                console.log("ACCCaC: ", accounts)
+                accounts[0] ? setWalletData({ account: accounts[0] }) : deactivate();
+            });
+            proxyProvider.on("chainChanged", (chainId: any) => {
+                console.log("CHAINN: ", chainId)
+                const _chainId = chainId.toString().split("x")[1] ?? chainId
+                setNetworkData({
+                    chainId: _chainId,
+                    chain: getChainById(_chainId)
+                });
+            });
+            proxyProvider.on("disconnect", (_) => deactivate)
+            proxyProvider.on("changed", (x: any) => { console.log(x) })
+        }
+    }, [provider])
+
     const setData = (_account: EvmAddress, _chainId: number, _provider: any) => {
         setWalletData({ account: _account })
         setNetworkData({ chainId: _chainId, chain: getChainById(_chainId) })
@@ -40,47 +61,35 @@ export const useEthereum = () => {
     }
 
     const activateBraveWallet = React.useCallback(async () => {
+        console.log("brave: ", brave)
         if (brave) activateWallet(brave)
     }, [brave])
 
     const activateMetamaskWallet = React.useCallback(async () => {
+        console.log("metamask: ", metamask)
         if (metamask) activateWallet(metamask)
     }, [metamask])
 
     const activateCoinbaseWallet = React.useCallback(async () => {
         if (coinbase) activateWallet(coinbase)
         // @Cryptogate: Might remove this later (handles popup if no extension found)
+        // appLogo is optional
         else if (walletsConfig) {
             const _coinbase = new CoinbaseWalletSDK({ ...walletsConfig }).makeWeb3Provider()
             activateWallet(_coinbase)
         }
     }, [coinbase, walletsConfig])
 
-    // @Cryptogate: REBUILD THIS METHOD
-    const activateWalletConnect = () => {
-        let connector: WalletConnect | undefined = new WalletConnect({
+    const activateWalletConnect = async () => {
+        const provider = new WalletConnectProvider({
+            infuraId: "98d5cf1c763f4224afa492b70366effa",
             bridge: "https://bridge.walletconnect.org",
             qrcodeModal: QRCodeModal,
         })
-        if (connector) {
-            if (!connector.connected) {
-                connector.createSession();
-            }
-            connector.on("connect", (error: any, payload: any) => {
-                if (error) addError(error)
-                const { accounts, chainId } = payload.params[0];
-                setData(accounts[0], chainId, undefined)
-            });
-            connector.on("session_update", (error: any, payload: any) => {
-                if (error) addError(error)
-                const { accounts, chainId } = payload.params[0];
-                setData(accounts[0], chainId, undefined)
-            });
-            connector.on("disconnect", (error: any, _) => {
-                if (error) addError(error)
-                connector = undefined
-            });
+        if (!provider.connected) {
+            await provider.enable();
         }
+        setData(provider.accounts[0], provider.chainId, provider)
     }
 
     const deactivate = React.useCallback(() => {

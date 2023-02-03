@@ -228,7 +228,7 @@ declare const useEthereum: () => {
     activateBraveWallet: () => Promise<void>;
     activateMetamaskWallet: () => Promise<void>;
     activateCoinbaseWallet: () => Promise<void>;
-    activateWalletConnect: () => void;
+    activateWalletConnect: () => Promise<void>;
     deactivate: () => void;
     errors: string[];
 };

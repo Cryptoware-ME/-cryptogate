@@ -35,6 +35,7 @@ export const readContractCall = ({ abi, address, contract, method, args, enabled
             //! DON'T TO STRING
             setResponse(res.toString())
         } catch (err) {
+            console.log("************************ ", err)
             setError(err)
             addError(err)
         }
@@ -86,7 +87,7 @@ export const readContractCall = ({ abi, address, contract, method, args, enabled
             setError("No provider available");
             addError("No provider available")
         }
-    }, [provider, config, abi, address, contract, method, args, enabled])
+    }, [network, provider, config, abi, address, contract, method, args, enabled])
 
     return { response, error }
 }
