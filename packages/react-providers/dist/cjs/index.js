@@ -473,12 +473,10 @@ const useEthereum = () => {
         let proxyProvider = _provider === null || _provider === void 0 ? void 0 : _provider.provider;
         if (proxyProvider) {
             proxyProvider.on("accountsChanged", (accounts) => {
-                console.log("ACCCaC: ", accounts);
                 accounts[0] ? setWalletData({ account: accounts[0] }) : deactivate();
             });
             proxyProvider.on("chainChanged", (chainId) => {
                 var _a;
-                console.log("CHAINN: ", chainId);
                 const _chainId = (_a = chainId.toString().split("x")[1]) !== null && _a !== void 0 ? _a : chainId;
                 setNetworkData({
                     chainId: _chainId,
@@ -486,7 +484,6 @@ const useEthereum = () => {
                 });
             });
             proxyProvider.on("disconnect", (_) => deactivate);
-            proxyProvider.on("changed", (x) => { console.log(x); });
         }
     }, [provider]);
     const setData = (_account, _chainId, _provider) => {
@@ -508,12 +505,10 @@ const useEthereum = () => {
         }
     });
     const activateBraveWallet = React__default["default"].useCallback(() => __awaiter(void 0, void 0, void 0, function* () {
-        console.log("brave: ", brave);
         if (brave)
             activateWallet(brave);
     }), [brave]);
     const activateMetamaskWallet = React__default["default"].useCallback(() => __awaiter(void 0, void 0, void 0, function* () {
-        console.log("metamask: ", metamask);
         if (metamask)
             activateWallet(metamask);
     }), [metamask]);

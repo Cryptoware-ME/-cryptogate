@@ -27,11 +27,9 @@ export const useEthereum = () => {
         let proxyProvider = _provider?.provider as unknown as ethers.providers.Web3Provider
         if (proxyProvider) {
             proxyProvider.on("accountsChanged", (accounts: any) => {
-                console.log("ACCCaC: ", accounts)
                 accounts[0] ? setWalletData({ account: accounts[0] }) : deactivate();
             });
             proxyProvider.on("chainChanged", (chainId: any) => {
-                console.log("CHAINN: ", chainId)
                 const _chainId = chainId.toString().split("x")[1] ?? chainId
                 setNetworkData({
                     chainId: _chainId,
@@ -39,7 +37,6 @@ export const useEthereum = () => {
                 });
             });
             proxyProvider.on("disconnect", (_) => deactivate)
-            proxyProvider.on("changed", (x: any) => { console.log(x) })
         }
     }, [provider])
 
@@ -61,12 +58,10 @@ export const useEthereum = () => {
     }
 
     const activateBraveWallet = React.useCallback(async () => {
-        console.log("brave: ", brave)
         if (brave) activateWallet(brave)
     }, [brave])
 
     const activateMetamaskWallet = React.useCallback(async () => {
-        console.log("metamask: ", metamask)
         if (metamask) activateWallet(metamask)
     }, [metamask])
 
