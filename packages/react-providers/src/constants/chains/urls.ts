@@ -12,3 +12,5 @@ export const mumbaiPolygonScanUrl = 'https://mumbai.polygonscan.com'
 // Snow Trace (Avalanche)
 export const avalancheExplorerUrl = 'https://snowtrace.io'
 export const testAvalancheExplorerUrl = 'https://testnet.snowtrace.io'
+// Sol Scan
+export const mainnetSolscanUrl = "https://solscan.io"

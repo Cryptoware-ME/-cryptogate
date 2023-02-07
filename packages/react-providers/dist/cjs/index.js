@@ -4,9 +4,12 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 var React = require('react');
 var ethers = require('ethers');
+var walletAdapterReact = require('@solana/wallet-adapter-react');
+var walletAdapterWallets = require('@solana/wallet-adapter-wallets');
 var CoinbaseWalletSDK = require('@coinbase/wallet-sdk');
 var QRCodeModal = require('@walletconnect/qrcode-modal');
 var WalletConnectProvider = require('@walletconnect/web3-provider');
+var walletAdapterBase = require('@solana/wallet-adapter-base');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -82,6 +85,8 @@ const mumbaiPolygonScanUrl = 'https://mumbai.polygonscan.com';
 // Snow Trace (Avalanche)
 const avalancheExplorerUrl = 'https://snowtrace.io';
 const testAvalancheExplorerUrl = 'https://testnet.snowtrace.io';
+// Sol Scan
+const mainnetSolscanUrl = "https://solscan.io";
 
 /**
  * @public
@@ -95,7 +100,7 @@ const getChainById = (chainId) => DEFAULT_SUPPORTED_CHAINS.find((network) => net
 /**
  * @internal INTENDED FOR INTERNAL USE ONLY. USE AT YOUR OWN RISK
  * @param {string} explorerUrl Base URL of the chain explorer
- * @param {EvmAddress} address Contract or wallet address
+ * @param {EvmAddress | SolAddress} address Contract or wallet address
  * @return {string} URL
  * @example
  *  const url = getAddressLink("https://etherscan.io", "0x00")
@@ -104,7 +109,7 @@ const getAddressLink = (explorerUrl, address) => `${explorerUrl}/address/${addre
 /**
  * @internal INTENDED FOR INTERNAL USE ONLY. USE AT YOUR OWN RISK
  * @param {string} explorerUrl Base URL of the chain explorer
- * @param {EvmAddress} txnHash Transaction Hash
+ * @param {string} txnHash Transaction Hash
  * @return {string} URL
  * @example
  *  const url = getTransactionLink("https://etherscan.io", "0x24..01f")
@@ -144,11 +149,6 @@ const BSC = {
     chainName: 'BSC',
     isTestChain: false,
     isLocalChain: false,
-    nativeCurrency: {
-        name: 'BNB',
-        symbol: 'BNB',
-        decimals: 18,
-    },
     blockExplorerUrl: bscScanUrl,
     getExplorerAddressLink: (address) => getAddressLink(bscScanUrl, address),
     getExplorerTransactionLink: (txnId) => getTransactionLink(bscScanUrl, txnId)
@@ -174,11 +174,6 @@ const Polygon = {
     chainName: 'Polygon Mainnet',
     isTestChain: false,
     isLocalChain: false,
-    nativeCurrency: {
-        name: 'MATIC',
-        symbol: 'MATIC',
-        decimals: 18,
-    },
     blockExplorerUrl: polygonScanUrl,
     getExplorerAddressLink: (address) => getAddressLink(polygonScanUrl, address),
     getExplorerTransactionLink: (txnId) => getTransactionLink(polygonScanUrl, txnId)
@@ -191,11 +186,6 @@ const Mumbai = {
     chainName: 'Mumbai',
     isTestChain: true,
     isLocalChain: false,
-    nativeCurrency: {
-        name: 'MATIC',
-        symbol: 'MATIC',
-        decimals: 18,
-    },
     blockExplorerUrl: mumbaiPolygonScanUrl,
     getExplorerAddressLink: (address) => getAddressLink(mumbaiPolygonScanUrl, address),
     getExplorerTransactionLink: (txnId) => getTransactionLink(mumbaiPolygonScanUrl, txnId)
@@ -209,11 +199,6 @@ const Avalanche = {
     chainName: 'Avalanche',
     isTestChain: false,
     isLocalChain: false,
-    nativeCurrency: {
-        name: 'Avalanche',
-        symbol: 'AVAX',
-        decimals: 18,
-    },
     blockExplorerUrl: avalancheExplorerUrl,
     getExplorerAddressLink: (address) => getAddressLink(avalancheExplorerUrl, address),
     getExplorerTransactionLink: (txnId) => getTransactionLink(avalancheExplorerUrl, txnId)
@@ -226,14 +211,43 @@ const AvalancheTestnet = {
     chainName: 'AvalancheTestnet',
     isTestChain: true,
     isLocalChain: false,
-    nativeCurrency: {
-        name: 'Avalanche',
-        symbol: 'AVAX',
-        decimals: 18,
-    },
     blockExplorerUrl: testAvalancheExplorerUrl,
     getExplorerAddressLink: (address) => getAddressLink(testAvalancheExplorerUrl, address),
     getExplorerTransactionLink: (txnId) => getTransactionLink(testAvalancheExplorerUrl, txnId)
+};
+
+/*
+ * @Cryptogate: For intertanl use only, reference at your own risk
+*/
+const SolanaMainnet = {
+    chainName: 'SolanaMainnet',
+    isTestChain: false,
+    isLocalChain: false,
+    blockExplorerUrl: mainnetSolscanUrl,
+    getExplorerAddressLink: (address) => getAddressLink(mainnetSolscanUrl, address),
+    getExplorerTransactionLink: (txnId) => getTransactionLink(mainnetSolscanUrl, txnId)
+};
+/*
+ * @Cryptogate: For intertanl use only, reference at your own risk
+*/
+const SolanaTestnet = {
+    chainName: 'SolanaTestnet',
+    isTestChain: true,
+    isLocalChain: false,
+    blockExplorerUrl: mainnetSolscanUrl,
+    getExplorerAddressLink: (address) => getAddressLink(mainnetSolscanUrl, address) + "?cluster=testnet",
+    getExplorerTransactionLink: (txnId) => getTransactionLink(mainnetSolscanUrl, txnId) + "?cluster=testnet"
+};
+/*
+ * @Cryptogate: For intertanl use only, reference at your own risk
+*/
+const SolanaDevnet = {
+    chainName: 'SolanaDevnet',
+    isTestChain: true,
+    isLocalChain: false,
+    blockExplorerUrl: mainnetSolscanUrl,
+    getExplorerAddressLink: (address) => getAddressLink(mainnetSolscanUrl, address) + "?cluster=devnet",
+    getExplorerTransactionLink: (txnId) => getTransactionLink(mainnetSolscanUrl, txnId) + "?cluster=devnet"
 };
 
 /**
@@ -244,7 +258,8 @@ const DEFAULT_SUPPORTED_CHAINS = [
     Goerli, Mainnet,
     BSC, BSCTestnet,
     Polygon, Mumbai,
-    Avalanche, AvalancheTestnet
+    Avalanche, AvalancheTestnet,
+    SolanaMainnet
 ];
 /**
  * @enum
@@ -339,14 +354,35 @@ function WalletProvider({ children }) {
         }, children: children }));
 }
 
+function SolanaProvider({ children, solConfig }) {
+    const wallets = [
+        new walletAdapterWallets.PhantomWalletAdapter(),
+        new walletAdapterWallets.SlopeWalletAdapter(),
+        new walletAdapterWallets.SolflareWalletAdapter({ network: solConfig === null || solConfig === void 0 ? void 0 : solConfig.network }),
+        new walletAdapterWallets.SolletExtensionWalletAdapter({ network: solConfig === null || solConfig === void 0 ? void 0 : solConfig.network }),
+    ];
+    return (React__default["default"].createElement(React__default["default"].Fragment, null, solConfig ? (React__default["default"].createElement(walletAdapterReact.ConnectionProvider, { endpoint: solConfig.endpoint },
+        React__default["default"].createElement(walletAdapterReact.WalletProvider, { wallets: wallets, autoConnect: solConfig.autoConnect }, children))) : ({ children })));
+}
+
 const MultiChainProvider = ({ config, children, }) => {
     return (React__default["default"].createElement(WindowProvider, null,
         React__default["default"].createElement(ConfigProvider, { config: config },
             React__default["default"].createElement(ErrorsBagProvider, null,
                 React__default["default"].createElement(NetworkProvider, { config: config },
                     React__default["default"].createElement(EvmNodeProvider, { readOnlyUrls: config.ethConfig.readOnlyUrls },
-                        React__default["default"].createElement(WalletProvider, null, children)))))));
+                        React__default["default"].createElement(SolanaProvider, { solConfig: config.solConfig },
+                            React__default["default"].createElement(WalletProvider, null, children))))))));
 };
+
+exports.SolWallets = void 0;
+(function (SolWallets) {
+    SolWallets["ALL"] = "all";
+    SolWallets["PHANTOM"] = "phantom";
+    SolWallets["SLOPE"] = "slope";
+    SolWallets["SOLFLARE"] = "solflare";
+    SolWallets["SOLLETEXTENSION"] = "solletExtension";
+})(exports.SolWallets || (exports.SolWallets = {}));
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation.
@@ -534,10 +570,11 @@ const useEthereum = () => {
         setData(provider.accounts[0], provider.chainId, provider);
     });
     const deactivate = React__default["default"].useCallback(() => {
+        var _a, _b;
         setWalletData({ account: undefined });
         if (ethConfig) {
-            setNetworkData({ chainId: ethConfig.defaultNetwork.chainId, chain: ethConfig.defaultNetwork });
-            setProvider(new ethers__namespace.providers.JsonRpcProvider(ethConfig.readOnlyUrls[ethConfig.defaultNetwork.chainId]));
+            setNetworkData({ chainId: (_a = ethConfig.defaultNetwork.chainId) !== null && _a !== void 0 ? _a : -1, chain: ethConfig.defaultNetwork });
+            setProvider(new ethers__namespace.providers.JsonRpcProvider(ethConfig.readOnlyUrls[(_b = ethConfig.defaultNetwork.chainId) !== null && _b !== void 0 ? _b : -1]));
         }
     }, [ethConfig]);
     return {
@@ -554,6 +591,24 @@ const useEthereum = () => {
         deactivate,
         errors,
     };
+};
+
+const useSolana = () => {
+    const solWalletData = walletAdapterReact.useWallet();
+    React__default["default"].useEffect(() => {
+        if (!solWalletData.connected &&
+            solWalletData.wallet &&
+            solWalletData.wallet.readyState === walletAdapterBase.WalletReadyState.Installed) {
+            solWalletData.connect().catch(() => alert("user rejected"));
+        }
+    }, [solWalletData.wallet, solWalletData.connected]);
+    return Object.assign({}, solWalletData);
+};
+
+const useMultichain = () => {
+    const ethereum = useEthereum();
+    const solana = useSolana();
+    return Object.assign(Object.assign({}, ethereum), solana);
 };
 
 /**
@@ -839,6 +894,10 @@ exports.Mumbai = Mumbai;
 exports.NetworkContext = NetworkContext;
 exports.NetworkProvider = NetworkProvider;
 exports.Polygon = Polygon;
+exports.SolanaDevnet = SolanaDevnet;
+exports.SolanaMainnet = SolanaMainnet;
+exports.SolanaProvider = SolanaProvider;
+exports.SolanaTestnet = SolanaTestnet;
 exports.WalletContext = WalletContext;
 exports.WalletProvider = WalletProvider;
 exports.WindowContext = WindowContext;
@@ -851,6 +910,7 @@ exports.getChainById = getChainById;
 exports.getTransactionLink = getTransactionLink;
 exports.goerliEtherscanUrl = goerliEtherscanUrl;
 exports.mainnetEtherscanUrl = mainnetEtherscanUrl;
+exports.mainnetSolscanUrl = mainnetSolscanUrl;
 exports.mumbaiPolygonScanUrl = mumbaiPolygonScanUrl;
 exports.polygonScanUrl = polygonScanUrl;
 exports.readContractCall = readContractCall;
@@ -863,8 +923,10 @@ exports.useContract = useContract;
 exports.useErrorsBag = useErrorsBag;
 exports.useEthereum = useEthereum;
 exports.useEvmNode = useEvmNode;
+exports.useMultichain = useMultichain;
 exports.useNetwork = useNetwork;
 exports.useNetworkInfo = useNetworkInfo;
+exports.useSolana = useSolana;
 exports.useWallet = useWallet;
 exports.useWindow = useWindow;
 exports.writeContractCall = writeContractCall;

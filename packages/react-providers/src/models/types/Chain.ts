@@ -5,16 +5,11 @@ import { EvmAddress } from "./common"
  * @typedef {object} Chain
 */
 export type Chain = {
-    chainId: number
+    chainId?: number
     chainName: string
     isTestChain: boolean
     isLocalChain: boolean
     blockExplorerUrl?: string
-    nativeCurrency?: {
-        name: string
-        symbol: string
-        decimals: number
-    }
     getExplorerAddressLink: (address: EvmAddress) => string
     getExplorerTransactionLink: (txnId: string) => string
 }

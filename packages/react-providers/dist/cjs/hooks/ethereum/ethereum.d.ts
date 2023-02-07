@@ -3,7 +3,7 @@ import * as ethers from "ethers";
  * @public
 */
 export declare const useEthereum: () => {
-    account: string | undefined;
+    account: `0x${string}` | undefined;
     ethBalance: string | undefined;
     ens: string | undefined;
     provider: ethers.ethers.providers.JsonRpcProvider | ethers.ethers.providers.Web3Provider | undefined;

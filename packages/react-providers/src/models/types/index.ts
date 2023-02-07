@@ -1,8 +1,9 @@
 import { Chain } from "./Chain"
-import { EvmAddress } from "./common"
+import { EvmAddress, SolAddress } from "./common"
 import { EthConfig, NodeUrls, EthContract, ContractABIUnit, ContractIO } from "./EthConfig"
+import { SolConfig } from "./SolConfig"
 import { WalletsConfig } from "./Wallets"
 
 export type {
-    Chain, EthConfig, NodeUrls, EthContract, ContractABIUnit, ContractIO, EvmAddress, WalletsConfig
+    Chain, EthConfig, NodeUrls, EthContract, ContractABIUnit, ContractIO, EvmAddress, WalletsConfig, SolConfig, SolAddress
 }

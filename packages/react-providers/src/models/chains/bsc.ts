@@ -10,11 +10,6 @@ export const BSC: Chain = {
     chainName: 'BSC',
     isTestChain: false,
     isLocalChain: false,
-    nativeCurrency: {
-        name: 'BNB',
-        symbol: 'BNB',
-        decimals: 18,
-    },
     blockExplorerUrl: bscScanUrl,
     getExplorerAddressLink: (address: EvmAddress) => getAddressLink(bscScanUrl, address),
     getExplorerTransactionLink: (txnId: string) => getTransactionLink(bscScanUrl, txnId)

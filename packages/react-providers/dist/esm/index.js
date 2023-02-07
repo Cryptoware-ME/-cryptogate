@@ -1,9 +1,12 @@
 import React, { useEffect, useCallback } from 'react';
 import * as ethers from 'ethers';
 import { providers } from 'ethers';
+import { ConnectionProvider, WalletProvider as WalletProvider$1, useWallet as useWallet$1 } from '@solana/wallet-adapter-react';
+import { PhantomWalletAdapter, SlopeWalletAdapter, SolflareWalletAdapter, SolletExtensionWalletAdapter } from '@solana/wallet-adapter-wallets';
 import CoinbaseWalletSDK from '@coinbase/wallet-sdk';
 import QRCodeModal from '@walletconnect/qrcode-modal';
 import WalletConnectProvider from '@walletconnect/web3-provider';
+import { WalletReadyState } from '@solana/wallet-adapter-base';
 
 const ConfigContext = React.createContext({ ethConfig: { defaultNetwork: undefined, readOnlyUrls: {} } });
 function useConfig() {
@@ -53,6 +56,8 @@ const mumbaiPolygonScanUrl = 'https://mumbai.polygonscan.com';
 // Snow Trace (Avalanche)
 const avalancheExplorerUrl = 'https://snowtrace.io';
 const testAvalancheExplorerUrl = 'https://testnet.snowtrace.io';
+// Sol Scan
+const mainnetSolscanUrl = "https://solscan.io";
 
 /**
  * @public
@@ -66,7 +71,7 @@ const getChainById = (chainId) => DEFAULT_SUPPORTED_CHAINS.find((network) => net
 /**
  * @internal INTENDED FOR INTERNAL USE ONLY. USE AT YOUR OWN RISK
  * @param {string} explorerUrl Base URL of the chain explorer
- * @param {EvmAddress} address Contract or wallet address
+ * @param {EvmAddress | SolAddress} address Contract or wallet address
  * @return {string} URL
  * @example
  *  const url = getAddressLink("https://etherscan.io", "0x00")
@@ -75,7 +80,7 @@ const getAddressLink = (explorerUrl, address) => `${explorerUrl}/address/${addre
 /**
  * @internal INTENDED FOR INTERNAL USE ONLY. USE AT YOUR OWN RISK
  * @param {string} explorerUrl Base URL of the chain explorer
- * @param {EvmAddress} txnHash Transaction Hash
+ * @param {string} txnHash Transaction Hash
  * @return {string} URL
  * @example
  *  const url = getTransactionLink("https://etherscan.io", "0x24..01f")
@@ -115,11 +120,6 @@ const BSC = {
     chainName: 'BSC',
     isTestChain: false,
     isLocalChain: false,
-    nativeCurrency: {
-        name: 'BNB',
-        symbol: 'BNB',
-        decimals: 18,
-    },
     blockExplorerUrl: bscScanUrl,
     getExplorerAddressLink: (address) => getAddressLink(bscScanUrl, address),
     getExplorerTransactionLink: (txnId) => getTransactionLink(bscScanUrl, txnId)
@@ -145,11 +145,6 @@ const Polygon = {
     chainName: 'Polygon Mainnet',
     isTestChain: false,
     isLocalChain: false,
-    nativeCurrency: {
-        name: 'MATIC',
-        symbol: 'MATIC',
-        decimals: 18,
-    },
     blockExplorerUrl: polygonScanUrl,
     getExplorerAddressLink: (address) => getAddressLink(polygonScanUrl, address),
     getExplorerTransactionLink: (txnId) => getTransactionLink(polygonScanUrl, txnId)
@@ -162,11 +157,6 @@ const Mumbai = {
     chainName: 'Mumbai',
     isTestChain: true,
     isLocalChain: false,
-    nativeCurrency: {
-        name: 'MATIC',
-        symbol: 'MATIC',
-        decimals: 18,
-    },
     blockExplorerUrl: mumbaiPolygonScanUrl,
     getExplorerAddressLink: (address) => getAddressLink(mumbaiPolygonScanUrl, address),
     getExplorerTransactionLink: (txnId) => getTransactionLink(mumbaiPolygonScanUrl, txnId)
@@ -180,11 +170,6 @@ const Avalanche = {
     chainName: 'Avalanche',
     isTestChain: false,
     isLocalChain: false,
-    nativeCurrency: {
-        name: 'Avalanche',
-        symbol: 'AVAX',
-        decimals: 18,
-    },
     blockExplorerUrl: avalancheExplorerUrl,
     getExplorerAddressLink: (address) => getAddressLink(avalancheExplorerUrl, address),
     getExplorerTransactionLink: (txnId) => getTransactionLink(avalancheExplorerUrl, txnId)
@@ -197,14 +182,43 @@ const AvalancheTestnet = {
     chainName: 'AvalancheTestnet',
     isTestChain: true,
     isLocalChain: false,
-    nativeCurrency: {
-        name: 'Avalanche',
-        symbol: 'AVAX',
-        decimals: 18,
-    },
     blockExplorerUrl: testAvalancheExplorerUrl,
     getExplorerAddressLink: (address) => getAddressLink(testAvalancheExplorerUrl, address),
     getExplorerTransactionLink: (txnId) => getTransactionLink(testAvalancheExplorerUrl, txnId)
+};
+
+/*
+ * @Cryptogate: For intertanl use only, reference at your own risk
+*/
+const SolanaMainnet = {
+    chainName: 'SolanaMainnet',
+    isTestChain: false,
+    isLocalChain: false,
+    blockExplorerUrl: mainnetSolscanUrl,
+    getExplorerAddressLink: (address) => getAddressLink(mainnetSolscanUrl, address),
+    getExplorerTransactionLink: (txnId) => getTransactionLink(mainnetSolscanUrl, txnId)
+};
+/*
+ * @Cryptogate: For intertanl use only, reference at your own risk
+*/
+const SolanaTestnet = {
+    chainName: 'SolanaTestnet',
+    isTestChain: true,
+    isLocalChain: false,
+    blockExplorerUrl: mainnetSolscanUrl,
+    getExplorerAddressLink: (address) => getAddressLink(mainnetSolscanUrl, address) + "?cluster=testnet",
+    getExplorerTransactionLink: (txnId) => getTransactionLink(mainnetSolscanUrl, txnId) + "?cluster=testnet"
+};
+/*
+ * @Cryptogate: For intertanl use only, reference at your own risk
+*/
+const SolanaDevnet = {
+    chainName: 'SolanaDevnet',
+    isTestChain: true,
+    isLocalChain: false,
+    blockExplorerUrl: mainnetSolscanUrl,
+    getExplorerAddressLink: (address) => getAddressLink(mainnetSolscanUrl, address) + "?cluster=devnet",
+    getExplorerTransactionLink: (txnId) => getTransactionLink(mainnetSolscanUrl, txnId) + "?cluster=devnet"
 };
 
 /**
@@ -215,7 +229,8 @@ const DEFAULT_SUPPORTED_CHAINS = [
     Goerli, Mainnet,
     BSC, BSCTestnet,
     Polygon, Mumbai,
-    Avalanche, AvalancheTestnet
+    Avalanche, AvalancheTestnet,
+    SolanaMainnet
 ];
 /**
  * @enum
@@ -310,14 +325,35 @@ function WalletProvider({ children }) {
         }, children: children }));
 }
 
+function SolanaProvider({ children, solConfig }) {
+    const wallets = [
+        new PhantomWalletAdapter(),
+        new SlopeWalletAdapter(),
+        new SolflareWalletAdapter({ network: solConfig === null || solConfig === void 0 ? void 0 : solConfig.network }),
+        new SolletExtensionWalletAdapter({ network: solConfig === null || solConfig === void 0 ? void 0 : solConfig.network }),
+    ];
+    return (React.createElement(React.Fragment, null, solConfig ? (React.createElement(ConnectionProvider, { endpoint: solConfig.endpoint },
+        React.createElement(WalletProvider$1, { wallets: wallets, autoConnect: solConfig.autoConnect }, children))) : ({ children })));
+}
+
 const MultiChainProvider = ({ config, children, }) => {
     return (React.createElement(WindowProvider, null,
         React.createElement(ConfigProvider, { config: config },
             React.createElement(ErrorsBagProvider, null,
                 React.createElement(NetworkProvider, { config: config },
                     React.createElement(EvmNodeProvider, { readOnlyUrls: config.ethConfig.readOnlyUrls },
-                        React.createElement(WalletProvider, null, children)))))));
+                        React.createElement(SolanaProvider, { solConfig: config.solConfig },
+                            React.createElement(WalletProvider, null, children))))))));
 };
+
+var SolWallets;
+(function (SolWallets) {
+    SolWallets["ALL"] = "all";
+    SolWallets["PHANTOM"] = "phantom";
+    SolWallets["SLOPE"] = "slope";
+    SolWallets["SOLFLARE"] = "solflare";
+    SolWallets["SOLLETEXTENSION"] = "solletExtension";
+})(SolWallets || (SolWallets = {}));
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation.
@@ -505,10 +541,11 @@ const useEthereum = () => {
         setData(provider.accounts[0], provider.chainId, provider);
     });
     const deactivate = React.useCallback(() => {
+        var _a, _b;
         setWalletData({ account: undefined });
         if (ethConfig) {
-            setNetworkData({ chainId: ethConfig.defaultNetwork.chainId, chain: ethConfig.defaultNetwork });
-            setProvider(new ethers.providers.JsonRpcProvider(ethConfig.readOnlyUrls[ethConfig.defaultNetwork.chainId]));
+            setNetworkData({ chainId: (_a = ethConfig.defaultNetwork.chainId) !== null && _a !== void 0 ? _a : -1, chain: ethConfig.defaultNetwork });
+            setProvider(new ethers.providers.JsonRpcProvider(ethConfig.readOnlyUrls[(_b = ethConfig.defaultNetwork.chainId) !== null && _b !== void 0 ? _b : -1]));
         }
     }, [ethConfig]);
     return {
@@ -525,6 +562,24 @@ const useEthereum = () => {
         deactivate,
         errors,
     };
+};
+
+const useSolana = () => {
+    const solWalletData = useWallet$1();
+    React.useEffect(() => {
+        if (!solWalletData.connected &&
+            solWalletData.wallet &&
+            solWalletData.wallet.readyState === WalletReadyState.Installed) {
+            solWalletData.connect().catch(() => alert("user rejected"));
+        }
+    }, [solWalletData.wallet, solWalletData.connected]);
+    return Object.assign({}, solWalletData);
+};
+
+const useMultichain = () => {
+    const ethereum = useEthereum();
+    const solana = useSolana();
+    return Object.assign(Object.assign({}, ethereum), solana);
 };
 
 /**
@@ -792,5 +847,5 @@ const useContract = () => {
     return { deployContract };
 };
 
-export { Avalanche, AvalancheTestnet, BSC, BSCTestnet, ChainId, ConfigContext, ConfigProvider, DEFAULT_SUPPORTED_CHAINS, ErrorsBagContext, ErrorsBagProvider, EvmNodeContext, EvmNodeProvider, Goerli, Mainnet, MultiChainProvider, Mumbai, NetworkContext, NetworkProvider, Polygon, WalletContext, WalletProvider, WindowContext, WindowProvider, avalancheExplorerUrl, bscScanUrl, bscTestnetScanUrl, getAddressLink, getChainById, getTransactionLink, goerliEtherscanUrl, mainnetEtherscanUrl, mumbaiPolygonScanUrl, polygonScanUrl, readContractCall, readContractCalls, resolveENS, testAvalancheExplorerUrl, useAccount, useConfig, useContract, useErrorsBag, useEthereum, useEvmNode, useNetwork, useNetworkInfo, useWallet, useWindow, writeContractCall };
+export { Avalanche, AvalancheTestnet, BSC, BSCTestnet, ChainId, ConfigContext, ConfigProvider, DEFAULT_SUPPORTED_CHAINS, ErrorsBagContext, ErrorsBagProvider, EvmNodeContext, EvmNodeProvider, Goerli, Mainnet, MultiChainProvider, Mumbai, NetworkContext, NetworkProvider, Polygon, SolWallets, SolanaDevnet, SolanaMainnet, SolanaProvider, SolanaTestnet, WalletContext, WalletProvider, WindowContext, WindowProvider, avalancheExplorerUrl, bscScanUrl, bscTestnetScanUrl, getAddressLink, getChainById, getTransactionLink, goerliEtherscanUrl, mainnetEtherscanUrl, mainnetSolscanUrl, mumbaiPolygonScanUrl, polygonScanUrl, readContractCall, readContractCalls, resolveENS, testAvalancheExplorerUrl, useAccount, useConfig, useContract, useErrorsBag, useEthereum, useEvmNode, useMultichain, useNetwork, useNetworkInfo, useSolana, useWallet, useWindow, writeContractCall };
 //# sourceMappingURL=index.js.map

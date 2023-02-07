@@ -11,11 +11,6 @@ export const Avalanche: Chain = {
     chainName: 'Avalanche',
     isTestChain: false,
     isLocalChain: false,
-    nativeCurrency: {
-        name: 'Avalanche',
-        symbol: 'AVAX',
-        decimals: 18,
-    },
     blockExplorerUrl: avalancheExplorerUrl,
     getExplorerAddressLink: (address: EvmAddress) => getAddressLink(avalancheExplorerUrl, address),
     getExplorerTransactionLink: (txnId: string) => getTransactionLink(avalancheExplorerUrl, txnId)
@@ -29,11 +24,6 @@ export const AvalancheTestnet: Chain = {
     chainName: 'AvalancheTestnet',
     isTestChain: true,
     isLocalChain: false,
-    nativeCurrency: {
-        name: 'Avalanche',
-        symbol: 'AVAX',
-        decimals: 18,
-    },
     blockExplorerUrl: testAvalancheExplorerUrl,
     getExplorerAddressLink: (address: EvmAddress) => getAddressLink(testAvalancheExplorerUrl, address),
     getExplorerTransactionLink: (txnId: string) => getTransactionLink(testAvalancheExplorerUrl, txnId)

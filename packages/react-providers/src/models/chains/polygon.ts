@@ -11,11 +11,6 @@ export const Polygon: Chain = {
     chainName: 'Polygon Mainnet',
     isTestChain: false,
     isLocalChain: false,
-    nativeCurrency: {
-        name: 'MATIC',
-        symbol: 'MATIC',
-        decimals: 18,
-    },
     blockExplorerUrl: polygonScanUrl,
     getExplorerAddressLink: (address: EvmAddress) => getAddressLink(polygonScanUrl, address),
     getExplorerTransactionLink: (txnId: string) => getTransactionLink(polygonScanUrl, txnId)
@@ -29,11 +24,6 @@ export const Mumbai: Chain = {
     chainName: 'Mumbai',
     isTestChain: true,
     isLocalChain: false,
-    nativeCurrency: {
-        name: 'MATIC',
-        symbol: 'MATIC',
-        decimals: 18,
-    },
     blockExplorerUrl: mumbaiPolygonScanUrl,
     getExplorerAddressLink: (address: EvmAddress) => getAddressLink(mumbaiPolygonScanUrl, address),
     getExplorerTransactionLink: (txnId: string) => getTransactionLink(mumbaiPolygonScanUrl, txnId)

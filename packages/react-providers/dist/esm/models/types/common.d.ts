@@ -1,1 +1,2 @@
-export declare type EvmAddress = string;
+export declare type EvmAddress = `0x${string}`;
+export declare type SolAddress = string;

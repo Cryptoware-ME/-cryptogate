@@ -84,15 +84,15 @@ export const useEthereum = () => {
         if (!provider.connected) {
             await provider.enable();
         }
-        setData(provider.accounts[0], provider.chainId, provider)
+        setData(provider.accounts[0] as EvmAddress, provider.chainId, provider)
     }
 
     const deactivate = React.useCallback(() => {
         setWalletData({ account: undefined })
         if (ethConfig) {
-            setNetworkData({ chainId: ethConfig.defaultNetwork.chainId, chain: ethConfig.defaultNetwork })
+            setNetworkData({ chainId: ethConfig.defaultNetwork.chainId ?? -1, chain: ethConfig.defaultNetwork })
             setProvider(new ethers.providers.JsonRpcProvider(
-                ethConfig.readOnlyUrls[ethConfig.defaultNetwork.chainId]
+                ethConfig.readOnlyUrls[ethConfig.defaultNetwork.chainId ?? -1]
             ))
         }
     }, [ethConfig])
