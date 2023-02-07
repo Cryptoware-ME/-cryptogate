@@ -9,6 +9,7 @@ export declare const useMultichain: () => {
     select: any;
     connect: any;
     disconnect: any;
+    solBalance: number;
     sendTransaction: any;
     signTransaction: any;
     signAllTransactions: any;

@@ -596,14 +596,32 @@ const useEthereum = () => {
 const useSolana = () => {
     const { autoConnect, wallets, wallet, publicKey, connecting, connected, disconnecting, select, connect, disconnect, sendTransaction, signTransaction, signAllTransactions, signMessage } = walletAdapterReact.useWallet();
     const { connection } = walletAdapterReact.useConnection();
+    const { solConfig } = useConfig();
+    const { addError } = useErrorsBag();
+    const [solBalance, setSolBalance] = React__default["default"].useState(0);
+    const getUserSOLBalance = (_lamportsPerSol) => __awaiter(void 0, void 0, void 0, function* () {
+        let balance = 0;
+        try {
+            balance =
+                (yield connection.getBalance(publicKey, "confirmed")) /
+                    _lamportsPerSol;
+            setSolBalance(balance);
+        }
+        catch (e) {
+            addError(e);
+        }
+    });
     React__default["default"].useEffect(() => {
         if (!connected &&
             wallet &&
-            wallet.readyState === walletAdapterBase.WalletReadyState.Installed) {
+            wallet.readyState === walletAdapterBase.WalletReadyState.Installed)
             connect().catch(() => alert("user rejected"));
-        }
     }, [wallet, connected]);
-    return { autoConnect, wallets, wallet, publicKey, connecting, connected, disconnecting, select, connect, disconnect, sendTransaction, signTransaction, signAllTransactions, signMessage, connection };
+    React__default["default"].useEffect(() => {
+        if (solConfig && publicKey && connected && connection)
+            getUserSOLBalance(solConfig.lamportsPerSol);
+    }, [solConfig, publicKey, connected, connection]);
+    return { autoConnect, wallets, wallet, publicKey, connecting, connected, disconnecting, select, connect, disconnect, solBalance, sendTransaction, signTransaction, signAllTransactions, signMessage, connection };
 };
 
 const useMultichain = () => {
