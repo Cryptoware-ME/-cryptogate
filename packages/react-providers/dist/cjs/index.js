@@ -594,17 +594,16 @@ const useEthereum = () => {
 };
 
 const useSolana = () => {
-    const solWalletData = walletAdapterReact.useWallet();
-    const { solConfig } = useConfig();
+    const { autoConnect, wallets, wallet, publicKey, connecting, connected, disconnecting, select, connect, disconnect, sendTransaction, signTransaction, signAllTransactions, signMessage } = walletAdapterReact.useWallet();
+    const { connection } = walletAdapterReact.useConnection();
     React__default["default"].useEffect(() => {
-        if ((solConfig === null || solConfig === void 0 ? void 0 : solConfig.autoConnect) &&
-            !solWalletData.connected &&
-            solWalletData.wallet &&
-            solWalletData.wallet.readyState === walletAdapterBase.WalletReadyState.Installed) {
-            solWalletData.connect().catch(() => alert("user rejected"));
+        if (!connected &&
+            wallet &&
+            wallet.readyState === walletAdapterBase.WalletReadyState.Installed) {
+            connect().catch(() => alert("user rejected"));
         }
-    }, [solWalletData.wallet, solWalletData.connected]);
-    return Object.assign({}, solWalletData);
+    }, [wallet, connected]);
+    return { autoConnect, wallets, wallet, publicKey, connecting, connected, disconnecting, select, connect, disconnect, sendTransaction, signTransaction, signAllTransactions, signMessage, connection };
 };
 
 const useMultichain = () => {

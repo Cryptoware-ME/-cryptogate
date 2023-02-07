@@ -2,6 +2,7 @@ import React, { ReactNode } from 'react';
 import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
 import * as ethers from 'ethers';
 import { providers } from 'ethers';
+import * as _ethersproject_providers from '@ethersproject/providers';
 
 declare type EvmAddress = `0x${string}`;
 declare type SolAddress = string;
@@ -258,9 +259,53 @@ declare const useEthereum: () => {
     errors: string[];
 };
 
-declare const useSolana: () => any;
+declare const useSolana: () => {
+    autoConnect: any;
+    wallets: any;
+    wallet: any;
+    publicKey: any;
+    connecting: any;
+    connected: any;
+    disconnecting: any;
+    select: any;
+    connect: any;
+    disconnect: any;
+    sendTransaction: any;
+    signTransaction: any;
+    signAllTransactions: any;
+    signMessage: any;
+    connection: any;
+};
 
-declare const useMultichain: () => any;
+declare const useMultichain: () => {
+    autoConnect: any;
+    wallets: any;
+    wallet: any;
+    publicKey: any;
+    connecting: any;
+    connected: any;
+    disconnecting: any;
+    select: any;
+    connect: any;
+    disconnect: any;
+    sendTransaction: any;
+    signTransaction: any;
+    signAllTransactions: any;
+    signMessage: any;
+    connection: any;
+    account: `0x${string}` | undefined;
+    ethBalance: string | undefined;
+    ens: string | undefined;
+    provider: _ethersproject_providers.JsonRpcProvider | _ethersproject_providers.Web3Provider | undefined;
+    active: boolean;
+    network: NetworkDataType;
+    activateBraveWallet: () => Promise<void>;
+    activateMetamaskWallet: () => Promise<void>;
+    activateCoinbaseWallet: () => Promise<void>;
+    activateWalletConnect: () => Promise<void>;
+    deactivate: () => void;
+    errors: string[];
+};
 
 /**
  * @public

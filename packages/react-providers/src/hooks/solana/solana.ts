@@ -1,22 +1,20 @@
 import React from "react";
-import { useWallet } from "@solana/wallet-adapter-react"
+import { useWallet, useConnection } from "@solana/wallet-adapter-react"
 import { WalletReadyState } from "@solana/wallet-adapter-base";
-import { useConfig } from "../../providers";
 
 export const useSolana = () => {
-    const solWalletData = useWallet();
-    const { solConfig } = useConfig()
+    const { autoConnect, wallets, wallet, publicKey, connecting, connected, disconnecting, select, connect, disconnect, sendTransaction, signTransaction, signAllTransactions, signMessage } = useWallet();
+    const { connection } = useConnection();
 
     React.useEffect(() => {
         if (
-            solConfig?.autoConnect &&
-            !solWalletData.connected &&
-            solWalletData.wallet &&
-            solWalletData.wallet.readyState === WalletReadyState.Installed
+            !connected &&
+            wallet &&
+            wallet.readyState === WalletReadyState.Installed
         ) {
-            solWalletData.connect().catch(() => alert("user rejected"));
+            connect().catch(() => alert("user rejected"));
         }
-    }, [solWalletData.wallet, solWalletData.connected]);
+    }, [wallet, connected]);
 
-    return { ...solWalletData }
+    return { autoConnect, wallets, wallet, publicKey, connecting, connected, disconnecting, select, connect, disconnect, sendTransaction, signTransaction, signAllTransactions, signMessage, connection }
 }

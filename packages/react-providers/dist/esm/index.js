@@ -1,7 +1,7 @@
 import React, { useEffect, useCallback } from 'react';
 import * as ethers from 'ethers';
 import { providers } from 'ethers';
-import { ConnectionProvider, WalletProvider as WalletProvider$1, useWallet as useWallet$1 } from '@solana/wallet-adapter-react';
+import { ConnectionProvider, WalletProvider as WalletProvider$1, useWallet as useWallet$1, useConnection } from '@solana/wallet-adapter-react';
 import { PhantomWalletAdapter, SlopeWalletAdapter, SolflareWalletAdapter, SolletExtensionWalletAdapter } from '@solana/wallet-adapter-wallets';
 import CoinbaseWalletSDK from '@coinbase/wallet-sdk';
 import QRCodeModal from '@walletconnect/qrcode-modal';
@@ -565,17 +565,16 @@ const useEthereum = () => {
 };
 
 const useSolana = () => {
-    const solWalletData = useWallet$1();
-    const { solConfig } = useConfig();
+    const { autoConnect, wallets, wallet, publicKey, connecting, connected, disconnecting, select, connect, disconnect, sendTransaction, signTransaction, signAllTransactions, signMessage } = useWallet$1();
+    const { connection } = useConnection();
     React.useEffect(() => {
-        if ((solConfig === null || solConfig === void 0 ? void 0 : solConfig.autoConnect) &&
-            !solWalletData.connected &&
-            solWalletData.wallet &&
-            solWalletData.wallet.readyState === WalletReadyState.Installed) {
-            solWalletData.connect().catch(() => alert("user rejected"));
+        if (!connected &&
+            wallet &&
+            wallet.readyState === WalletReadyState.Installed) {
+            connect().catch(() => alert("user rejected"));
         }
-    }, [solWalletData.wallet, solWalletData.connected]);
-    return Object.assign({}, solWalletData);
+    }, [wallet, connected]);
+    return { autoConnect, wallets, wallet, publicKey, connecting, connected, disconnecting, select, connect, disconnect, sendTransaction, signTransaction, signAllTransactions, signMessage, connection };
 };
 
 const useMultichain = () => {
