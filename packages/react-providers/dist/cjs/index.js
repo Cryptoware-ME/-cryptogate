@@ -595,8 +595,10 @@ const useEthereum = () => {
 
 const useSolana = () => {
     const solWalletData = walletAdapterReact.useWallet();
+    const { solConfig } = useConfig();
     React__default["default"].useEffect(() => {
-        if (!solWalletData.connected &&
+        if ((solConfig === null || solConfig === void 0 ? void 0 : solConfig.autoConnect) &&
+            !solWalletData.connected &&
             solWalletData.wallet &&
             solWalletData.wallet.readyState === walletAdapterBase.WalletReadyState.Installed) {
             solWalletData.connect().catch(() => alert("user rejected"));
