@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import React from 'react';
 import { ContractABIUnit } from '@cryptogate/react-providers';
 
@@ -50,7 +49,7 @@ declare const ConnectedMenu: ({ ChosenConnectedMenu, onClose, onDisconnect, isOp
 
 declare const AbiToUi: ({ contract, address, abi, methodData, gasPrice, gasLimit, }: {
     contract?: string | undefined;
-    address?: any;
+    address?: `0x${string}` | undefined;
     abi?: ContractABIUnit[] | undefined;
     methodData?: {
         [name: string]: {

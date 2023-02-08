@@ -25,7 +25,12 @@
     "@coinbase/wallet-sdk": "^3.5.3",
     "@walletconnect/client": "^1.8.0",
     "@walletconnect/qrcode-modal": "^1.8.0",
-    "ethers": "^5.7.1"
+    "ethers": "^5.7.1",
+    "@solana/wallet-adapter-base": "^0.9.20",
+    "@solana/wallet-adapter-react": "^0.15.28",
+    "@solana/wallet-adapter-react-ui": "^0.9.27",
+    "@solana/wallet-adapter-wallets": "^0.19.11",
+    "@solana/web3.js": "^1.73.2"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^21.1.0",

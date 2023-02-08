@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import { EthWallets } from "../ConnectWalletComponent";
 export declare const ConnectWalletList: ({ openOptions, setOpenOptions, EthWalletList, }: {
     openOptions: boolean;

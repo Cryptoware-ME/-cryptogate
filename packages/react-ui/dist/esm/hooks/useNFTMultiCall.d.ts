@@ -6,11 +6,11 @@ export declare const useNFTMetadataMultiCall: ({ NFTs, method, format, args, }: 
 }) => any;
 export declare const useTokenURIIndexCover: ({ NFTs }: {
     NFTs: string[];
-}) => any;
+}) => any[];
 export declare const useTokenURIIndex: ({ NFT, args }: {
     NFT: string;
     args: any;
-}) => any;
+}) => any[];
 export declare const useTokenOfOwnerByIndex: ({ NFT, args, }: {
     NFT: string;
     args: any[];
