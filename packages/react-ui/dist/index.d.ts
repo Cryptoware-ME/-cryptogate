@@ -1,6 +1,6 @@
 /// <reference types="react" />
 import React from 'react';
-import { ChainId, ContractABIUnit } from '@cryptogate/react-providers';
+import { ContractABIUnit } from '@cryptogate/react-providers';
 
 declare enum EthWallets {
     ALL = "all",
@@ -30,7 +30,6 @@ declare const ConnectWalletComponent: ({ ActiveComponent, DisabledComponent, Con
         address: string;
         message: string;
         signature: string;
-        chain: typeof ChainId;
     }) => void) | undefined;
 }) => JSX.Element;
 

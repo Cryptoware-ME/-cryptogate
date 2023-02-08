@@ -2,8 +2,8 @@ import React from "react";
 import { ConnectWalletButton } from "../ConnectWalletButton";
 import { ConnectWalletList } from "../ConnectWalletList";
 import { Identicon } from "../Identicon";
-import { ChainId } from "@cryptogate/react-providers";
 import { defaults, Active, Disabled } from "../../defaults";
+import { useSolana } from "@cryptogate/react-providers";
 
 export enum EthWallets {
   ALL = "all",
@@ -42,7 +42,6 @@ export const ConnectWalletComponent = ({
     address: string;
     message: string;
     signature: string;
-    chain: typeof ChainId;
   }) => void;
 }) => {
   const [openOptions, setOpenOptions] = React.useState(false);

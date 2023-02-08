@@ -1,5 +1,4 @@
 import React from "react";
-import { ChainId } from "@cryptogate/react-providers";
 export declare enum EthWallets {
     ALL = "all",
     METAMASK = "metamask",
@@ -28,6 +27,5 @@ export declare const ConnectWalletComponent: ({ ActiveComponent, DisabledCompone
         address: string;
         message: string;
         signature: string;
-        chain: typeof ChainId;
     }) => void) | undefined;
 }) => JSX.Element;

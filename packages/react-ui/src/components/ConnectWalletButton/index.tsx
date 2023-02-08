@@ -1,8 +1,10 @@
 import React from "react";
 import {
-  ChainId,
   useEthereum,
   useConfig,
+  SolAddress,
+  EvmAddress,
+  useSolana,
 } from "@cryptogate/react-providers";
 import { ConnectedMenu } from "../ConnectMenu";
 import { ethSignMessage } from "@cryptogate/core";
@@ -10,8 +12,8 @@ import { setWithExpiry } from "../../localStorage/setWithExpire";
 import { getWithExpiry } from "../../localStorage/getWithExpire";
 import { ConnectedMenuOptions } from "../ConnectWalletComponent";
 
-const signingMessage = async (
-  account: any,
+const signingEvmMessage = async (
+  account: EvmAddress,
   provider: any,
   SignatureMessage: string
 ) => {
@@ -19,13 +21,47 @@ const signingMessage = async (
     ethSignMessage({
       account,
       provider: provider,
-      message: SignatureMessage + "Wallet Address: " + account,
+      message:
+        SignatureMessage +
+        "Wallet Address: " +
+        account.toString() +
+        " ts-" +
+        Date.now(),
     })
       .then((sig) => {
         setWithExpiry(`sig-${account.toLowerCase()}`, sig, 43200000);
         resolve(getWithExpiry(`sig-${account.toLowerCase()}`));
       })
       .catch((e) => {
+        reject(e);
+      });
+  });
+};
+
+const signingSolMessage = async (
+  fn: any,
+  pubK: SolAddress,
+  SignatureMessage: string
+) => {
+  return new Promise((resolve, reject) => {
+    const message = new TextEncoder().encode(
+      SignatureMessage +
+        "Wallet Address: " +
+        pubK.toString() +
+        " ts-" +
+        Date.now()
+    );
+    fn(message)
+      .then((sig: any) => {
+        const sigObj = {
+          message: new TextDecoder().decode(message),
+          signature: JSON.stringify(sig),
+          address: pubK.toString(),
+        };
+        setWithExpiry(`sig-${pubK.toString()}`, sigObj, 43200000);
+        resolve(getWithExpiry(`sig-${pubK.toString()}`));
+      })
+      .catch((e: any) => {
         reject(e);
       });
   });
@@ -53,7 +89,6 @@ export const ConnectWalletButton = ({
     address: string;
     message: string;
     signature: string;
-    chain: typeof ChainId;
   }) => void;
   setOpenOptions: any;
 }) => {
@@ -61,6 +96,7 @@ export const ConnectWalletButton = ({
   const [keyValue, setKeyValue] = React.useState(null as unknown as object);
 
   const { account, network, provider, deactivate } = useEthereum();
+  const { publicKey, connected, signMessage } = useSolana();
   const { ethConfig } = useConfig();
 
   React.useEffect(() => {
@@ -78,10 +114,12 @@ export const ConnectWalletButton = ({
             setKeyValue(key);
             onSign(key);
           } else {
-            signingMessage(account, provider, SignatureMessage).then((key) => {
-              setKeyValue(key as any);
-              onSign(key as any);
-            });
+            signingEvmMessage(account, provider, SignatureMessage).then(
+              (key) => {
+                setKeyValue(key as any);
+                onSign(key as any);
+              }
+            );
           }
         } else {
           setKeyValue({ address: account });
@@ -93,7 +131,28 @@ export const ConnectWalletButton = ({
     }
   }, [account, provider]);
 
-  return account ? (
+  React.useEffect(() => {
+    if (publicKey && connected) {
+      if (onSign) {
+        let key = getWithExpiry(`sig-${publicKey.toString()}`);
+        if (key) {
+          setKeyValue(key);
+          onSign(key);
+        } else {
+          signingSolMessage(signMessage, publicKey, SignatureMessage).then(
+            (key) => {
+              setKeyValue(key as any);
+              onSign(key as any);
+            }
+          );
+        }
+      } else {
+        setKeyValue({ address: account });
+      }
+    }
+  }, [publicKey, connected]);
+
+  return account || (publicKey && connected) ? (
     <>
       {keyValue ? (
         <div onClick={() => setOpenMenu(!openMenu)}>{ConnectedComponent}</div>

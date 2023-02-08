@@ -1,5 +1,4 @@
 import React from "react";
-import { ChainId } from "@cryptogate/react-providers";
 import { ConnectedMenuOptions } from "../ConnectWalletComponent";
 export declare const ConnectWalletButton: ({ ActiveComponent, DisabledComponent, ConnectedComponent, SignatureMessage, NetworkAlertMessage, ChosenConnectedMenu, onSign, Store, setOpenOptions, }: {
     ActiveComponent: React.ReactNode;
@@ -16,7 +15,6 @@ export declare const ConnectWalletButton: ({ ActiveComponent, DisabledComponent,
         address: string;
         message: string;
         signature: string;
-        chain: typeof ChainId;
     }) => void) | undefined;
     setOpenOptions: any;
 }) => JSX.Element;

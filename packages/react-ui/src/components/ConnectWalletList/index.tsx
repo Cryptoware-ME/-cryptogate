@@ -1,5 +1,7 @@
+import { useConfig } from "@cryptogate/react-providers";
 import { EthWallets } from "../ConnectWalletComponent";
 import EthWalletListComp from "../EthWalletList";
+import SolWalletListComp from "../SolWalletList";
 
 export const ConnectWalletList = ({
   openOptions,
@@ -10,6 +12,8 @@ export const ConnectWalletList = ({
   setOpenOptions: any;
   EthWalletList: EthWallets[];
 }) => {
+  const { solConfig } = useConfig();
+
   return (
     <>
       <div
@@ -54,6 +58,7 @@ export const ConnectWalletList = ({
             {EthWalletList.length > 0 && (
               <EthWalletListComp EthWalletList={EthWalletList} />
             )}
+            {solConfig && <SolWalletListComp wallets={solConfig.wallets} />}
           </div>
         </div>
       </div>

@@ -1,13 +1,18 @@
-import { useEthereum } from "@cryptogate/react-providers";
+import { useEthereum, useSolana } from "@cryptogate/react-providers";
 import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
 
 export const Identicon = ({ walletAddress }: { walletAddress?: string }) => {
   const { account } = useEthereum();
+  const { publicKey } = useSolana();
   return (
     <Jazzicon
       diameter={35}
       seed={jsNumberForAddress(
-        walletAddress ? walletAddress : account?.toString() || ""
+        walletAddress
+          ? walletAddress
+          : account
+          ? account.toString()
+          : publicKey.toString()
       )}
     />
   );
