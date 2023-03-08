@@ -14,3 +14,5 @@ export const avalancheExplorerUrl = 'https://snowtrace.io'
 export const testAvalancheExplorerUrl = 'https://testnet.snowtrace.io'
 // Sol Scan
 export const mainnetSolscanUrl = "https://solscan.io"
+// Basescan
+export const goerliBasescanUrl = "https://goerli.basescan.org"

@@ -28,8 +28,8 @@
     "@solana/wallet-adapter-react-ui": "^0.9.27",
     "@solana/wallet-adapter-wallets": "^0.19.11",
     "@solana/web3.js": "^1.73.2",
-    "@walletconnect/client": "^1.8.0",
     "@walletconnect/qrcode-modal": "^1.8.0",
+    "@walletconnect/web3-provider": "^1.8.0",
     "ethers": "^5.7.1"
   },
   "devDependencies": {

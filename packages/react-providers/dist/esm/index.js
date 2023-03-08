@@ -58,6 +58,8 @@ const avalancheExplorerUrl = 'https://snowtrace.io';
 const testAvalancheExplorerUrl = 'https://testnet.snowtrace.io';
 // Sol Scan
 const mainnetSolscanUrl = "https://solscan.io";
+// Basescan
+const goerliBasescanUrl = "https://goerli.basescan.org";
 
 /**
  * @public
@@ -221,6 +223,19 @@ const SolanaDevnet = {
     getExplorerTransactionLink: (txnId) => getTransactionLink(mainnetSolscanUrl, txnId) + "?cluster=devnet"
 };
 
+/*
+ * @Cryptogate: For intertanl use only, reference at your own risk
+*/
+const BaseGoerli = {
+    chainId: 84531,
+    chainName: 'BaseGoerli',
+    isTestChain: true,
+    isLocalChain: false,
+    blockExplorerUrl: goerliBasescanUrl,
+    getExplorerAddressLink: (address) => getAddressLink(goerliBasescanUrl, address),
+    getExplorerTransactionLink: (txnId) => getTransactionLink(goerliBasescanUrl, txnId)
+};
+
 /**
  * @array
  * @description The Default Chains Supported By Cryptogate
@@ -230,7 +245,8 @@ const DEFAULT_SUPPORTED_CHAINS = [
     BSC, BSCTestnet,
     Polygon, Mumbai,
     Avalanche, AvalancheTestnet,
-    SolanaMainnet
+    SolanaMainnet,
+    BaseGoerli
 ];
 /**
  * @enum
@@ -246,6 +262,7 @@ var ChainId;
     ChainId[ChainId["Mumbai"] = 80001] = "Mumbai";
     ChainId[ChainId["Avalanche"] = 43114] = "Avalanche";
     ChainId[ChainId["AvalancheTestnet"] = 43113] = "AvalancheTestnet";
+    ChainId[ChainId["BaseGoerli"] = 84531] = "BaseGoerli";
 })(ChainId || (ChainId = {}));
 
 const NetworkContext = React.createContext({

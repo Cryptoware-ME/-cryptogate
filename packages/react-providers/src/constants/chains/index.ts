@@ -3,7 +3,8 @@ import {
     bscScanUrl, bscTestnetScanUrl,
     polygonScanUrl, mumbaiPolygonScanUrl,
     avalancheExplorerUrl, testAvalancheExplorerUrl,
-    mainnetSolscanUrl
+    mainnetSolscanUrl,
+    goerliBasescanUrl
 } from "./urls"
 import { ChainId, DEFAULT_SUPPORTED_CHAINS } from "./chainId"
 
@@ -12,6 +13,7 @@ export {
     bscScanUrl, bscTestnetScanUrl,
     polygonScanUrl, mumbaiPolygonScanUrl,
     avalancheExplorerUrl, testAvalancheExplorerUrl,
-    mainnetSolscanUrl
+    mainnetSolscanUrl,
+    goerliBasescanUrl
 }
 export { ChainId, DEFAULT_SUPPORTED_CHAINS }
