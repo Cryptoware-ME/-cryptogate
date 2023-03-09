@@ -632,7 +632,7 @@ const useSolana = () => {
         if (!connected &&
             wallet &&
             wallet.readyState === walletAdapterBase.WalletReadyState.Installed)
-            connect().catch(() => alert("user rejected"));
+            connect().catch(() => { });
     }, [wallet, connected]);
     React__default["default"].useEffect(() => {
         if (solConfig && publicKey && connected && connection)

@@ -30,7 +30,7 @@ export const useSolana = () => {
             wallet &&
             wallet.readyState === WalletReadyState.Installed
         )
-            connect().catch(() => alert("user rejected"));
+            connect().catch(() => {});
     }, [wallet, connected]);
 
     React.useEffect(() => {
