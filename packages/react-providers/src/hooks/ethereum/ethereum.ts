@@ -51,9 +51,9 @@ export const useEthereum = () => {
             const res = await _provider.send("eth_requestAccounts", []);
             const chainIdRes = await _provider.send("eth_chainId", []);
             if (res.result)
-                setData(res.result[0], chainIdRes.result.split("x")[1], _provider)
+                setData(res.result[0], parseInt(chainIdRes.result), _provider)
             else
-                setData(res[0], chainIdRes.split("x")[1], _provider)
+                setData(res[0], parseInt(chainIdRes.result), _provider)
         } catch (err) { addError(err) }
     }
 

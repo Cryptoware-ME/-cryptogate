@@ -454,7 +454,7 @@ const useAccount = (address) => {
             provider.getBalance(address).then((balanceBigNbWei) => {
                 setEhBalance(ethers.utils.formatEther(balanceBigNbWei.toString()));
             });
-            provider.lookupAddress(address).then((res) => res && setEns(res));
+            provider.lookupAddress(address).then((res) => res && setEns(res)).catch((err) => { });
         }
     }, [provider]);
     return {
@@ -520,9 +520,9 @@ const useEthereum = () => {
             const res = yield _provider.send("eth_requestAccounts", []);
             const chainIdRes = yield _provider.send("eth_chainId", []);
             if (res.result)
-                setData(res.result[0], chainIdRes.result.split("x")[1], _provider);
+                setData(res.result[0], parseInt(chainIdRes.result), _provider);
             else
-                setData(res[0], chainIdRes.split("x")[1], _provider);
+                setData(res[0], parseInt(chainIdRes.result), _provider);
         }
         catch (err) {
             addError(err);
@@ -883,5 +883,5 @@ const useContract = () => {
     return { deployContract };
 };
 
-export { Avalanche, AvalancheTestnet, BSC, BSCTestnet, ChainId, ConfigContext, ConfigProvider, DEFAULT_SUPPORTED_CHAINS, ErrorsBagContext, ErrorsBagProvider, EvmNodeContext, EvmNodeProvider, Goerli, Mainnet, MultiChainProvider, Mumbai, NetworkContext, NetworkProvider, Polygon, SolWallets, SolanaDevnet, SolanaMainnet, SolanaProvider, SolanaTestnet, WalletContext, WalletProvider, WindowContext, WindowProvider, avalancheExplorerUrl, bscScanUrl, bscTestnetScanUrl, getAddressLink, getChainById, getTransactionLink, goerliEtherscanUrl, mainnetEtherscanUrl, mainnetSolscanUrl, mumbaiPolygonScanUrl, polygonScanUrl, readContractCall, readContractCalls, resolveENS, testAvalancheExplorerUrl, useAccount, useConfig, useContract, useErrorsBag, useEthereum, useEvmNode, useMultichain, useNetwork, useNetworkInfo, useSolana, useWallet, useWindow, writeContractCall };
+export { Avalanche, AvalancheTestnet, BSC, BSCTestnet, BaseGoerli, ChainId, ConfigContext, ConfigProvider, DEFAULT_SUPPORTED_CHAINS, ErrorsBagContext, ErrorsBagProvider, EvmNodeContext, EvmNodeProvider, Goerli, Mainnet, MultiChainProvider, Mumbai, NetworkContext, NetworkProvider, Polygon, SolWallets, SolanaDevnet, SolanaMainnet, SolanaProvider, SolanaTestnet, WalletContext, WalletProvider, WindowContext, WindowProvider, avalancheExplorerUrl, bscScanUrl, bscTestnetScanUrl, getAddressLink, getChainById, getTransactionLink, goerliBasescanUrl, goerliEtherscanUrl, mainnetEtherscanUrl, mainnetSolscanUrl, mumbaiPolygonScanUrl, polygonScanUrl, readContractCall, readContractCalls, resolveENS, testAvalancheExplorerUrl, useAccount, useConfig, useContract, useErrorsBag, useEthereum, useEvmNode, useMultichain, useNetwork, useNetworkInfo, useSolana, useWallet, useWindow, writeContractCall };
 //# sourceMappingURL=index.js.map

@@ -483,7 +483,7 @@ const useAccount = (address) => {
             provider.getBalance(address).then((balanceBigNbWei) => {
                 setEhBalance(ethers__namespace.utils.formatEther(balanceBigNbWei.toString()));
             });
-            provider.lookupAddress(address).then((res) => res && setEns(res));
+            provider.lookupAddress(address).then((res) => res && setEns(res)).catch((err) => { });
         }
     }, [provider]);
     return {
@@ -549,9 +549,9 @@ const useEthereum = () => {
             const res = yield _provider.send("eth_requestAccounts", []);
             const chainIdRes = yield _provider.send("eth_chainId", []);
             if (res.result)
-                setData(res.result[0], chainIdRes.result.split("x")[1], _provider);
+                setData(res.result[0], parseInt(chainIdRes.result), _provider);
             else
-                setData(res[0], chainIdRes.split("x")[1], _provider);
+                setData(res[0], parseInt(chainIdRes.result), _provider);
         }
         catch (err) {
             addError(err);
@@ -916,6 +916,7 @@ exports.Avalanche = Avalanche;
 exports.AvalancheTestnet = AvalancheTestnet;
 exports.BSC = BSC;
 exports.BSCTestnet = BSCTestnet;
+exports.BaseGoerli = BaseGoerli;
 exports.ConfigContext = ConfigContext;
 exports.ConfigProvider = ConfigProvider;
 exports.DEFAULT_SUPPORTED_CHAINS = DEFAULT_SUPPORTED_CHAINS;
@@ -944,6 +945,7 @@ exports.bscTestnetScanUrl = bscTestnetScanUrl;
 exports.getAddressLink = getAddressLink;
 exports.getChainById = getChainById;
 exports.getTransactionLink = getTransactionLink;
+exports.goerliBasescanUrl = goerliBasescanUrl;
 exports.goerliEtherscanUrl = goerliEtherscanUrl;
 exports.mainnetEtherscanUrl = mainnetEtherscanUrl;
 exports.mainnetSolscanUrl = mainnetSolscanUrl;
