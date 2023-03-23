@@ -60,6 +60,8 @@ const testAvalancheExplorerUrl = 'https://testnet.snowtrace.io';
 const mainnetSolscanUrl = "https://solscan.io";
 // Basescan
 const goerliBasescanUrl = "https://goerli.basescan.org";
+// Arbscan
+const mainnetArbsanUrl = "https://arbscan.io";
 
 /**
  * @public
@@ -236,6 +238,19 @@ const BaseGoerli = {
     getExplorerTransactionLink: (txnId) => getTransactionLink(goerliBasescanUrl, txnId)
 };
 
+/*
+ * @Cryptogate: For intertanl use only, reference at your own risk
+*/
+const Arbitrum = {
+    chainId: 42161,
+    chainName: 'Arbitrum',
+    isTestChain: false,
+    isLocalChain: false,
+    blockExplorerUrl: mainnetArbsanUrl,
+    getExplorerAddressLink: (address) => getAddressLink(mainnetArbsanUrl, address),
+    getExplorerTransactionLink: (txnId) => getTransactionLink(mainnetArbsanUrl, txnId)
+};
+
 /**
  * @array
  * @description The Default Chains Supported By Cryptogate
@@ -246,7 +261,8 @@ const DEFAULT_SUPPORTED_CHAINS = [
     Polygon, Mumbai,
     Avalanche, AvalancheTestnet,
     SolanaMainnet,
-    BaseGoerli
+    BaseGoerli,
+    Arbitrum
 ];
 /**
  * @enum
@@ -263,6 +279,7 @@ var ChainId;
     ChainId[ChainId["Avalanche"] = 43114] = "Avalanche";
     ChainId[ChainId["AvalancheTestnet"] = 43113] = "AvalancheTestnet";
     ChainId[ChainId["BaseGoerli"] = 84531] = "BaseGoerli";
+    ChainId[ChainId["Arbitrum"] = 42161] = "Arbitrum";
 })(ChainId || (ChainId = {}));
 
 const NetworkContext = React.createContext({
@@ -883,5 +900,5 @@ const useContract = () => {
     return { deployContract };
 };
 
-export { Avalanche, AvalancheTestnet, BSC, BSCTestnet, BaseGoerli, ChainId, ConfigContext, ConfigProvider, DEFAULT_SUPPORTED_CHAINS, ErrorsBagContext, ErrorsBagProvider, EvmNodeContext, EvmNodeProvider, Goerli, Mainnet, MultiChainProvider, Mumbai, NetworkContext, NetworkProvider, Polygon, SolWallets, SolanaDevnet, SolanaMainnet, SolanaProvider, SolanaTestnet, WalletContext, WalletProvider, WindowContext, WindowProvider, avalancheExplorerUrl, bscScanUrl, bscTestnetScanUrl, getAddressLink, getChainById, getTransactionLink, goerliBasescanUrl, goerliEtherscanUrl, mainnetEtherscanUrl, mainnetSolscanUrl, mumbaiPolygonScanUrl, polygonScanUrl, readContractCall, readContractCalls, resolveENS, testAvalancheExplorerUrl, useAccount, useConfig, useContract, useErrorsBag, useEthereum, useEvmNode, useMultichain, useNetwork, useNetworkInfo, useSolana, useWallet, useWindow, writeContractCall };
+export { Arbitrum, Avalanche, AvalancheTestnet, BSC, BSCTestnet, BaseGoerli, ChainId, ConfigContext, ConfigProvider, DEFAULT_SUPPORTED_CHAINS, ErrorsBagContext, ErrorsBagProvider, EvmNodeContext, EvmNodeProvider, Goerli, Mainnet, MultiChainProvider, Mumbai, NetworkContext, NetworkProvider, Polygon, SolWallets, SolanaDevnet, SolanaMainnet, SolanaProvider, SolanaTestnet, WalletContext, WalletProvider, WindowContext, WindowProvider, avalancheExplorerUrl, bscScanUrl, bscTestnetScanUrl, getAddressLink, getChainById, getTransactionLink, goerliBasescanUrl, goerliEtherscanUrl, mainnetArbsanUrl, mainnetEtherscanUrl, mainnetSolscanUrl, mumbaiPolygonScanUrl, polygonScanUrl, readContractCall, readContractCalls, resolveENS, testAvalancheExplorerUrl, useAccount, useConfig, useContract, useErrorsBag, useEthereum, useEvmNode, useMultichain, useNetwork, useNetworkInfo, useSolana, useWallet, useWindow, writeContractCall };
 //# sourceMappingURL=index.js.map

@@ -16,3 +16,5 @@ export const testAvalancheExplorerUrl = 'https://testnet.snowtrace.io'
 export const mainnetSolscanUrl = "https://solscan.io"
 // Basescan
 export const goerliBasescanUrl = "https://goerli.basescan.org"
+// Arbscan
+export const mainnetArbsanUrl = "https://arbscan.io"

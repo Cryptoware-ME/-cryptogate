@@ -4,7 +4,8 @@ import {
     polygonScanUrl, mumbaiPolygonScanUrl,
     avalancheExplorerUrl, testAvalancheExplorerUrl,
     mainnetSolscanUrl,
-    goerliBasescanUrl
+    goerliBasescanUrl,
+    mainnetArbsanUrl
 } from "./urls"
 import { ChainId, DEFAULT_SUPPORTED_CHAINS } from "./chainId"
 
@@ -14,6 +15,7 @@ export {
     polygonScanUrl, mumbaiPolygonScanUrl,
     avalancheExplorerUrl, testAvalancheExplorerUrl,
     mainnetSolscanUrl,
-    goerliBasescanUrl
+    goerliBasescanUrl,
+    mainnetArbsanUrl
 }
 export { ChainId, DEFAULT_SUPPORTED_CHAINS }

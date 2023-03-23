@@ -4,7 +4,8 @@ import {
     Polygon, Mumbai,
     Avalanche, AvalancheTestnet,
     SolanaMainnet,
-    BaseGoerli
+    BaseGoerli,
+    Arbitrum
 } from "../../models/chains";
 import { Chain } from "../../models/types";
 
@@ -18,7 +19,8 @@ export const DEFAULT_SUPPORTED_CHAINS: Chain[] = [
     Polygon, Mumbai,
     Avalanche, AvalancheTestnet,
     SolanaMainnet,
-    BaseGoerli
+    BaseGoerli,
+    Arbitrum
 ]
 
 /** 
@@ -30,5 +32,6 @@ export enum ChainId {
     BSC = 56, BSCTestnet = 97,
     Polygon = 137, Mumbai = 80001,
     Avalanche = 43114, AvalancheTestnet = 43113,
-    BaseGoerli = 84531
+    BaseGoerli = 84531,
+    Arbitrum = 42161
 }

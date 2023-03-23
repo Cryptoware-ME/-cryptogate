@@ -17,7 +17,8 @@ export {
     polygonScanUrl, mumbaiPolygonScanUrl,
     avalancheExplorerUrl, testAvalancheExplorerUrl,
     mainnetSolscanUrl,
-    goerliBasescanUrl
+    goerliBasescanUrl,
+    mainnetArbsanUrl
 } from "./constants/chains"
 
 export {
@@ -32,7 +33,8 @@ export {
     Polygon, Mumbai,
     Avalanche, AvalancheTestnet,
     SolanaMainnet, SolanaTestnet, SolanaDevnet,
-    BaseGoerli
+    BaseGoerli,
+    Arbitrum
 } from "./models/chains"
 
 export type { Chain, EthConfig, EthContract, NodeUrls, ContractABIUnit, ContractIO, EvmAddress, WalletsConfig, SolAddress, SolConfig } from "./models/types"
