@@ -5,7 +5,7 @@ import {
     avalancheExplorerUrl, testAvalancheExplorerUrl,
     mainnetSolscanUrl,
     goerliBasescanUrl,
-    mainnetArbsanUrl
+    mainnetArbscanUrl
 } from "./urls"
 import { ChainId, DEFAULT_SUPPORTED_CHAINS } from "./chainId"
 
@@ -16,6 +16,6 @@ export {
     avalancheExplorerUrl, testAvalancheExplorerUrl,
     mainnetSolscanUrl,
     goerliBasescanUrl,
-    mainnetArbsanUrl
+    mainnetArbscanUrl
 }
 export { ChainId, DEFAULT_SUPPORTED_CHAINS }

@@ -6,33 +6,24 @@ import { useNetwork } from "../network";
 
 interface Props {
   children: React.ReactNode;
-  readOnlyUrls: NodeUrls;
+  readOnlyUrls?: NodeUrls;
 }
 
 export function EvmNodeProvider({ children, readOnlyUrls }: Props) {
   const [provider, setProvider]: [
     providers.JsonRpcProvider | providers.Web3Provider | undefined,
     React.Dispatch<
-      React.SetStateAction<
-        providers.JsonRpcProvider | providers.Web3Provider | undefined
-      >
+      React.SetStateAction<providers.JsonRpcProvider | providers.Web3Provider | undefined>
     >
   ] = React.useState();
   const { networkData } = useNetwork();
 
   React.useEffect(() => {
-    if (!provider && readOnlyUrls[networkData.chainId]) {
-      let _provider = new providers.JsonRpcProvider(
-        readOnlyUrls[networkData.chainId]
-      );
+    if (!provider && readOnlyUrls && networkData?.chainId && readOnlyUrls[networkData.chainId]) {
+      let _provider = new providers.JsonRpcProvider(readOnlyUrls[networkData.chainId]);
       setProvider(_provider);
     }
   }, [networkData, readOnlyUrls]);
 
-  return (
-    <EvmNodeContext.Provider
-      value={{ provider, setProvider }}
-      children={children}
-    />
-  );
+  return <EvmNodeContext.Provider value={{ provider, setProvider }} children={children} />;
 }

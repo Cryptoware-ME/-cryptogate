@@ -25,6 +25,22 @@ declare type Chain = {
     getExplorerTransactionLink: (txnId: string) => string;
 };
 
+declare enum SolWallets {
+    ALL = "all",
+    PHANTOM = "phantom",
+    SLOPE = "slope",
+    SOLFLARE = "solflare",
+    SOLLETEXTENSION = "solletExtension"
+}
+
+declare enum EvmWallets {
+    ALL = "all",
+    METAMASK = "metamask",
+    WALLETCONNECT = "walletconnect",
+    COINBASE = "coinbase",
+    BRAVEWALLET = "braveWallet"
+}
+
 declare type NodeUrls = {
     [chainId: number]: string;
 };
@@ -51,16 +67,9 @@ declare type EthConfig = {
     defaultNetwork: Chain;
     allowedNetworks?: (Chain | undefined)[];
     readOnlyUrls: NodeUrls;
+    wallets: EvmWallets[];
     contractList?: EthContract[];
 };
-
-declare enum SolWallets {
-    ALL = "all",
-    PHANTOM = "phantom",
-    SLOPE = "slope",
-    SOLFLARE = "solflare",
-    SOLLETEXTENSION = "solletExtension"
-}
 
 declare type SolConfig = {
     network: WalletAdapterNetwork;
@@ -77,7 +86,7 @@ declare type WalletsConfig = {
 };
 
 declare type MultiChainProviderConfigProps = {
-    ethConfig: EthConfig;
+    ethConfig?: EthConfig;
     solConfig?: SolConfig;
     walletsConfig?: WalletsConfig;
 };
@@ -85,7 +94,7 @@ interface MultiChainProviderProps {
     children: React.ReactNode;
     config: MultiChainProviderConfigProps;
 }
-declare const MultiChainProvider: ({ config, children, }: MultiChainProviderProps) => JSX.Element;
+declare const MultiChainProvider: ({ config, children }: MultiChainProviderProps) => JSX.Element;
 
 declare const ConfigContext: React.Context<MultiChainProviderConfigProps>;
 declare function useConfig(): MultiChainProviderConfigProps;
@@ -105,7 +114,7 @@ declare function useEvmNode(): EvmNodeContextType;
 
 interface Props$5 {
     children: React.ReactNode;
-    readOnlyUrls: NodeUrls;
+    readOnlyUrls?: NodeUrls;
 }
 declare function EvmNodeProvider({ children, readOnlyUrls }: Props$5): JSX.Element;
 
@@ -158,7 +167,7 @@ declare const avalancheExplorerUrl = "https://snowtrace.io";
 declare const testAvalancheExplorerUrl = "https://testnet.snowtrace.io";
 declare const mainnetSolscanUrl = "https://solscan.io";
 declare const goerliBasescanUrl = "https://goerli.basescan.org";
-declare const mainnetArbsanUrl = "https://arbscan.io";
+declare const mainnetArbscanUrl = "https://arbscan.io";
 
 /**
  * @array
@@ -187,7 +196,7 @@ interface Props$1 {
     config: MultiChainProviderConfigProps;
 }
 declare type NetworkDataType = {
-    chainId: ChainId;
+    chainId: ChainId | undefined;
     chain: Chain | undefined;
 };
 declare function NetworkProvider({ children, config }: Props$1): JSX.Element;
@@ -412,4 +421,4 @@ declare const useContract: () => {
     deployContract: ({ abi, byteCode, args }: deployContractParams) => Promise<ethers.ethers.Contract>;
 };
 
-export { Arbitrum, Avalanche, AvalancheTestnet, BSC, BSCTestnet, BaseGoerli, Chain, ChainId, ConfigContext, ConfigProvider, ContractABIUnit, ContractIO, DEFAULT_SUPPORTED_CHAINS, ErrorsBagContext, ErrorsBagProvider, EthConfig, EthContract, EvmAddress, EvmNodeContext, EvmNodeProvider, Goerli, Mainnet, MultiChainProvider, MultiChainProviderConfigProps, MultiChainProviderProps, Mumbai, NetworkContext, NetworkProvider, NodeUrls, Polygon, SolAddress, SolConfig, SolWallets, SolanaDevnet, SolanaMainnet, SolanaProvider, SolanaTestnet, WalletContext, WalletProvider, WalletsConfig, WindowContext, WindowProvider, avalancheExplorerUrl, bscScanUrl, bscTestnetScanUrl, getAddressLink, getChainById, getTransactionLink, goerliBasescanUrl, goerliEtherscanUrl, mainnetArbsanUrl, mainnetEtherscanUrl, mainnetSolscanUrl, mumbaiPolygonScanUrl, polygonScanUrl, readContractCall, readContractCalls, resolveENS, testAvalancheExplorerUrl, useAccount, useConfig, useContract, useErrorsBag, useEthereum, useEvmNode, useMultichain, useNetwork, useNetworkInfo, useSolana, useWallet, useWindow, writeContractCall };
+export { Arbitrum, Avalanche, AvalancheTestnet, BSC, BSCTestnet, BaseGoerli, Chain, ChainId, ConfigContext, ConfigProvider, ContractABIUnit, ContractIO, DEFAULT_SUPPORTED_CHAINS, ErrorsBagContext, ErrorsBagProvider, EthConfig, EthContract, EvmAddress, EvmNodeContext, EvmNodeProvider, Goerli, Mainnet, MultiChainProvider, MultiChainProviderConfigProps, MultiChainProviderProps, Mumbai, NetworkContext, NetworkProvider, NodeUrls, Polygon, SolAddress, SolConfig, SolWallets, SolanaDevnet, SolanaMainnet, SolanaProvider, SolanaTestnet, WalletContext, WalletProvider, WalletsConfig, WindowContext, WindowProvider, avalancheExplorerUrl, bscScanUrl, bscTestnetScanUrl, getAddressLink, getChainById, getTransactionLink, goerliBasescanUrl, goerliEtherscanUrl, mainnetArbscanUrl, mainnetEtherscanUrl, mainnetSolscanUrl, mumbaiPolygonScanUrl, polygonScanUrl, readContractCall, readContractCalls, resolveENS, testAvalancheExplorerUrl, useAccount, useConfig, useContract, useErrorsBag, useEthereum, useEvmNode, useMultichain, useNetwork, useNetworkInfo, useSolana, useWallet, useWindow, writeContractCall };

@@ -10,7 +10,7 @@ interface Props {
 }
 
 export type NetworkDataType = {
-  chainId: ChainId;
+  chainId: ChainId | undefined;
   chain: Chain | undefined;
 };
 
@@ -23,8 +23,8 @@ export function NetworkProvider({ children, config }: Props) {
   useEffect(() => {
     if (config) {
       setNetworkData({
-        chainId: config.ethConfig.defaultNetwork.chainId,
-        chain: config.ethConfig.defaultNetwork,
+        chainId: config.ethConfig?.defaultNetwork?.chainId,
+        chain: config.ethConfig?.defaultNetwork,
       });
     }
   }, [config]);

@@ -90,7 +90,7 @@ const mainnetSolscanUrl = "https://solscan.io";
 // Basescan
 const goerliBasescanUrl = "https://goerli.basescan.org";
 // Arbscan
-const mainnetArbsanUrl = "https://arbscan.io";
+const mainnetArbscanUrl = "https://arbscan.io";
 
 /**
  * @public
@@ -275,9 +275,9 @@ const Arbitrum = {
     chainName: 'Arbitrum',
     isTestChain: false,
     isLocalChain: false,
-    blockExplorerUrl: mainnetArbsanUrl,
-    getExplorerAddressLink: (address) => getAddressLink(mainnetArbsanUrl, address),
-    getExplorerTransactionLink: (txnId) => getTransactionLink(mainnetArbsanUrl, txnId)
+    blockExplorerUrl: mainnetArbscanUrl,
+    getExplorerAddressLink: (address) => getAddressLink(mainnetArbscanUrl, address),
+    getExplorerTransactionLink: (txnId) => getTransactionLink(mainnetArbscanUrl, txnId)
 };
 
 /**
@@ -323,10 +323,11 @@ function useNetwork() {
 function NetworkProvider({ children, config }) {
     const [networkData, setNetworkData] = React__default["default"].useState({});
     React.useEffect(() => {
+        var _a, _b, _c;
         if (config) {
             setNetworkData({
-                chainId: config.ethConfig.defaultNetwork.chainId,
-                chain: config.ethConfig.defaultNetwork,
+                chainId: (_b = (_a = config.ethConfig) === null || _a === void 0 ? void 0 : _a.defaultNetwork) === null || _b === void 0 ? void 0 : _b.chainId,
+                chain: (_c = config.ethConfig) === null || _c === void 0 ? void 0 : _c.defaultNetwork,
             });
         }
     }, [config]);
@@ -340,12 +341,12 @@ function EvmNodeProvider({ children, readOnlyUrls }) {
     const [provider, setProvider] = React__default["default"].useState();
     const { networkData } = useNetwork();
     React__default["default"].useEffect(() => {
-        if (!provider && readOnlyUrls[networkData.chainId]) {
+        if (!provider && readOnlyUrls && (networkData === null || networkData === void 0 ? void 0 : networkData.chainId) && readOnlyUrls[networkData.chainId]) {
             let _provider = new ethers.providers.JsonRpcProvider(readOnlyUrls[networkData.chainId]);
             setProvider(_provider);
         }
     }, [networkData, readOnlyUrls]);
-    return (React__default["default"].createElement(EvmNodeContext.Provider, { value: { provider, setProvider }, children: children }));
+    return React__default["default"].createElement(EvmNodeContext.Provider, { value: { provider, setProvider }, children: children });
 }
 
 const WindowContext = React__default["default"].createContext(true);
@@ -395,16 +396,20 @@ function SolanaProvider({ children, solConfig }) {
         new walletAdapterWallets.SolflareWalletAdapter({ network: solConfig === null || solConfig === void 0 ? void 0 : solConfig.network }),
         new walletAdapterWallets.SolletExtensionWalletAdapter({ network: solConfig === null || solConfig === void 0 ? void 0 : solConfig.network }),
     ];
-    return (React__default["default"].createElement(React__default["default"].Fragment, null, solConfig ? (React__default["default"].createElement(walletAdapterReact.ConnectionProvider, { endpoint: solConfig.endpoint },
-        React__default["default"].createElement(walletAdapterReact.WalletProvider, { wallets: wallets, autoConnect: solConfig.autoConnect }, children))) : ({ children })));
+    if (solConfig)
+        return (React__default["default"].createElement(walletAdapterReact.ConnectionProvider, { endpoint: solConfig.endpoint },
+            React__default["default"].createElement(walletAdapterReact.WalletProvider, { wallets: wallets, autoConnect: solConfig.autoConnect }, children)));
+    else
+        return React__default["default"].createElement(React__default["default"].Fragment, null, children);
 }
 
-const MultiChainProvider = ({ config, children, }) => {
+const MultiChainProvider = ({ config, children }) => {
+    var _a;
     return (React__default["default"].createElement(WindowProvider, null,
         React__default["default"].createElement(ConfigProvider, { config: config },
             React__default["default"].createElement(ErrorsBagProvider, null,
                 React__default["default"].createElement(NetworkProvider, { config: config },
-                    React__default["default"].createElement(EvmNodeProvider, { readOnlyUrls: config.ethConfig.readOnlyUrls },
+                    React__default["default"].createElement(EvmNodeProvider, { readOnlyUrls: (_a = config.ethConfig) === null || _a === void 0 ? void 0 : _a.readOnlyUrls },
                         React__default["default"].createElement(SolanaProvider, { solConfig: config.solConfig },
                             React__default["default"].createElement(WalletProvider, null, children))))))));
 };
@@ -417,6 +422,15 @@ exports.SolWallets = void 0;
     SolWallets["SOLFLARE"] = "solflare";
     SolWallets["SOLLETEXTENSION"] = "solletExtension";
 })(exports.SolWallets || (exports.SolWallets = {}));
+
+var EvmWallets;
+(function (EvmWallets) {
+    EvmWallets["ALL"] = "all";
+    EvmWallets["METAMASK"] = "metamask";
+    EvmWallets["WALLETCONNECT"] = "walletconnect";
+    EvmWallets["COINBASE"] = "coinbase";
+    EvmWallets["BRAVEWALLET"] = "braveWallet";
+})(EvmWallets || (EvmWallets = {}));
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation.
@@ -610,6 +624,9 @@ const useEthereum = () => {
             setNetworkData({ chainId: (_a = ethConfig.defaultNetwork.chainId) !== null && _a !== void 0 ? _a : -1, chain: ethConfig.defaultNetwork });
             setProvider(new ethers__namespace.providers.JsonRpcProvider(ethConfig.readOnlyUrls[(_b = ethConfig.defaultNetwork.chainId) !== null && _b !== void 0 ? _b : -1]));
         }
+        else {
+            addError("EthConfig not found");
+        }
     }, [ethConfig]);
     return {
         account,
@@ -635,14 +652,19 @@ const useSolana = () => {
     const [solBalance, setSolBalance] = React__default["default"].useState(0);
     const getUserSOLBalance = (_lamportsPerSol) => __awaiter(void 0, void 0, void 0, function* () {
         let balance = 0;
-        try {
-            balance =
-                (yield connection.getBalance(publicKey, "confirmed")) /
-                    _lamportsPerSol;
-            setSolBalance(balance);
+        if (publicKey) {
+            try {
+                balance =
+                    (yield connection.getBalance(publicKey, "confirmed")) /
+                        _lamportsPerSol;
+                setSolBalance(balance);
+            }
+            catch (e) {
+                addError(e);
+            }
         }
-        catch (e) {
-            addError(e);
+        else {
+            addError("Connected your wallet");
         }
     });
     React__default["default"].useEffect(() => {
@@ -965,7 +987,7 @@ exports.getChainById = getChainById;
 exports.getTransactionLink = getTransactionLink;
 exports.goerliBasescanUrl = goerliBasescanUrl;
 exports.goerliEtherscanUrl = goerliEtherscanUrl;
-exports.mainnetArbsanUrl = mainnetArbsanUrl;
+exports.mainnetArbscanUrl = mainnetArbscanUrl;
 exports.mainnetEtherscanUrl = mainnetEtherscanUrl;
 exports.mainnetSolscanUrl = mainnetSolscanUrl;
 exports.mumbaiPolygonScanUrl = mumbaiPolygonScanUrl;

@@ -14,14 +14,19 @@ export const useSolana = () => {
         _lamportsPerSol: number
     ) => {
         let balance = 0;
-        try {
-            balance =
-                (await connection.getBalance(publicKey, "confirmed")) /
-                _lamportsPerSol;
-            setSolBalance(balance);
-        } catch (e) {
-            addError(e);
+        if (publicKey) {
+            try {
+                balance =
+                    (await connection.getBalance(publicKey, "confirmed")) /
+                    _lamportsPerSol;
+                setSolBalance(balance);
+            } catch (e) {
+                addError(e);
+            }
+        } else {
+            addError("Connected your wallet")
         }
+
     };
 
     React.useEffect(() => {
@@ -30,7 +35,7 @@ export const useSolana = () => {
             wallet &&
             wallet.readyState === WalletReadyState.Installed
         )
-            connect().catch(() => {});
+            connect().catch(() => { });
     }, [wallet, connected]);
 
     React.useEffect(() => {

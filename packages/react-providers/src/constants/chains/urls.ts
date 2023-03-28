@@ -17,4 +17,4 @@ export const mainnetSolscanUrl = "https://solscan.io"
 // Basescan
 export const goerliBasescanUrl = "https://goerli.basescan.org"
 // Arbscan
-export const mainnetArbsanUrl = "https://arbscan.io"
+export const mainnetArbscanUrl = "https://arbscan.io"

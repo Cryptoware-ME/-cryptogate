@@ -1,8 +1,5 @@
 import React from "react";
-import {
-  ConnectionProvider,
-  WalletProvider,
-} from "@solana/wallet-adapter-react";
+import { ConnectionProvider, WalletProvider } from "@solana/wallet-adapter-react";
 import { SolConfig } from "../../models/types";
 import {
   PhantomWalletAdapter,
@@ -24,17 +21,13 @@ export function SolanaProvider({ children, solConfig }: Props) {
     new SolletExtensionWalletAdapter({ network: solConfig?.network }),
   ];
 
-  return (
-    <>
-      {solConfig ? (
-        <ConnectionProvider endpoint={solConfig.endpoint}>
-          <WalletProvider wallets={wallets} autoConnect={solConfig.autoConnect}>
-            {children}
-          </WalletProvider>
-        </ConnectionProvider>
-      ) : (
-        { children }
-      )}
-    </>
-  );
+  if (solConfig)
+    return (
+      <ConnectionProvider endpoint={solConfig.endpoint}>
+        <WalletProvider wallets={wallets} autoConnect={solConfig.autoConnect}>
+          {children}
+        </WalletProvider>
+      </ConnectionProvider>
+    );
+  else return <>{children}</>;
 }

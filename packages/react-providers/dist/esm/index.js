@@ -61,7 +61,7 @@ const mainnetSolscanUrl = "https://solscan.io";
 // Basescan
 const goerliBasescanUrl = "https://goerli.basescan.org";
 // Arbscan
-const mainnetArbsanUrl = "https://arbscan.io";
+const mainnetArbscanUrl = "https://arbscan.io";
 
 /**
  * @public
@@ -246,9 +246,9 @@ const Arbitrum = {
     chainName: 'Arbitrum',
     isTestChain: false,
     isLocalChain: false,
-    blockExplorerUrl: mainnetArbsanUrl,
-    getExplorerAddressLink: (address) => getAddressLink(mainnetArbsanUrl, address),
-    getExplorerTransactionLink: (txnId) => getTransactionLink(mainnetArbsanUrl, txnId)
+    blockExplorerUrl: mainnetArbscanUrl,
+    getExplorerAddressLink: (address) => getAddressLink(mainnetArbscanUrl, address),
+    getExplorerTransactionLink: (txnId) => getTransactionLink(mainnetArbscanUrl, txnId)
 };
 
 /**
@@ -294,10 +294,11 @@ function useNetwork() {
 function NetworkProvider({ children, config }) {
     const [networkData, setNetworkData] = React.useState({});
     useEffect(() => {
+        var _a, _b, _c;
         if (config) {
             setNetworkData({
-                chainId: config.ethConfig.defaultNetwork.chainId,
-                chain: config.ethConfig.defaultNetwork,
+                chainId: (_b = (_a = config.ethConfig) === null || _a === void 0 ? void 0 : _a.defaultNetwork) === null || _b === void 0 ? void 0 : _b.chainId,
+                chain: (_c = config.ethConfig) === null || _c === void 0 ? void 0 : _c.defaultNetwork,
             });
         }
     }, [config]);
@@ -311,12 +312,12 @@ function EvmNodeProvider({ children, readOnlyUrls }) {
     const [provider, setProvider] = React.useState();
     const { networkData } = useNetwork();
     React.useEffect(() => {
-        if (!provider && readOnlyUrls[networkData.chainId]) {
+        if (!provider && readOnlyUrls && (networkData === null || networkData === void 0 ? void 0 : networkData.chainId) && readOnlyUrls[networkData.chainId]) {
             let _provider = new providers.JsonRpcProvider(readOnlyUrls[networkData.chainId]);
             setProvider(_provider);
         }
     }, [networkData, readOnlyUrls]);
-    return (React.createElement(EvmNodeContext.Provider, { value: { provider, setProvider }, children: children }));
+    return React.createElement(EvmNodeContext.Provider, { value: { provider, setProvider }, children: children });
 }
 
 const WindowContext = React.createContext(true);
@@ -366,16 +367,20 @@ function SolanaProvider({ children, solConfig }) {
         new SolflareWalletAdapter({ network: solConfig === null || solConfig === void 0 ? void 0 : solConfig.network }),
         new SolletExtensionWalletAdapter({ network: solConfig === null || solConfig === void 0 ? void 0 : solConfig.network }),
     ];
-    return (React.createElement(React.Fragment, null, solConfig ? (React.createElement(ConnectionProvider, { endpoint: solConfig.endpoint },
-        React.createElement(WalletProvider$1, { wallets: wallets, autoConnect: solConfig.autoConnect }, children))) : ({ children })));
+    if (solConfig)
+        return (React.createElement(ConnectionProvider, { endpoint: solConfig.endpoint },
+            React.createElement(WalletProvider$1, { wallets: wallets, autoConnect: solConfig.autoConnect }, children)));
+    else
+        return React.createElement(React.Fragment, null, children);
 }
 
-const MultiChainProvider = ({ config, children, }) => {
+const MultiChainProvider = ({ config, children }) => {
+    var _a;
     return (React.createElement(WindowProvider, null,
         React.createElement(ConfigProvider, { config: config },
             React.createElement(ErrorsBagProvider, null,
                 React.createElement(NetworkProvider, { config: config },
-                    React.createElement(EvmNodeProvider, { readOnlyUrls: config.ethConfig.readOnlyUrls },
+                    React.createElement(EvmNodeProvider, { readOnlyUrls: (_a = config.ethConfig) === null || _a === void 0 ? void 0 : _a.readOnlyUrls },
                         React.createElement(SolanaProvider, { solConfig: config.solConfig },
                             React.createElement(WalletProvider, null, children))))))));
 };
@@ -388,6 +393,15 @@ var SolWallets;
     SolWallets["SOLFLARE"] = "solflare";
     SolWallets["SOLLETEXTENSION"] = "solletExtension";
 })(SolWallets || (SolWallets = {}));
+
+var EvmWallets;
+(function (EvmWallets) {
+    EvmWallets["ALL"] = "all";
+    EvmWallets["METAMASK"] = "metamask";
+    EvmWallets["WALLETCONNECT"] = "walletconnect";
+    EvmWallets["COINBASE"] = "coinbase";
+    EvmWallets["BRAVEWALLET"] = "braveWallet";
+})(EvmWallets || (EvmWallets = {}));
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation.
@@ -581,6 +595,9 @@ const useEthereum = () => {
             setNetworkData({ chainId: (_a = ethConfig.defaultNetwork.chainId) !== null && _a !== void 0 ? _a : -1, chain: ethConfig.defaultNetwork });
             setProvider(new ethers.providers.JsonRpcProvider(ethConfig.readOnlyUrls[(_b = ethConfig.defaultNetwork.chainId) !== null && _b !== void 0 ? _b : -1]));
         }
+        else {
+            addError("EthConfig not found");
+        }
     }, [ethConfig]);
     return {
         account,
@@ -606,14 +623,19 @@ const useSolana = () => {
     const [solBalance, setSolBalance] = React.useState(0);
     const getUserSOLBalance = (_lamportsPerSol) => __awaiter(void 0, void 0, void 0, function* () {
         let balance = 0;
-        try {
-            balance =
-                (yield connection.getBalance(publicKey, "confirmed")) /
-                    _lamportsPerSol;
-            setSolBalance(balance);
+        if (publicKey) {
+            try {
+                balance =
+                    (yield connection.getBalance(publicKey, "confirmed")) /
+                        _lamportsPerSol;
+                setSolBalance(balance);
+            }
+            catch (e) {
+                addError(e);
+            }
         }
-        catch (e) {
-            addError(e);
+        else {
+            addError("Connected your wallet");
         }
     });
     React.useEffect(() => {
@@ -900,5 +922,5 @@ const useContract = () => {
     return { deployContract };
 };
 
-export { Arbitrum, Avalanche, AvalancheTestnet, BSC, BSCTestnet, BaseGoerli, ChainId, ConfigContext, ConfigProvider, DEFAULT_SUPPORTED_CHAINS, ErrorsBagContext, ErrorsBagProvider, EvmNodeContext, EvmNodeProvider, Goerli, Mainnet, MultiChainProvider, Mumbai, NetworkContext, NetworkProvider, Polygon, SolWallets, SolanaDevnet, SolanaMainnet, SolanaProvider, SolanaTestnet, WalletContext, WalletProvider, WindowContext, WindowProvider, avalancheExplorerUrl, bscScanUrl, bscTestnetScanUrl, getAddressLink, getChainById, getTransactionLink, goerliBasescanUrl, goerliEtherscanUrl, mainnetArbsanUrl, mainnetEtherscanUrl, mainnetSolscanUrl, mumbaiPolygonScanUrl, polygonScanUrl, readContractCall, readContractCalls, resolveENS, testAvalancheExplorerUrl, useAccount, useConfig, useContract, useErrorsBag, useEthereum, useEvmNode, useMultichain, useNetwork, useNetworkInfo, useSolana, useWallet, useWindow, writeContractCall };
+export { Arbitrum, Avalanche, AvalancheTestnet, BSC, BSCTestnet, BaseGoerli, ChainId, ConfigContext, ConfigProvider, DEFAULT_SUPPORTED_CHAINS, ErrorsBagContext, ErrorsBagProvider, EvmNodeContext, EvmNodeProvider, Goerli, Mainnet, MultiChainProvider, Mumbai, NetworkContext, NetworkProvider, Polygon, SolWallets, SolanaDevnet, SolanaMainnet, SolanaProvider, SolanaTestnet, WalletContext, WalletProvider, WindowContext, WindowProvider, avalancheExplorerUrl, bscScanUrl, bscTestnetScanUrl, getAddressLink, getChainById, getTransactionLink, goerliBasescanUrl, goerliEtherscanUrl, mainnetArbscanUrl, mainnetEtherscanUrl, mainnetSolscanUrl, mumbaiPolygonScanUrl, polygonScanUrl, readContractCall, readContractCalls, resolveENS, testAvalancheExplorerUrl, useAccount, useConfig, useContract, useErrorsBag, useEthereum, useEvmNode, useMultichain, useNetwork, useNetworkInfo, useSolana, useWallet, useWindow, writeContractCall };
 //# sourceMappingURL=index.js.map

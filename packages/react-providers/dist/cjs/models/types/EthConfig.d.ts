@@ -1,3 +1,4 @@
+import { EvmWallets } from "../../constants/wallets";
 import { Chain } from "./Chain";
 import { EvmAddress } from "./common";
 export declare type NodeUrls = {
@@ -26,5 +27,6 @@ export declare type EthConfig = {
     defaultNetwork: Chain;
     allowedNetworks?: (Chain | undefined)[];
     readOnlyUrls: NodeUrls;
+    wallets: EvmWallets[];
     contractList?: EthContract[];
 };

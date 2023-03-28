@@ -1,5 +1,5 @@
 
-import { mainnetArbsanUrl } from "../../constants/chains";
+import { mainnetArbscanUrl } from "../../constants/chains";
 import { getAddressLink, getTransactionLink } from "../../helpers";
 import { Chain, EvmAddress } from "../types";
 
@@ -11,7 +11,7 @@ export const Arbitrum: Chain = {
     chainName: 'Arbitrum',
     isTestChain: false,
     isLocalChain: false,
-    blockExplorerUrl: mainnetArbsanUrl,
-    getExplorerAddressLink: (address: EvmAddress) => getAddressLink(mainnetArbsanUrl, address),
-    getExplorerTransactionLink: (txnId: string) => getTransactionLink(mainnetArbsanUrl, txnId)
+    blockExplorerUrl: mainnetArbscanUrl,
+    getExplorerAddressLink: (address: EvmAddress) => getAddressLink(mainnetArbscanUrl, address),
+    getExplorerTransactionLink: (txnId: string) => getTransactionLink(mainnetArbscanUrl, txnId)
 }

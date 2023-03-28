@@ -7,7 +7,7 @@ interface Props {
     config: MultiChainProviderConfigProps;
 }
 export declare type NetworkDataType = {
-    chainId: ChainId;
+    chainId: ChainId | undefined;
     chain: Chain | undefined;
 };
 export declare function NetworkProvider({ children, config }: Props): JSX.Element;

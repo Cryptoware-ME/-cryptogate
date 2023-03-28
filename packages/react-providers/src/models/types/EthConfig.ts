@@ -1,3 +1,4 @@
+import { EvmWallets } from "../../constants/wallets";
 import { Chain } from "./Chain";
 import { EvmAddress } from "./common";
 
@@ -29,5 +30,6 @@ export type EthConfig = {
     defaultNetwork: Chain
     allowedNetworks?: (Chain | undefined)[];
     readOnlyUrls: NodeUrls;
+    wallets: EvmWallets[];
     contractList?: EthContract[];
 }

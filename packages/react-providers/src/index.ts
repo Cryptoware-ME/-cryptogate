@@ -18,7 +18,7 @@ export {
     avalancheExplorerUrl, testAvalancheExplorerUrl,
     mainnetSolscanUrl,
     goerliBasescanUrl,
-    mainnetArbsanUrl
+    mainnetArbscanUrl
 } from "./constants/chains"
 
 export {

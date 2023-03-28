@@ -94,6 +94,8 @@ export const useEthereum = () => {
             setProvider(new ethers.providers.JsonRpcProvider(
                 ethConfig.readOnlyUrls[ethConfig.defaultNetwork.chainId ?? -1]
             ))
+        } else {
+            addError("EthConfig not found")
         }
     }, [ethConfig])
 

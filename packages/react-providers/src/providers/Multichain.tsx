@@ -9,7 +9,7 @@ import { NetworkProvider } from "./network";
 import { SolanaProvider } from "./solana";
 
 export type MultiChainProviderConfigProps = {
-  ethConfig: EthConfig;
+  ethConfig?: EthConfig;
   solConfig?: SolConfig;
   walletsConfig?: WalletsConfig;
 };
@@ -19,16 +19,13 @@ export interface MultiChainProviderProps {
   config: MultiChainProviderConfigProps;
 }
 
-export const MultiChainProvider = ({
-  config,
-  children,
-}: MultiChainProviderProps) => {
+export const MultiChainProvider = ({ config, children }: MultiChainProviderProps) => {
   return (
     <WindowProvider>
       <ConfigProvider config={config}>
         <ErrorsBagProvider>
           <NetworkProvider config={config}>
-            <EvmNodeProvider readOnlyUrls={config.ethConfig.readOnlyUrls}>
+            <EvmNodeProvider readOnlyUrls={config.ethConfig?.readOnlyUrls}>
               <SolanaProvider solConfig={config.solConfig}>
                 <WalletProvider>{children}</WalletProvider>
               </SolanaProvider>

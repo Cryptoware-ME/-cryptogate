@@ -1,2 +1,3 @@
 import { SolWallets } from "./solana";
-export { SolWallets };
+import { EvmWallets } from "./evm";
+export { SolWallets, EvmWallets };
