@@ -1,6 +1,4 @@
-import { EthWallets } from "../ConnectWalletComponent";
-export declare const ConnectWalletList: ({ openOptions, setOpenOptions, EthWalletList, }: {
+export declare const ConnectWalletList: ({ openOptions, setOpenOptions, }: {
     openOptions: boolean;
     setOpenOptions: any;
-    EthWalletList: EthWallets[];
 }) => JSX.Element;

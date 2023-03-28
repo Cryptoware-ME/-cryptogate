@@ -1,23 +1,15 @@
 import React from 'react';
 import { ContractABIUnit } from '@cryptogate/react-providers';
 
-declare enum EthWallets {
-    ALL = "all",
-    METAMASK = "metamask",
-    WALLETCONNECT = "walletconnect",
-    COINBASE = "coinbase",
-    BRAVEWALLET = "braveWallet"
-}
 declare enum ConnectedMenuOptions {
     NOMENU = "nomenu",
     WALLETINFORMATION = "walletinformation",
     STORE = "store"
 }
-declare const ConnectWalletComponent: ({ ActiveComponent, DisabledComponent, ConnectedComponent, EthWalletList, SignatureMessage, NetworkAlertMessage, ConnectedMenuChosen, Store, onSign, }: {
+declare const ConnectWalletComponent: ({ ActiveComponent, DisabledComponent, ConnectedComponent, SignatureMessage, NetworkAlertMessage, ConnectedMenuChosen, Store, onSign, }: {
     ActiveComponent?: React.ReactNode;
     DisabledComponent?: React.ReactNode;
     ConnectedComponent?: React.ReactNode;
-    EthWalletList?: EthWallets[] | undefined;
     SignatureMessage?: string | undefined;
     NetworkAlertMessage?: string | undefined;
     ConnectedMenuChosen?: ConnectedMenuOptions | undefined;
@@ -65,4 +57,4 @@ declare const getWithExpiry: (key: any) => any;
 
 declare const setWithExpiry: (key: any, value: any, ttl: any) => void;
 
-export { AbiToUi, ConnectWalletComponent, ConnectedMenu, ConnectedMenuOptions, EthWallets, Identicon, getWithExpiry, setWithExpiry };
+export { AbiToUi, ConnectWalletComponent, ConnectedMenu, ConnectedMenuOptions, Identicon, getWithExpiry, setWithExpiry };

@@ -1,5 +1,5 @@
-import { EthWallets } from "../ConnectWalletComponent";
-declare const EthWalletListComp: ({ EthWalletList, }: {
-    EthWalletList: EthWallets[];
+import { EvmWallets } from "@cryptogate/react-providers";
+declare const EvmWalletListComp: ({ wallets, }: {
+    wallets: EvmWallets[];
 }) => JSX.Element;
-export default EthWalletListComp;
+export default EvmWalletListComp;

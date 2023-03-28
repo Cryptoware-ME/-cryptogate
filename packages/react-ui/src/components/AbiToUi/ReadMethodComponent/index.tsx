@@ -1,9 +1,5 @@
 import React from "react";
-import {
-  readContractCall,
-  ContractABIUnit,
-  EvmAddress,
-} from "@cryptogate/react-providers";
+import { readContractCall, ContractABIUnit, EvmAddress } from "@cryptogate/react-providers";
 import Loader from "../../Loader";
 import "./ReadMethodComponent.module.css";
 
@@ -43,11 +39,7 @@ const ReadMethodComponent = ({
     if (method.inputs && method.inputs.length) {
       method.inputs.map((input: any) =>
         args.push(
-          (
-            document.getElementById(
-              method.name + "-" + input.name
-            ) as HTMLInputElement
-          )?.value
+          (document.getElementById(method.name + "-" + input.name) as HTMLInputElement)?.value
         )
       );
       setEnabled(true);
@@ -65,11 +57,7 @@ const ReadMethodComponent = ({
       className="methodComponent"
     >
       <h1>{method.name}</h1>
-      {methodData && methodData[method.name] ? (
-        <p>{methodData[method.name].description}</p>
-      ) : (
-        <></>
-      )}
+      {methodData && methodData[method.name] ? <p>{methodData[method.name].description}</p> : <></>}
       {method.inputs &&
         method.inputs.map((input, index) => (
           <input

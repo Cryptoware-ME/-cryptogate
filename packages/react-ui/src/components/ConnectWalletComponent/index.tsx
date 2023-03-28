@@ -3,15 +3,6 @@ import { ConnectWalletButton } from "../ConnectWalletButton";
 import { ConnectWalletList } from "../ConnectWalletList";
 import { Identicon } from "../Identicon";
 import { defaults, Active, Disabled } from "../../defaults";
-import { useSolana } from "@cryptogate/react-providers";
-
-export enum EthWallets {
-  ALL = "all",
-  METAMASK = "metamask",
-  WALLETCONNECT = "walletconnect",
-  COINBASE = "coinbase",
-  BRAVEWALLET = "braveWallet",
-}
 
 export enum ConnectedMenuOptions {
   NOMENU = "nomenu",
@@ -23,7 +14,6 @@ export const ConnectWalletComponent = ({
   ActiveComponent = <Active />,
   DisabledComponent = <Disabled />,
   ConnectedComponent = <Identicon />,
-  EthWalletList = [EthWallets.ALL],
   SignatureMessage = defaults.SignatureMessage,
   NetworkAlertMessage = defaults.NetworkAlertMessage,
   ConnectedMenuChosen = ConnectedMenuOptions.WALLETINFORMATION,
@@ -33,7 +23,6 @@ export const ConnectWalletComponent = ({
   ActiveComponent?: React.ReactNode;
   DisabledComponent?: React.ReactNode;
   ConnectedComponent?: React.ReactNode;
-  EthWalletList?: EthWallets[];
   SignatureMessage?: string;
   NetworkAlertMessage?: string;
   ConnectedMenuChosen?: ConnectedMenuOptions;
@@ -63,7 +52,6 @@ export const ConnectWalletComponent = ({
         <ConnectWalletList
           openOptions={openOptions}
           setOpenOptions={setOpenOptions}
-          EthWalletList={EthWalletList}
         />
       ) : (
         <></>

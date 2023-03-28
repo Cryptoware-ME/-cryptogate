@@ -1,7 +1,6 @@
 export {
   ConnectWalletComponent,
   ConnectedMenuOptions,
-  EthWallets,
 } from "./components/ConnectWalletComponent";
 export { Identicon } from "./components/Identicon";
 export { ConnectedMenu } from "./components/ConnectMenu";

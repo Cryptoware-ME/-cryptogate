@@ -1,15 +1,14 @@
 import WalletListing from "./WalletListing";
-import { EthWallets } from "../ConnectWalletComponent";
-import { useEthereum } from "@cryptogate/react-providers";
+import { EvmWallets, useEthereum } from "@cryptogate/react-providers";
 import Metamask from "../wallets/Metamask";
 import Brave from "../wallets/Brave";
 import Coinbase from "../wallets/Coinbase";
 import WalletConnect from "../wallets/WalletConnect";
 
-const EthWalletListComp = ({
-  EthWalletList,
+const EvmWalletListComp = ({
+  wallets,
 }: {
-  EthWalletList: EthWallets[];
+  wallets: EvmWallets[];
 }) => {
   const {
     activateBraveWallet,
@@ -29,8 +28,8 @@ const EthWalletListComp = ({
         marginBottom: "20px",
       }}
     >
-      {(EthWalletList.indexOf(EthWallets.ALL) > -1 ||
-        EthWalletList.indexOf(EthWallets.METAMASK) > -1) && (
+      {(wallets.indexOf(EvmWallets.ALL) > -1 ||
+        wallets.indexOf(EvmWallets.METAMASK) > -1) && (
         <WalletListing
           heading="Metamask"
           Icon={<Metamask />}
@@ -38,8 +37,8 @@ const EthWalletListComp = ({
         />
       )}
 
-      {(EthWalletList.indexOf(EthWallets.ALL) > -1 ||
-        EthWalletList.indexOf(EthWallets.BRAVEWALLET) > -1) && (
+      {(wallets.indexOf(EvmWallets.ALL) > -1 ||
+        wallets.indexOf(EvmWallets.BRAVEWALLET) > -1) && (
         <WalletListing
           heading="Brave Wallet"
           Icon={<Brave />}
@@ -47,8 +46,8 @@ const EthWalletListComp = ({
         />
       )}
 
-      {(EthWalletList.indexOf(EthWallets.ALL) > -1 ||
-        EthWalletList.indexOf(EthWallets.COINBASE) > -1) && (
+      {(wallets.indexOf(EvmWallets.ALL) > -1 ||
+        wallets.indexOf(EvmWallets.COINBASE) > -1) && (
         <WalletListing
           heading="Coinbase"
           Icon={<Coinbase />}
@@ -56,8 +55,8 @@ const EthWalletListComp = ({
         />
       )}
 
-      {(EthWalletList.indexOf(EthWallets.ALL) > -1 ||
-        EthWalletList.indexOf(EthWallets.WALLETCONNECT) > -1) && (
+      {(wallets.indexOf(EvmWallets.ALL) > -1 ||
+        wallets.indexOf(EvmWallets.WALLETCONNECT) > -1) && (
         <WalletListing
           heading="Wallet Connect"
           Icon={<WalletConnect />}
@@ -68,4 +67,4 @@ const EthWalletListComp = ({
   );
 };
 
-export default EthWalletListComp;
+export default EvmWalletListComp;

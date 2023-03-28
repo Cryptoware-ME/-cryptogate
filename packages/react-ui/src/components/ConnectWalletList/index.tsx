@@ -1,18 +1,15 @@
 import { useConfig } from "@cryptogate/react-providers";
-import { EthWallets } from "../ConnectWalletComponent";
-import EthWalletListComp from "../EthWalletList";
+import EvmWalletListComp from "../EthWalletList";
 import SolWalletListComp from "../SolWalletList";
 
 export const ConnectWalletList = ({
   openOptions,
   setOpenOptions,
-  EthWalletList,
 }: {
   openOptions: boolean;
   setOpenOptions: any;
-  EthWalletList: EthWallets[];
 }) => {
-  const { solConfig } = useConfig();
+  const { ethConfig, solConfig } = useConfig();
 
   return (
     <>
@@ -55,10 +52,8 @@ export const ConnectWalletList = ({
               Connect with one of the available wallet providers.
             </p>
             <br />
-            {EthWalletList.length > 0 && (
-              <EthWalletListComp EthWalletList={EthWalletList} />
-            )}
-            {solConfig && <SolWalletListComp wallets={solConfig.wallets} />}
+            {ethConfig?.wallets && <EvmWalletListComp wallets={ethConfig.wallets} />}
+            {solConfig?.wallets && <SolWalletListComp wallets={solConfig.wallets} />}
           </div>
         </div>
       </div>

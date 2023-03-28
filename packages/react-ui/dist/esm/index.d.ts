@@ -1,4 +1,4 @@
-export { ConnectWalletComponent, ConnectedMenuOptions, EthWallets, } from "./components/ConnectWalletComponent";
+export { ConnectWalletComponent, ConnectedMenuOptions, } from "./components/ConnectWalletComponent";
 export { Identicon } from "./components/Identicon";
 export { ConnectedMenu } from "./components/ConnectMenu";
 export { AbiToUi } from "./components/AbiToUi";
