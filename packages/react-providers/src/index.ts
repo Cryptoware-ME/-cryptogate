@@ -22,7 +22,7 @@ export {
 } from "./constants/chains"
 
 export {
-    SolWallets
+    SolWallets, EvmWallets
 } from "./constants/wallets"
 
 export { getAddressLink, getChainById, getTransactionLink } from "./helpers"

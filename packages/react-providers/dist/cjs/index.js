@@ -423,14 +423,14 @@ exports.SolWallets = void 0;
     SolWallets["SOLLETEXTENSION"] = "solletExtension";
 })(exports.SolWallets || (exports.SolWallets = {}));
 
-var EvmWallets;
+exports.EvmWallets = void 0;
 (function (EvmWallets) {
     EvmWallets["ALL"] = "all";
     EvmWallets["METAMASK"] = "metamask";
     EvmWallets["WALLETCONNECT"] = "walletconnect";
     EvmWallets["COINBASE"] = "coinbase";
     EvmWallets["BRAVEWALLET"] = "braveWallet";
-})(EvmWallets || (EvmWallets = {}));
+})(exports.EvmWallets || (exports.EvmWallets = {}));
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation.
