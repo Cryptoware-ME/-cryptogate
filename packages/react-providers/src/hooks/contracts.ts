@@ -52,7 +52,7 @@ export const readContractCall = ({ abi, address, contract, method, args, enabled
                     _abi = abi;
                     _address = address
                 }
-                else if (config) {
+                else if (config?.ethConfig && network?.chainId) {
                     clearErrors()
                     setError(undefined)
                     const contracts = config.ethConfig.contractList?.filter((_contract) => _contract.name == contract)
@@ -121,7 +121,7 @@ export const readContractCalls = (params: GetContractCallParams[]): any[] => {
                     _abi = param.abi;
                     _address = param.address
                 }
-                else if (config) {
+                else if (config?.ethConfig && network?.chainId) {
                     const contracts = config.ethConfig.contractList?.filter((_contract) => _contract.name == param.contract)
                     if (contracts && contracts.length) {
                         clearErrors()
@@ -211,7 +211,7 @@ export const writeContractCall = ({ abi, address, contract, method }: PostContra
                 _abi = abi;
                 _address = address
             }
-            else if (config) {
+            else if (config?.ethConfig && network?.chainId) {
                 const contracts = config.ethConfig.contractList?.filter((_contract) => _contract.name == contract)
                 if (contracts && contracts.length) {
                     clearErrors()

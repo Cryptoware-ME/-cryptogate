@@ -4,7 +4,7 @@ import { WalletReadyState } from "@solana/wallet-adapter-base";
 import { useConfig, useErrorsBag } from "../../providers";
 
 export const useSolana = () => {
-    const { autoConnect, wallets, wallet, publicKey, connecting, connected, disconnecting, select, connect, disconnect, sendTransaction, signTransaction, signAllTransactions, signMessage } = useWallet();
+    const wallet = useWallet()
     const { connection } = useConnection();
     const { solConfig } = useConfig();
     const { addError } = useErrorsBag()
@@ -14,10 +14,10 @@ export const useSolana = () => {
         _lamportsPerSol: number
     ) => {
         let balance = 0;
-        if (publicKey) {
+        if (wallet.publicKey) {
             try {
                 balance =
-                    (await connection.getBalance(publicKey, "confirmed")) /
+                    (await connection.getBalance(wallet.publicKey, "confirmed")) /
                     _lamportsPerSol;
                 setSolBalance(balance);
             } catch (e) {
@@ -31,17 +31,23 @@ export const useSolana = () => {
 
     React.useEffect(() => {
         if (
-            !connected &&
-            wallet &&
-            wallet.readyState === WalletReadyState.Installed
+            !wallet.connected &&
+            wallet.wallet &&
+            wallet.wallet.readyState === WalletReadyState.Installed
         )
-            connect().catch(() => { });
-    }, [wallet, connected]);
+            wallet.connect().catch(() => { });
+    }, [wallet.wallet, wallet.connected]);
 
     React.useEffect(() => {
-        if (solConfig && publicKey && connected && connection)
+        if (solConfig && wallet.publicKey && wallet.connected && connection)
             getUserSOLBalance(solConfig.lamportsPerSol);
-    }, [solConfig, publicKey, connected, connection]);
+    }, [solConfig, wallet.publicKey, wallet.connected, connection]);
 
-    return { autoConnect, wallets, wallet, publicKey, connecting, connected, disconnecting, select, connect, disconnect, solBalance, sendTransaction, signTransaction, signAllTransactions, signMessage, connection }
+    return {
+        publicKey: wallet.publicKey,
+        connected: wallet.connected,
+        wallet,
+        solBalance,
+        connection
+    }
 }

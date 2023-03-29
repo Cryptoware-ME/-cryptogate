@@ -1,4 +1,4 @@
-import { readContractCalls } from "@cryptogate/react-providers";
+import { EvmAddress, readContractCalls } from "@cryptogate/react-providers";
 import { ERC721, IERC721Metadata } from "@cryptogate/core";
 import { convertResultToReadableFormat } from "../utils/helpers";
 import { NFT_CONTRACT_METHODS } from "../utils/constants";
@@ -18,7 +18,7 @@ export const useNFTMetadataMultiCall = ({
   const [data, _] = React.useState(NFTs
     ? NFTs.map((nft) => ({
       abi: IERC721Metadata,
-      address: nft,
+      address: nft as EvmAddress,
       method,
       args,
     }))
@@ -31,7 +31,7 @@ export const useNFTMetadataMultiCall = ({
 export const useTokenURIIndexCover = ({ NFTs }: { NFTs: string[] }) => {
   const [data, _] = React.useState(NFTs.map((nft) => ({
     abi: ERC721,
-    address: nft,
+    address: nft as EvmAddress,
     method: NFT_CONTRACT_METHODS.TOKEN_URI,
     args: [1],
   })))
@@ -71,7 +71,7 @@ export const useTokenOfOwnerByIndex = ({
     ? range.map((e) => {
       return {
         abi: ERC721,
-        address: "" + NFT,
+        address: NFT as EvmAddress,
         method: NFT_CONTRACT_METHODS.TOKEN_OF_OWNER_BY_INDEX,
         args: [args[0], e],
       };

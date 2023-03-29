@@ -2,7 +2,6 @@ import React from "react";
 import { ConnectionProvider, WalletProvider } from "@solana/wallet-adapter-react";
 import { SolConfig } from "../../models/types";
 import {
-  PhantomWalletAdapter,
   SlopeWalletAdapter,
   SolflareWalletAdapter,
   SolletExtensionWalletAdapter,
@@ -16,7 +15,6 @@ interface Props {
 export function SolanaProvider({ children, solConfig }: Props) {
   const wallets = solConfig
     ? [
-        // new PhantomWalletAdapter(),
         new SlopeWalletAdapter(),
         new SolflareWalletAdapter({ network: solConfig.network }),
         new SolletExtensionWalletAdapter({ network: solConfig.network }),

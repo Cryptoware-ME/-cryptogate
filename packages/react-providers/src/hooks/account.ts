@@ -46,7 +46,7 @@ export const resolveENS = (ens: string): EvmAddress | undefined => {
     React.useEffect(() => {
         if (provider && ens)
             provider.resolveName(ens).then((res) => {
-                res && setAddress(res)
+                res && setAddress(res as EvmAddress)
             })
     }, [provider])
 

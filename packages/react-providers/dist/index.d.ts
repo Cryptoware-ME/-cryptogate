@@ -1,11 +1,10 @@
 /// <reference types="@solana/web3.js" />
 import React, { ReactNode } from 'react';
-import * as _solana_wallet_adapter_base from '@solana/wallet-adapter-base';
 import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
 import * as ethers from 'ethers';
 import { providers } from 'ethers';
-import * as _solana_web3_js from '@solana/web3.js';
 import * as _solana_wallet_adapter_react from '@solana/wallet-adapter-react';
+import * as _solana_web3_js from '@solana/web3.js';
 import * as _ethersproject_providers from '@ethersproject/providers';
 
 declare type EvmAddress = `0x${string}`;
@@ -281,40 +280,18 @@ declare const useEthereum: () => {
 };
 
 declare const useSolana: () => {
-    autoConnect: boolean;
-    wallets: _solana_wallet_adapter_react.Wallet[];
-    wallet: _solana_wallet_adapter_react.Wallet | null;
     publicKey: _solana_web3_js.PublicKey | null;
-    connecting: boolean;
     connected: boolean;
-    disconnecting: boolean;
-    select: (walletName: _solana_wallet_adapter_base.WalletName<string> | null) => void;
-    connect: () => Promise<void>;
-    disconnect: () => Promise<void>;
+    wallet: _solana_wallet_adapter_react.WalletContextState;
     solBalance: number;
-    sendTransaction: (transaction: _solana_web3_js.Transaction | _solana_web3_js.VersionedTransaction, connection: _solana_web3_js.Connection, options?: _solana_wallet_adapter_base.SendTransactionOptions | undefined) => Promise<string>;
-    signTransaction: (<T extends _solana_web3_js.Transaction | _solana_web3_js.VersionedTransaction>(transaction: T) => Promise<T>) | undefined;
-    signAllTransactions: (<T_1 extends _solana_web3_js.Transaction | _solana_web3_js.VersionedTransaction>(transactions: T_1[]) => Promise<T_1[]>) | undefined;
-    signMessage: ((message: Uint8Array) => Promise<Uint8Array>) | undefined;
     connection: _solana_web3_js.Connection;
 };
 
 declare const useMultichain: () => {
-    autoConnect: boolean;
-    wallets: _solana_wallet_adapter_react.Wallet[];
-    wallet: _solana_wallet_adapter_react.Wallet | null;
     publicKey: _solana_web3_js.PublicKey | null;
-    connecting: boolean;
     connected: boolean;
-    disconnecting: boolean;
-    select: (walletName: _solana_wallet_adapter_base.WalletName<string> | null) => void;
-    connect: () => Promise<void>;
-    disconnect: () => Promise<void>;
+    wallet: _solana_wallet_adapter_react.WalletContextState;
     solBalance: number;
-    sendTransaction: (transaction: _solana_web3_js.Transaction | _solana_web3_js.VersionedTransaction, connection: _solana_web3_js.Connection, options?: _solana_wallet_adapter_base.SendTransactionOptions | undefined) => Promise<string>;
-    signTransaction: (<T extends _solana_web3_js.Transaction | _solana_web3_js.VersionedTransaction>(transaction: T) => Promise<T>) | undefined;
-    signAllTransactions: (<T_1 extends _solana_web3_js.Transaction | _solana_web3_js.VersionedTransaction>(transactions: T_1[]) => Promise<T_1[]>) | undefined;
-    signMessage: ((message: Uint8Array) => Promise<Uint8Array>) | undefined;
     connection: _solana_web3_js.Connection;
     account: `0x${string}` | undefined;
     ethBalance: string | undefined;

@@ -1,5 +1,5 @@
 import React from "react";
-import { readContractCalls } from "@cryptogate/react-providers"
+import { EvmAddress, readContractCalls } from "@cryptogate/react-providers"
 import { ERC20 } from "@cryptogate/core"
 
 export const useTokensMultiCall = ({
@@ -14,7 +14,7 @@ export const useTokensMultiCall = ({
   const [data, _] = React.useState(tokenList
     ? tokenList.map((token) => ({
       abi: ERC20,
-      address: token,
+      address: token as EvmAddress,
       method,
       args,
     }))

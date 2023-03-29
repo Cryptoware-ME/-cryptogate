@@ -390,7 +390,6 @@ function WalletProvider({ children }) {
 function SolanaProvider({ children, solConfig }) {
     const wallets = solConfig
         ? [
-            // new PhantomWalletAdapter(),
             new walletAdapterWallets.SlopeWalletAdapter(),
             new walletAdapterWallets.SolflareWalletAdapter({ network: solConfig.network }),
             new walletAdapterWallets.SolletExtensionWalletAdapter({ network: solConfig.network }),
@@ -652,17 +651,17 @@ const useEthereum = () => {
 };
 
 const useSolana = () => {
-    const { autoConnect, wallets, wallet, publicKey, connecting, connected, disconnecting, select, connect, disconnect, sendTransaction, signTransaction, signAllTransactions, signMessage } = walletAdapterReact.useWallet();
+    const wallet = walletAdapterReact.useWallet();
     const { connection } = walletAdapterReact.useConnection();
     const { solConfig } = useConfig();
     const { addError } = useErrorsBag();
     const [solBalance, setSolBalance] = React__default["default"].useState(0);
     const getUserSOLBalance = (_lamportsPerSol) => __awaiter(void 0, void 0, void 0, function* () {
         let balance = 0;
-        if (publicKey) {
+        if (wallet.publicKey) {
             try {
                 balance =
-                    (yield connection.getBalance(publicKey, "confirmed")) /
+                    (yield connection.getBalance(wallet.publicKey, "confirmed")) /
                         _lamportsPerSol;
                 setSolBalance(balance);
             }
@@ -675,16 +674,22 @@ const useSolana = () => {
         }
     });
     React__default["default"].useEffect(() => {
-        if (!connected &&
-            wallet &&
-            wallet.readyState === walletAdapterBase.WalletReadyState.Installed)
-            connect().catch(() => { });
-    }, [wallet, connected]);
+        if (!wallet.connected &&
+            wallet.wallet &&
+            wallet.wallet.readyState === walletAdapterBase.WalletReadyState.Installed)
+            wallet.connect().catch(() => { });
+    }, [wallet.wallet, wallet.connected]);
     React__default["default"].useEffect(() => {
-        if (solConfig && publicKey && connected && connection)
+        if (solConfig && wallet.publicKey && wallet.connected && connection)
             getUserSOLBalance(solConfig.lamportsPerSol);
-    }, [solConfig, publicKey, connected, connection]);
-    return { autoConnect, wallets, wallet, publicKey, connecting, connected, disconnecting, select, connect, disconnect, solBalance, sendTransaction, signTransaction, signAllTransactions, signMessage, connection };
+    }, [solConfig, wallet.publicKey, wallet.connected, connection]);
+    return {
+        publicKey: wallet.publicKey,
+        connected: wallet.connected,
+        wallet,
+        solBalance,
+        connection
+    };
 };
 
 const useMultichain = () => {
@@ -753,7 +758,7 @@ const readContractCall = ({ abi, address, contract, method, args, enabled = true
                     _abi = abi;
                     _address = address;
                 }
-                else if (config) {
+                else if ((config === null || config === void 0 ? void 0 : config.ethConfig) && (network === null || network === void 0 ? void 0 : network.chainId)) {
                     clearErrors();
                     setError(undefined);
                     const contracts = (_a = config.ethConfig.contractList) === null || _a === void 0 ? void 0 : _a.filter((_contract) => _contract.name == contract);
@@ -823,7 +828,7 @@ const readContractCalls = (params) => {
                     _abi = param.abi;
                     _address = param.address;
                 }
-                else if (config) {
+                else if ((config === null || config === void 0 ? void 0 : config.ethConfig) && (network === null || network === void 0 ? void 0 : network.chainId)) {
                     const contracts = (_a = config.ethConfig.contractList) === null || _a === void 0 ? void 0 : _a.filter((_contract) => _contract.name == param.contract);
                     if (contracts && contracts.length) {
                         clearErrors();
@@ -897,7 +902,7 @@ const writeContractCall = ({ abi, address, contract, method }) => {
                 _abi = abi;
                 _address = address;
             }
-            else if (config) {
+            else if ((config === null || config === void 0 ? void 0 : config.ethConfig) && (network === null || network === void 0 ? void 0 : network.chainId)) {
                 const contracts = (_a = config.ethConfig.contractList) === null || _a === void 0 ? void 0 : _a.filter((_contract) => _contract.name == contract);
                 if (contracts && contracts.length) {
                     clearErrors();
