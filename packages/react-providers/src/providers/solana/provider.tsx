@@ -14,20 +14,21 @@ interface Props {
 }
 
 export function SolanaProvider({ children, solConfig }: Props) {
-  const wallets = [
-    new PhantomWalletAdapter(),
-    new SlopeWalletAdapter(),
-    new SolflareWalletAdapter({ network: solConfig?.network }),
-    new SolletExtensionWalletAdapter({ network: solConfig?.network }),
-  ];
+  const wallets = solConfig
+    ? [
+        // new PhantomWalletAdapter(),
+        new SlopeWalletAdapter(),
+        new SolflareWalletAdapter({ network: solConfig.network }),
+        new SolletExtensionWalletAdapter({ network: solConfig.network }),
+      ]
+    : [];
 
-  if (solConfig)
-    return (
-      <ConnectionProvider endpoint={solConfig.endpoint}>
-        <WalletProvider wallets={wallets} autoConnect={solConfig.autoConnect}>
-          {children}
-        </WalletProvider>
-      </ConnectionProvider>
-    );
-  else return <>{children}</>;
+  if (!solConfig) return <>{children}</>;
+  return (
+    <ConnectionProvider endpoint={solConfig.endpoint}>
+      <WalletProvider wallets={wallets} autoConnect={solConfig.autoConnect}>
+        {children}
+      </WalletProvider>
+    </ConnectionProvider>
+  );
 }

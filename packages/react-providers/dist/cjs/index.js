@@ -324,12 +324,10 @@ function NetworkProvider({ children, config }) {
     const [networkData, setNetworkData] = React__default["default"].useState({});
     React.useEffect(() => {
         var _a, _b, _c;
-        if (config) {
-            setNetworkData({
-                chainId: (_b = (_a = config.ethConfig) === null || _a === void 0 ? void 0 : _a.defaultNetwork) === null || _b === void 0 ? void 0 : _b.chainId,
-                chain: (_c = config.ethConfig) === null || _c === void 0 ? void 0 : _c.defaultNetwork,
-            });
-        }
+        setNetworkData({
+            chainId: (_b = (_a = config.ethConfig) === null || _a === void 0 ? void 0 : _a.defaultNetwork) === null || _b === void 0 ? void 0 : _b.chainId,
+            chain: (_c = config.ethConfig) === null || _c === void 0 ? void 0 : _c.defaultNetwork,
+        });
     }, [config]);
     return (React__default["default"].createElement(NetworkContext.Provider, { value: {
             networkData,
@@ -390,21 +388,30 @@ function WalletProvider({ children }) {
 }
 
 function SolanaProvider({ children, solConfig }) {
-    const wallets = [
-        new walletAdapterWallets.PhantomWalletAdapter(),
-        new walletAdapterWallets.SlopeWalletAdapter(),
-        new walletAdapterWallets.SolflareWalletAdapter({ network: solConfig === null || solConfig === void 0 ? void 0 : solConfig.network }),
-        new walletAdapterWallets.SolletExtensionWalletAdapter({ network: solConfig === null || solConfig === void 0 ? void 0 : solConfig.network }),
-    ];
-    if (solConfig)
-        return (React__default["default"].createElement(walletAdapterReact.ConnectionProvider, { endpoint: solConfig.endpoint },
-            React__default["default"].createElement(walletAdapterReact.WalletProvider, { wallets: wallets, autoConnect: solConfig.autoConnect }, children)));
-    else
+    const wallets = solConfig
+        ? [
+            // new PhantomWalletAdapter(),
+            new walletAdapterWallets.SlopeWalletAdapter(),
+            new walletAdapterWallets.SolflareWalletAdapter({ network: solConfig.network }),
+            new walletAdapterWallets.SolletExtensionWalletAdapter({ network: solConfig.network }),
+        ]
+        : [];
+    if (!solConfig)
         return React__default["default"].createElement(React__default["default"].Fragment, null, children);
+    return (React__default["default"].createElement(walletAdapterReact.ConnectionProvider, { endpoint: solConfig.endpoint },
+        React__default["default"].createElement(walletAdapterReact.WalletProvider, { wallets: wallets, autoConnect: solConfig.autoConnect }, children)));
 }
 
 const MultiChainProvider = ({ config, children }) => {
     var _a;
+    if (!config) {
+        console.error("@Cryptogate: Missing config param in MultiChainProvider");
+        return React__default["default"].createElement(React__default["default"].Fragment, null, children);
+    }
+    if (!config.ethConfig)
+        console.warn("@Cryptogate: Missing ethConfig in config. ethConfig is required for EVM providers and hooks");
+    if (!config.solConfig)
+        console.warn("@Cryptogate: Missing solConfig in config. solConfig is required for Solana providers and hooks");
     return (React__default["default"].createElement(WindowProvider, null,
         React__default["default"].createElement(ConfigProvider, { config: config },
             React__default["default"].createElement(ErrorsBagProvider, null,

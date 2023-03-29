@@ -21,12 +21,10 @@ export function NetworkProvider({ children, config }: Props) {
   ] = React.useState({} as NetworkDataType);
 
   useEffect(() => {
-    if (config) {
-      setNetworkData({
-        chainId: config.ethConfig?.defaultNetwork?.chainId,
-        chain: config.ethConfig?.defaultNetwork,
-      });
-    }
+    setNetworkData({
+      chainId: config.ethConfig?.defaultNetwork?.chainId,
+      chain: config.ethConfig?.defaultNetwork,
+    });
   }, [config]);
 
   return (

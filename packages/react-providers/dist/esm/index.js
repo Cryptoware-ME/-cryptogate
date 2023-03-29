@@ -2,7 +2,7 @@ import React, { useEffect, useCallback } from 'react';
 import * as ethers from 'ethers';
 import { providers } from 'ethers';
 import { ConnectionProvider, WalletProvider as WalletProvider$1, useWallet as useWallet$1, useConnection } from '@solana/wallet-adapter-react';
-import { PhantomWalletAdapter, SlopeWalletAdapter, SolflareWalletAdapter, SolletExtensionWalletAdapter } from '@solana/wallet-adapter-wallets';
+import { SlopeWalletAdapter, SolflareWalletAdapter, SolletExtensionWalletAdapter } from '@solana/wallet-adapter-wallets';
 import CoinbaseWalletSDK from '@coinbase/wallet-sdk';
 import QRCodeModal from '@walletconnect/qrcode-modal';
 import WalletConnectProvider from '@walletconnect/web3-provider';
@@ -295,12 +295,10 @@ function NetworkProvider({ children, config }) {
     const [networkData, setNetworkData] = React.useState({});
     useEffect(() => {
         var _a, _b, _c;
-        if (config) {
-            setNetworkData({
-                chainId: (_b = (_a = config.ethConfig) === null || _a === void 0 ? void 0 : _a.defaultNetwork) === null || _b === void 0 ? void 0 : _b.chainId,
-                chain: (_c = config.ethConfig) === null || _c === void 0 ? void 0 : _c.defaultNetwork,
-            });
-        }
+        setNetworkData({
+            chainId: (_b = (_a = config.ethConfig) === null || _a === void 0 ? void 0 : _a.defaultNetwork) === null || _b === void 0 ? void 0 : _b.chainId,
+            chain: (_c = config.ethConfig) === null || _c === void 0 ? void 0 : _c.defaultNetwork,
+        });
     }, [config]);
     return (React.createElement(NetworkContext.Provider, { value: {
             networkData,
@@ -361,21 +359,30 @@ function WalletProvider({ children }) {
 }
 
 function SolanaProvider({ children, solConfig }) {
-    const wallets = [
-        new PhantomWalletAdapter(),
-        new SlopeWalletAdapter(),
-        new SolflareWalletAdapter({ network: solConfig === null || solConfig === void 0 ? void 0 : solConfig.network }),
-        new SolletExtensionWalletAdapter({ network: solConfig === null || solConfig === void 0 ? void 0 : solConfig.network }),
-    ];
-    if (solConfig)
-        return (React.createElement(ConnectionProvider, { endpoint: solConfig.endpoint },
-            React.createElement(WalletProvider$1, { wallets: wallets, autoConnect: solConfig.autoConnect }, children)));
-    else
+    const wallets = solConfig
+        ? [
+            // new PhantomWalletAdapter(),
+            new SlopeWalletAdapter(),
+            new SolflareWalletAdapter({ network: solConfig.network }),
+            new SolletExtensionWalletAdapter({ network: solConfig.network }),
+        ]
+        : [];
+    if (!solConfig)
         return React.createElement(React.Fragment, null, children);
+    return (React.createElement(ConnectionProvider, { endpoint: solConfig.endpoint },
+        React.createElement(WalletProvider$1, { wallets: wallets, autoConnect: solConfig.autoConnect }, children)));
 }
 
 const MultiChainProvider = ({ config, children }) => {
     var _a;
+    if (!config) {
+        console.error("@Cryptogate: Missing config param in MultiChainProvider");
+        return React.createElement(React.Fragment, null, children);
+    }
+    if (!config.ethConfig)
+        console.warn("@Cryptogate: Missing ethConfig in config. ethConfig is required for EVM providers and hooks");
+    if (!config.solConfig)
+        console.warn("@Cryptogate: Missing solConfig in config. solConfig is required for Solana providers and hooks");
     return (React.createElement(WindowProvider, null,
         React.createElement(ConfigProvider, { config: config },
             React.createElement(ErrorsBagProvider, null,
