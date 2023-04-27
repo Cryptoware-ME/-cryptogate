@@ -8,7 +8,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "2.0.10",
+  "version": "2.0.11",
   "description": "Cryptogate Web3 react providers & hooks",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@coinbase/wallet-sdk": "^3.5.3",
+    "@metaplex-foundation/js": "^0.18.1",
     "@solana/wallet-adapter-base": "^0.9.20",
     "@solana/wallet-adapter-react": "^0.15.28",
     "@solana/wallet-adapter-react-ui": "^0.9.27",
@@ -30,7 +31,6 @@
     "@solana/web3.js": "^1.73.2",
     "@walletconnect/qrcode-modal": "^1.8.0",
     "@walletconnect/web3-provider": "^1.8.0",
-    "@metaplex-foundation/js": "^0.18.1",
     "ethers": "^5.7.1"
   },
   "devDependencies": {
