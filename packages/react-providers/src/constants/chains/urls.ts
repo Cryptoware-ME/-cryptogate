@@ -3,6 +3,7 @@
 // Etherscan
 export const mainnetEtherscanUrl = 'https://mainnet.etherscan.io'
 export const goerliEtherscanUrl = 'https://goerli.etherscan.io'
+export const sepoliaEtherscanUrl = 'https://sepolia.etherscan.io'
 // BSC Scan
 export const bscScanUrl = 'https://testnet.bscscan.com'
 export const bscTestnetScanUrl = 'https://testnet.bscscan.com'

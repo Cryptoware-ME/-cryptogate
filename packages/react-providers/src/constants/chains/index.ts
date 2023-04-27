@@ -1,5 +1,5 @@
 import {
-    mainnetEtherscanUrl, goerliEtherscanUrl,
+    mainnetEtherscanUrl, goerliEtherscanUrl, sepoliaEtherscanUrl,
     bscScanUrl, bscTestnetScanUrl,
     polygonScanUrl, mumbaiPolygonScanUrl,
     avalancheExplorerUrl, testAvalancheExplorerUrl,
@@ -10,7 +10,7 @@ import {
 import { ChainId, DEFAULT_SUPPORTED_CHAINS } from "./chainId"
 
 export {
-    mainnetEtherscanUrl, goerliEtherscanUrl,
+    mainnetEtherscanUrl, goerliEtherscanUrl, sepoliaEtherscanUrl,
     bscScanUrl, bscTestnetScanUrl,
     polygonScanUrl, mumbaiPolygonScanUrl,
     avalancheExplorerUrl, testAvalancheExplorerUrl,

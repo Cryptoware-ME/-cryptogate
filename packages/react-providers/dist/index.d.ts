@@ -158,6 +158,7 @@ declare function useWallet(): WalletContextType;
 
 declare const mainnetEtherscanUrl = "https://mainnet.etherscan.io";
 declare const goerliEtherscanUrl = "https://goerli.etherscan.io";
+declare const sepoliaEtherscanUrl = "https://sepolia.etherscan.io";
 declare const bscScanUrl = "https://testnet.bscscan.com";
 declare const bscTestnetScanUrl = "https://testnet.bscscan.com";
 declare const polygonScanUrl = "https://polygonscan.com";
@@ -180,6 +181,7 @@ declare const DEFAULT_SUPPORTED_CHAINS: Chain[];
 declare enum ChainId {
     Mainnet = 1,
     Goerli = 5,
+    Sepolia = 11155111,
     BSC = 56,
     BSCTestnet = 97,
     Polygon = 137,
@@ -243,6 +245,7 @@ declare const getTransactionLink: (explorerUrl: string, txnHash: string) => stri
 
 declare const Mainnet: Chain;
 declare const Goerli: Chain;
+declare const Sepolia: Chain;
 
 declare const BSC: Chain;
 declare const BSCTestnet: Chain;
@@ -398,4 +401,4 @@ declare const useContract: () => {
     deployContract: ({ abi, byteCode, args }: deployContractParams) => Promise<ethers.ethers.Contract>;
 };
 
-export { Arbitrum, Avalanche, AvalancheTestnet, BSC, BSCTestnet, BaseGoerli, Chain, ChainId, ConfigContext, ConfigProvider, ContractABIUnit, ContractIO, DEFAULT_SUPPORTED_CHAINS, ErrorsBagContext, ErrorsBagProvider, EthConfig, EthContract, EvmAddress, EvmNodeContext, EvmNodeProvider, EvmWallets, Goerli, Mainnet, MultiChainProvider, MultiChainProviderConfigProps, MultiChainProviderProps, Mumbai, NetworkContext, NetworkProvider, NodeUrls, Polygon, SolAddress, SolConfig, SolWallets, SolanaDevnet, SolanaMainnet, SolanaProvider, SolanaTestnet, WalletContext, WalletProvider, WalletsConfig, WindowContext, WindowProvider, avalancheExplorerUrl, bscScanUrl, bscTestnetScanUrl, getAddressLink, getChainById, getTransactionLink, goerliBasescanUrl, goerliEtherscanUrl, mainnetArbscanUrl, mainnetEtherscanUrl, mainnetSolscanUrl, mumbaiPolygonScanUrl, polygonScanUrl, readContractCall, readContractCalls, resolveENS, testAvalancheExplorerUrl, useAccount, useConfig, useContract, useErrorsBag, useEthereum, useEvmNode, useMultichain, useNetwork, useNetworkInfo, useSolana, useWallet, useWindow, writeContractCall };
+export { Arbitrum, Avalanche, AvalancheTestnet, BSC, BSCTestnet, BaseGoerli, Chain, ChainId, ConfigContext, ConfigProvider, ContractABIUnit, ContractIO, DEFAULT_SUPPORTED_CHAINS, ErrorsBagContext, ErrorsBagProvider, EthConfig, EthContract, EvmAddress, EvmNodeContext, EvmNodeProvider, EvmWallets, Goerli, Mainnet, MultiChainProvider, MultiChainProviderConfigProps, MultiChainProviderProps, Mumbai, NetworkContext, NetworkProvider, NodeUrls, Polygon, Sepolia, SolAddress, SolConfig, SolWallets, SolanaDevnet, SolanaMainnet, SolanaProvider, SolanaTestnet, WalletContext, WalletProvider, WalletsConfig, WindowContext, WindowProvider, avalancheExplorerUrl, bscScanUrl, bscTestnetScanUrl, getAddressLink, getChainById, getTransactionLink, goerliBasescanUrl, goerliEtherscanUrl, mainnetArbscanUrl, mainnetEtherscanUrl, mainnetSolscanUrl, mumbaiPolygonScanUrl, polygonScanUrl, readContractCall, readContractCalls, resolveENS, sepoliaEtherscanUrl, testAvalancheExplorerUrl, useAccount, useConfig, useContract, useErrorsBag, useEthereum, useEvmNode, useMultichain, useNetwork, useNetworkInfo, useSolana, useWallet, useWindow, writeContractCall };

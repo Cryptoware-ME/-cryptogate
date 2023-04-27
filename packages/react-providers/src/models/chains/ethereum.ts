@@ -1,5 +1,5 @@
 
-import { goerliEtherscanUrl, mainnetEtherscanUrl } from "../../constants/chains";
+import { sepoliaEtherscanUrl, goerliEtherscanUrl, mainnetEtherscanUrl } from "../../constants/chains";
 import { getAddressLink, getTransactionLink } from "../../helpers";
 import { Chain, EvmAddress } from "../types";
 
@@ -27,4 +27,17 @@ export const Goerli: Chain = {
     blockExplorerUrl: goerliEtherscanUrl,
     getExplorerAddressLink: (address: EvmAddress) => getAddressLink(goerliEtherscanUrl, address),
     getExplorerTransactionLink: (txnId: string) => getTransactionLink(goerliEtherscanUrl, txnId)
+}
+
+/*
+ * @Cryptogate: For intertanl use only, reference at your own risk
+*/
+export const Sepolia: Chain = {
+    chainId: 11155111,
+    chainName: 'Sepolia',
+    isTestChain: true,
+    isLocalChain: false,
+    blockExplorerUrl: sepoliaEtherscanUrl,
+    getExplorerAddressLink: (address: EvmAddress) => getAddressLink(sepoliaEtherscanUrl, address),
+    getExplorerTransactionLink: (txnId: string) => getTransactionLink(sepoliaEtherscanUrl, txnId)
 }

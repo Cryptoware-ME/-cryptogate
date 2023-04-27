@@ -11,6 +11,7 @@ export declare const DEFAULT_SUPPORTED_CHAINS: Chain[];
 export declare enum ChainId {
     Mainnet = 1,
     Goerli = 5,
+    Sepolia = 11155111,
     BSC = 56,
     BSCTestnet = 97,
     Polygon = 137,

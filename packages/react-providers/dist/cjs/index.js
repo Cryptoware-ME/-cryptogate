@@ -76,6 +76,7 @@ function useEvmNode() {
 // Etherscan
 const mainnetEtherscanUrl = 'https://mainnet.etherscan.io';
 const goerliEtherscanUrl = 'https://goerli.etherscan.io';
+const sepoliaEtherscanUrl = 'https://sepolia.etherscan.io';
 // BSC Scan
 const bscScanUrl = 'https://testnet.bscscan.com';
 const bscTestnetScanUrl = 'https://testnet.bscscan.com';
@@ -143,6 +144,18 @@ const Goerli = {
     blockExplorerUrl: goerliEtherscanUrl,
     getExplorerAddressLink: (address) => getAddressLink(goerliEtherscanUrl, address),
     getExplorerTransactionLink: (txnId) => getTransactionLink(goerliEtherscanUrl, txnId)
+};
+/*
+ * @Cryptogate: For intertanl use only, reference at your own risk
+*/
+const Sepolia = {
+    chainId: 11155111,
+    chainName: 'Sepolia',
+    isTestChain: true,
+    isLocalChain: false,
+    blockExplorerUrl: sepoliaEtherscanUrl,
+    getExplorerAddressLink: (address) => getAddressLink(sepoliaEtherscanUrl, address),
+    getExplorerTransactionLink: (txnId) => getTransactionLink(sepoliaEtherscanUrl, txnId)
 };
 
 /*
@@ -285,7 +298,7 @@ const Arbitrum = {
  * @description The Default Chains Supported By Cryptogate
 */
 const DEFAULT_SUPPORTED_CHAINS = [
-    Goerli, Mainnet,
+    Sepolia, Goerli, Mainnet,
     BSC, BSCTestnet,
     Polygon, Mumbai,
     Avalanche, AvalancheTestnet,
@@ -301,6 +314,7 @@ exports.ChainId = void 0;
 (function (ChainId) {
     ChainId[ChainId["Mainnet"] = 1] = "Mainnet";
     ChainId[ChainId["Goerli"] = 5] = "Goerli";
+    ChainId[ChainId["Sepolia"] = 11155111] = "Sepolia";
     ChainId[ChainId["BSC"] = 56] = "BSC";
     ChainId[ChainId["BSCTestnet"] = 97] = "BSCTestnet";
     ChainId[ChainId["Polygon"] = 137] = "Polygon";
@@ -983,6 +997,7 @@ exports.Mumbai = Mumbai;
 exports.NetworkContext = NetworkContext;
 exports.NetworkProvider = NetworkProvider;
 exports.Polygon = Polygon;
+exports.Sepolia = Sepolia;
 exports.SolanaDevnet = SolanaDevnet;
 exports.SolanaMainnet = SolanaMainnet;
 exports.SolanaProvider = SolanaProvider;
@@ -1007,6 +1022,7 @@ exports.polygonScanUrl = polygonScanUrl;
 exports.readContractCall = readContractCall;
 exports.readContractCalls = readContractCalls;
 exports.resolveENS = resolveENS;
+exports.sepoliaEtherscanUrl = sepoliaEtherscanUrl;
 exports.testAvalancheExplorerUrl = testAvalancheExplorerUrl;
 exports.useAccount = useAccount;
 exports.useConfig = useConfig;

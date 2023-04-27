@@ -1,5 +1,6 @@
 export declare const mainnetEtherscanUrl = "https://mainnet.etherscan.io";
 export declare const goerliEtherscanUrl = "https://goerli.etherscan.io";
+export declare const sepoliaEtherscanUrl = "https://sepolia.etherscan.io";
 export declare const bscScanUrl = "https://testnet.bscscan.com";
 export declare const bscTestnetScanUrl = "https://testnet.bscscan.com";
 export declare const polygonScanUrl = "https://polygonscan.com";

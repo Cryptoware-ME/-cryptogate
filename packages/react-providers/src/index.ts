@@ -12,7 +12,7 @@ export type { MultiChainProviderConfigProps, MultiChainProviderProps } from "./p
 
 export {
     ChainId, DEFAULT_SUPPORTED_CHAINS,
-    goerliEtherscanUrl, mainnetEtherscanUrl,
+    sepoliaEtherscanUrl, goerliEtherscanUrl, mainnetEtherscanUrl,
     bscScanUrl, bscTestnetScanUrl,
     polygonScanUrl, mumbaiPolygonScanUrl,
     avalancheExplorerUrl, testAvalancheExplorerUrl,
@@ -28,7 +28,7 @@ export {
 export { getAddressLink, getChainById, getTransactionLink } from "./helpers"
 
 export {
-    Goerli, Mainnet,
+    Sepolia, Goerli, Mainnet,
     BSC, BSCTestnet,
     Polygon, Mumbai,
     Avalanche, AvalancheTestnet,
