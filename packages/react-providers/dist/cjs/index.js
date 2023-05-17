@@ -474,6 +474,7 @@ exports.SolWallets = void 0;
 exports.EvmWallets = void 0;
 (function (EvmWallets) {
     EvmWallets["ALL"] = "all";
+    EvmWallets["SHABAKAT"] = "shabakat";
     EvmWallets["METAMASK"] = "metamask";
     EvmWallets["WALLETCONNECT"] = "walletconnect";
     EvmWallets["COINBASE"] = "coinbase";
@@ -515,6 +516,7 @@ const useBrowserWallets = () => {
     const [metamask, setMetamask] = React__default["default"].useState();
     const [brave, setBrave] = React__default["default"].useState();
     const [coinbase, setCoinbase] = React__default["default"].useState();
+    const [shabakat, setShabakat] = React__default["default"].useState();
     const [browserProviders, setBrowserProviders] = React__default["default"].useState();
     React__default["default"].useEffect(() => {
         var _a;
@@ -522,6 +524,9 @@ const useBrowserWallets = () => {
         if (typeof browserProviders !== "undefined") {
             if (((_a = browserProviders.providers) === null || _a === void 0 ? void 0 : _a.length) > 0) {
                 browserProviders.providers.forEach((p) => __awaiter(void 0, void 0, void 0, function* () {
+                    if (p.isShabakat) {
+                        setShabakat(p);
+                    }
                     if (p.isMetaMask) {
                         setMetamask(p);
                     }
@@ -534,6 +539,8 @@ const useBrowserWallets = () => {
                 }));
             }
             else {
+                if (browserProviders.isShabakat)
+                    setShabakat(browserProviders);
                 if (browserProviders.isMetaMask)
                     setMetamask(browserProviders);
                 if (browserProviders.isBraveWallet)
@@ -543,7 +550,7 @@ const useBrowserWallets = () => {
             }
         }
     }, [browserProviders]);
-    return { metamask, brave, coinbase };
+    return { shabakat, metamask, brave, coinbase };
 };
 
 /**
@@ -594,7 +601,7 @@ const resolveENS = (ens) => {
 */
 const useEthereum = () => {
     const { walletData: { account }, setWalletData } = useWallet();
-    const { brave, metamask, coinbase } = useBrowserWallets();
+    const { brave, metamask, coinbase, shabakat } = useBrowserWallets();
     const { networkData, setNetworkData } = useNetwork();
     const { ethConfig, walletsConfig } = useConfig();
     const { ens, ethBalance } = useAccount(account);
@@ -636,6 +643,10 @@ const useEthereum = () => {
             addError(err);
         }
     });
+    const activateShabakatWallet = React__default["default"].useCallback(() => __awaiter(void 0, void 0, void 0, function* () {
+        if (shabakat)
+            activateWallet(shabakat);
+    }), [shabakat]);
     const activateBraveWallet = React__default["default"].useCallback(() => __awaiter(void 0, void 0, void 0, function* () {
         if (brave)
             activateWallet(brave);
@@ -687,6 +698,7 @@ const useEthereum = () => {
         activateMetamaskWallet,
         activateCoinbaseWallet,
         activateWalletConnect,
+        activateShabakatWallet,
         deactivate,
         errors,
     };

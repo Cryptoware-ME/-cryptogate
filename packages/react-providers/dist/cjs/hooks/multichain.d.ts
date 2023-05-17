@@ -15,6 +15,7 @@ export declare const useMultichain: () => {
     activateMetamaskWallet: () => Promise<void>;
     activateCoinbaseWallet: () => Promise<void>;
     activateWalletConnect: () => Promise<void>;
+    activateShabakatWallet: () => Promise<void>;
     deactivate: () => void;
     errors: string[];
 };

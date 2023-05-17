@@ -15,7 +15,7 @@ import { useAccount } from "../account";
 */
 export const useEthereum = () => {
     const { walletData: { account }, setWalletData } = useWallet()
-    const { brave, metamask, coinbase } = useBrowserWallets()
+    const { brave, metamask, coinbase, shabakat } = useBrowserWallets()
     const { networkData, setNetworkData } = useNetwork()
     const { ethConfig, walletsConfig } = useConfig()
     const { ens, ethBalance } = useAccount(account)
@@ -56,6 +56,10 @@ export const useEthereum = () => {
                 setData(res[0], parseInt(chainIdRes.result), _provider)
         } catch (err) { addError(err) }
     }
+
+    const activateShabakatWallet = React.useCallback(async () => {
+        if (shabakat) activateWallet(shabakat)
+    }, [shabakat])
 
     const activateBraveWallet = React.useCallback(async () => {
         if (brave) activateWallet(brave)
@@ -110,6 +114,7 @@ export const useEthereum = () => {
         activateMetamaskWallet,
         activateCoinbaseWallet,
         activateWalletConnect,
+        activateShabakatWallet,
         deactivate,
         errors,
     }

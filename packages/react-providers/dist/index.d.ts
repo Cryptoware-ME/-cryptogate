@@ -34,6 +34,7 @@ declare enum SolWallets {
 
 declare enum EvmWallets {
     ALL = "all",
+    SHABAKAT = "shabakat",
     METAMASK = "metamask",
     WALLETCONNECT = "walletconnect",
     COINBASE = "coinbase",
@@ -283,6 +284,7 @@ declare const useEthereum: () => {
     activateMetamaskWallet: () => Promise<void>;
     activateCoinbaseWallet: () => Promise<void>;
     activateWalletConnect: () => Promise<void>;
+    activateShabakatWallet: () => Promise<void>;
     deactivate: () => void;
     errors: string[];
 };
@@ -311,6 +313,7 @@ declare const useMultichain: () => {
     activateMetamaskWallet: () => Promise<void>;
     activateCoinbaseWallet: () => Promise<void>;
     activateWalletConnect: () => Promise<void>;
+    activateShabakatWallet: () => Promise<void>;
     deactivate: () => void;
     errors: string[];
 };

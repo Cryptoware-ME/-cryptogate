@@ -13,6 +13,7 @@ export declare const useEthereum: () => {
     activateMetamaskWallet: () => Promise<void>;
     activateCoinbaseWallet: () => Promise<void>;
     activateWalletConnect: () => Promise<void>;
+    activateShabakatWallet: () => Promise<void>;
     deactivate: () => void;
     errors: string[];
 };

@@ -6,6 +6,7 @@ import * as ethers from "ethers";
  *  const {metamask, brave, coinbase} = useBrowserWallets()
 */
 export declare const useBrowserWallets: () => {
+    shabakat: ethers.ethers.providers.Web3Provider | undefined;
     metamask: ethers.ethers.providers.Web3Provider | undefined;
     brave: ethers.ethers.providers.Web3Provider | undefined;
     coinbase: ethers.ethers.providers.Web3Provider | undefined;

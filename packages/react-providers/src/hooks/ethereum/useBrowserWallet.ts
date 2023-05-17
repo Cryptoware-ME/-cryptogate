@@ -20,6 +20,10 @@ export const useBrowserWallets = () => {
         ethers.providers.Web3Provider | undefined,
         React.Dispatch<React.SetStateAction<ethers.providers.Web3Provider | undefined>>
     ] = React.useState();
+    const [shabakat, setShabakat]: [
+        ethers.providers.Web3Provider | undefined,
+        React.Dispatch<React.SetStateAction<ethers.providers.Web3Provider | undefined>>
+    ] = React.useState();
     const [browserProviders, setBrowserProviders] = React.useState<any>();
 
     React.useEffect(() => {
@@ -27,6 +31,9 @@ export const useBrowserWallets = () => {
         if (typeof browserProviders !== "undefined") {
             if (browserProviders.providers?.length > 0) {
                 browserProviders.providers.forEach(async (p: any) => {
+                    if (p.isShabakat) {
+                        setShabakat(p);
+                    }
                     if (p.isMetaMask) {
                         setMetamask(p);
                     }
@@ -38,6 +45,7 @@ export const useBrowserWallets = () => {
                     }
                 });
             } else {
+                if (browserProviders.isShabakat) setShabakat(browserProviders);
                 if (browserProviders.isMetaMask) setMetamask(browserProviders);
                 if (browserProviders.isBraveWallet) setBrave(browserProviders);
                 if (browserProviders.isCoinbase) setCoinbase(browserProviders);
@@ -45,5 +53,5 @@ export const useBrowserWallets = () => {
         }
     }, [browserProviders]);
 
-    return { metamask, brave, coinbase };
+    return { shabakat, metamask, brave, coinbase };
 };

@@ -1,20 +1,18 @@
 import WalletListing from "./WalletListing";
 import { EvmWallets, useEthereum } from "@cryptogate/react-providers";
+import Shabakat from "../wallets/Shabakat";
 import Metamask from "../wallets/Metamask";
 import Brave from "../wallets/Brave";
 import Coinbase from "../wallets/Coinbase";
 import WalletConnect from "../wallets/WalletConnect";
 
-const EvmWalletListComp = ({
-  wallets,
-}: {
-  wallets: EvmWallets[];
-}) => {
+const EvmWalletListComp = ({ wallets }: { wallets: EvmWallets[] }) => {
   const {
     activateBraveWallet,
     activateMetamaskWallet,
     activateCoinbaseWallet,
     activateWalletConnect,
+    activateShabakatWallet,
   } = useEthereum();
 
   return (
@@ -28,6 +26,15 @@ const EvmWalletListComp = ({
         marginBottom: "20px",
       }}
     >
+      {(wallets.indexOf(EvmWallets.ALL) > -1 ||
+        wallets.indexOf(EvmWallets.SHABAKAT) > -1) && (
+        <WalletListing
+          heading="Shabakat"
+          Icon={<Shabakat />}
+          onWalletCall={activateShabakatWallet}
+        />
+      )}
+
       {(wallets.indexOf(EvmWallets.ALL) > -1 ||
         wallets.indexOf(EvmWallets.METAMASK) > -1) && (
         <WalletListing
