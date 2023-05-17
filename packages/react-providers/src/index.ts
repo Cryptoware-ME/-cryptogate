@@ -18,7 +18,8 @@ export {
     avalancheExplorerUrl, testAvalancheExplorerUrl,
     mainnetSolscanUrl,
     goerliBasescanUrl,
-    mainnetArbscanUrl
+    mainnetArbscanUrl,
+    xinfinExplorerUrl, apothemExplorerUrl
 } from "./constants/chains"
 
 export {
@@ -34,7 +35,8 @@ export {
     Avalanche, AvalancheTestnet,
     SolanaMainnet, SolanaTestnet, SolanaDevnet,
     BaseGoerli,
-    Arbitrum
+    Arbitrum,
+    XinFin, Apothem
 } from "./models/chains"
 
 export type { Chain, EthConfig, EthContract, NodeUrls, ContractABIUnit, ContractIO, EvmAddress, WalletsConfig, SolAddress, SolConfig } from "./models/types"

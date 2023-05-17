@@ -19,3 +19,6 @@ export const mainnetSolscanUrl = "https://solscan.io"
 export const goerliBasescanUrl = "https://goerli.basescan.org"
 // Arbscan
 export const mainnetArbscanUrl = "https://arbscan.io"
+// XDC Scanner
+export const xinfinExplorerUrl = "https://explorer.xinfin.nerwork"
+export const apothemExplorerUrl = "https://explorer.apothem.network"

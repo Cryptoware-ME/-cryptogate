@@ -92,6 +92,9 @@ const mainnetSolscanUrl = "https://solscan.io";
 const goerliBasescanUrl = "https://goerli.basescan.org";
 // Arbscan
 const mainnetArbscanUrl = "https://arbscan.io";
+// XDC Scanner
+const xinfinExplorerUrl = "https://explorer.xinfin.nerwork";
+const apothemExplorerUrl = "https://explorer.apothem.network";
 
 /**
  * @public
@@ -291,6 +294,31 @@ const Arbitrum = {
     blockExplorerUrl: mainnetArbscanUrl,
     getExplorerAddressLink: (address) => getAddressLink(mainnetArbscanUrl, address),
     getExplorerTransactionLink: (txnId) => getTransactionLink(mainnetArbscanUrl, txnId)
+};
+
+/*
+ * @Cryptogate: For intertanl use only, reference at your own risk
+*/
+const XinFin = {
+    chainId: 50,
+    chainName: 'XinFin',
+    isTestChain: false,
+    isLocalChain: false,
+    blockExplorerUrl: xinfinExplorerUrl,
+    getExplorerAddressLink: (address) => getAddressLink(xinfinExplorerUrl, address),
+    getExplorerTransactionLink: (txnId) => getTransactionLink(xinfinExplorerUrl, txnId)
+};
+/*
+ * @Cryptogate: For intertanl use only, reference at your own risk
+*/
+const Apothem = {
+    chainId: 51,
+    chainName: 'Apothem',
+    isTestChain: true,
+    isLocalChain: false,
+    blockExplorerUrl: apothemExplorerUrl,
+    getExplorerAddressLink: (address) => getAddressLink(apothemExplorerUrl, address),
+    getExplorerTransactionLink: (txnId) => getTransactionLink(apothemExplorerUrl, txnId)
 };
 
 /**
@@ -977,6 +1005,7 @@ const useContract = () => {
     return { deployContract };
 };
 
+exports.Apothem = Apothem;
 exports.Arbitrum = Arbitrum;
 exports.Avalanche = Avalanche;
 exports.AvalancheTestnet = AvalancheTestnet;
@@ -1006,6 +1035,8 @@ exports.WalletContext = WalletContext;
 exports.WalletProvider = WalletProvider;
 exports.WindowContext = WindowContext;
 exports.WindowProvider = WindowProvider;
+exports.XinFin = XinFin;
+exports.apothemExplorerUrl = apothemExplorerUrl;
 exports.avalancheExplorerUrl = avalancheExplorerUrl;
 exports.bscScanUrl = bscScanUrl;
 exports.bscTestnetScanUrl = bscTestnetScanUrl;
@@ -1037,4 +1068,5 @@ exports.useSolana = useSolana;
 exports.useWallet = useWallet;
 exports.useWindow = useWindow;
 exports.writeContractCall = writeContractCall;
+exports.xinfinExplorerUrl = xinfinExplorerUrl;
 //# sourceMappingURL=index.js.map

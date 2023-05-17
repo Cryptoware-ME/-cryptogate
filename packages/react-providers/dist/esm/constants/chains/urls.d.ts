@@ -10,3 +10,5 @@ export declare const testAvalancheExplorerUrl = "https://testnet.snowtrace.io";
 export declare const mainnetSolscanUrl = "https://solscan.io";
 export declare const goerliBasescanUrl = "https://goerli.basescan.org";
 export declare const mainnetArbscanUrl = "https://arbscan.io";
+export declare const xinfinExplorerUrl = "https://explorer.xinfin.nerwork";
+export declare const apothemExplorerUrl = "https://explorer.apothem.network";
