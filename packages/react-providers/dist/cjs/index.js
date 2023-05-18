@@ -332,7 +332,8 @@ const DEFAULT_SUPPORTED_CHAINS = [
     Avalanche, AvalancheTestnet,
     SolanaMainnet,
     BaseGoerli,
-    Arbitrum
+    Arbitrum,
+    XinFin, Apothem
 ];
 /**
  * @enum
@@ -351,6 +352,8 @@ exports.ChainId = void 0;
     ChainId[ChainId["AvalancheTestnet"] = 43113] = "AvalancheTestnet";
     ChainId[ChainId["BaseGoerli"] = 84531] = "BaseGoerli";
     ChainId[ChainId["Arbitrum"] = 42161] = "Arbitrum";
+    ChainId[ChainId["XinFin"] = 50] = "XinFin";
+    ChainId[ChainId["Apothem"] = 51] = "Apothem";
 })(exports.ChainId || (exports.ChainId = {}));
 
 const NetworkContext = React__default["default"].createContext({
