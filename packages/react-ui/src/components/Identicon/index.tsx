@@ -12,7 +12,9 @@ export const Identicon = ({ walletAddress }: { walletAddress?: string }) => {
           ? walletAddress
           : account
           ? account.toString()
-          : publicKey.toString()
+          : publicKey
+          ? publicKey.toString()
+          : ""
       )}
     />
   );

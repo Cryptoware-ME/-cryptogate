@@ -30,13 +30,13 @@ export const useSolana = () => {
     };
 
     React.useEffect(() => {
-        if (
+        if (solConfig &&
             !wallet.connected &&
             wallet.wallet &&
             wallet.wallet.readyState === WalletReadyState.Installed
         )
             wallet.connect().catch(() => { });
-    }, [wallet.wallet, wallet.connected]);
+    }, [solConfig, wallet.wallet, wallet.connected]);
 
     React.useEffect(() => {
         if (solConfig && wallet.publicKey && wallet.connected && connection)
@@ -44,8 +44,8 @@ export const useSolana = () => {
     }, [solConfig, wallet.publicKey, wallet.connected, connection]);
 
     return {
-        publicKey: wallet.publicKey,
-        connected: wallet.connected,
+        publicKey: solConfig ? wallet.publicKey : "",
+        connected: solConfig ? wallet.connected : false,
         wallet,
         solBalance,
         connection

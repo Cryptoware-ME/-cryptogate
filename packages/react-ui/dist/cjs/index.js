@@ -91,7 +91,9 @@ var Identicon = function (_a) {
             ? walletAddress
             : account
                 ? account.toString()
-                : publicKey.toString()) }));
+                : publicKey
+                    ? publicKey.toString()
+                    : "") }));
 };
 
 var DisconnectBtn = function () {
@@ -101,10 +103,10 @@ var DisconnectBtn = function () {
 var WalletInformation = function (_a) {
     var onDisconnect = _a.onDisconnect, _b = _a.direction, direction = _b === void 0 ? "y" : _b;
     var _c = reactProviders.useEthereum(), account = _c.account, deactivate = _c.deactivate, ethBalance = _c.ethBalance, ens = _c.ens;
-    var _d = reactProviders.useSolana(), publicKey = _d.publicKey, connected = _d.connected, disconnect = _d.disconnect, solBalance = _d.solBalance;
+    var _d = reactProviders.useSolana(), publicKey = _d.publicKey, connected = _d.connected, wallet = _d.wallet, solBalance = _d.solBalance;
     var handleDisconnect = function () {
         account && deactivate();
-        publicKey && connected && disconnect();
+        publicKey && connected && wallet.disconnect();
         onDisconnect();
     };
     return (jsxRuntime.jsxs("div", __assign({ style: {
@@ -524,10 +526,10 @@ var ConnectWalletButton = function (_a) {
     var _b = React__default["default"].useState(false), openMenu = _b[0], setOpenMenu = _b[1];
     var _c = React__default["default"].useState(null), keyValue = _c[0], setKeyValue = _c[1];
     var _d = reactProviders.useEthereum(), account = _d.account, network = _d.network, provider = _d.provider, deactivate = _d.deactivate;
-    var _e = reactProviders.useSolana(), publicKey = _e.publicKey, connected = _e.connected, signMessage = _e.signMessage;
+    var _e = reactProviders.useSolana(), publicKey = _e.publicKey, connected = _e.connected, wallet = _e.wallet;
     var ethConfig = reactProviders.useConfig().ethConfig;
     React__default["default"].useEffect(function () {
-        if (account && provider) {
+        if (ethConfig && account && provider) {
             if (ethConfig.allowedNetworks &&
                 ethConfig.allowedNetworks.length &&
                 ethConfig.allowedNetworks.filter(function (chain) { return (chain === null || chain === void 0 ? void 0 : chain.chainId) == network.chainId; }).length) {
@@ -553,7 +555,7 @@ var ConnectWalletButton = function (_a) {
                 deactivate();
             }
         }
-    }, [account, provider]);
+    }, [ethConfig, account, provider]);
     React__default["default"].useEffect(function () {
         if (publicKey && connected) {
             if (onSign) {
@@ -563,7 +565,7 @@ var ConnectWalletButton = function (_a) {
                     onSign(key);
                 }
                 else {
-                    signingSolMessage(signMessage, publicKey, SignatureMessage).then(function (key) {
+                    signingSolMessage(wallet.signMessage, publicKey, SignatureMessage).then(function (key) {
                         setKeyValue(key);
                         onSign(key);
                     });

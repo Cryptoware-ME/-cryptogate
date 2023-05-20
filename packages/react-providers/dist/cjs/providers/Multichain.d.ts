@@ -9,4 +9,4 @@ export interface MultiChainProviderProps {
     children: React.ReactNode;
     config: MultiChainProviderConfigProps;
 }
-export declare const MultiChainProvider: ({ config, children }: MultiChainProviderProps) => JSX.Element;
+export declare const MultiChainProvider: ({ config, children, }: MultiChainProviderProps) => JSX.Element;

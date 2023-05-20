@@ -417,7 +417,11 @@ function SolanaProvider({ children, solConfig }) {
         React.createElement(WalletProvider$1, { wallets: wallets, autoConnect: solConfig.autoConnect }, children)));
 }
 
-const MultiChainProvider = ({ config, children }) => {
+const defaultEthConfig = {
+    defaultNetwork: Mainnet
+};
+
+const MultiChainProvider = ({ config, children, }) => {
     var _a;
     if (!config) {
         console.error("@Cryptogate: Missing config param in MultiChainProvider");
@@ -427,6 +431,10 @@ const MultiChainProvider = ({ config, children }) => {
         console.warn("@Cryptogate: Missing ethConfig in config. ethConfig is required for EVM providers and hooks");
     if (!config.solConfig)
         console.warn("@Cryptogate: Missing solConfig in config. solConfig is required for Solana providers and hooks");
+    useEffect(() => {
+        if (config.ethConfig)
+            config.ethConfig = Object.assign(Object.assign({}, defaultEthConfig), config.ethConfig);
+    }, [config]);
     return (React.createElement(WindowProvider, null,
         React.createElement(ConfigProvider, { config: config },
             React.createElement(ErrorsBagProvider, null,
@@ -702,18 +710,19 @@ const useSolana = () => {
         }
     });
     React.useEffect(() => {
-        if (!wallet.connected &&
+        if (solConfig &&
+            !wallet.connected &&
             wallet.wallet &&
             wallet.wallet.readyState === WalletReadyState.Installed)
             wallet.connect().catch(() => { });
-    }, [wallet.wallet, wallet.connected]);
+    }, [solConfig, wallet.wallet, wallet.connected]);
     React.useEffect(() => {
         if (solConfig && wallet.publicKey && wallet.connected && connection)
             getUserSOLBalance(solConfig.lamportsPerSol);
     }, [solConfig, wallet.publicKey, wallet.connected, connection]);
     return {
-        publicKey: wallet.publicKey,
-        connected: wallet.connected,
+        publicKey: solConfig ? wallet.publicKey : "",
+        connected: solConfig ? wallet.connected : false,
         wallet,
         solBalance,
         connection

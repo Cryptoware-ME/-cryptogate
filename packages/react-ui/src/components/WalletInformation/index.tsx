@@ -1,5 +1,4 @@
 import { useEthereum, useSolana } from "@cryptogate/react-providers";
-import React from "react";
 import { Identicon } from "../Identicon";
 import DisconnectBtn from "./DisconnectBtn";
 
@@ -11,11 +10,11 @@ const WalletInformation = ({
   direction?: string;
 }) => {
   const { account, deactivate, ethBalance, ens } = useEthereum();
-  const { publicKey, connected, disconnect, solBalance } = useSolana();
+  const { publicKey, connected, wallet, solBalance } = useSolana();
 
   const handleDisconnect = () => {
     account && deactivate();
-    publicKey && connected && disconnect();
+    publicKey && connected && wallet.disconnect();
     onDisconnect();
   };
 

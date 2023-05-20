@@ -1,14 +1,15 @@
 /// <reference types="@solana/web3.js" />
 import React, { ReactNode } from 'react';
+import * as _solana_web3_js from '@solana/web3.js';
+import { PublicKey } from '@solana/web3.js';
 import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
 import * as ethers from 'ethers';
 import { providers } from 'ethers';
 import * as _solana_wallet_adapter_react from '@solana/wallet-adapter-react';
-import * as _solana_web3_js from '@solana/web3.js';
 import * as _ethersproject_providers from '@ethersproject/providers';
 
 declare type EvmAddress = `0x${string}`;
-declare type SolAddress = string;
+declare type SolAddress = PublicKey;
 
 /**
  * @public
@@ -94,7 +95,7 @@ interface MultiChainProviderProps {
     children: React.ReactNode;
     config: MultiChainProviderConfigProps;
 }
-declare const MultiChainProvider: ({ config, children }: MultiChainProviderProps) => JSX.Element;
+declare const MultiChainProvider: ({ config, children, }: MultiChainProviderProps) => JSX.Element;
 
 declare const ConfigContext: React.Context<MultiChainProviderConfigProps>;
 declare function useConfig(): MultiChainProviderConfigProps;
@@ -292,7 +293,7 @@ declare const useEthereum: () => {
 };
 
 declare const useSolana: () => {
-    publicKey: _solana_web3_js.PublicKey | null;
+    publicKey: string | _solana_web3_js.PublicKey | null;
     connected: boolean;
     wallet: _solana_wallet_adapter_react.WalletContextState;
     solBalance: number;
@@ -300,7 +301,7 @@ declare const useSolana: () => {
 };
 
 declare const useMultichain: () => {
-    publicKey: _solana_web3_js.PublicKey | null;
+    publicKey: string | _solana_web3_js.PublicKey | null;
     connected: boolean;
     wallet: _solana_wallet_adapter_react.WalletContextState;
     solBalance: number;

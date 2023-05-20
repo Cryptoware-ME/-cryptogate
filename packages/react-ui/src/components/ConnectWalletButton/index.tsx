@@ -96,11 +96,11 @@ export const ConnectWalletButton = ({
   const [keyValue, setKeyValue] = React.useState(null as unknown as object);
 
   const { account, network, provider, deactivate } = useEthereum();
-  const { publicKey, connected, signMessage } = useSolana();
+  const { publicKey, connected, wallet } = useSolana();
   const { ethConfig } = useConfig();
 
   React.useEffect(() => {
-    if (account && provider) {
+    if (ethConfig && account && provider) {
       if (
         ethConfig.allowedNetworks &&
         ethConfig.allowedNetworks.length &&
@@ -129,7 +129,7 @@ export const ConnectWalletButton = ({
         deactivate();
       }
     }
-  }, [account, provider]);
+  }, [ethConfig, account, provider]);
 
   React.useEffect(() => {
     if (publicKey && connected) {
@@ -139,12 +139,14 @@ export const ConnectWalletButton = ({
           setKeyValue(key);
           onSign(key);
         } else {
-          signingSolMessage(signMessage, publicKey, SignatureMessage).then(
-            (key) => {
-              setKeyValue(key as any);
-              onSign(key as any);
-            }
-          );
+          signingSolMessage(
+            wallet.signMessage,
+            publicKey,
+            SignatureMessage
+          ).then((key) => {
+            setKeyValue(key as any);
+            onSign(key as any);
+          });
         }
       } else {
         setKeyValue({ address: account });

@@ -446,7 +446,11 @@ function SolanaProvider({ children, solConfig }) {
         React__default["default"].createElement(walletAdapterReact.WalletProvider, { wallets: wallets, autoConnect: solConfig.autoConnect }, children)));
 }
 
-const MultiChainProvider = ({ config, children }) => {
+const defaultEthConfig = {
+    defaultNetwork: Mainnet
+};
+
+const MultiChainProvider = ({ config, children, }) => {
     var _a;
     if (!config) {
         console.error("@Cryptogate: Missing config param in MultiChainProvider");
@@ -456,6 +460,10 @@ const MultiChainProvider = ({ config, children }) => {
         console.warn("@Cryptogate: Missing ethConfig in config. ethConfig is required for EVM providers and hooks");
     if (!config.solConfig)
         console.warn("@Cryptogate: Missing solConfig in config. solConfig is required for Solana providers and hooks");
+    React.useEffect(() => {
+        if (config.ethConfig)
+            config.ethConfig = Object.assign(Object.assign({}, defaultEthConfig), config.ethConfig);
+    }, [config]);
     return (React__default["default"].createElement(WindowProvider, null,
         React__default["default"].createElement(ConfigProvider, { config: config },
             React__default["default"].createElement(ErrorsBagProvider, null,
@@ -731,18 +739,19 @@ const useSolana = () => {
         }
     });
     React__default["default"].useEffect(() => {
-        if (!wallet.connected &&
+        if (solConfig &&
+            !wallet.connected &&
             wallet.wallet &&
             wallet.wallet.readyState === walletAdapterBase.WalletReadyState.Installed)
             wallet.connect().catch(() => { });
-    }, [wallet.wallet, wallet.connected]);
+    }, [solConfig, wallet.wallet, wallet.connected]);
     React__default["default"].useEffect(() => {
         if (solConfig && wallet.publicKey && wallet.connected && connection)
             getUserSOLBalance(solConfig.lamportsPerSol);
     }, [solConfig, wallet.publicKey, wallet.connected, connection]);
     return {
-        publicKey: wallet.publicKey,
-        connected: wallet.connected,
+        publicKey: solConfig ? wallet.publicKey : "",
+        connected: solConfig ? wallet.connected : false,
         wallet,
         solBalance,
         connection
