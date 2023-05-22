@@ -19,11 +19,12 @@ export const ConnectWalletComponent = ({
   ConnectedMenuChosen = ConnectedMenuOptions.WALLETINFORMATION,
   Store = {},
   onSign,
+  LocalStorage = defaults.LocalStorage,
 }: {
   ActiveComponent?: React.ReactNode;
   DisabledComponent?: React.ReactNode;
   ConnectedComponent?: React.ReactNode;
-  SignatureMessage?: string;
+  SignatureMessage?: { msg: string; address: boolean; timestamp: boolean };
   NetworkAlertMessage?: string;
   ConnectedMenuChosen?: ConnectedMenuOptions;
   Store?: { Tokens?: string[]; NFTs?: string[] };
@@ -32,6 +33,7 @@ export const ConnectWalletComponent = ({
     message: string;
     signature: string;
   }) => void;
+  LocalStorage?: boolean;
 }) => {
   const [openOptions, setOpenOptions] = React.useState(false);
 
@@ -47,6 +49,7 @@ export const ConnectWalletComponent = ({
         onSign={onSign}
         ChosenConnectedMenu={ConnectedMenuChosen}
         Store={Store}
+        LocalStorage={LocalStorage}
       />
       {openOptions ? (
         <ConnectWalletList

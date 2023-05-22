@@ -1,10 +1,14 @@
 import React from "react";
 import { ConnectedMenuOptions } from "../ConnectWalletComponent";
-export declare const ConnectWalletButton: ({ ActiveComponent, DisabledComponent, ConnectedComponent, SignatureMessage, NetworkAlertMessage, ChosenConnectedMenu, onSign, Store, setOpenOptions, }: {
+export declare const ConnectWalletButton: ({ ActiveComponent, DisabledComponent, ConnectedComponent, SignatureMessage, NetworkAlertMessage, ChosenConnectedMenu, onSign, Store, setOpenOptions, LocalStorage, }: {
     ActiveComponent: React.ReactNode;
     DisabledComponent: React.ReactNode;
     ConnectedComponent: React.ReactNode;
-    SignatureMessage: string;
+    SignatureMessage: {
+        msg: string;
+        address: boolean;
+        timestamp: boolean;
+    };
     NetworkAlertMessage: string;
     ChosenConnectedMenu: ConnectedMenuOptions;
     Store: {
@@ -16,5 +20,6 @@ export declare const ConnectWalletButton: ({ ActiveComponent, DisabledComponent,
         message: string;
         signature: string;
     }) => void) | undefined;
+    LocalStorage: boolean;
     setOpenOptions: any;
 }) => JSX.Element;

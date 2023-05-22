@@ -4,6 +4,11 @@ export { Active, Disabled };
 export declare const defaults: {
     NetworkChainIds: ChainId[];
     ConnectWalletButtonText: string;
-    SignatureMessage: string;
+    SignatureMessage: {
+        msg: string;
+        address: boolean;
+        timestamp: boolean;
+    };
     NetworkAlertMessage: string;
+    LocalStorage: boolean;
 };

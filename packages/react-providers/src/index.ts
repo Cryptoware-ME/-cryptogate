@@ -4,7 +4,6 @@ export {
     EvmNodeContext, EvmNodeProvider, useEvmNode,
     WalletContext, WalletProvider, useWallet,
     WindowContext, WindowProvider, useWindow,
-    ErrorsBagContext, ErrorsBagProvider, useErrorsBag,
     NetworkContext, NetworkProvider, useNetwork,
     SolanaProvider
 } from "./providers"

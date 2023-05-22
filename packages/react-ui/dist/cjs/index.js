@@ -475,21 +475,18 @@ var getWithExpiry = function (key) {
     return item.value;
 };
 
-var signingEvmMessage = function (account, provider, SignatureMessage) { return __awaiter(void 0, void 0, void 0, function () {
+var signingEvmMessage = function (account, provider, SignatureMessage, LocalStorage) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         return [2 /*return*/, new Promise(function (resolve, reject) {
                 core.ethSignMessage({
                     account: account,
                     provider: provider,
-                    message: SignatureMessage +
-                        "Wallet Address: " +
-                        account.toString() +
-                        " ts-" +
-                        Date.now(),
+                    message: SignatureMessage,
                 })
                     .then(function (sig) {
-                    setWithExpiry("sig-".concat(account.toLowerCase()), sig, 43200000);
-                    resolve(getWithExpiry("sig-".concat(account.toLowerCase())));
+                    LocalStorage &&
+                        setWithExpiry("sig-".concat(account.toLowerCase()), sig, 43200000);
+                    resolve(sig);
                 })
                     .catch(function (e) {
                     reject(e);
@@ -497,14 +494,10 @@ var signingEvmMessage = function (account, provider, SignatureMessage) { return 
             })];
     });
 }); };
-var signingSolMessage = function (fn, pubK, SignatureMessage) { return __awaiter(void 0, void 0, void 0, function () {
+var signingSolMessage = function (fn, pubK, SignatureMessage, LocalStorage) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         return [2 /*return*/, new Promise(function (resolve, reject) {
-                var message = new TextEncoder().encode(SignatureMessage +
-                    "Wallet Address: " +
-                    pubK.toString() +
-                    " ts-" +
-                    Date.now());
+                var message = new TextEncoder().encode(SignatureMessage);
                 fn(message)
                     .then(function (sig) {
                     var sigObj = {
@@ -512,8 +505,9 @@ var signingSolMessage = function (fn, pubK, SignatureMessage) { return __awaiter
                         signature: JSON.stringify(sig),
                         address: pubK.toString(),
                     };
-                    setWithExpiry("sig-".concat(pubK.toString()), sigObj, 43200000);
-                    resolve(getWithExpiry("sig-".concat(pubK.toString())));
+                    LocalStorage &&
+                        setWithExpiry("sig-".concat(pubK.toString()), sigObj, 43200000);
+                    resolve(sigObj);
                 })
                     .catch(function (e) {
                     reject(e);
@@ -522,7 +516,7 @@ var signingSolMessage = function (fn, pubK, SignatureMessage) { return __awaiter
     });
 }); };
 var ConnectWalletButton = function (_a) {
-    var ActiveComponent = _a.ActiveComponent, DisabledComponent = _a.DisabledComponent, ConnectedComponent = _a.ConnectedComponent, SignatureMessage = _a.SignatureMessage, NetworkAlertMessage = _a.NetworkAlertMessage, ChosenConnectedMenu = _a.ChosenConnectedMenu, onSign = _a.onSign, Store = _a.Store, setOpenOptions = _a.setOpenOptions;
+    var ActiveComponent = _a.ActiveComponent, DisabledComponent = _a.DisabledComponent, ConnectedComponent = _a.ConnectedComponent, SignatureMessage = _a.SignatureMessage, NetworkAlertMessage = _a.NetworkAlertMessage, ChosenConnectedMenu = _a.ChosenConnectedMenu, onSign = _a.onSign, Store = _a.Store, setOpenOptions = _a.setOpenOptions, LocalStorage = _a.LocalStorage;
     var _b = React__default["default"].useState(false), openMenu = _b[0], setOpenMenu = _b[1];
     var _c = React__default["default"].useState(null), keyValue = _c[0], setKeyValue = _c[1];
     var _d = reactProviders.useEthereum(), account = _d.account, network = _d.network, provider = _d.provider, deactivate = _d.deactivate;
@@ -540,7 +534,7 @@ var ConnectWalletButton = function (_a) {
                         onSign(key);
                     }
                     else {
-                        signingEvmMessage(account, provider, SignatureMessage).then(function (key) {
+                        signingEvmMessage(account, provider, "".concat(SignatureMessage.msg, "\n              ").concat(SignatureMessage.address ? account.toString().toLowerCase() : "", "\n              ").concat(SignatureMessage.timestamp ? "ts-:" + Date.now() : ""), LocalStorage).then(function (key) {
                             setKeyValue(key);
                             onSign(key);
                         });
@@ -565,7 +559,7 @@ var ConnectWalletButton = function (_a) {
                     onSign(key);
                 }
                 else {
-                    signingSolMessage(wallet.signMessage, publicKey, SignatureMessage).then(function (key) {
+                    signingSolMessage(wallet.signMessage, publicKey, "".concat(SignatureMessage.msg, "\n              ").concat(SignatureMessage.address ? publicKey.toString() : "", "\n              ").concat(SignatureMessage.timestamp ? "ts-:" + Date.now() : ""), LocalStorage).then(function (key) {
                         setKeyValue(key);
                         onSign(key);
                     });
@@ -740,8 +734,13 @@ var Disabled = function () {
 var defaults = {
     NetworkChainIds: [reactProviders.ChainId.Mainnet],
     ConnectWalletButtonText: "Connect Wallet",
-    SignatureMessage: "This is the default signaure message provided by Cryptogate.",
+    SignatureMessage: {
+        msg: "This is the default signature message provided by Cryptogate",
+        address: true,
+        timestamp: true
+    },
     NetworkAlertMessage: "Selected network is not supported.",
+    LocalStorage: false
 };
 
 exports.ConnectedMenuOptions = void 0;
@@ -751,9 +750,9 @@ exports.ConnectedMenuOptions = void 0;
     ConnectedMenuOptions["STORE"] = "store";
 })(exports.ConnectedMenuOptions || (exports.ConnectedMenuOptions = {}));
 var ConnectWalletComponent = function (_a) {
-    var _b = _a.ActiveComponent, ActiveComponent = _b === void 0 ? jsxRuntime.jsx(Active, {}) : _b, _c = _a.DisabledComponent, DisabledComponent = _c === void 0 ? jsxRuntime.jsx(Disabled, {}) : _c, _d = _a.ConnectedComponent, ConnectedComponent = _d === void 0 ? jsxRuntime.jsx(Identicon, {}) : _d, _e = _a.SignatureMessage, SignatureMessage = _e === void 0 ? defaults.SignatureMessage : _e, _f = _a.NetworkAlertMessage, NetworkAlertMessage = _f === void 0 ? defaults.NetworkAlertMessage : _f, _g = _a.ConnectedMenuChosen, ConnectedMenuChosen = _g === void 0 ? exports.ConnectedMenuOptions.WALLETINFORMATION : _g, _h = _a.Store, Store = _h === void 0 ? {} : _h, onSign = _a.onSign;
-    var _j = React__default["default"].useState(false), openOptions = _j[0], setOpenOptions = _j[1];
-    return (jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [jsxRuntime.jsx(ConnectWalletButton, { ActiveComponent: ActiveComponent, DisabledComponent: DisabledComponent, ConnectedComponent: ConnectedComponent, setOpenOptions: setOpenOptions, NetworkAlertMessage: NetworkAlertMessage, SignatureMessage: SignatureMessage, onSign: onSign, ChosenConnectedMenu: ConnectedMenuChosen, Store: Store }), openOptions ? (jsxRuntime.jsx(ConnectWalletList, { openOptions: openOptions, setOpenOptions: setOpenOptions })) : (jsxRuntime.jsx(jsxRuntime.Fragment, {}))] }));
+    var _b = _a.ActiveComponent, ActiveComponent = _b === void 0 ? jsxRuntime.jsx(Active, {}) : _b, _c = _a.DisabledComponent, DisabledComponent = _c === void 0 ? jsxRuntime.jsx(Disabled, {}) : _c, _d = _a.ConnectedComponent, ConnectedComponent = _d === void 0 ? jsxRuntime.jsx(Identicon, {}) : _d, _e = _a.SignatureMessage, SignatureMessage = _e === void 0 ? defaults.SignatureMessage : _e, _f = _a.NetworkAlertMessage, NetworkAlertMessage = _f === void 0 ? defaults.NetworkAlertMessage : _f, _g = _a.ConnectedMenuChosen, ConnectedMenuChosen = _g === void 0 ? exports.ConnectedMenuOptions.WALLETINFORMATION : _g, _h = _a.Store, Store = _h === void 0 ? {} : _h, onSign = _a.onSign, _j = _a.LocalStorage, LocalStorage = _j === void 0 ? defaults.LocalStorage : _j;
+    var _k = React__default["default"].useState(false), openOptions = _k[0], setOpenOptions = _k[1];
+    return (jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [jsxRuntime.jsx(ConnectWalletButton, { ActiveComponent: ActiveComponent, DisabledComponent: DisabledComponent, ConnectedComponent: ConnectedComponent, setOpenOptions: setOpenOptions, NetworkAlertMessage: NetworkAlertMessage, SignatureMessage: SignatureMessage, onSign: onSign, ChosenConnectedMenu: ConnectedMenuChosen, Store: Store, LocalStorage: LocalStorage }), openOptions ? (jsxRuntime.jsx(ConnectWalletList, { openOptions: openOptions, setOpenOptions: setOpenOptions })) : (jsxRuntime.jsx(jsxRuntime.Fragment, {}))] }));
 };
 
 var Loader = function () {

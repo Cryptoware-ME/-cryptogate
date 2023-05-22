@@ -4,11 +4,15 @@ export declare enum ConnectedMenuOptions {
     WALLETINFORMATION = "walletinformation",
     STORE = "store"
 }
-export declare const ConnectWalletComponent: ({ ActiveComponent, DisabledComponent, ConnectedComponent, SignatureMessage, NetworkAlertMessage, ConnectedMenuChosen, Store, onSign, }: {
+export declare const ConnectWalletComponent: ({ ActiveComponent, DisabledComponent, ConnectedComponent, SignatureMessage, NetworkAlertMessage, ConnectedMenuChosen, Store, onSign, LocalStorage, }: {
     ActiveComponent?: React.ReactNode;
     DisabledComponent?: React.ReactNode;
     ConnectedComponent?: React.ReactNode;
-    SignatureMessage?: string | undefined;
+    SignatureMessage?: {
+        msg: string;
+        address: boolean;
+        timestamp: boolean;
+    } | undefined;
     NetworkAlertMessage?: string | undefined;
     ConnectedMenuChosen?: ConnectedMenuOptions | undefined;
     Store?: {
@@ -20,4 +24,5 @@ export declare const ConnectWalletComponent: ({ ActiveComponent, DisabledCompone
         message: string;
         signature: string;
     }) => void) | undefined;
+    LocalStorage?: boolean | undefined;
 }) => JSX.Element;

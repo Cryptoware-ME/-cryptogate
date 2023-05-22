@@ -6,7 +6,11 @@ export { Active, Disabled };
 export const defaults = {
   NetworkChainIds: [ChainId.Mainnet],
   ConnectWalletButtonText: "Connect Wallet",
-  SignatureMessage:
-    "This is the default signaure message provided by Cryptogate.",
+  SignatureMessage: {
+    msg: "This is the default signature message provided by Cryptogate",
+    address: true,
+    timestamp: true
+  },
   NetworkAlertMessage: "Selected network is not supported.",
+  LocalStorage: false
 };

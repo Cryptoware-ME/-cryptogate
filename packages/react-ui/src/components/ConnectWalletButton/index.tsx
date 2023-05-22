@@ -15,22 +15,19 @@ import { ConnectedMenuOptions } from "../ConnectWalletComponent";
 const signingEvmMessage = async (
   account: EvmAddress,
   provider: any,
-  SignatureMessage: string
+  SignatureMessage: string,
+  LocalStorage: boolean
 ) => {
   return new Promise((resolve, reject) => {
     ethSignMessage({
       account,
       provider: provider,
-      message:
-        SignatureMessage +
-        "Wallet Address: " +
-        account.toString() +
-        " ts-" +
-        Date.now(),
+      message: SignatureMessage,
     })
       .then((sig) => {
-        setWithExpiry(`sig-${account.toLowerCase()}`, sig, 43200000);
-        resolve(getWithExpiry(`sig-${account.toLowerCase()}`));
+        LocalStorage &&
+          setWithExpiry(`sig-${account.toLowerCase()}`, sig, 43200000);
+        resolve(sig);
       })
       .catch((e) => {
         reject(e);
@@ -41,16 +38,11 @@ const signingEvmMessage = async (
 const signingSolMessage = async (
   fn: any,
   pubK: SolAddress,
-  SignatureMessage: string
+  SignatureMessage: string,
+  LocalStorage: boolean
 ) => {
   return new Promise((resolve, reject) => {
-    const message = new TextEncoder().encode(
-      SignatureMessage +
-        "Wallet Address: " +
-        pubK.toString() +
-        " ts-" +
-        Date.now()
-    );
+    const message = new TextEncoder().encode(SignatureMessage);
     fn(message)
       .then((sig: any) => {
         const sigObj = {
@@ -58,8 +50,9 @@ const signingSolMessage = async (
           signature: JSON.stringify(sig),
           address: pubK.toString(),
         };
-        setWithExpiry(`sig-${pubK.toString()}`, sigObj, 43200000);
-        resolve(getWithExpiry(`sig-${pubK.toString()}`));
+        LocalStorage &&
+          setWithExpiry(`sig-${pubK.toString()}`, sigObj, 43200000);
+        resolve(sigObj);
       })
       .catch((e: any) => {
         reject(e);
@@ -77,11 +70,12 @@ export const ConnectWalletButton = ({
   onSign,
   Store,
   setOpenOptions,
+  LocalStorage,
 }: {
   ActiveComponent: React.ReactNode;
   DisabledComponent: React.ReactNode;
   ConnectedComponent: React.ReactNode;
-  SignatureMessage: string;
+  SignatureMessage: { msg: string; address: boolean; timestamp: boolean };
   NetworkAlertMessage: string;
   ChosenConnectedMenu: ConnectedMenuOptions;
   Store: { Tokens?: string[]; NFTs?: string[] };
@@ -90,6 +84,7 @@ export const ConnectWalletButton = ({
     message: string;
     signature: string;
   }) => void;
+  LocalStorage: boolean;
   setOpenOptions: any;
 }) => {
   const [openMenu, setOpenMenu] = React.useState(false);
@@ -114,12 +109,19 @@ export const ConnectWalletButton = ({
             setKeyValue(key);
             onSign(key);
           } else {
-            signingEvmMessage(account, provider, SignatureMessage).then(
-              (key) => {
-                setKeyValue(key as any);
-                onSign(key as any);
+            signingEvmMessage(
+              account,
+              provider,
+              `${SignatureMessage.msg}
+              ${
+                SignatureMessage.address ? account.toString().toLowerCase() : ""
               }
-            );
+              ${SignatureMessage.timestamp ? "ts-:" + Date.now() : ""}`,
+              LocalStorage
+            ).then((key) => {
+              setKeyValue(key as any);
+              onSign(key as any);
+            });
           }
         } else {
           setKeyValue({ address: account });
@@ -141,8 +143,11 @@ export const ConnectWalletButton = ({
         } else {
           signingSolMessage(
             wallet.signMessage,
-            publicKey,
-            SignatureMessage
+            publicKey as SolAddress,
+            `${SignatureMessage.msg}
+              ${SignatureMessage.address ? publicKey.toString() : ""}
+              ${SignatureMessage.timestamp ? "ts-:" + Date.now() : ""}`,
+            LocalStorage
           ).then((key) => {
             setKeyValue(key as any);
             onSign(key as any);

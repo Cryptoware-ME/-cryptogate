@@ -100,11 +100,11 @@ declare const MultiChainProvider: ({ config, children, }: MultiChainProviderProp
 declare const ConfigContext: React.Context<MultiChainProviderConfigProps>;
 declare function useConfig(): MultiChainProviderConfigProps;
 
-interface Props$6 {
+interface Props$5 {
     children: React.ReactNode;
     config: MultiChainProviderConfigProps;
 }
-declare function ConfigProvider({ config, children }: Props$6): JSX.Element;
+declare function ConfigProvider({ config, children }: Props$5): JSX.Element;
 
 declare type EvmNodeContextType = {
     provider: providers.JsonRpcProvider | providers.Web3Provider | undefined;
@@ -113,35 +113,19 @@ declare type EvmNodeContextType = {
 declare const EvmNodeContext: React.Context<EvmNodeContextType>;
 declare function useEvmNode(): EvmNodeContextType;
 
-interface Props$5 {
+interface Props$4 {
     children: React.ReactNode;
     readOnlyUrls?: NodeUrls;
 }
-declare function EvmNodeProvider({ children, readOnlyUrls }: Props$5): JSX.Element;
+declare function EvmNodeProvider({ children, readOnlyUrls }: Props$4): JSX.Element;
 
 declare const WindowContext: React.Context<boolean>;
 declare function useWindow(): boolean;
 
-interface Props$4 {
+interface Props$3 {
     children: ReactNode;
 }
-declare function WindowProvider({ children }: Props$4): JSX.Element;
-
-declare const ErrorsBagContext: React.Context<{
-    errors: string[];
-    addError: (_: any) => void;
-    clearErrors: () => void;
-}>;
-declare function useErrorsBag(): {
-    errors: string[];
-    addError: (_: any) => void;
-    clearErrors: () => void;
-};
-
-interface Props$3 {
-    children: React.ReactNode;
-}
-declare function ErrorsBagProvider({ children }: Props$3): JSX.Element;
+declare function WindowProvider({ children }: Props$3): JSX.Element;
 
 interface Props$2 {
     children: React.ReactNode;
@@ -412,4 +396,4 @@ declare const useContract: () => {
     deployContract: ({ abi, byteCode, args }: deployContractParams) => Promise<ethers.ethers.Contract>;
 };
 
-export { Apothem, Arbitrum, Avalanche, AvalancheTestnet, BSC, BSCTestnet, BaseGoerli, Chain, ChainId, ConfigContext, ConfigProvider, ContractABIUnit, ContractIO, DEFAULT_SUPPORTED_CHAINS, ErrorsBagContext, ErrorsBagProvider, EthConfig, EthContract, EvmAddress, EvmNodeContext, EvmNodeProvider, EvmWallets, Goerli, Mainnet, MultiChainProvider, MultiChainProviderConfigProps, MultiChainProviderProps, Mumbai, NetworkContext, NetworkProvider, NodeUrls, Polygon, Sepolia, SolAddress, SolConfig, SolWallets, SolanaDevnet, SolanaMainnet, SolanaProvider, SolanaTestnet, WalletContext, WalletProvider, WalletsConfig, WindowContext, WindowProvider, XinFin, apothemExplorerUrl, avalancheExplorerUrl, bscScanUrl, bscTestnetScanUrl, getAddressLink, getChainById, getTransactionLink, goerliBasescanUrl, goerliEtherscanUrl, mainnetArbscanUrl, mainnetEtherscanUrl, mainnetSolscanUrl, mumbaiPolygonScanUrl, polygonScanUrl, readContractCall, readContractCalls, resolveENS, sepoliaEtherscanUrl, testAvalancheExplorerUrl, useAccount, useConfig, useContract, useErrorsBag, useEthereum, useEvmNode, useMultichain, useNetwork, useNetworkInfo, useSolana, useWallet, useWindow, writeContractCall, xinfinExplorerUrl };
+export { Apothem, Arbitrum, Avalanche, AvalancheTestnet, BSC, BSCTestnet, BaseGoerli, Chain, ChainId, ConfigContext, ConfigProvider, ContractABIUnit, ContractIO, DEFAULT_SUPPORTED_CHAINS, EthConfig, EthContract, EvmAddress, EvmNodeContext, EvmNodeProvider, EvmWallets, Goerli, Mainnet, MultiChainProvider, MultiChainProviderConfigProps, MultiChainProviderProps, Mumbai, NetworkContext, NetworkProvider, NodeUrls, Polygon, Sepolia, SolAddress, SolConfig, SolWallets, SolanaDevnet, SolanaMainnet, SolanaProvider, SolanaTestnet, WalletContext, WalletProvider, WalletsConfig, WindowContext, WindowProvider, XinFin, apothemExplorerUrl, avalancheExplorerUrl, bscScanUrl, bscTestnetScanUrl, getAddressLink, getChainById, getTransactionLink, goerliBasescanUrl, goerliEtherscanUrl, mainnetArbscanUrl, mainnetEtherscanUrl, mainnetSolscanUrl, mumbaiPolygonScanUrl, polygonScanUrl, readContractCall, readContractCalls, resolveENS, sepoliaEtherscanUrl, testAvalancheExplorerUrl, useAccount, useConfig, useContract, useEthereum, useEvmNode, useMultichain, useNetwork, useNetworkInfo, useSolana, useWallet, useWindow, writeContractCall, xinfinExplorerUrl };

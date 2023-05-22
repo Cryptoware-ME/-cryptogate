@@ -6,11 +6,15 @@ declare enum ConnectedMenuOptions {
     WALLETINFORMATION = "walletinformation",
     STORE = "store"
 }
-declare const ConnectWalletComponent: ({ ActiveComponent, DisabledComponent, ConnectedComponent, SignatureMessage, NetworkAlertMessage, ConnectedMenuChosen, Store, onSign, }: {
+declare const ConnectWalletComponent: ({ ActiveComponent, DisabledComponent, ConnectedComponent, SignatureMessage, NetworkAlertMessage, ConnectedMenuChosen, Store, onSign, LocalStorage, }: {
     ActiveComponent?: React.ReactNode;
     DisabledComponent?: React.ReactNode;
     ConnectedComponent?: React.ReactNode;
-    SignatureMessage?: string | undefined;
+    SignatureMessage?: {
+        msg: string;
+        address: boolean;
+        timestamp: boolean;
+    } | undefined;
     NetworkAlertMessage?: string | undefined;
     ConnectedMenuChosen?: ConnectedMenuOptions | undefined;
     Store?: {
@@ -22,6 +26,7 @@ declare const ConnectWalletComponent: ({ ActiveComponent, DisabledComponent, Con
         message: string;
         signature: string;
     }) => void) | undefined;
+    LocalStorage?: boolean | undefined;
 }) => JSX.Element;
 
 declare const Identicon: ({ walletAddress }: {
