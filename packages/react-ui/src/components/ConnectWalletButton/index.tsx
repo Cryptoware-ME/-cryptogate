@@ -112,11 +112,11 @@ export const ConnectWalletButton = ({
             signingEvmMessage(
               account,
               provider,
-              `${SignatureMessage.msg}
-              ${
-                SignatureMessage.address ? account.toString().toLowerCase() : ""
-              }
-              ${SignatureMessage.timestamp ? "ts-:" + Date.now() : ""}`.trim(),
+              "" + SignatureMessage.msg + SignatureMessage.address
+                ? account.toString().toLowerCase().trim()
+                : "" + SignatureMessage.timestamp
+                ? "ts-:" + Date.now()
+                : "",
               LocalStorage
             ).then((key) => {
               setKeyValue(key as any);
@@ -144,9 +144,11 @@ export const ConnectWalletButton = ({
           signingSolMessage(
             wallet.signMessage,
             publicKey as SolAddress,
-            `${SignatureMessage.msg}
-              ${SignatureMessage.address ? publicKey.toString() : ""}
-              ${SignatureMessage.timestamp ? "ts-:" + Date.now() : ""}`.trim(),
+            "" + SignatureMessage.msg + SignatureMessage.address
+              ? publicKey.toString().toLowerCase().trim()
+              : "" + SignatureMessage.timestamp
+              ? "ts-:" + Date.now()
+              : "",
             LocalStorage
           ).then((key) => {
             setKeyValue(key as any);
