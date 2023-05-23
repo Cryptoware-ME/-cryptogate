@@ -534,7 +534,7 @@ var ConnectWalletButton = function (_a) {
                         onSign(key);
                     }
                     else {
-                        signingEvmMessage(account, provider, "".concat(SignatureMessage.msg, "\n              ").concat(SignatureMessage.address ? account.toString().toLowerCase() : "", "\n              ").concat(SignatureMessage.timestamp ? "ts-:" + Date.now() : ""), LocalStorage).then(function (key) {
+                        signingEvmMessage(account, provider, "".concat(SignatureMessage.msg, "\n              ").concat(SignatureMessage.address ? account.toString().toLowerCase() : "", "\n              ").concat(SignatureMessage.timestamp ? "ts-:" + Date.now() : "").trim(), LocalStorage).then(function (key) {
                             setKeyValue(key);
                             onSign(key);
                         });
@@ -559,7 +559,7 @@ var ConnectWalletButton = function (_a) {
                     onSign(key);
                 }
                 else {
-                    signingSolMessage(wallet.signMessage, publicKey, "".concat(SignatureMessage.msg, "\n              ").concat(SignatureMessage.address ? publicKey.toString() : "", "\n              ").concat(SignatureMessage.timestamp ? "ts-:" + Date.now() : ""), LocalStorage).then(function (key) {
+                    signingSolMessage(wallet.signMessage, publicKey, "".concat(SignatureMessage.msg, "\n              ").concat(SignatureMessage.address ? publicKey.toString() : "", "\n              ").concat(SignatureMessage.timestamp ? "ts-:" + Date.now() : "").trim(), LocalStorage).then(function (key) {
                         setKeyValue(key);
                         onSign(key);
                     });

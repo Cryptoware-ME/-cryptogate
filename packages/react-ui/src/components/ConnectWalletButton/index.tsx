@@ -116,7 +116,7 @@ export const ConnectWalletButton = ({
               ${
                 SignatureMessage.address ? account.toString().toLowerCase() : ""
               }
-              ${SignatureMessage.timestamp ? "ts-:" + Date.now() : ""}`,
+              ${SignatureMessage.timestamp ? "ts-:" + Date.now() : ""}`.trim(),
               LocalStorage
             ).then((key) => {
               setKeyValue(key as any);
@@ -146,7 +146,7 @@ export const ConnectWalletButton = ({
             publicKey as SolAddress,
             `${SignatureMessage.msg}
               ${SignatureMessage.address ? publicKey.toString() : ""}
-              ${SignatureMessage.timestamp ? "ts-:" + Date.now() : ""}`,
+              ${SignatureMessage.timestamp ? "ts-:" + Date.now() : ""}`.trim(),
             LocalStorage
           ).then((key) => {
             setKeyValue(key as any);
