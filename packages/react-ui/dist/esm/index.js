@@ -655,6 +655,41 @@ var SolWalletListComp = function (_a) {
                 wallets.indexOf(SolWallets.SOLLETEXTENSION) > -1) && (jsx(WalletListing, { heading: "Sollet", wallet: new SolletExtensionWalletAdapter(), onWalletCall: function () { return select(SolletWalletName); } }))] })));
 };
 
+var ShabakatComp = function () {
+    var activateShabakatWallet = useEthereum().activateShabakatWallet;
+    return (jsxs("div", __assign({ style: {
+            border: "black 1px solid",
+            borderRadius: "8px",
+            marginBottom: "20px",
+            lineHeight: "20px",
+        } }, { children: [jsxs("div", __assign({ style: {
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    padding: "15px",
+                }, onClick: activateShabakatWallet }, { children: [jsxs("div", __assign({ style: {
+                            display: "flex",
+                            flexDirection: "row",
+                            justifyContent: "flex-start",
+                            alignItems: "center",
+                        } }, { children: [jsx("span", __assign({ style: { paddingRight: "15px" } }, { children: jsx(Shabakat, {}) })), jsx("h6", __assign({ style: {
+                                    margin: "0",
+                                    padding: "0",
+                                    color: "black",
+                                    fontSize: "15px",
+                                } }, { children: "Shabakat" }))] })), jsx("div", __assign({ style: {
+                            background: "#5e2ec3",
+                            color: "white",
+                            borderRadius: "8px",
+                            padding: "2px 4px",
+                            fontSize: "12px",
+                        } }, { children: "coming soon" }))] })), jsx("div", { style: {
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    alignItems: "flex-end",
+                } })] })));
+};
+
 var ConnectWalletList = function (_a) {
     var openOptions = _a.openOptions, setOpenOptions = _a.setOpenOptions;
     var _b = useConfig(), ethConfig = _b.ethConfig, solConfig = _b.solConfig;
@@ -683,7 +718,7 @@ var ConnectWalletList = function (_a) {
                     }, onClick: function () { return setOpenOptions(false); } }, { children: jsxs("div", __assign({ style: { marginRight: 10 } }, { children: [jsx("p", __assign({ style: {
                                     fontSize: "14px",
                                     color: "black",
-                                } }, { children: "Connect with one of the available wallet providers." })), jsx("br", {}), (ethConfig === null || ethConfig === void 0 ? void 0 : ethConfig.wallets) && jsx(EvmWalletListComp, { wallets: ethConfig.wallets }), (solConfig === null || solConfig === void 0 ? void 0 : solConfig.wallets) && jsx(SolWalletListComp, { wallets: solConfig.wallets })] })) })) })), openOptions && (jsx("div", { style: {
+                                } }, { children: "Connect with one of the available wallet providers." })), jsx("br", {}), (ethConfig === null || ethConfig === void 0 ? void 0 : ethConfig.wallets) && (jsx(EvmWalletListComp, { wallets: ethConfig.wallets })), (solConfig === null || solConfig === void 0 ? void 0 : solConfig.wallets) && (jsx(SolWalletListComp, { wallets: solConfig.wallets })), jsx(ShabakatComp, {})] })) })) })), openOptions && (jsx("div", { style: {
                     width: "100%",
                     height: "100%",
                     background: "transparent",

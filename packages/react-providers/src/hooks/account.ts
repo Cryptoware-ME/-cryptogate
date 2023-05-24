@@ -22,6 +22,9 @@ export const useAccount = (address: EvmAddress | undefined): { ethBalance: strin
                 setEhBalance(ethers.utils.formatEther(balanceBigNbWei.toString()))
             })
             provider.lookupAddress(address).then((res) => res && setEns(res)).catch((err) => { })
+        } else {
+            setEhBalance("");
+            setEns("")
         }
     }, [provider])
 

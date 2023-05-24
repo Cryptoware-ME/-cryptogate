@@ -582,6 +582,10 @@ const useAccount = (address) => {
             });
             provider.lookupAddress(address).then((res) => res && setEns(res)).catch((err) => { });
         }
+        else {
+            setEhBalance("");
+            setEns("");
+        }
     }, [provider]);
     return {
         ethBalance,
