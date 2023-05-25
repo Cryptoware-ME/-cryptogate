@@ -21,10 +21,10 @@ export const useAccount = (address: EvmAddress | undefined): { ethBalance: strin
             provider.getBalance(address).then((balanceBigNbWei) => {
                 setEhBalance(ethers.utils.formatEther(balanceBigNbWei.toString()))
             })
-            provider.lookupAddress(address).then((res) => res && setEns(res)).catch((err) => { })
+            provider.lookupAddress(address).then((res) => res ? setEns(res) : setEns(undefined)).catch(() => { })
         } else {
-            setEhBalance("");
-            setEns("")
+            setEhBalance(undefined);
+            setEns(undefined)
         }
     }, [provider])
 
@@ -49,8 +49,9 @@ export const resolveENS = (ens: string): EvmAddress | undefined => {
     React.useEffect(() => {
         if (provider && ens)
             provider.resolveName(ens).then((res) => {
-                res && setAddress(res as EvmAddress)
+                res ? setAddress(res as EvmAddress) : setAddress(undefined)
             })
+        else setAddress(undefined)
     }, [provider])
 
     return address

@@ -580,11 +580,11 @@ const useAccount = (address) => {
             provider.getBalance(address).then((balanceBigNbWei) => {
                 setEhBalance(ethers__namespace.utils.formatEther(balanceBigNbWei.toString()));
             });
-            provider.lookupAddress(address).then((res) => res && setEns(res)).catch((err) => { });
+            provider.lookupAddress(address).then((res) => res ? setEns(res) : setEns(undefined)).catch(() => { });
         }
         else {
-            setEhBalance("");
-            setEns("");
+            setEhBalance(undefined);
+            setEns(undefined);
         }
     }, [provider]);
     return {
@@ -605,8 +605,10 @@ const resolveENS = (ens) => {
     React__default["default"].useEffect(() => {
         if (provider && ens)
             provider.resolveName(ens).then((res) => {
-                res && setAddress(res);
+                res ? setAddress(res) : setAddress(undefined);
             });
+        else
+            setAddress(undefined);
     }, [provider]);
     return address;
 };
