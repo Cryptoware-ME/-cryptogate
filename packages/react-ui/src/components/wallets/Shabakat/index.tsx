@@ -1,11 +1,12 @@
 const Shabakat = () => {
   return (
     <svg
-      width="25"
-      height="23"
+      width="30"
+      height="30"
       viewBox="0 0 376 376"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ borderRadius: "50%" }}
     >
       <rect width="376" height="376" fill="#100D35" />
       <path
