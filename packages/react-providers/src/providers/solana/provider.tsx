@@ -1,11 +1,15 @@
 import React from "react";
-import { ConnectionProvider, WalletProvider } from "@solana/wallet-adapter-react";
+import {
+  ConnectionProvider,
+  WalletProvider,
+} from "@solana/wallet-adapter-react";
 import { SolConfig } from "../../models/types";
 import {
   SlopeWalletAdapter,
   SolflareWalletAdapter,
   SolletExtensionWalletAdapter,
 } from "@solana/wallet-adapter-wallets";
+import { defaultSolConfig } from "../../constants/defaults";
 
 interface Props {
   children: React.ReactNode;
@@ -21,10 +25,16 @@ export function SolanaProvider({ children, solConfig }: Props) {
       ]
     : [];
 
-  if (!solConfig) return <>{children}</>;
   return (
-    <ConnectionProvider endpoint={solConfig.endpoint}>
-      <WalletProvider wallets={wallets} autoConnect={solConfig.autoConnect}>
+    <ConnectionProvider
+      endpoint={solConfig ? solConfig.endpoint : defaultSolConfig.endpoint}
+    >
+      <WalletProvider
+        wallets={wallets}
+        autoConnect={
+          solConfig ? solConfig.autoConnect : defaultSolConfig.autoConnect
+        }
+      >
         {children}
       </WalletProvider>
     </ConnectionProvider>

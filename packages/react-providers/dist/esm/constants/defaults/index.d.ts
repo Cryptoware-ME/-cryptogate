@@ -1,2 +1,3 @@
 import { defaultEthConfig } from "./eth-config";
-export { defaultEthConfig };
+import { defaultSolConfig } from "./sol-config";
+export { defaultEthConfig, defaultSolConfig };

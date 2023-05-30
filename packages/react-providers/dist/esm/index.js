@@ -3,10 +3,11 @@ import * as ethers from 'ethers';
 import { providers } from 'ethers';
 import { ConnectionProvider, WalletProvider as WalletProvider$1, useWallet as useWallet$1, useConnection } from '@solana/wallet-adapter-react';
 import { SlopeWalletAdapter, SolflareWalletAdapter, SolletExtensionWalletAdapter } from '@solana/wallet-adapter-wallets';
+import { WalletAdapterNetwork, WalletReadyState } from '@solana/wallet-adapter-base';
+import { clusterApiUrl } from '@solana/web3.js';
 import CoinbaseWalletSDK from '@coinbase/wallet-sdk';
 import QRCodeModal from '@walletconnect/qrcode-modal';
 import WalletConnectProvider from '@walletconnect/web3-provider';
-import { WalletReadyState } from '@solana/wallet-adapter-base';
 
 const ConfigContext = React.createContext({ ethConfig: { defaultNetwork: undefined, readOnlyUrls: {} } });
 function useConfig() {
@@ -403,6 +404,17 @@ function WalletProvider({ children }) {
         }, children: children }));
 }
 
+const defaultEthConfig = {
+    defaultNetwork: Mainnet
+};
+
+const defaultSolConfig = {
+    network: WalletAdapterNetwork.Mainnet,
+    endpoint: clusterApiUrl(WalletAdapterNetwork.Mainnet),
+    autoConnect: false,
+    lamportsPerSol: 1000000000,
+};
+
 function SolanaProvider({ children, solConfig }) {
     const wallets = solConfig
         ? [
@@ -411,15 +423,9 @@ function SolanaProvider({ children, solConfig }) {
             new SolletExtensionWalletAdapter({ network: solConfig.network }),
         ]
         : [];
-    if (!solConfig)
-        return React.createElement(React.Fragment, null, children);
-    return (React.createElement(ConnectionProvider, { endpoint: solConfig.endpoint },
-        React.createElement(WalletProvider$1, { wallets: wallets, autoConnect: solConfig.autoConnect }, children)));
+    return (React.createElement(ConnectionProvider, { endpoint: solConfig ? solConfig.endpoint : defaultSolConfig.endpoint },
+        React.createElement(WalletProvider$1, { wallets: wallets, autoConnect: solConfig ? solConfig.autoConnect : defaultSolConfig.autoConnect }, children)));
 }
-
-const defaultEthConfig = {
-    defaultNetwork: Mainnet
-};
 
 const MultiChainProvider = ({ config, children, }) => {
     var _a;
@@ -712,18 +718,17 @@ const useSolana = () => {
             }
         }
         else {
-            addError("Connected your wallet");
+            addError("Connect your wallet");
         }
     });
     React.useEffect(() => {
-        if (solConfig &&
-            !wallet.connected &&
+        if (!wallet.connected &&
             wallet.wallet &&
             wallet.wallet.readyState === WalletReadyState.Installed)
             wallet.connect().catch(() => { });
-    }, [solConfig, wallet.wallet, wallet.connected]);
+    }, [wallet.wallet, wallet.connected]);
     React.useEffect(() => {
-        if (solConfig && wallet.publicKey && wallet.connected && connection)
+        if (solConfig && (wallet === null || wallet === void 0 ? void 0 : wallet.publicKey) && (wallet === null || wallet === void 0 ? void 0 : wallet.connected) && connection)
             getUserSOLBalance(solConfig.lamportsPerSol);
     }, [solConfig, wallet.publicKey, wallet.connected, connection]);
     return {
@@ -731,7 +736,7 @@ const useSolana = () => {
         connected: solConfig ? wallet.connected : false,
         wallet,
         solBalance,
-        connection
+        connection,
     };
 };
 

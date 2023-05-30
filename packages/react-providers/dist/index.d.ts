@@ -65,7 +65,7 @@ declare type EthContract = {
     };
 };
 declare type EthConfig = {
-    defaultNetwork: Chain;
+    defaultNetwork: Chain | undefined;
     allowedNetworks?: (Chain | undefined)[];
     readOnlyUrls: NodeUrls;
     wallets: EvmWallets[];
