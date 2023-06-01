@@ -6,6 +6,14 @@ import Brave from "../wallets/Brave";
 import Coinbase from "../wallets/Coinbase";
 import WalletConnect from "../wallets/WalletConnect";
 
+
+/**
+
+EvmWalletListComp is a React component that displays a list of Ethereum wallet options.
+@param {Object} props - The component props.
+@param {Array} props.wallets - An array of EvmWallets representing the selected wallet options.
+@returns {React.ReactNode} The rendered EvmWalletListComp component.
+*/
 const EvmWalletListComp = ({ wallets }: { wallets: EvmWallets[] }) => {
   const {
     activateBraveWallet,

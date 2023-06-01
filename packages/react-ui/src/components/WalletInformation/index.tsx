@@ -2,6 +2,25 @@ import { useEthereum, useSolana } from "@cryptogate/react-providers";
 import { Identicon } from "../Identicon";
 import DisconnectBtn from "./DisconnectBtn";
 
+/**
+
+The WalletInformation component displays wallet information including account addresses and balances.
+@param {Object} props - The component props.
+@param {function} props.onDisconnect - Callback function for disconnecting the wallet.
+@param {string} [props.direction="y"] - The layout direction of the component. Can be "y" (vertical) or "x" (horizontal).
+@returns {React.ReactNode} The rendered WalletInformation component.
+@example
+// Example usage
+const ExampleComponent = () => {
+const onDisconnect = () => {
+// Handle disconnect event
+};
+return (
+<WalletInformation onDisconnect={onDisconnect} direction="y" />
+);
+};
+*/
+
 const WalletInformation = ({
   onDisconnect,
   direction = "y",

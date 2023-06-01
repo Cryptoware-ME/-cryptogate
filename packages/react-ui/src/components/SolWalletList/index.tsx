@@ -11,6 +11,22 @@ import {
   SolletWalletName,
 } from "@solana/wallet-adapter-wallets";
 
+/**
+
+SolWalletListComp is a React component that represents a list of Solana wallets.
+@param {Object} props - The component props.
+@param {SolWallets[]} props.wallets - The array of Solana wallets to display.
+@returns {React.ReactNode} The rendered SolWalletListComp component.
+@example
+// Example usage
+const ExampleComponent = () => {
+const wallets = [SolWallets.ALL, SolWallets.PHANTOM];
+return (
+<SolWalletListComp wallets={wallets} />
+);
+};
+*/
+
 const SolWalletListComp = ({ wallets }: { wallets: SolWallets[] }) => {
   const { select } = useSolana();
 

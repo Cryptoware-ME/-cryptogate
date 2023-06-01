@@ -1,6 +1,18 @@
 import { useEthereum } from "@cryptogate/react-providers";
 import Shabakat from "../wallets/Shabakat";
 
+/**
+
+ShabakatComp is a React component that represents the Shabakat wallet.
+@returns {React.ReactNode} The rendered ShabakatComp component.
+@example
+// Example usage
+const ExampleComponent = () => {
+return (
+  <ShabakatComp />
+);
+};
+*/
 const ShabakatComp = () => {
   const { activateShabakatWallet } = useEthereum();
 

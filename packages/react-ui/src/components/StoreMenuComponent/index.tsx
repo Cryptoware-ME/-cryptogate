@@ -2,6 +2,31 @@ import WalletInformation from "../WalletInformation";
 import TokenDetails from "./TokenDetails";
 import NFTDisplay from "./NFTDisplay";
 
+/**
+
+The index component displays wallet information, token details, and NFT display.
+@param {Object} props - The component props.
+@param {function} props.onDisconnect - Callback function for disconnecting the wallet.
+@param {Object} [props.Store] - Object containing token and NFT information.
+@param {Array} [props.Store.Tokens] - Array of token addresses.
+@param {Array} [props.Store.NFTs] - Array of NFT addresses.
+@returns {React.ReactNode} The rendered index component.
+@example
+// Example usage
+const ExampleComponent = () => {
+const onDisconnect = () => {
+// Handle disconnect event
+};
+const Store = {
+Tokens: ["token1", "token2"],
+NFTs: ["nft1", "nft2"],
+};
+return (
+<index onDisconnect={onDisconnect} Store={Store} />
+);
+};
+*/
+
 const index = ({
   onDisconnect,
   Store,

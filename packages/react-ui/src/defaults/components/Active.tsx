@@ -1,5 +1,18 @@
 import { useState } from "react";
 
+/**
+
+The Active component represents a button that changes its appearance when hovered over.
+@returns {React.ReactNode} The rendered Active component.
+@example
+// Example usage
+const ExampleComponent = () => {
+return (
+<Active />
+);
+};
+*/
+
 export const Active = () => {
   const [isHovering, setIsHovering] = useState(false);
 

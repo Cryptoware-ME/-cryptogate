@@ -8,9 +8,25 @@ import { areAllElementsValid } from "../../../utils/helpers";
 import NFTSlider from "./NFTSlider";
 // import NFTCollection from "./NFTCollection";
 
+/**
+
+The index component displays a slider of NFTs based on the provided NFT IDs.
+@param {Object} props - The component props.
+@param {Array} props.NFTs - The array of NFT IDs to display.
+@returns {React.ReactNode} The rendered index component.
+@example
+// Example usage
+const ExampleComponent = () => {
+const NFTs = ["NFT1", "NFT2", "NFT3"];
+return (
+<index NFTs={NFTs} />
+);
+};
+*/
+
 const index = ({ NFTs }: { NFTs: string[] }) => {
   const { account } = useEthereum();
-  
+
   var balances = useNFTMetadataMultiCall({
     NFTs,
     method: NFT_CONTRACT_METHODS.BALANCE_OF,

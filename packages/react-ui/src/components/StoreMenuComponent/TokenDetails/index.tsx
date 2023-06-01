@@ -4,6 +4,24 @@ import { toDecimals } from "../../../utils/helpers";
 import { TOKEN_CONTRACT_METHODS } from "../../../utils/constants";
 import "./TokenDetails.module.css";
 
+/**
+
+The index component displays token details, including balance, symbol, and decimals.
+@param {Object} props - The component props.
+@param {Array} [props.tokens] - The array of token addresses to fetch details for.
+@param {boolean} props.nfts - Boolean flag indicating whether the component is displaying NFTs.
+@returns {React.ReactNode} The rendered index component.
+@example
+// Example usage
+const ExampleComponent = () => {
+const tokens = ["token1", "token2", "token3"];
+const nfts = false;
+return (
+<index tokens={tokens} nfts={nfts} />
+);
+};
+*/
+
 const index = ({ tokens, nfts }: { tokens?: string[]; nfts: Boolean }) => {
   const { account } = useEthereum();
   const balance = useTokensMultiCall({

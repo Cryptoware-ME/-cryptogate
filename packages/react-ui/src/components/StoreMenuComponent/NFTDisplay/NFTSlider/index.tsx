@@ -5,6 +5,30 @@ import NFTImage from "./NFTImage";
 import { build_slider_settings } from "../../../../utils/constants";
 import { imageURI, isUriIPFS } from "../../../../utils/helpers";
 
+/**
+
+The index component represents a slider of NFT images with associated information.
+@param {Object} props - The component props.
+@param {Array} props.URIs - The array of URIs of the images.
+@param {Array} props.symbols - The array of symbols associated with the images.
+@param {Array} props.numbers - The array of numbers associated with the images.
+@param {Function} props.onCollectionSelected - The callback function for when a collection is selected.
+@returns {React.ReactNode} The rendered index component.
+@example
+// Example usage
+const ExampleComponent = () => {
+const URIs = ["https://example.com/image1.jpg", "https://example.com/image2.jpg"];
+const symbols = ["ABC", "DEF"];
+const numbers = [1, 2];
+const handleCollectionSelected = (index) => {
+console.log("Collection selected:", index);
+}
+return (
+<index URIs={URIs} symbols={symbols} numbers={numbers} onCollectionSelected={handleCollectionSelected} />
+);
+};
+*/
+
 const index = ({
   URIs,
   symbols,

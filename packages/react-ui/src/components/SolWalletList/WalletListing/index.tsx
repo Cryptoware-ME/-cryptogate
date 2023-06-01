@@ -1,6 +1,27 @@
 import { Adapter } from "@solana/wallet-adapter-base";
 import { WalletIcon } from "@solana/wallet-adapter-react-ui";
-import React from "react";
+
+/**
+
+WalletListing is a React component that represents a wallet listing item.
+@param {Object} props - The component props.
+@param {Adapter} props.wallet - The wallet adapter instance.
+@param {any} props.heading - The heading for the wallet listing item.
+@param {Function} props.onWalletCall - The function called when the wallet listing item is clicked.
+@returns {React.ReactNode} The rendered WalletListing component.
+@example
+// Example usage
+const ExampleComponent = () => {
+const wallet = new WalletAdapter();
+const heading = "My Wallet";
+const onWalletCall = () => {
+// Handle wallet call
+};
+return (
+<WalletListing wallet={wallet} heading={heading} onWalletCall={onWalletCall} />
+);
+};
+*/
 
 const WalletListing = ({
   wallet,

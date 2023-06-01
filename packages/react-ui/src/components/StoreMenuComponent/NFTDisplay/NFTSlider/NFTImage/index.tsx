@@ -1,3 +1,23 @@
+/**
+
+The index component represents an image with associated information.
+@param {Object} props - The component props.
+@param {string} props.URI - The URI of the image.
+@param {number} props.number - The associated number.
+@param {*} props.symbol - The associated symbol.
+@returns {React.ReactNode} The rendered index component.
+@example
+// Example usage
+const ExampleComponent = () => {
+const URI = "https://example.com/image.jpg";
+const number = 123;
+const symbol = "ABC";
+return (
+<index URI={URI} number={number} symbol={symbol} />
+);
+};
+*/
+
 const index = ({
   URI,
   number,

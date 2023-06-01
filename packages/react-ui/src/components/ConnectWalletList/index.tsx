@@ -3,6 +3,14 @@ import EvmWalletListComp from "../EthWalletList";
 import SolWalletListComp from "../SolWalletList";
 import ShabakatComp from "../Shabakat";
 
+/**
+
+ConnectWalletList is a React component that displays a list of available wallet providers for connecting a wallet.
+@param {Object} props - The component props.
+@param {boolean} props.openOptions - A boolean indicating whether the options should be open or closed.
+@param {function} props.setOpenOptions - A function to update the openOptions state.
+@returns {React.ReactNode} The rendered ConnectWalletList component.
+*/
 export const ConnectWalletList = ({
   openOptions,
   setOpenOptions,
