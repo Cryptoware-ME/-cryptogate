@@ -20,6 +20,19 @@ export interface MultiChainProviderProps {
   config: MultiChainProviderConfigProps;
 }
 
+/**
+
+Provider component for managing multiple blockchain configurations and related providers.
+@component
+@param {MultiChainProviderProps} props - The component props.
+@param {React.ReactNode} props.children - The child components.
+@param {MultiChainProviderConfigProps} props.config - The configuration for the multi-chain provider.
+@returns {JSX.Element} The rendered component.
+@example
+<MultiChainProvider config={config}>
+<App />
+</MultiChainProvider>
+*/
 export const MultiChainProvider = ({
   config,
   children,

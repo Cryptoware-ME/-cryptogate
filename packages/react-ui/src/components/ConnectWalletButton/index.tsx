@@ -59,7 +59,41 @@ const signingSolMessage = async (
       });
   });
 };
+/**
 
+ConnectWalletButton component for handling wallet connection and signing messages.
+@component
+@param {Object} props - The component props.
+@param {React.ReactNode} props.ActiveComponent - The component to render when the wallet is not connected.
+@param {React.ReactNode} props.DisabledComponent - The component to render when the wallet is connected but signing is disabled.
+@param {React.ReactNode} props.ConnectedComponent - The component to render when the wallet is connected and signing is enabled.
+@param {object} props.SignatureMessage - The message to sign.
+@param {string} props.SignatureMessage.msg - The main message to sign.
+@param {boolean} props.SignatureMessage.address - A boolean indicating whether to include the wallet address in the message.
+@param {boolean} props.SignatureMessage.timestamp - A boolean indicating whether to include the timestamp in the message.
+@param {string} props.NetworkAlertMessage - The message to display when the network is not allowed.
+@param {ConnectedMenuOptions} props.ChosenConnectedMenu - The chosen menu option for the connected menu.
+@param {function} props.onSign - The function to handle the signed message.
+@param {object} props.Store - The store object containing tokens and NFTs.
+@param {string[]} [props.Store.Tokens] - The list of tokens in the store.
+@param {string[]} [props.Store.NFTs] - The list of NFTs in the store.
+@param {boolean} props.LocalStorage - A boolean indicating whether to use local storage for caching signatures.
+@param {function} props.setOpenOptions - The function to open wallet connection options.
+@returns {JSX.Element} The rendered component.
+@example
+<ConnectWalletButton
+ActiveComponent={<button>Connect Wallet</button>}
+DisabledComponent={<button disabled>Connected</button>}
+ConnectedComponent={<button>Connected</button>}
+SignatureMessage={{ msg: "Sign this message", address: true, timestamp: true }}
+NetworkAlertMessage="Invalid network"
+ChosenConnectedMenu={ConnectedMenuOptions.WALLETINFORMATION}
+onSign={handleSign}
+Store={{ Tokens: ["Token1", "Token2"], NFTs: ["NFT1", "NFT2"] }}
+LocalStorage={true}
+setOpenOptions={handleOpenOptions}
+/>
+*/
 export const ConnectWalletButton = ({
   ActiveComponent,
   DisabledComponent,

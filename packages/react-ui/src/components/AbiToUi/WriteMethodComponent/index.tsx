@@ -7,6 +7,36 @@ import {
 import Loader from "../../Loader";
 import "./WriteMethodComponent.module.css";
 
+/**
+
+Component for writing contract methods and executing transactions.
+@component
+@param {Object} props - The component props.
+@param {ContractABIUnit} props.method - The ABI unit for the method.
+@param {Object} props.contractObj - The contract object containing the address and ABI.
+@param {Object} [props.methodData] - Additional data for the method.
+@param {Object.<string, { description: string, gasLimit: number }>} props.methodData[name] - Data specific to a method name.
+@param {string} [props.gasPrice] - The gas price for the transaction.
+@param {number} [props.gasLimit] - The gas limit for the transaction.
+@returns {JSX.Element} The rendered component.
+@example
+<WriteMethodComponent
+method={method}
+contractObj={{
+address: "0x123456789...",
+abi: contractABI,
+}}
+methodData={{
+methodName: {
+  description: "This method does...",
+  gasLimit: 500000,
+},
+}}
+gasPrice="1000000000"
+gasLimit={200000}
+/>
+*/
+
 const WriteMethodComponent = ({
   method,
   contractObj,
@@ -35,7 +65,12 @@ const WriteMethodComponent = ({
   React.useEffect(() => {
     if (response || error) setLoading(false);
   }, [response, error]);
+  /**
 
+Extracts the error message from a given string.
+@param {string} msg - The error message string.
+@returns {string} - The extracted error message.
+*/
   const extractErrorMessage = (msg: string) => {
     if (msg.startsWith("sending a transaction requires a signer"))
       return "Authentication error: Connect wallet to send a transaction";
@@ -43,7 +78,13 @@ const WriteMethodComponent = ({
       return "Authorization error: Function can only be called by contract owner";
     else return msg;
   };
+  /**
 
+Query the contract to execute a method and send a transaction.
+@param {Event} e - The event object.
+@param {ContractABIUnit} method - The method object.
+@returns {void}
+*/
   const queryContract = async (e: any, method: any) => {
     e.preventDefault();
     setLoading(true);

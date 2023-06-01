@@ -3,6 +3,20 @@ import { useWallet, useConnection } from "@solana/wallet-adapter-react";
 import { WalletReadyState } from "@solana/wallet-adapter-base";
 import { useConfig, useErrorsBag } from "../../providers";
 
+/**
+
+Custom hook for interacting with the Solana blockchain using the Wallet Adapter.
+@returns {{
+  publicKey: string,
+  connected: boolean,
+  wallet: WalletAdapter,
+  solBalance: number,
+  connection: Connection
+  }}
+  @example
+  const { publicKey, connected, wallet, solBalance, connection } = useSolana();
+  */
+
 export const useSolana = () => {
   const wallet = useWallet();
   const { connection } = useConnection();
@@ -10,6 +24,12 @@ export const useSolana = () => {
   const { addError } = useErrorsBag();
   const [solBalance, setSolBalance] = React.useState(0);
 
+  /**
+  
+  Retrieves the SOL balance for the current user.
+  @param {_lamportsPerSol: number} _lamportsPerSol - Conversion rate from lamports to SOL.
+  @returns {Promise<void>}
+  */
   const getUserSOLBalance = async (_lamportsPerSol: number) => {
     let balance = 0;
     if (wallet.publicKey) {

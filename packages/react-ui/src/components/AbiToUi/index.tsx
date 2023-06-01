@@ -8,6 +8,33 @@ import {
 import ReadMethodComponent from "./ReadMethodComponent";
 import WriteMethodComponent from "./WriteMethodComponent";
 // import styles from "./AbiToUi.module.css";
+/**
+
+AbiToUi component for displaying and interacting with contract methods.
+@component
+@param {Object} props - The component props.
+@param {string} [props.contract] - The contract name.
+@param {EvmAddress} [props.address] - The contract address.
+@param {ContractABIUnit[]} [props.abi] - The contract ABI.
+@param {Object.<string, { description: string, gasLimit: number }>} [props.methodData] - Additional data for the methods.
+@param {string} [props.gasPrice] - The gas price for transactions.
+@param {number} [props.gasLimit] - The gas limit for transactions.
+@returns {JSX.Element} The rendered component.
+@example
+<AbiToUi
+contract="MyContract"
+address="0x123456789..."
+abi={contractABI}
+methodData={{
+methodName: {
+  description: "This method does...",
+  gasLimit: 500000,
+},
+}}
+gasPrice="1000000000"
+gasLimit={200000}
+/>
+*/
 
 export const AbiToUi = ({
   contract,
@@ -34,7 +61,12 @@ export const AbiToUi = ({
   const [searched, setSearched] = React.useState("");
   const { network } = useEthereum();
   const config = useConfig();
+  /**
 
+Retrieves the ABI for a contract address from Etherscan.
+@param {string} contractAddress - The contract address.
+@returns {Promise<ContractABIUnit[] | null>} - The retrieved ABI or null if not found.
+*/
   const getAbiFromEtherscan = async (contractAddrss: string) => {
     const res = await fetch(
       "https://api.etherscan.io/api?module=contract&action=getabi&address=" +
@@ -46,7 +78,12 @@ export const AbiToUi = ({
     if (response.status != "1") return null;
     return JSON.parse(await response.result);
   };
+  /**
 
+Handles the search input change event.
+@param {Event} e - The event object.
+@returns {void}
+*/
   const handleSearch = (e: any) => {
     setSearched(e.target.value);
   };

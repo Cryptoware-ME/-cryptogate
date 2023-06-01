@@ -5,6 +5,18 @@ interface Props {
   children: ReactNode;
 }
 
+/**
+
+Provider component for managing the active window state.
+@component
+@param {Props} props - The component props.
+@param {ReactNode} props.children - The child components.
+@returns {JSX.Element} The rendered component.
+@example
+<WindowProvider>
+<App />
+</WindowProvider>
+*/
 export function WindowProvider({ children }: Props) {
   const [isActiveWindow, setActiveWindow]: [
     boolean,
@@ -28,6 +40,7 @@ export function WindowProvider({ children }: Props) {
         "visibilitychange",
         visibilityChangeListener
       );
+    AC;
   }, []);
 
   return <WindowContext.Provider value={isActiveWindow} children={children} />;

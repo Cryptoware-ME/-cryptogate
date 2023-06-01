@@ -16,6 +16,19 @@ interface Props {
   solConfig: SolConfig | undefined;
 }
 
+/**
+
+Provider component for managing Solana-related functionality and wallet adapters.
+@component
+@param {Props} props - The component props.
+@param {React.ReactNode} props.children - The child components.
+@param {SolConfig | undefined} props.solConfig - The configuration for the Solana network.
+@returns {JSX.Element} The rendered component.
+@example
+<SolanaProvider solConfig={solConfig}>
+<App />
+</SolanaProvider>
+*/
 export function SolanaProvider({ children, solConfig }: Props) {
   const wallets = solConfig
     ? [

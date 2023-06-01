@@ -2,6 +2,32 @@ import WalletInformation from "../WalletInformation";
 import StoreMenuComponent from "../StoreMenuComponent";
 import { ConnectedMenuOptions } from "../ConnectWalletComponent";
 
+/**
+
+ConnectedMenu component for displaying a connected menu based on the chosen menu option.
+@component
+@param {Object} props - The component props.
+@param {ConnectedMenuOptions} props.ChosenConnectedMenu - The chosen menu option.
+@param {function} props.onClose - The function to close the menu.
+@param {function} [props.onDisconnect=()=>{}] - The function to disconnect from the wallet.
+@param {boolean} props.isOpen - A boolean indicating whether the menu is open or not.
+@param {Object} [props.Store] - The store object containing tokens and NFTs.
+@param {string[]} [props.Store.Tokens] - The list of tokens in the store.
+@param {string[]} [props.Store.NFTs] - The list of NFTs in the store.
+@returns {JSX.Element} The rendered component.
+@example
+<ConnectedMenu
+ChosenConnectedMenu={ConnectedMenuOptions.WALLETINFORMATION}
+onClose={handleClose}
+onDisconnect={handleDisconnect}
+isOpen={isMenuOpen}
+Store={{
+Tokens: ['Token1', 'Token2'],
+NFTs: ['NFT1', 'NFT2'],
+}}
+/>
+*/
+
 export const ConnectedMenu = ({
   ChosenConnectedMenu,
   onClose,

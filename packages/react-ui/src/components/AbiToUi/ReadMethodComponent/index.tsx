@@ -1,7 +1,37 @@
 import React from "react";
-import { readContractCall, ContractABIUnit, EvmAddress } from "@cryptogate/react-providers";
+import {
+  readContractCall,
+  ContractABIUnit,
+  EvmAddress,
+} from "@cryptogate/react-providers";
 import Loader from "../../Loader";
 import "./ReadMethodComponent.module.css";
+
+/**
+
+Component for reading contract methods and querying contract data.
+@component
+@param {Object} props - The component props.
+@param {ContractABIUnit} props.method - The ABI unit for the method.
+@param {Object} props.contractObj - The contract object containing the address and ABI.
+@param {Object} [props.methodData] - Additional data for the method.
+@param {Object.<string, { description: string, gasLimit: number }>} props.methodData[name] - Data specific to a method name.
+@returns {JSX.Element} The rendered component.
+@example
+<ReadMethodComponent
+method={method}
+contractObj={{
+address: "0x123456789...",
+abi: contractABI,
+}}
+methodData={{
+methodName: {
+  description: "This method does...",
+  gasLimit: 500000,
+},
+}}
+/>
+*/
 
 const ReadMethodComponent = ({
   method,
@@ -32,6 +62,13 @@ const ReadMethodComponent = ({
     if (response || error) setLoading(false);
   }, [response, error]);
 
+  /**
+
+Query the contract to retrieve method data.
+@param {Event} e - The event object.
+@param {ContractABIUnit} method - The method object.
+@returns {Promise<void>} - The promise that resolves when the query is completed.
+*/
   const queryContract = async (e: any, method: any) => {
     e.preventDefault();
     setLoading(true);
@@ -39,7 +76,11 @@ const ReadMethodComponent = ({
     if (method.inputs && method.inputs.length) {
       method.inputs.map((input: any) =>
         args.push(
-          (document.getElementById(method.name + "-" + input.name) as HTMLInputElement)?.value
+          (
+            document.getElementById(
+              method.name + "-" + input.name
+            ) as HTMLInputElement
+          )?.value
         )
       );
       setEnabled(true);
@@ -57,7 +98,11 @@ const ReadMethodComponent = ({
       className="methodComponent"
     >
       <h1>{method.name}</h1>
-      {methodData && methodData[method.name] ? <p>{methodData[method.name].description}</p> : <></>}
+      {methodData && methodData[method.name] ? (
+        <p>{methodData[method.name].description}</p>
+      ) : (
+        <></>
+      )}
       {method.inputs &&
         method.inputs.map((input, index) => (
           <input

@@ -9,7 +9,18 @@ interface Props {
 export type WalletDataType = {
   account: EvmAddress | undefined;
 };
+/**
 
+Provider component for managing wallet-related data.
+@component
+@param {Props} props - The component props.
+@param {React.ReactNode} props.children - The child components.
+@returns {JSX.Element} The rendered component.
+@example
+<WalletProvider>
+<App />
+</WalletProvider>
+*/
 export function WalletProvider({ children }: Props) {
   const [walletData, setWalletData]: [
     WalletDataType,

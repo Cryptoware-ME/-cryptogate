@@ -14,6 +14,20 @@ export type NetworkDataType = {
   chain: Chain | undefined;
 };
 
+/**
+
+Provider component for managing network data related to the Ethereum network.
+@component
+@param {Props} props - The component props.
+@param {React.ReactNode} props.children - The child components.
+@param {MultiChainProviderConfigProps} props.config - The configuration for the multi-chain provider.
+@returns {JSX.Element} The rendered component.
+@example
+<NetworkProvider config={config}>
+<App />
+</NetworkProvider>
+*/
+
 export function NetworkProvider({ children, config }: Props) {
   const [networkData, setNetworkData]: [
     NetworkDataType,
