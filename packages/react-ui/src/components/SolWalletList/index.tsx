@@ -28,7 +28,7 @@ return (
 */
 
 const SolWalletListComp = ({ wallets }: { wallets: SolWallets[] }) => {
-  const { select } = useSolana();
+  const { wallet } = useSolana();
 
   return (
     <div
@@ -46,7 +46,7 @@ const SolWalletListComp = ({ wallets }: { wallets: SolWallets[] }) => {
         <WalletListing
           heading="Phantom"
           wallet={new PhantomWalletAdapter()}
-          onWalletCall={() => select(PhantomWalletName)}
+          onWalletCall={() => wallet.select(PhantomWalletName)}
         />
       )}
 
@@ -55,7 +55,7 @@ const SolWalletListComp = ({ wallets }: { wallets: SolWallets[] }) => {
         <WalletListing
           heading="Slope"
           wallet={new SlopeWalletAdapter()}
-          onWalletCall={() => select(SlopeWalletName)}
+          onWalletCall={() => wallet.select(SlopeWalletName)}
         />
       )}
 
@@ -64,7 +64,7 @@ const SolWalletListComp = ({ wallets }: { wallets: SolWallets[] }) => {
         <WalletListing
           heading="Solflare"
           wallet={new SolflareWalletAdapter()}
-          onWalletCall={() => select(SolflareWalletName)}
+          onWalletCall={() => wallet.select(SolflareWalletName)}
         />
       )}
 
@@ -73,7 +73,7 @@ const SolWalletListComp = ({ wallets }: { wallets: SolWallets[] }) => {
         <WalletListing
           heading="Sollet"
           wallet={new SolletExtensionWalletAdapter()}
-          onWalletCall={() => select(SolletWalletName)}
+          onWalletCall={() => wallet.select(SolletWalletName)}
         />
       )}
     </div>

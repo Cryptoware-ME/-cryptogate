@@ -15,6 +15,7 @@ export const ConfigContext = React.createContext<MultiChainProviderConfigProps>(
     ethConfig: {
       defaultNetwork: undefined as unknown as Chain,
       readOnlyUrls: {},
+      wallets: [],
     },
   }
 );

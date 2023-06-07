@@ -1,0 +1,315 @@
+<!DOCTYPE html><html class="default" lang="en"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>@cryptogate/react-ui</title><meta name="description" content="Documentation for @cryptogate/react-ui"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script defer src="assets/main.js"></script><script async src="assets/search.js" id="tsd-search-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os"</script><header class="tsd-page-toolbar">
+<div class="tsd-toolbar-contents container">
+<div class="table-cell" id="tsd-search" data-base=".">
+<div class="field"><label for="tsd-search-field" class="tsd-widget tsd-toolbar-icon search no-caption"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M15.7824 13.833L12.6666 10.7177C12.5259 10.5771 12.3353 10.499 12.1353 10.499H11.6259C12.4884 9.39596 13.001 8.00859 13.001 6.49937C13.001 2.90909 10.0914 0 6.50048 0C2.90959 0 0 2.90909 0 6.49937C0 10.0896 2.90959 12.9987 6.50048 12.9987C8.00996 12.9987 9.39756 12.4863 10.5008 11.6239V12.1332C10.5008 12.3332 10.5789 12.5238 10.7195 12.6644L13.8354 15.7797C14.1292 16.0734 14.6042 16.0734 14.8948 15.7797L15.7793 14.8954C16.0731 14.6017 16.0731 14.1267 15.7824 13.833ZM6.50048 10.499C4.29094 10.499 2.50018 8.71165 2.50018 6.49937C2.50018 4.29021 4.28781 2.49976 6.50048 2.49976C8.71001 2.49976 10.5008 4.28708 10.5008 6.49937C10.5008 8.70852 8.71314 10.499 6.50048 10.499Z" fill="var(--color-text)"></path></svg></label><input type="text" id="tsd-search-field" aria-label="Search"/></div>
+<div class="field">
+<div id="tsd-toolbar-links"></div></div>
+<ul class="results">
+<li class="state loading">Preparing search index...</li>
+<li class="state failure">The search index is not available</li></ul><a href="index.html" class="title">@cryptogate/react-ui</a></div>
+<div class="table-cell" id="tsd-widgets"><a href="#" class="tsd-widget tsd-toolbar-icon menu no-caption" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="3" width="14" height="2" fill="var(--color-text)"></rect><rect x="1" y="7" width="14" height="2" fill="var(--color-text)"></rect><rect x="1" y="11" width="14" height="2" fill="var(--color-text)"></rect></svg></a></div></div></header>
+<div class="container container-main">
+<div class="col-content">
+<div class="tsd-page-title">
+<h2>@cryptogate/react-ui</h2></div>
+<div class="tsd-panel tsd-typography"><a id="md:cryptogatereact-ui" class="tsd-anchor"></a><h1><a href="#md:cryptogatereact-ui">Cryptogate/react-ui</a></h1><p align="center">
+    <blockquote>One Stop Shop For All Your React/Next UI Components With Web3 Integration Pre-configured</blockquote>
+</p>
+
+<a id="md:installation" class="tsd-anchor"></a><h2><a href="#md:installation">Installation</a></h2><p>Using yarn: </p>
+<pre><code class="language-bash"><span class="hl-0">yarn</span><span class="hl-1"> </span><span class="hl-2">add</span><span class="hl-1"> </span><span class="hl-2">@Cryptogate/react-ui</span>
+</code><button>Copy</button></pre>
+<p>Using npm:</p>
+<pre><code class="language-bash"><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">install</span><span class="hl-1"> </span><span class="hl-2">@Cryptogate/react-ui</span>
+</code><button>Copy</button></pre>
+<a id="md:required-dependecies" class="tsd-anchor"></a><h2><a href="#md:required-dependecies">Required Dependecies</a></h2><ul>
+<li>&quot;@cryptogate/react-providers&quot;: &quot;^0.0.34&quot;<br/></li>
+<li>&quot;@cryptogate/core&quot;: &quot;^0.0.10&quot;<br/></li>
+<li>&quot;@metamask/detect-provider&quot;: &quot;^1.2.0&quot;<br/></li>
+<li>&quot;ethers&quot;: &quot;^5.6.4&quot;<br/></li>
+<li>&quot;react-device-detect&quot;: &quot;^2.2.2&quot;<br/></li>
+<li>&quot;react-jazzicon&quot;: &quot;^1.0.3&quot;<br/></li>
+<li>&quot;react-slick&quot;: &quot;^0.29.0&quot; <br/></li>
+<li>&quot;slick-carousel&quot;: &quot;^1.8.1&quot; <br/></li>
+</ul>
+<a id="md:connectwalletcomponent" class="tsd-anchor"></a><h2><a href="#md:connectwalletcomponent">ConnectWalletComponent</a></h2><p>This all in one component is built to assist developers in integrating web3 authentication in 3 minutes.</p>
+<a id="md:usage" class="tsd-anchor"></a><h3><a href="#md:usage">Usage</a></h3><p>Step 1: Import the component:</p>
+<pre><code class="language-javascript"><span class="hl-3">import</span><span class="hl-1"> {</span><span class="hl-4">ConnectWalletComponent</span><span class="hl-1">} </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-2">&quot;@cryptogate/react-ui&quot;</span>
+</code><button>Copy</button></pre>
+<p>Step 2: Simply render this component:</p>
+<pre><code class="language-javascript"><span class="hl-3">import</span><span class="hl-1"> {</span><span class="hl-4">ConnectWalletComponent</span><span class="hl-1">} </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-2">&quot;@cryptogate/react-ui&quot;</span><br/><br/><span class="hl-5">&lt;</span><span class="hl-6">div</span><span class="hl-5">&gt;</span><br/><span class="hl-1">    </span><span class="hl-5">&lt;</span><span class="hl-7">ConnectWalletComponent</span><span class="hl-5">/&gt;</span><br/><span class="hl-5">&lt;/</span><span class="hl-6">div</span><span class="hl-5">&gt;</span>
+</code><button>Copy</button></pre>
+<p>Step 3: Add the list of accepted wallets. How about we add METAMASK?</p>
+<pre><code class="language-javascript"><span class="hl-3">import</span><span class="hl-1"> {</span><span class="hl-4">ConnectWalletComponent</span><span class="hl-1">, </span><span class="hl-4">EthWallets</span><span class="hl-1">} </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-2">&quot;@cryptogate/react-ui&quot;</span><br/><br/><span class="hl-5">&lt;</span><span class="hl-6">div</span><span class="hl-5">&gt;</span><br/><span class="hl-1">    </span><span class="hl-5">&lt;</span><span class="hl-7">ConnectWalletComponent</span><br/><span class="hl-1">        </span><span class="hl-8">EthWalletList</span><span class="hl-1">=</span><span class="hl-9">{</span><span class="hl-10">[</span><span class="hl-4">EthWallets</span><span class="hl-10">.</span><span class="hl-11">METAMASK</span><span class="hl-10">]</span><span class="hl-9">}</span><br/><span class="hl-1">    </span><span class="hl-5">/&gt;</span><br/><span class="hl-5">&lt;/</span><span class="hl-6">div</span><span class="hl-5">&gt;</span>
+</code><button>Copy</button></pre>
+<p>For more <a href="#customized-wallet-list">details</a>  on customizing your own wallet list, check <a href="#customized-wallet-list">How To Customize My Wallet List</a> </p>
+<p>Additional Step: To request a signature, add an <code>onSign</code> callback prop:</p>
+<pre><code class="language-javascript"><span class="hl-3">import</span><span class="hl-1"> {</span><span class="hl-4">ConnectWalletComponent</span><span class="hl-1">, </span><span class="hl-4">EthWallets</span><span class="hl-1">} </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-2">&quot;@cryptogate/react-ui&quot;</span><br/><br/><span class="hl-5">&lt;</span><span class="hl-6">div</span><span class="hl-5">&gt;</span><br/><span class="hl-1">    </span><span class="hl-5">&lt;</span><span class="hl-7">ConnectWalletComponent</span><br/><span class="hl-1">        </span><span class="hl-8">EthWalletList</span><span class="hl-1">=</span><span class="hl-9">{</span><span class="hl-10">[</span><span class="hl-4">EthWallets</span><span class="hl-10">.</span><span class="hl-11">METAMASK</span><span class="hl-10">]</span><span class="hl-9">}</span><br/><span class="hl-1">        </span><span class="hl-8">onSign</span><span class="hl-1">=</span><span class="hl-9">{</span><span class="hl-10">(</span><span class="hl-4">key</span><span class="hl-10">) </span><span class="hl-9">=&gt;</span><span class="hl-10"> {</span><span class="hl-4">console</span><span class="hl-10">.</span><span class="hl-0">log</span><span class="hl-10">(</span><span class="hl-4">key</span><span class="hl-10">)}</span><span class="hl-9">}</span><br/><span class="hl-1">    </span><span class="hl-5">/&gt;</span><br/><span class="hl-5">&lt;/</span><span class="hl-6">div</span><span class="hl-5">&gt;</span>
+</code><button>Copy</button></pre>
+<p>After signing, a key object is created and saved in the localStorage. check <a href="on-sign-method">onSign Method</a> for the object format.</p>
+<p><strong>And that&#39;s it.. Congratulations on integrating a Customized Web3 Authentication. For more customization, check the <a href="#props">Props List</a></strong></p>
+<a id="md:props" class="tsd-anchor"></a><h4><a href="#md:props">Props</a></h4><table>
+<thead>
+<tr>
+<th>Prop</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ActiveComponent</td>
+<td>React Node</td>
+<td>The first componenet rendered</td>
+<td><a href="#default-active-component">check default</a></td>
+</tr>
+<tr>
+<td>Disabled Component</td>
+<td>React Node</td>
+<td>Rendered while the message is being signed</td>
+<td><a href="#default-disabled-component">check default</a></td>
+</tr>
+<tr>
+<td>ConnectedComponent</td>
+<td>React Node</td>
+<td>This componenet is rendered after signing successfully</td>
+<td><a href="#identicon">Identicon</a></td>
+</tr>
+<tr>
+<td>EthWalletList</td>
+<td>numbers[]</td>
+<td>Array of accepted ethereum wallets, check <a href="#customized-wallet-list">Customize Wallet List</a></td>
+<td>[]</td>
+</tr>
+<tr>
+<td>SolWalletList</td>
+<td>numbers[]</td>
+<td>Array of accepted solana wallets, check <a href="#customized-wallet-list">Customize Wallet List</a></td>
+<td>[]</td>
+</tr>
+<tr>
+<td>onSign</td>
+<td>function</td>
+<td>Called after signing a message, check <a href="#onsign-method">onSign Method</a></td>
+<td></td>
+</tr>
+<tr>
+<td>SignatureMessage</td>
+<td>string</td>
+<td>The message used on signing</td>
+<td>&quot;This is the default signaure message provided by Cryptogate.&quot;</td>
+</tr>
+<tr>
+<td>NetworkChainIds</td>
+<td>numbers[]</td>
+<td>Array of supported networks</td>
+<td>[1] (Ethereum Mainnnet)</td>
+</tr>
+<tr>
+<td>NetworkAlertMessage</td>
+<td>string</td>
+<td>Alert message when user connects with an unsupported network</td>
+<td>&quot;Selected network is not supported.&quot;</td>
+</tr>
+<tr>
+<td>ConnectedMenuChosen</td>
+<td>ConnectedMenuOptions</td>
+<td>The menu to show when clicking on the Connected Component, check <a href="#connected-menu-options">Connected Menu Options</a></td>
+<td>WALLETINFORMATION</td>
+</tr>
+<tr>
+<td>WalletListStyle</td>
+<td>JSON</td>
+<td>Object that takes two entries: <code>top</code> and <code>background</code> to change the style of wallets lists popup</td>
+<td><code>{top: &#39;0&#39;, background: &#39;white&#39;}</code></td>
+</tr>
+</tbody></table>
+<a id="md:default-active-component" class="tsd-anchor"></a><h4><a href="#md:default-active-component">Default Active Component</a></h4><p align="center">
+    <img src="https://github.com/Cryptoware-ME/-cryptogate/blob/main/packages/react-ui/preview/ActiveButton.png?raw=true" alt="Active Component Preview" width="200"/>
+</p>
+
+<a id="md:default-disabled-component" class="tsd-anchor"></a><h4><a href="#md:default-disabled-component">Default Disabled Component</a></h4><p align="center">
+    <img src="https://github.com/Cryptoware-ME/-cryptogate/blob/main/packages/react-ui/preview/DisabledButton.png?raw=true" alt="Disabled Component Preview" width="200"/>
+</p>
+
+<a id="md:on-sign-method" class="tsd-anchor"></a><h4><a href="#md:on-sign-method">On Sign Method</a></h4><p>The <strong>onSign Method</strong> takes a key parameter, this key is the value saved in the local storage after signing. The object is in the form of:</p>
+<pre><code class="language-js"><span class="hl-1">{</span><br/><span class="hl-1">  </span><span class="hl-12">address</span><span class="hl-1">: </span><span class="hl-2">&quot;&lt;address used to sign&gt;&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-12">message</span><span class="hl-1">: </span><span class="hl-2">&quot;This is the default signaure message provided by Cryptogate.&quot;</span><span class="hl-1"> </span><span class="hl-13">// or the message passed in the SignatureMessage prop,</span><br/><span class="hl-1">  </span><span class="hl-12">signature</span><span class="hl-1">: </span><span class="hl-2">&quot;&lt;The signed message&gt;&quot;</span><br/><span class="hl-1">}</span>
+</code><button>Copy</button></pre>
+<p>The <strong>onSign</strong> Method format: </p>
+<pre><code class="language-javascript"><span class="hl-1">  (</span><span class="hl-4">key</span><span class="hl-1">) </span><span class="hl-9">=&gt;</span><span class="hl-1"> {</span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">log</span><span class="hl-1">(</span><span class="hl-4">key</span><span class="hl-1">)}</span>
+</code><button>Copy</button></pre>
+<a id="md:connected-menu" class="tsd-anchor"></a><h2><a href="#md:connected-menu">Connected Menu</a></h2><p>Cryptogate provides a variety of options when it comes to choosing menu. You can either choose the simple <a href="#wallet-information">Wallet Information</a> menu, or go with the fully customized <a href="#cryptogate-store">Cryptogate Store</a></p>
+<p>In all cases, the <code>ChosenConnectedMenu</code>  <code>isOpen</code> and <code>onClose</code> <a href="#connected-menu-props">props</a> should always be included</p>
+<table>
+<thead>
+<tr>
+<th>Prop</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>isOpen</td>
+<td>boolean</td>
+<td>A flag if the menu if open or not</td>
+</tr>
+<tr>
+<td>onClose</td>
+<td>function</td>
+<td>A function called when closing the menu</td>
+</tr>
+<tr>
+<td>ChosenConnectedMenu</td>
+<td>ConnnectedMenuOptions</td>
+<td>The menu type you need, check <a href="#connected-menu-options">Connected Menu Options</a> for more info</td>
+</tr>
+<tr>
+<td>onDisconnect</td>
+<td>function</td>
+<td>Callback function after disconnecting</td>
+</tr>
+<tr>
+<td>Store</td>
+<td>object</td>
+<td>Object constructed from the list of Token &amp; NFT Collection addresses. Check the <a href="#store">Store</a> object format</td>
+</tr>
+</tbody></table>
+<a id="md:wallet-information" class="tsd-anchor"></a><h3><a href="#md:wallet-information">Wallet Information</a></h3><p>A simple menu that shows the users wallet information. Balance, wallet address, ENS (if available) and a disconnect button.</p>
+<a id="md:usage-1" class="tsd-anchor"></a><h4><a href="#md:usage-1">Usage</a></h4><p>Step 1: Import the component and it&#39;s options</p>
+<pre><code class="language-javascript"><span class="hl-3">import</span><span class="hl-1"> {</span><span class="hl-4">ConnectedMenu</span><span class="hl-1">, </span><span class="hl-4">ConnectedMenuOptions</span><span class="hl-1">} </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-2">&quot;@cryptogate/react-ui&quot;</span>
+</code><button>Copy</button></pre>
+<p>Step 2: Then render this component with the WalletInformation Option:</p>
+<pre><code class="language-javascript"><span class="hl-3">import</span><span class="hl-1"> {</span><span class="hl-4">ConnectedMenu</span><span class="hl-1">, </span><span class="hl-4">ConnectedMenuOptions</span><span class="hl-1">} </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-2">&quot;@cryptogate/react-ui&quot;</span><br/><br/><span class="hl-5">&lt;</span><span class="hl-6">div</span><span class="hl-5">&gt;</span><br/><span class="hl-1">    </span><span class="hl-5">&lt;</span><span class="hl-7">ConnectedMenu</span><br/><span class="hl-1">        </span><span class="hl-8">isOpen</span><span class="hl-1"> = </span><span class="hl-9">{</span><span class="hl-4">isMenuOpen</span><span class="hl-9">}</span><span class="hl-1"> </span><span class="hl-13">// isMenuOpen is a state variable</span><br/><span class="hl-1">        </span><span class="hl-8">onClose</span><span class="hl-1"> = </span><span class="hl-9">{</span><span class="hl-10">() </span><span class="hl-9">=&gt;</span><span class="hl-10"> </span><span class="hl-0">seIsMenuOpen</span><span class="hl-10">(</span><span class="hl-9">false</span><span class="hl-10">)</span><span class="hl-9">}</span><br/><span class="hl-1">        </span><span class="hl-8">ChosenConnectedMenu</span><span class="hl-1"> = </span><span class="hl-9">{</span><span class="hl-4">ConnectedMenuOptions</span><span class="hl-10">.</span><span class="hl-11">WALLETINFORMATION</span><span class="hl-9">}</span><br/><span class="hl-1">        </span><span class="hl-8">onDisconnect</span><span class="hl-1"> = </span><span class="hl-9">{</span><span class="hl-10">() </span><span class="hl-9">=&gt;</span><span class="hl-10"> </span><span class="hl-4">router</span><span class="hl-10">.</span><span class="hl-0">push</span><span class="hl-10">(</span><span class="hl-2">&quot;/&quot;</span><span class="hl-10">)</span><span class="hl-9">}</span><br/><span class="hl-1">    </span><span class="hl-5">/&gt;</span><br/><span class="hl-5">&lt;/</span><span class="hl-6">div</span><span class="hl-5">&gt;</span>
+</code><button>Copy</button></pre>
+<a id="md:cryptogate-store" class="tsd-anchor"></a><h3><a href="#md:cryptogate-store">Cryptogate Store</a></h3><p>A fully customized store. Pass the <code>ConnectedMenuOptions.STORE</code> option and a <code>Store</code> prop. Check the <a href="#store">Store</a> object format</p>
+<a id="md:usage-2" class="tsd-anchor"></a><h4><a href="#md:usage-2">Usage</a></h4><p>Step 1: Import the component and it&#39;s options</p>
+<pre><code class="language-javascript"><span class="hl-3">import</span><span class="hl-1"> {</span><span class="hl-4">ConnectedMenu</span><span class="hl-1">, </span><span class="hl-4">ConnectedMenuOptions</span><span class="hl-1">} </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-2">&quot;@cryptogate/react-ui&quot;</span>
+</code><button>Copy</button></pre>
+<p>Step 2: Then render this component with the Store Option:</p>
+<pre><code class="language-javascript"><span class="hl-3">import</span><span class="hl-1"> {</span><span class="hl-4">ConnectedMenu</span><span class="hl-1">, </span><span class="hl-4">ConnectedMenuOptions</span><span class="hl-1">} </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-2">&quot;@cryptogate/react-ui&quot;</span><br/><br/><span class="hl-5">&lt;</span><span class="hl-6">div</span><span class="hl-5">&gt;</span><br/><span class="hl-1">    </span><span class="hl-5">&lt;</span><span class="hl-7">ConnectedMenu</span><br/><span class="hl-1">        </span><span class="hl-8">isOpen</span><span class="hl-1"> = </span><span class="hl-9">{</span><span class="hl-4">isMenuOpen</span><span class="hl-9">}</span><span class="hl-1"> </span><span class="hl-13">// isMenuOpen is a state variable</span><br/><span class="hl-1">        </span><span class="hl-8">onClose</span><span class="hl-1"> = </span><span class="hl-9">{</span><span class="hl-10">() </span><span class="hl-9">=&gt;</span><span class="hl-10"> </span><span class="hl-0">seIsMenuOpen</span><span class="hl-10">(</span><span class="hl-9">false</span><span class="hl-10">)</span><span class="hl-9">}</span><br/><span class="hl-1">        </span><span class="hl-8">ChosenConnectedMenu</span><span class="hl-1"> = </span><span class="hl-9">{</span><span class="hl-4">ConnectedMenuOptions</span><span class="hl-10">.</span><span class="hl-11">STORE</span><span class="hl-9">}</span><br/><span class="hl-1">        </span><span class="hl-8">onDisconnect</span><span class="hl-1"> = </span><span class="hl-9">{</span><span class="hl-10">() </span><span class="hl-9">=&gt;</span><span class="hl-10"> </span><span class="hl-4">router</span><span class="hl-10">.</span><span class="hl-0">push</span><span class="hl-10">(</span><span class="hl-2">&quot;/&quot;</span><span class="hl-10">)</span><span class="hl-9">}</span><br/><span class="hl-1">        </span><span class="hl-8">Store</span><span class="hl-1"> = </span><span class="hl-9">{</span><br/><span class="hl-10">            {</span><br/><span class="hl-10">                </span><span class="hl-4">Tokens:</span><span class="hl-10"> [</span><br/><span class="hl-10">                    </span><span class="hl-2">&quot;0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2&quot;</span><br/><span class="hl-10">                ],</span><br/><span class="hl-10">                </span><span class="hl-4">NFTs:</span><span class="hl-10"> [</span><br/><span class="hl-10">                    </span><span class="hl-2">&quot;0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D&quot;</span><span class="hl-10">,</span><br/><span class="hl-10">                    </span><span class="hl-2">&quot;0x4feec948eb3d6a2eb37560d4b2c16f1c9fe72ef6&quot;</span><br/><span class="hl-10">                ]</span><br/><span class="hl-10">            }</span><br/><span class="hl-10">        </span><span class="hl-9">}</span><br/><span class="hl-1">    </span><span class="hl-5">/&gt;</span><br/><span class="hl-5">&lt;/</span><span class="hl-6">div</span><span class="hl-5">&gt;</span>
+</code><button>Copy</button></pre>
+<a id="md:store" class="tsd-anchor"></a><h4><a href="#md:store">Store</a></h4><p>This object contain a list of Token and NFT Collection Addresses. Just construct the object as follows:</p>
+<pre><code><span class="hl-1">    {</span><br/><span class="hl-1">        </span><span class="hl-12">Tokens</span><span class="hl-1">: [</span><br/><span class="hl-1">          </span><span class="hl-2">&quot;0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">        ],</span><br/><span class="hl-1">        </span><span class="hl-12">NFTs</span><span class="hl-1">: [</span><br/><span class="hl-1">          </span><span class="hl-2">&quot;0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">          </span><span class="hl-2">&quot;0x4feec948eb3d6a2eb37560d4b2c16f1c9fe72ef6&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">        ],</span><br/><span class="hl-1">    }</span>
+</code><button>Copy</button></pre>
+<a id="md:identicon" class="tsd-anchor"></a><h2><a href="#md:identicon">Identicon</a></h2><p>Simply display a customized jazzicon. </p>
+<a id="md:usage-3" class="tsd-anchor"></a><h3><a href="#md:usage-3">Usage</a></h3><p>Step 1: Import the component</p>
+<pre><code class="language-javascript"><span class="hl-3">import</span><span class="hl-1"> {</span><span class="hl-4">Identicon</span><span class="hl-1">} </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-2">&quot;@cryptogate/react-ui&quot;</span>
+</code><button>Copy</button></pre>
+<p>Step 2: Render the component</p>
+<pre><code class="language-javascript"><span class="hl-3">import</span><span class="hl-1"> {</span><span class="hl-4">Identicon</span><span class="hl-1">} </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-2">&quot;@cryptogate/react-ui&quot;</span><br/><br/><span class="hl-5">&lt;</span><span class="hl-7">Identicon</span><span class="hl-5">/&gt;</span>
+</code><button>Copy</button></pre>
+<p><strong>And That&#39;s It.. Here&#39;s your customized jazzicon:</strong></p>
+<p align="center">
+    <img src="https://github.com/Cryptoware-ME/-cryptogate/blob/main/packages/react-ui/preview/Identicon.png?raw=true" alt="Identicon Component Preview" width="200"/>
+</p>
+
+
+<a id="md:customized-wallet-list" class="tsd-anchor"></a><h2><a href="#md:customized-wallet-list">Customized Wallet List</a></h2><p>With cryptogate, you have complete controll over adding/removing wallets from the list. No configuration needed, simply update the props.</p>
+<a id="md:usage-4" class="tsd-anchor"></a><h3><a href="#md:usage-4">Usage:</a></h3><p>Let&#39;s customize our list of Ethereum wallets</p>
+<p>Step 1: Importing the list of supported ethereum wallets</p>
+<pre><code class="language-javascript"><span class="hl-3">import</span><span class="hl-1"> {</span><span class="hl-4">EthWallets</span><span class="hl-1">} </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-2">&quot;@cryptogate/react-ui&quot;</span>
+</code><button>Copy</button></pre>
+<p>Step 2:
+If we observe the imported object <code>EthWallets</code>, it&#39;s an enum of supported wallets. All we have to do is pass the wallets we want in the <code>EthWalletList</code> prop:</p>
+<pre><code class="language-javascript"><span class="hl-3">import</span><span class="hl-1"> {</span><span class="hl-4">ConnectWalletComponent</span><span class="hl-1">, </span><span class="hl-4">EthWallets</span><span class="hl-1">} </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-2">&quot;@cryptogate/react-ui&quot;</span><br/><br/><span class="hl-5">&lt;</span><span class="hl-6">div</span><span class="hl-5">&gt;</span><br/><span class="hl-1">    </span><span class="hl-5">&lt;</span><span class="hl-7">ConnectWalletComponent</span><br/><span class="hl-1">        </span><span class="hl-8">EthWalletList</span><span class="hl-1">=</span><span class="hl-9">{</span><span class="hl-10">[</span><span class="hl-4">EthWallets</span><span class="hl-10">.</span><span class="hl-11">METAMASK</span><span class="hl-10">, </span><span class="hl-4">EthWallets</span><span class="hl-10">.</span><span class="hl-11">COINBASE</span><span class="hl-10">]</span><span class="hl-9">}</span><br/><span class="hl-1">    </span><span class="hl-5">/&gt;</span><br/><span class="hl-5">&lt;/</span><span class="hl-6">div</span><span class="hl-5">&gt;</span>
+</code><button>Copy</button></pre>
+<p>The current list of supported ethereum wallets:<br/>
+    - Metamask: <code>EthWallets.METAMASK</code><br/>
+    - Coinbase: <code>EthWallets.COINBASE</code><br/>
+    - Wallet Connect: <code>EthWallets.WALLETCONNECT</code><br/></p>
+<p>If you want to add all supported wallets, simply pass the <code>EthWallets.ALL</code> value:</p>
+<pre><code class="language-javascript"><span class="hl-5">&lt;</span><span class="hl-7">ConnectWalletComponent</span><br/><span class="hl-1">        </span><span class="hl-8">EthWalletList</span><span class="hl-1">=</span><span class="hl-9">{</span><span class="hl-10">[</span><span class="hl-4">EthWallets</span><span class="hl-10">.</span><span class="hl-11">ALL</span><span class="hl-10">]</span><span class="hl-9">}</span><br/><span class="hl-1">    </span><span class="hl-5">/&gt;</span>
+</code><button>Copy</button></pre>
+<p>For solana wallets, use the SolWallets,</p>
+<pre><code class="language-javascript"><span class="hl-3">import</span><span class="hl-1"> {</span><span class="hl-4">ConnectWalletComponent</span><span class="hl-1">, </span><span class="hl-4">EthWallets</span><span class="hl-1">} </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-2">&quot;@cryptogate/react-ui&quot;</span><br/><br/><span class="hl-5">&lt;</span><span class="hl-6">div</span><span class="hl-5">&gt;</span><br/><span class="hl-1">    </span><span class="hl-5">&lt;</span><span class="hl-7">ConnectWalletComponent</span><br/><span class="hl-1">        </span><span class="hl-8">EthWalletList</span><span class="hl-1">=</span><span class="hl-9">{</span><span class="hl-10">[</span><span class="hl-4">EthWallets</span><span class="hl-10">.</span><span class="hl-11">PHANTOM</span><span class="hl-10">, </span><span class="hl-4">EthWallets</span><span class="hl-10">.</span><span class="hl-11">SOLFLARE</span><span class="hl-10">]</span><span class="hl-9">}</span><br/><span class="hl-1">    </span><span class="hl-5">/&gt;</span><br/><span class="hl-5">&lt;/</span><span class="hl-6">div</span><span class="hl-5">&gt;</span>
+</code><button>Copy</button></pre>
+<p>The current list of supported ethereum wallets:<br/>
+    - Phantom: <code>EthWallets.PHANTOM</code><br/>
+    - Slope: <code>EthWallets.SLOPE</code><br/>
+    - Solflare Connect: <code>EthWallets.SOLFLARE</code><br/></p>
+<a id="md:connected-menu-options" class="tsd-anchor"></a><h2><a href="#md:connected-menu-options">Connected Menu Options</a></h2><p>Through these options, you can easily select the menu you need</p>
+<a id="md:usage-5" class="tsd-anchor"></a><h3><a href="#md:usage-5">Usage:</a></h3><p>Step 1: Importing the list of available menus</p>
+<pre><code class="language-javascript"><span class="hl-3">import</span><span class="hl-1"> {</span><span class="hl-4">ConnectedMenuOptions</span><span class="hl-1">} </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-2">&quot;@cryptogate/react-ui&quot;</span>
+</code><button>Copy</button></pre>
+<p>Step 2:
+If we observe the imported object <code>ConnectedMenuOptions</code>, it&#39;s an enum of available menus. All we have to do is pass the menu we want in the <code>ConnectedMenuChosen</code> prop:</p>
+<pre><code class="language-javascript"><span class="hl-3">import</span><span class="hl-1"> {</span><span class="hl-4">ConnectWalletComponent</span><span class="hl-1">, </span><span class="hl-4">ConnectedMenuOptions</span><span class="hl-1">} </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-2">&quot;@cryptogate/react-ui&quot;</span><br/><br/><span class="hl-5">&lt;</span><span class="hl-6">div</span><span class="hl-5">&gt;</span><br/><span class="hl-1">    </span><span class="hl-5">&lt;</span><span class="hl-7">ConnectWalletComponent</span><br/><span class="hl-1">        </span><span class="hl-8">ConnectedMenuChosen</span><span class="hl-1">=</span><span class="hl-9">{</span><span class="hl-4">ConnectedMenuOptions</span><span class="hl-10">.</span><span class="hl-11">STORE</span><span class="hl-9">}</span><br/><span class="hl-1">    </span><span class="hl-5">/&gt;</span><br/><span class="hl-5">&lt;/</span><span class="hl-6">div</span><span class="hl-5">&gt;</span>
+</code><button>Copy</button></pre>
+<p>The current list of available menus:<br/>
+    - No Menu: <code>EthWallets.NOMENU</code><br/>
+    - Wallet Information : <code>EthWallets.WALLETINFORMATION</code><br/>
+    - Cryptogate Store: <code>EthWallets.STORE</code><br/></p>
+</div></div>
+<div class="col-sidebar">
+<div class="page-menu">
+<div class="tsd-navigation settings">
+<details class="tsd-index-accordion"><summary class="tsd-accordion-summary">
+<h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4.93896 8.531L12 15.591L19.061 8.531L16.939 6.409L12 11.349L7.06098 6.409L4.93896 8.531Z" fill="var(--color-text)" id="icon-chevronDown"></path></svg>Settings</h3></summary>
+<div class="tsd-accordion-details">
+<div class="tsd-filter-visibility">
+<h4 class="uppercase">Member Visibility</h4><form>
+<ul id="tsd-filter-options">
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-protected" name="protected"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Protected</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-private" name="private"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Private</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-external" name="external"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>External</span></label></li></ul></form></div>
+<div class="tsd-theme-toggle">
+<h4 class="uppercase">Theme</h4><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div>
+<details open class="tsd-index-accordion tsd-page-navigation"><summary class="tsd-accordion-summary">
+<h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><use href="#icon-chevronDown"></use></svg>On This Page</h3></summary>
+<div class="tsd-accordion-details">
+<ul>
+<li>
+<ul>
+<li><a href="#md:cryptogatereact-ui"><span>Cryptogate/react-<wbr/>ui</span></a></li>
+<li>
+<ul>
+<li><a href="#md:installation"><span>Installation</span></a></li>
+<li><a href="#md:required-dependecies"><span>Required <wbr/>Dependecies</span></a></li>
+<li><a href="#md:connectwalletcomponent"><span>Connect<wbr/>Wallet<wbr/>Component</span></a></li>
+<li>
+<ul>
+<li><a href="#md:usage"><span>Usage</span></a></li>
+<li>
+<ul>
+<li><a href="#md:props"><span>Props</span></a></li>
+<li><a href="#md:default-active-component"><span>Default <wbr/>Active <wbr/>Component</span></a></li>
+<li><a href="#md:default-disabled-component"><span>Default <wbr/>Disabled <wbr/>Component</span></a></li>
+<li><a href="#md:on-sign-method"><span>On <wbr/>Sign <wbr/>Method</span></a></li></ul></li></ul></li>
+<li><a href="#md:connected-menu"><span>Connected <wbr/>Menu</span></a></li>
+<li>
+<ul>
+<li><a href="#md:wallet-information"><span>Wallet <wbr/>Information</span></a></li>
+<li>
+<ul>
+<li><a href="#md:usage-1"><span>Usage</span></a></li></ul></li>
+<li><a href="#md:cryptogate-store"><span>Cryptogate <wbr/>Store</span></a></li>
+<li>
+<ul>
+<li><a href="#md:usage-2"><span>Usage</span></a></li>
+<li><a href="#md:store"><span>Store</span></a></li></ul></li></ul></li>
+<li><a href="#md:identicon"><span>Identicon</span></a></li>
+<li>
+<ul>
+<li><a href="#md:usage-3"><span>Usage</span></a></li></ul></li>
+<li><a href="#md:customized-wallet-list"><span>Customized <wbr/>Wallet <wbr/>List</span></a></li>
+<li>
+<ul>
+<li><a href="#md:usage-4"><span>Usage:</span></a></li></ul></li>
+<li><a href="#md:connected-menu-options"><span>Connected <wbr/>Menu <wbr/>Options</span></a></li>
+<li>
+<ul>
+<li><a href="#md:usage-5"><span>Usage:</span></a></li></ul></li></ul></li></ul></li></ul></div></details></div>
+<div class="site-menu">
+<nav class="tsd-navigation"><a href="modules.html" class="current"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><g id="icon-4"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-namespace)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6"></rect><path d="M9.33 16V7.24H10.77L13.446 14.74C13.43 14.54 13.41 14.296 13.386 14.008C13.37 13.712 13.354 13.404 13.338 13.084C13.33 12.756 13.326 12.448 13.326 12.16V7.24H14.37V16H12.93L10.266 8.5C10.282 8.692 10.298 8.936 10.314 9.232C10.33 9.52 10.342 9.828 10.35 10.156C10.366 10.476 10.374 10.784 10.374 11.08V16H9.33Z" fill="var(--color-text)"></path></g></svg><span>@cryptogate/react-<wbr/>ui</span></a>
+<ul class="tsd-small-nested-navigation">
+<li><a href="enums/ConnectedMenuOptions.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><g id="icon-8"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-enum)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6"></rect><path d="M9.45 16V7.24H14.49V8.224H10.518V10.936H14.07V11.908H10.518V15.016H14.49V16H9.45Z" fill="var(--color-text)"></path></g></svg><span>Connected<wbr/>Menu<wbr/>Options</span></a></li>
+<li><a href="functions/AbiToUi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><g id="icon-64"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-function)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6"></rect><path d="M9.39 16V7.24H14.55V8.224H10.446V11.128H14.238V12.112H10.47V16H9.39Z" fill="var(--color-text)"></path></g></svg><span>Abi<wbr/>To<wbr/>Ui</span></a></li>
+<li><a href="functions/ConnectWalletComponent.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Connect<wbr/>Wallet<wbr/>Component</span></a></li>
+<li><a href="functions/ConnectedMenu.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Connected<wbr/>Menu</span></a></li>
+<li><a href="functions/Identicon.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Identicon</span></a></li>
+<li><a href="functions/getWithExpiry.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>get<wbr/>With<wbr/>Expiry</span></a></li>
+<li><a href="functions/setWithExpiry.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>set<wbr/>With<wbr/>Expiry</span></a></li></ul></nav></div></div></div>
+<div class="tsd-generator">
+<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div>
+<div class="overlay"></div></body></html>

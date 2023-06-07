@@ -40,7 +40,6 @@ export function WindowProvider({ children }: Props) {
         "visibilitychange",
         visibilityChangeListener
       );
-    AC;
   }, []);
 
   return <WindowContext.Provider value={isActiveWindow} children={children} />;

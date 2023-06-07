@@ -95,7 +95,7 @@ Handles the search input change event.
       );
       if (_contractObj && _contractObj.length) {
         const res = Object.keys(_contractObj[0].addresses).filter(
-          (key, _) => key == network.chainId.toString()
+          (key, _) => key == network?.chainId?.toString()
         );
         setContractObj({
           address: _contractObj[0].addresses[Number(res[0])],

@@ -21,13 +21,13 @@ Custom hook for interacting with Ethereum wallets and networks.
 
 @returns {{
 
-    account: string | undefined,
+    account: string | null,
 
     ethBalance: number,
     
-    ens: string | undefined,
+    ens: string | null,
     
-    provider: ethers.providers.Web3Provider | undefined,
+    provider: ethers.providers.Web3Provider | null,
     
     active: boolean,
     
@@ -198,12 +198,12 @@ export const useEthereum = () => {
     setWalletData({ account: undefined });
     if (ethConfig) {
       setNetworkData({
-        chainId: ethConfig.defaultNetwork.chainId ?? -1,
+        chainId: ethConfig?.defaultNetwork?.chainId ?? -1,
         chain: ethConfig.defaultNetwork,
       });
       setProvider(
         new ethers.providers.JsonRpcProvider(
-          ethConfig.readOnlyUrls[ethConfig.defaultNetwork.chainId ?? -1]
+          ethConfig.readOnlyUrls[ethConfig?.defaultNetwork?.chainId ?? -1]
         )
       );
     } else {

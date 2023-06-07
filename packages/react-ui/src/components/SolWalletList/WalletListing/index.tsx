@@ -1,4 +1,4 @@
-import { Adapter } from "@solana/wallet-adapter-base";
+import { Adapter, WalletReadyState } from "@solana/wallet-adapter-base";
 import { WalletIcon } from "@solana/wallet-adapter-react-ui";
 
 /**
@@ -47,7 +47,7 @@ const WalletListing = ({
       <span style={{ paddingRight: "15px" }}>
         <WalletIcon
           style={{ width: "22px", height: "22px" }}
-          wallet={{ adapter: wallet }}
+          wallet={{ adapter: wallet, readyState: WalletReadyState.Installed }}
         />
       </span>
 
