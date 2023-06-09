@@ -259,7 +259,7 @@ declare const Apothem: Chain;
 
 /**
  * @public
-*/
+ */
 declare const useEthereum: () => {
     account: `0x${string}` | undefined;
     ethBalance: string | undefined;

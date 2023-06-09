@@ -1,7 +1,7 @@
 import * as ethers from "ethers";
 /**
  * @public
-*/
+ */
 export declare const useEthereum: () => {
     account: `0x${string}` | undefined;
     ethBalance: string | undefined;

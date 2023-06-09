@@ -621,9 +621,9 @@ const resolveENS = (ens) => {
 
 /**
  * @public
-*/
+ */
 const useEthereum = () => {
-    const { walletData: { account }, setWalletData } = useWallet();
+    const { walletData: { account }, setWalletData, } = useWallet();
     const { brave, metamask, coinbase, shabakat } = useBrowserWallets();
     const { networkData, setNetworkData } = useNetwork();
     const { ethConfig, walletsConfig } = useConfig();
@@ -634,6 +634,7 @@ const useEthereum = () => {
         let _provider = provider;
         let proxyProvider = _provider === null || _provider === void 0 ? void 0 : _provider.provider;
         if (proxyProvider) {
+            proxyProvider.removeAllListeners();
             proxyProvider.on("accountsChanged", (accounts) => {
                 accounts[0] ? setWalletData({ account: accounts[0] }) : deactivate();
             });
@@ -642,7 +643,7 @@ const useEthereum = () => {
                 const _chainId = (_a = chainId.toString().split("x")[1]) !== null && _a !== void 0 ? _a : chainId;
                 setNetworkData({
                     chainId: _chainId,
-                    chain: getChainById(_chainId)
+                    chain: getChainById(_chainId),
                 });
             });
             proxyProvider.on("disconnect", (_) => deactivate);
@@ -651,6 +652,7 @@ const useEthereum = () => {
     const setData = (_account, _chainId, _provider) => {
         setWalletData({ account: _account });
         setNetworkData({ chainId: _chainId, chain: getChainById(_chainId) });
+        provider === null || provider === void 0 ? void 0 : provider.removeAllListeners();
         _provider && setProvider(new ethers__namespace.providers.Web3Provider(_provider));
     };
     const activateWallet = (_provider) => __awaiter(void 0, void 0, void 0, function* () {
@@ -700,11 +702,14 @@ const useEthereum = () => {
         setData(provider.accounts[0], provider.chainId, provider);
     });
     const deactivate = React__default["default"].useCallback(() => {
-        var _a, _b;
+        var _a, _b, _c, _d;
         setWalletData({ account: undefined });
         if (ethConfig) {
-            setNetworkData({ chainId: (_a = ethConfig.defaultNetwork.chainId) !== null && _a !== void 0 ? _a : -1, chain: ethConfig.defaultNetwork });
-            setProvider(new ethers__namespace.providers.JsonRpcProvider(ethConfig.readOnlyUrls[(_b = ethConfig.defaultNetwork.chainId) !== null && _b !== void 0 ? _b : -1]));
+            setNetworkData({
+                chainId: (_b = (_a = ethConfig.defaultNetwork) === null || _a === void 0 ? void 0 : _a.chainId) !== null && _b !== void 0 ? _b : -1,
+                chain: ethConfig.defaultNetwork,
+            });
+            setProvider(new ethers__namespace.providers.JsonRpcProvider(ethConfig.readOnlyUrls[(_d = (_c = ethConfig.defaultNetwork) === null || _c === void 0 ? void 0 : _c.chainId) !== null && _d !== void 0 ? _d : -1]));
         }
         else {
             addError("EthConfig not found");
