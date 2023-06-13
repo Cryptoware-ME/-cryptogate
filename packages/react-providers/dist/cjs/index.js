@@ -734,6 +734,7 @@ const useEthereum = () => {
 
 const useSolana = () => {
     const wallet = walletAdapterReact.useWallet();
+    const { disconnect, select } = walletAdapterReact.useWallet();
     const { connection } = walletAdapterReact.useConnection();
     const { solConfig } = useConfig();
     const { addError } = useErrorsBag();
@@ -767,10 +768,12 @@ const useSolana = () => {
     }, [solConfig, wallet.publicKey, wallet.connected, connection]);
     return {
         publicKey: solConfig ? wallet.publicKey : "",
-        connected: solConfig ? wallet.connected : false,
-        wallet,
         solBalance,
         connection,
+        connected: solConfig ? wallet.connected : false,
+        disconnect,
+        select,
+        wallet,
     };
 };
 

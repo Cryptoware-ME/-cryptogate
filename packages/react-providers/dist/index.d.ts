@@ -2,6 +2,7 @@
 import React, { ReactNode } from 'react';
 import * as _solana_web3_js from '@solana/web3.js';
 import { PublicKey } from '@solana/web3.js';
+import * as _solana_wallet_adapter_base from '@solana/wallet-adapter-base';
 import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
 import * as ethers from 'ethers';
 import { providers } from 'ethers';
@@ -278,18 +279,22 @@ declare const useEthereum: () => {
 
 declare const useSolana: () => {
     publicKey: string | _solana_web3_js.PublicKey | null;
-    connected: boolean;
-    wallet: _solana_wallet_adapter_react.WalletContextState;
     solBalance: number;
     connection: _solana_web3_js.Connection;
+    connected: boolean;
+    disconnect: () => Promise<void>;
+    select: (walletName: _solana_wallet_adapter_base.WalletName<string> | null) => void;
+    wallet: _solana_wallet_adapter_react.WalletContextState;
 };
 
 declare const useMultichain: () => {
     publicKey: string | _solana_web3_js.PublicKey | null;
-    connected: boolean;
-    wallet: _solana_wallet_adapter_react.WalletContextState;
     solBalance: number;
     connection: _solana_web3_js.Connection;
+    connected: boolean;
+    disconnect: () => Promise<void>;
+    select: (walletName: _solana_wallet_adapter_base.WalletName<string> | null) => void;
+    wallet: _solana_wallet_adapter_react.WalletContextState;
     account: `0x${string}` | undefined;
     ethBalance: string | undefined;
     ens: string | undefined;

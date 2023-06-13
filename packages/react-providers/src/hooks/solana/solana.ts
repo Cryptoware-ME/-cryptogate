@@ -5,6 +5,7 @@ import { useConfig, useErrorsBag } from "../../providers";
 
 export const useSolana = () => {
   const wallet = useWallet();
+  const { disconnect, select } = useWallet();
   const { connection } = useConnection();
   const { solConfig } = useConfig();
   const { addError } = useErrorsBag();
@@ -42,9 +43,11 @@ export const useSolana = () => {
 
   return {
     publicKey: solConfig ? wallet.publicKey : "",
-    connected: solConfig ? wallet.connected : false,
-    wallet,
     solBalance,
     connection,
+    connected: solConfig ? wallet.connected : false,
+    disconnect,
+    select,
+    wallet,
   };
 };
