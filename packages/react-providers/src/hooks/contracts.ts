@@ -330,7 +330,7 @@ export const writeContractCall = ({
   };
 };
 
-interface deployContractParams {
+interface DeployContractParams {
   abi: ContractABIUnit[] | ethers.ContractInterface;
   byteCode: any;
   args?: any;
@@ -338,15 +338,13 @@ interface deployContractParams {
 
 /**
  * @public
- * @param {PostContractCallParams} ContractCallObject
- * @return send, loading, response & error
  */
 export const useContract = (): {
   deployContract: ({
     abi,
     byteCode,
     args,
-  }: deployContractParams) => Promise<ethers.ethers.Contract>;
+  }: DeployContractParams) => Promise<ethers.ethers.Contract>;
 } => {
   const { provider } = useEthereum();
 
@@ -354,7 +352,7 @@ export const useContract = (): {
     abi,
     byteCode,
     args,
-  }: deployContractParams): Promise<ethers.ethers.Contract> => {
+  }: DeployContractParams): Promise<ethers.ethers.Contract> => {
     const signer = provider?.getSigner();
     const factory = new ethers.ContractFactory(abi, byteCode, signer);
     const contract = args

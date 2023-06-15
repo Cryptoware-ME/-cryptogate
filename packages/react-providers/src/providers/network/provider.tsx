@@ -3,6 +3,7 @@ import { ChainId } from "../../constants/chains";
 import { Chain } from "../../models/types";
 import { MultiChainProviderConfigProps } from "../Multichain";
 import { NetworkContext } from "./context";
+import { getChainById } from "../../helpers";
 
 interface Props {
   children: React.ReactNode;
@@ -27,11 +28,20 @@ export function NetworkProvider({ children, config }: Props) {
     });
   }, [config]);
 
+  const updateNetwork = (_chainId: ChainId) => {
+    _chainId &&
+      setNetworkData({
+        chainId: _chainId,
+        chain: getChainById(_chainId),
+      });
+  };
+
   return (
     <NetworkContext.Provider
       value={{
         networkData,
         setNetworkData,
+        updateNetwork,
       }}
       children={children}
     />

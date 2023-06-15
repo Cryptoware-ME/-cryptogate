@@ -196,6 +196,7 @@ declare function NetworkProvider({ children, config }: Props$1): JSX.Element;
 declare type NetworkContextType = {
     networkData: NetworkDataType;
     setNetworkData: React.Dispatch<React.SetStateAction<NetworkDataType>>;
+    updateNetwork: (_chainId: ChainId) => void;
 };
 declare const NetworkContext: React.Context<NetworkContextType>;
 declare function useNetwork(): NetworkContextType;
@@ -385,18 +386,16 @@ declare const writeContractCall: ({ abi, address, contract, method, }: PostContr
     response: any;
     error: any;
 };
-interface deployContractParams {
+interface DeployContractParams {
     abi: ContractABIUnit[] | ethers.ContractInterface;
     byteCode: any;
     args?: any;
 }
 /**
  * @public
- * @param {PostContractCallParams} ContractCallObject
- * @return send, loading, response & error
  */
 declare const useContract: () => {
-    deployContract: ({ abi, byteCode, args, }: deployContractParams) => Promise<ethers.ethers.Contract>;
+    deployContract: ({ abi, byteCode, args, }: DeployContractParams) => Promise<ethers.ethers.Contract>;
 };
 
 export { Apothem, Arbitrum, Avalanche, AvalancheTestnet, BSC, BSCTestnet, BaseGoerli, Chain, ChainId, ConfigContext, ConfigProvider, ContractABIUnit, ContractIO, DEFAULT_SUPPORTED_CHAINS, EthConfig, EthContract, EvmAddress, EvmNodeContext, EvmNodeProvider, EvmWallets, Goerli, Mainnet, MultiChainProvider, MultiChainProviderConfigProps, MultiChainProviderProps, Mumbai, NetworkContext, NetworkProvider, NodeUrls, Polygon, Sepolia, SolAddress, SolConfig, SolWallets, SolanaDevnet, SolanaMainnet, SolanaProvider, SolanaTestnet, WalletContext, WalletProvider, WalletsConfig, WindowContext, WindowProvider, XinFin, apothemExplorerUrl, avalancheExplorerUrl, bscScanUrl, bscTestnetScanUrl, getAddressLink, getChainById, getTransactionLink, goerliBasescanUrl, goerliEtherscanUrl, mainnetArbscanUrl, mainnetEtherscanUrl, mainnetSolscanUrl, mumbaiPolygonScanUrl, polygonScanUrl, readContractCall, readContractCalls, resolveENS, sepoliaEtherscanUrl, testAvalancheExplorerUrl, useAccount, useConfig, useContract, useEthereum, useEvmNode, useGasPrice, useMultichain, useNetwork, useSolana, useWallet, useWindow, writeContractCall, xinfinExplorerUrl };

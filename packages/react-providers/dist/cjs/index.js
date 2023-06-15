@@ -358,8 +358,12 @@ exports.ChainId = void 0;
 })(exports.ChainId || (exports.ChainId = {}));
 
 const NetworkContext = React__default["default"].createContext({
-    networkData: { chainId: exports.ChainId.Mainnet, chain: getChainById(exports.ChainId.Mainnet) },
-    setNetworkData: () => { }
+    networkData: {
+        chainId: exports.ChainId.Mainnet,
+        chain: getChainById(exports.ChainId.Mainnet),
+    },
+    setNetworkData: () => { },
+    updateNetwork: () => { },
 });
 function useNetwork() {
     const context = React__default["default"].useContext(NetworkContext);
@@ -375,9 +379,17 @@ function NetworkProvider({ children, config }) {
             chain: (_c = config.ethConfig) === null || _c === void 0 ? void 0 : _c.defaultNetwork,
         });
     }, [config]);
+    const updateNetwork = (_chainId) => {
+        _chainId &&
+            setNetworkData({
+                chainId: _chainId,
+                chain: getChainById(_chainId),
+            });
+    };
     return (React__default["default"].createElement(NetworkContext.Provider, { value: {
             networkData,
             setNetworkData,
+            updateNetwork,
         }, children: children }));
 }
 
@@ -1051,8 +1063,6 @@ const writeContractCall = ({ abi, address, contract, method, }) => {
 };
 /**
  * @public
- * @param {PostContractCallParams} ContractCallObject
- * @return send, loading, response & error
  */
 const useContract = () => {
     const { provider } = useEthereum();
