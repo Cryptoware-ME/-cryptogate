@@ -758,9 +758,9 @@ const useMultichain = () => {
  * @public
  * @return Gas Price
  * @example
- *  const {gasPrice} = useNetworkInfo()
-*/
-const useNetworkInfo = () => {
+ *  const gas = useGasPrice()
+ */
+const useGasPrice = () => {
     const { provider } = useEvmNode();
     const [gasPrice, setGasPrice] = React.useState();
     React.useEffect(() => {
@@ -771,9 +771,7 @@ const useNetworkInfo = () => {
             });
         }
     }, [provider]);
-    return {
-        gasPrice
-    };
+    return gasPrice;
 };
 
 /**
@@ -1019,5 +1017,5 @@ const useContract = () => {
     return { deployContract };
 };
 
-export { Apothem, Arbitrum, Avalanche, AvalancheTestnet, BSC, BSCTestnet, BaseGoerli, ChainId, ConfigContext, ConfigProvider, DEFAULT_SUPPORTED_CHAINS, EvmNodeContext, EvmNodeProvider, EvmWallets, Goerli, Mainnet, MultiChainProvider, Mumbai, NetworkContext, NetworkProvider, Polygon, Sepolia, SolWallets, SolanaDevnet, SolanaMainnet, SolanaProvider, SolanaTestnet, WalletContext, WalletProvider, WindowContext, WindowProvider, XinFin, apothemExplorerUrl, avalancheExplorerUrl, bscScanUrl, bscTestnetScanUrl, getAddressLink, getChainById, getTransactionLink, goerliBasescanUrl, goerliEtherscanUrl, mainnetArbscanUrl, mainnetEtherscanUrl, mainnetSolscanUrl, mumbaiPolygonScanUrl, polygonScanUrl, readContractCall, readContractCalls, resolveENS, sepoliaEtherscanUrl, testAvalancheExplorerUrl, useAccount, useConfig, useContract, useEthereum, useEvmNode, useMultichain, useNetwork, useNetworkInfo, useSolana, useWallet, useWindow, writeContractCall, xinfinExplorerUrl };
+export { Apothem, Arbitrum, Avalanche, AvalancheTestnet, BSC, BSCTestnet, BaseGoerli, ChainId, ConfigContext, ConfigProvider, DEFAULT_SUPPORTED_CHAINS, EvmNodeContext, EvmNodeProvider, EvmWallets, Goerli, Mainnet, MultiChainProvider, Mumbai, NetworkContext, NetworkProvider, Polygon, Sepolia, SolWallets, SolanaDevnet, SolanaMainnet, SolanaProvider, SolanaTestnet, WalletContext, WalletProvider, WindowContext, WindowProvider, XinFin, apothemExplorerUrl, avalancheExplorerUrl, bscScanUrl, bscTestnetScanUrl, getAddressLink, getChainById, getTransactionLink, goerliBasescanUrl, goerliEtherscanUrl, mainnetArbscanUrl, mainnetEtherscanUrl, mainnetSolscanUrl, mumbaiPolygonScanUrl, polygonScanUrl, readContractCall, readContractCalls, resolveENS, sepoliaEtherscanUrl, testAvalancheExplorerUrl, useAccount, useConfig, useContract, useEthereum, useEvmNode, useGasPrice, useMultichain, useNetwork, useSolana, useWallet, useWindow, writeContractCall, xinfinExplorerUrl };
 //# sourceMappingURL=index.js.map

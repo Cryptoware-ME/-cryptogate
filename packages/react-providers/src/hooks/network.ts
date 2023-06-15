@@ -5,23 +5,24 @@ import { useEvmNode } from "../providers";
 /**
  * @public
  * @return Gas Price
- * @example 
- *  const {gasPrice} = useNetworkInfo()
-*/
-export const useNetworkInfo = (): { gasPrice: ethers.BigNumber | undefined } => {
-    const { provider } = useEvmNode()
+ * @example
+ *  const gas = useGasPrice()
+ */
+export const useGasPrice = (): ethers.BigNumber | undefined => {
+  const { provider } = useEvmNode();
 
-    const [gasPrice, setGasPrice]: [ethers.BigNumber | undefined, React.Dispatch<React.SetStateAction<ethers.BigNumber | undefined>>] = React.useState()
+  const [gasPrice, setGasPrice]: [
+    ethers.BigNumber | undefined,
+    React.Dispatch<React.SetStateAction<ethers.BigNumber | undefined>>
+  ] = React.useState();
 
-    React.useEffect(() => {
-        if (provider) {
-            provider.getGasPrice().then((_gasPrice) => {
-                if (_gasPrice) setGasPrice(_gasPrice)
-            })
-        }
-    }, [provider])
-
-    return {
-        gasPrice
+  React.useEffect(() => {
+    if (provider) {
+      provider.getGasPrice().then((_gasPrice) => {
+        if (_gasPrice) setGasPrice(_gasPrice);
+      });
     }
-}
+  }, [provider]);
+
+  return gasPrice;
+};

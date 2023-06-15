@@ -787,9 +787,9 @@ const useMultichain = () => {
  * @public
  * @return Gas Price
  * @example
- *  const {gasPrice} = useNetworkInfo()
-*/
-const useNetworkInfo = () => {
+ *  const gas = useGasPrice()
+ */
+const useGasPrice = () => {
     const { provider } = useEvmNode();
     const [gasPrice, setGasPrice] = React__default["default"].useState();
     React__default["default"].useEffect(() => {
@@ -800,9 +800,7 @@ const useNetworkInfo = () => {
             });
         }
     }, [provider]);
-    return {
-        gasPrice
-    };
+    return gasPrice;
 };
 
 /**
@@ -1101,9 +1099,9 @@ exports.useConfig = useConfig;
 exports.useContract = useContract;
 exports.useEthereum = useEthereum;
 exports.useEvmNode = useEvmNode;
+exports.useGasPrice = useGasPrice;
 exports.useMultichain = useMultichain;
 exports.useNetwork = useNetwork;
-exports.useNetworkInfo = useNetworkInfo;
 exports.useSolana = useSolana;
 exports.useWallet = useWallet;
 exports.useWindow = useWindow;
