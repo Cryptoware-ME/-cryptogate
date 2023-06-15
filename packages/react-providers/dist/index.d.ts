@@ -350,8 +350,8 @@ interface GetContractCallParams {
  * @public
  * @param {GetContractCallParams} ContractCallObject
  * @return Call response and error
-*/
-declare const readContractCall: ({ abi, address, contract, method, args, enabled }: GetContractCallParams) => {
+ */
+declare const readContractCall: ({ abi, address, contract, method, args, enabled, }: GetContractCallParams) => {
     response: any;
     error: any;
 };
@@ -359,7 +359,7 @@ declare const readContractCall: ({ abi, address, contract, method, args, enabled
  * @public
  * @param {GetContractCallParams[]} params
  * @return {any[]} Call response
-*/
+ */
 declare const readContractCalls: (params: GetContractCallParams[]) => any[];
 interface PostContractCallParams {
     abi?: ContractABIUnit[] | ethers.ContractInterface;
@@ -378,8 +378,8 @@ declare type optionsType = {
  * @public
  * @param {PostContractCallParams} ContractCallObject
  * @return send, loading, response & error
-*/
-declare const writeContractCall: ({ abi, address, contract, method }: PostContractCallParams) => {
+ */
+declare const writeContractCall: ({ abi, address, contract, method, }: PostContractCallParams) => {
     send: (args?: any[], options?: optionsType) => void;
     loading: boolean;
     response: any;
@@ -394,9 +394,9 @@ interface deployContractParams {
  * @public
  * @param {PostContractCallParams} ContractCallObject
  * @return send, loading, response & error
-*/
+ */
 declare const useContract: () => {
-    deployContract: ({ abi, byteCode, args }: deployContractParams) => Promise<ethers.ethers.Contract>;
+    deployContract: ({ abi, byteCode, args, }: deployContractParams) => Promise<ethers.ethers.Contract>;
 };
 
 export { Apothem, Arbitrum, Avalanche, AvalancheTestnet, BSC, BSCTestnet, BaseGoerli, Chain, ChainId, ConfigContext, ConfigProvider, ContractABIUnit, ContractIO, DEFAULT_SUPPORTED_CHAINS, EthConfig, EthContract, EvmAddress, EvmNodeContext, EvmNodeProvider, EvmWallets, Goerli, Mainnet, MultiChainProvider, MultiChainProviderConfigProps, MultiChainProviderProps, Mumbai, NetworkContext, NetworkProvider, NodeUrls, Polygon, Sepolia, SolAddress, SolConfig, SolWallets, SolanaDevnet, SolanaMainnet, SolanaProvider, SolanaTestnet, WalletContext, WalletProvider, WalletsConfig, WindowContext, WindowProvider, XinFin, apothemExplorerUrl, avalancheExplorerUrl, bscScanUrl, bscTestnetScanUrl, getAddressLink, getChainById, getTransactionLink, goerliBasescanUrl, goerliEtherscanUrl, mainnetArbscanUrl, mainnetEtherscanUrl, mainnetSolscanUrl, mumbaiPolygonScanUrl, polygonScanUrl, readContractCall, readContractCalls, resolveENS, sepoliaEtherscanUrl, testAvalancheExplorerUrl, useAccount, useConfig, useContract, useEthereum, useEvmNode, useGasPrice, useMultichain, useNetwork, useSolana, useWallet, useWindow, writeContractCall, xinfinExplorerUrl };

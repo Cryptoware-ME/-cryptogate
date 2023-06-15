@@ -807,8 +807,8 @@ const useGasPrice = () => {
  * @public
  * @param {GetContractCallParams} ContractCallObject
  * @return Call response and error
-*/
-const readContractCall = ({ abi, address, contract, method, args, enabled = true }) => {
+ */
+const readContractCall = ({ abi, address, contract, method, args, enabled = true, }) => {
     const config = useConfig();
     const { addError, clearErrors } = useErrorsBag();
     const { network, provider } = useEthereum();
@@ -818,10 +818,11 @@ const readContractCall = ({ abi, address, contract, method, args, enabled = true
         try {
             clearErrors();
             setError(undefined);
-            const res = args ? yield contract[method](...args) : yield contract[method]();
+            const res = args
+                ? yield contract[method](...args)
+                : yield contract[method]();
             setResponse(undefined);
-            //! DON'T TO STRING
-            setResponse(res.toString());
+            setResponse(res);
         }
         catch (err) {
             console.log("************************ ", err);
@@ -878,14 +879,24 @@ const readContractCall = ({ abi, address, contract, method, args, enabled = true
             setError("No provider available");
             addError("No provider available");
         }
-    }, [network, provider, config, abi, address, contract, method, args, enabled]);
+    }, [
+        network,
+        provider,
+        config,
+        abi,
+        address,
+        contract,
+        method,
+        args,
+        enabled,
+    ]);
     return { response, error };
 };
 /**
  * @public
  * @param {GetContractCallParams[]} params
  * @return {any[]} Call response
-*/
+ */
 const readContractCalls = (params) => {
     const config = useConfig();
     const { addError, clearErrors } = useErrorsBag();
@@ -949,8 +960,8 @@ const readContractCalls = (params) => {
  * @public
  * @param {PostContractCallParams} ContractCallObject
  * @return send, loading, response & error
-*/
-const writeContractCall = ({ abi, address, contract, method }) => {
+ */
+const writeContractCall = ({ abi, address, contract, method, }) => {
     const config = useConfig();
     const { addError, clearErrors } = useErrorsBag();
     const { network, provider } = useEthereum();
@@ -962,7 +973,13 @@ const writeContractCall = ({ abi, address, contract, method }) => {
         if (_contractObj) {
             setLoading(true);
             try {
-                const res = args ? (options ? yield _contractObj[method](...args, options) : yield _contractObj[method](...args)) : (options ? yield _contractObj[method](options) : yield _contractObj[method]());
+                const res = args
+                    ? options
+                        ? yield _contractObj[method](...args, options)
+                        : yield _contractObj[method](...args)
+                    : options
+                        ? yield _contractObj[method](options)
+                        : yield _contractObj[method]();
                 setResponse(res);
                 setError(undefined);
                 setLoading(false);
@@ -1024,23 +1041,27 @@ const writeContractCall = ({ abi, address, contract, method }) => {
         }
     }, [provider, config]);
     return {
-        send: (args, options) => { send(contractObj, args, options); },
+        send: (args, options) => {
+            send(contractObj, args, options);
+        },
         loading,
         response,
-        error
+        error,
     };
 };
 /**
  * @public
  * @param {PostContractCallParams} ContractCallObject
  * @return send, loading, response & error
-*/
+ */
 const useContract = () => {
     const { provider } = useEthereum();
-    const deployContract = ({ abi, byteCode, args }) => __awaiter(void 0, void 0, void 0, function* () {
+    const deployContract = ({ abi, byteCode, args, }) => __awaiter(void 0, void 0, void 0, function* () {
         const signer = provider === null || provider === void 0 ? void 0 : provider.getSigner();
         const factory = new ethers__namespace.ContractFactory(abi, byteCode, signer);
-        const contract = args ? yield factory.deploy(...args) : yield factory.deploy();
+        const contract = args
+            ? yield factory.deploy(...args)
+            : yield factory.deploy();
         return contract;
     });
     return { deployContract };

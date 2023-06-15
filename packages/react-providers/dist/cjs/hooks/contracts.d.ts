@@ -12,8 +12,8 @@ interface GetContractCallParams {
  * @public
  * @param {GetContractCallParams} ContractCallObject
  * @return Call response and error
-*/
-export declare const readContractCall: ({ abi, address, contract, method, args, enabled }: GetContractCallParams) => {
+ */
+export declare const readContractCall: ({ abi, address, contract, method, args, enabled, }: GetContractCallParams) => {
     response: any;
     error: any;
 };
@@ -21,7 +21,7 @@ export declare const readContractCall: ({ abi, address, contract, method, args, 
  * @public
  * @param {GetContractCallParams[]} params
  * @return {any[]} Call response
-*/
+ */
 export declare const readContractCalls: (params: GetContractCallParams[]) => any[];
 interface PostContractCallParams {
     abi?: ContractABIUnit[] | ethers.ContractInterface;
@@ -40,8 +40,8 @@ declare type optionsType = {
  * @public
  * @param {PostContractCallParams} ContractCallObject
  * @return send, loading, response & error
-*/
-export declare const writeContractCall: ({ abi, address, contract, method }: PostContractCallParams) => {
+ */
+export declare const writeContractCall: ({ abi, address, contract, method, }: PostContractCallParams) => {
     send: (args?: any[], options?: optionsType) => void;
     loading: boolean;
     response: any;
@@ -56,8 +56,8 @@ interface deployContractParams {
  * @public
  * @param {PostContractCallParams} ContractCallObject
  * @return send, loading, response & error
-*/
+ */
 export declare const useContract: () => {
-    deployContract: ({ abi, byteCode, args }: deployContractParams) => Promise<ethers.ethers.Contract>;
+    deployContract: ({ abi, byteCode, args, }: deployContractParams) => Promise<ethers.ethers.Contract>;
 };
 export {};
