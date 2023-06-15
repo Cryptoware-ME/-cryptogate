@@ -84,10 +84,10 @@ function __generator(thisArg, body) {
 }
 
 var Identicon = function (_a) {
-    var walletAddress = _a.walletAddress;
+    var walletAddress = _a.walletAddress, diameter = _a.diameter;
     var account = reactProviders.useEthereum().account;
     var publicKey = reactProviders.useSolana().publicKey;
-    return (jsxRuntime.jsx(Jazzicon__default["default"], { diameter: 35, seed: Jazzicon.jsNumberForAddress(walletAddress
+    return (jsxRuntime.jsx(Jazzicon__default["default"], { diameter: diameter || 35, seed: Jazzicon.jsNumberForAddress(walletAddress
             ? walletAddress
             : account
                 ? account.toString()

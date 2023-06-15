@@ -73,10 +73,10 @@ function __generator(thisArg, body) {
 }
 
 var Identicon = function (_a) {
-    var walletAddress = _a.walletAddress;
+    var walletAddress = _a.walletAddress, diameter = _a.diameter;
     var account = useEthereum().account;
     var publicKey = useSolana().publicKey;
-    return (jsx(Jazzicon, { diameter: 35, seed: jsNumberForAddress(walletAddress
+    return (jsx(Jazzicon, { diameter: diameter || 35, seed: jsNumberForAddress(walletAddress
             ? walletAddress
             : account
                 ? account.toString()

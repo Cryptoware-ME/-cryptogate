@@ -29,8 +29,9 @@ declare const ConnectWalletComponent: ({ ActiveComponent, DisabledComponent, Con
     LocalStorage?: boolean | undefined;
 }) => JSX.Element;
 
-declare const Identicon: ({ walletAddress }: {
+declare const Identicon: ({ walletAddress, diameter, }: {
     walletAddress?: string | undefined;
+    diameter?: number | undefined;
 }) => JSX.Element;
 
 declare const ConnectedMenu: ({ ChosenConnectedMenu, onClose, onDisconnect, isOpen, Store, }: {

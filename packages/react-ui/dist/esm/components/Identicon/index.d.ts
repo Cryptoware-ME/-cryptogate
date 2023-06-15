@@ -1,3 +1,4 @@
-export declare const Identicon: ({ walletAddress }: {
+export declare const Identicon: ({ walletAddress, diameter, }: {
     walletAddress?: string | undefined;
+    diameter?: number | undefined;
 }) => JSX.Element;
