@@ -1,5 +1,8 @@
 import * as ethers from "ethers";
 import { ContractABIUnit, EvmAddress } from "../models/types";
+import { TransactionResponse, TransactionReceipt } from "@ethersproject/abstract-provider";
+import { LogDescription } from "ethers/lib/utils";
+import { ChainId } from "../constants/chains";
 interface GetContractCallParams {
     abi?: ContractABIUnit[] | ethers.ContractInterface;
     address?: EvmAddress;
@@ -36,6 +39,15 @@ declare type optionsType = {
     value?: string;
     chainId?: Number;
 };
+declare type TransactionState = "None" | "PendingSignature" | "Mining" | "Success" | "Fail" | "Exception";
+declare type TransactionStatus = {
+    status: TransactionState;
+    transaction?: TransactionResponse;
+    receipt?: TransactionReceipt;
+    chainId?: ChainId;
+    errorMessage?: string;
+    originalTransaction?: TransactionResponse;
+};
 /**
  * @public
  * @param {PostContractCallParams} ContractCallObject
@@ -43,9 +55,8 @@ declare type optionsType = {
  */
 export declare const writeContractCall: ({ abi, address, contract, method, }: PostContractCallParams) => {
     send: (args?: any[], options?: optionsType) => void;
-    loading: boolean;
-    response: any;
-    error: any;
+    state: TransactionStatus;
+    events: LogDescription[] | undefined;
 };
 interface DeployContractParams {
     abi: ContractABIUnit[] | ethers.ContractInterface;

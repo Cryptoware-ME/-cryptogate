@@ -975,16 +975,18 @@ const readContractCalls = (params) => {
  */
 const writeContractCall = ({ abi, address, contract, method, }) => {
     const config = useConfig();
-    const { addError, clearErrors } = useErrorsBag();
     const { network, provider } = useEthereum();
     const [contractObj, setContractObj] = React__default["default"].useState();
-    const [loading, setLoading] = React__default["default"].useState(false);
+    const [state, setState] = React__default["default"].useState({
+        status: "None",
+        chainId: network.chainId,
+    });
+    const [events, setEvents] = React__default["default"].useState();
     const [response, setResponse] = React__default["default"].useState(undefined);
-    const [error, setError] = React__default["default"].useState(undefined);
-    const send = React.useCallback((_contractObj, args, options) => __awaiter(void 0, void 0, void 0, function* () {
+    const send = React__default["default"].useCallback((_contractObj, args, options) => __awaiter(void 0, void 0, void 0, function* () {
         if (_contractObj) {
-            setLoading(true);
             try {
+                setState({ status: "PendingSignature", chainId: network.chainId });
                 const res = args
                     ? options
                         ? yield _contractObj[method](...args, options)
@@ -993,21 +995,62 @@ const writeContractCall = ({ abi, address, contract, method, }) => {
                         ? yield _contractObj[method](options)
                         : yield _contractObj[method]();
                 setResponse(res);
-                setError(undefined);
-                setLoading(false);
+                setState({
+                    status: "Mining",
+                    chainId: network.chainId,
+                    transaction: res,
+                });
             }
             catch (err) {
-                setError(err);
-                addError(err);
-                setLoading(false);
+                setState({
+                    status: "Exception",
+                    chainId: network.chainId,
+                    errorMessage: err.toString(),
+                });
             }
         }
     }), [method]);
+    const waitResponse = () => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            const receipt = yield response.wait();
+            setState({
+                status: "Success",
+                receipt,
+                transaction: response,
+                chainId: network.chainId,
+            });
+            if (contractObj && (receipt === null || receipt === void 0 ? void 0 : receipt.logs)) {
+                console.log(contractObj);
+                const _events = receipt.logs.reduce((accumulatedLogs, log) => {
+                    try {
+                        return log.address.toLowerCase() ===
+                            contractObj.address.toLowerCase()
+                            ? [...accumulatedLogs, contractObj.interface.parseLog(log)]
+                            : accumulatedLogs;
+                    }
+                    catch (_err) {
+                        return accumulatedLogs;
+                    }
+                }, []);
+                setEvents(_events);
+            }
+        }
+        catch (err) {
+            setState({
+                status: "Fail",
+                transaction: response,
+                chainId: network.chainId,
+                errorMessage: err.toString(),
+            });
+        }
+    });
+    React__default["default"].useEffect(() => {
+        if (response)
+            waitResponse();
+    }, [response]);
     React__default["default"].useEffect(() => {
         var _a;
         if (provider) {
-            clearErrors();
-            setError(undefined);
             let _abi = undefined;
             let _address = undefined;
             if (abi && address) {
@@ -1017,48 +1060,53 @@ const writeContractCall = ({ abi, address, contract, method, }) => {
             else if ((config === null || config === void 0 ? void 0 : config.ethConfig) && (network === null || network === void 0 ? void 0 : network.chainId)) {
                 const contracts = (_a = config.ethConfig.contractList) === null || _a === void 0 ? void 0 : _a.filter((_contract) => _contract.name == contract);
                 if (contracts && contracts.length) {
-                    clearErrors();
-                    setError(undefined);
                     _abi = contracts[0].abi;
                     _address = contracts[0].addresses[network.chainId];
                 }
                 else {
-                    setError(`Contract ${contract} doesn't exist in your config`);
-                    addError(`Contract ${contract} doesn't exist in your config`);
+                    setState({
+                        status: "Exception",
+                        chainId: network.chainId,
+                        errorMessage: `Contract ${contract} doesn't exist in your config`,
+                    });
                 }
             }
             if (_abi && _address) {
-                clearErrors();
-                setError(undefined);
                 try {
-                    clearErrors();
-                    setError(undefined);
                     const signer = provider.getSigner();
                     const _contractObj = new ethers__namespace.Contract(_address, _abi, signer);
                     setContractObj(_contractObj);
                 }
                 catch (err) {
-                    setError(err);
-                    addError(err);
+                    setState({
+                        status: "Exception",
+                        chainId: network.chainId,
+                        errorMessage: err.toString(),
+                    });
                 }
             }
             else {
-                setError(`You need to either provide a contract name from your contracts config or a contract address & abi`);
-                addError(`You need to either provide a contract name from your contracts config or a contract address & abi`);
+                setState({
+                    status: "Exception",
+                    chainId: network.chainId,
+                    errorMessage: "You need to either provide a contract name from your contracts config or a contract address & abi",
+                });
             }
         }
         else {
-            setError("No provider available");
-            addError("No provider available");
+            setState({
+                status: "Exception",
+                chainId: network.chainId,
+                errorMessage: "No provider available",
+            });
         }
     }, [provider, config]);
     return {
         send: (args, options) => {
             send(contractObj, args, options);
         },
-        loading,
-        response,
-        error,
+        state,
+        events,
     };
 };
 /**

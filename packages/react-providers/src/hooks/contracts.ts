@@ -1,8 +1,14 @@
-import React, { useCallback } from "react";
+import React from "react";
 import { useConfig, useErrorsBag } from "../providers";
 import * as ethers from "ethers";
 import { ContractABIUnit, EvmAddress } from "../models/types";
 import { useEthereum } from "./ethereum";
+import {
+  TransactionResponse,
+  TransactionReceipt,
+} from "@ethersproject/abstract-provider";
+import { LogDescription } from "ethers/lib/utils";
+import { ChainId } from "../constants/chains";
 
 interface GetContractCallParams {
   abi?: ContractABIUnit[] | ethers.ContractInterface;
@@ -205,6 +211,23 @@ type optionsType = {
   chainId?: Number;
 };
 
+type TransactionState =
+  | "None"
+  | "PendingSignature"
+  | "Mining"
+  | "Success"
+  | "Fail"
+  | "Exception";
+
+type TransactionStatus = {
+  status: TransactionState;
+  transaction?: TransactionResponse;
+  receipt?: TransactionReceipt;
+  chainId?: ChainId;
+  errorMessage?: string;
+  originalTransaction?: TransactionResponse;
+};
+
 /**
  * @public
  * @param {PostContractCallParams} ContractCallObject
@@ -217,38 +240,44 @@ export const writeContractCall = ({
   method,
 }: PostContractCallParams): {
   send: (args?: any[], options?: optionsType) => void;
-  loading: boolean;
-  response: any;
-  error: any;
+  state: TransactionStatus;
+  events: LogDescription[] | undefined;
 } => {
   const config = useConfig();
-  const { addError, clearErrors } = useErrorsBag();
   const { network, provider } = useEthereum();
 
   const [contractObj, setContractObj]: [
     ethers.Contract | undefined,
     React.Dispatch<React.SetStateAction<ethers.Contract | undefined>>
   ] = React.useState();
-  const [loading, setLoading]: [
-    boolean,
-    React.Dispatch<React.SetStateAction<boolean>>
-  ] = React.useState(false);
+
+  const [state, setState]: [
+    TransactionStatus,
+    React.Dispatch<React.SetStateAction<TransactionStatus>>
+  ] = React.useState({
+    status: "None",
+    chainId: network.chainId,
+  } as TransactionStatus);
+
+  const [events, setEvents]: [
+    LogDescription[] | undefined,
+    React.Dispatch<React.SetStateAction<LogDescription[] | undefined>>
+  ] = React.useState();
+
   const [response, setResponse]: [
     any,
     React.Dispatch<React.SetStateAction<any>>
   ] = React.useState(undefined);
-  const [error, setError]: [any, React.Dispatch<React.SetStateAction<any>>] =
-    React.useState(undefined);
 
-  const send = useCallback(
+  const send = React.useCallback(
     async (
       _contractObj: ethers.Contract | undefined,
       args?: any,
       options?: optionsType
     ) => {
       if (_contractObj) {
-        setLoading(true);
         try {
+          setState({ status: "PendingSignature", chainId: network.chainId });
           const res = args
             ? options
               ? await _contractObj[method](...args, options)
@@ -257,22 +286,65 @@ export const writeContractCall = ({
             ? await _contractObj[method](options)
             : await _contractObj[method]();
           setResponse(res);
-          setError(undefined);
-          setLoading(false);
-        } catch (err) {
-          setError(err);
-          addError(err);
-          setLoading(false);
+          setState({
+            status: "Mining",
+            chainId: network.chainId,
+            transaction: res,
+          });
+        } catch (err: any) {
+          setState({
+            status: "Exception",
+            chainId: network.chainId,
+            errorMessage: err.toString(),
+          });
         }
       }
     },
     [method]
   );
 
+  const waitResponse = async () => {
+    try {
+      const receipt = await response.wait();
+      setState({
+        status: "Success",
+        receipt,
+        transaction: response,
+        chainId: network.chainId,
+      });
+      if (contractObj && receipt?.logs) {
+        console.log(contractObj);
+        const _events = receipt.logs.reduce(
+          (accumulatedLogs: any, log: any) => {
+            try {
+              return log.address.toLowerCase() ===
+                contractObj.address.toLowerCase()
+                ? [...accumulatedLogs, contractObj.interface.parseLog(log)]
+                : accumulatedLogs;
+            } catch (_err) {
+              return accumulatedLogs;
+            }
+          },
+          [] as LogDescription[]
+        );
+        setEvents(_events);
+      }
+    } catch (err: any) {
+      setState({
+        status: "Fail",
+        transaction: response,
+        chainId: network.chainId,
+        errorMessage: err.toString(),
+      });
+    }
+  };
+
+  React.useEffect(() => {
+    if (response) waitResponse();
+  }, [response]);
+
   React.useEffect(() => {
     if (provider) {
-      clearErrors();
-      setError(undefined);
       let _abi: ethers.ContractInterface | ContractABIUnit[] | undefined =
         undefined;
       let _address: EvmAddress | undefined = undefined;
@@ -284,39 +356,42 @@ export const writeContractCall = ({
           (_contract) => _contract.name == contract
         );
         if (contracts && contracts.length) {
-          clearErrors();
-          setError(undefined);
           _abi = contracts[0].abi;
           _address = contracts[0].addresses[network.chainId];
         } else {
-          setError(`Contract ${contract} doesn't exist in your config`);
-          addError(`Contract ${contract} doesn't exist in your config`);
+          setState({
+            status: "Exception",
+            chainId: network.chainId,
+            errorMessage: `Contract ${contract} doesn't exist in your config`,
+          });
         }
       }
       if (_abi && _address) {
-        clearErrors();
-        setError(undefined);
         try {
-          clearErrors();
-          setError(undefined);
           const signer = provider.getSigner();
           const _contractObj = new ethers.Contract(_address, _abi, signer);
           setContractObj(_contractObj);
-        } catch (err) {
-          setError(err);
-          addError(err);
+        } catch (err: any) {
+          setState({
+            status: "Exception",
+            chainId: network.chainId,
+            errorMessage: err.toString(),
+          });
         }
       } else {
-        setError(
-          `You need to either provide a contract name from your contracts config or a contract address & abi`
-        );
-        addError(
-          `You need to either provide a contract name from your contracts config or a contract address & abi`
-        );
+        setState({
+          status: "Exception",
+          chainId: network.chainId,
+          errorMessage:
+            "You need to either provide a contract name from your contracts config or a contract address & abi",
+        });
       }
     } else {
-      setError("No provider available");
-      addError("No provider available");
+      setState({
+        status: "Exception",
+        chainId: network.chainId,
+        errorMessage: "No provider available",
+      });
     }
   }, [provider, config]);
 
@@ -324,9 +399,8 @@ export const writeContractCall = ({
     send: (args?: any[], options?: optionsType) => {
       send(contractObj, args, options);
     },
-    loading,
-    response,
-    error,
+    state,
+    events,
   };
 };
 

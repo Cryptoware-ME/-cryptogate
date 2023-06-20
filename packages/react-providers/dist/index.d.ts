@@ -8,6 +8,8 @@ import * as ethers from 'ethers';
 import { providers } from 'ethers';
 import * as _solana_wallet_adapter_react from '@solana/wallet-adapter-react';
 import * as _ethersproject_providers from '@ethersproject/providers';
+import { TransactionResponse, TransactionReceipt } from '@ethersproject/abstract-provider';
+import { LogDescription } from 'ethers/lib/utils';
 
 declare type EvmAddress = `0x${string}`;
 declare type SolAddress = PublicKey;
@@ -375,6 +377,15 @@ declare type optionsType = {
     value?: string;
     chainId?: Number;
 };
+declare type TransactionState = "None" | "PendingSignature" | "Mining" | "Success" | "Fail" | "Exception";
+declare type TransactionStatus = {
+    status: TransactionState;
+    transaction?: TransactionResponse;
+    receipt?: TransactionReceipt;
+    chainId?: ChainId;
+    errorMessage?: string;
+    originalTransaction?: TransactionResponse;
+};
 /**
  * @public
  * @param {PostContractCallParams} ContractCallObject
@@ -382,9 +393,8 @@ declare type optionsType = {
  */
 declare const writeContractCall: ({ abi, address, contract, method, }: PostContractCallParams) => {
     send: (args?: any[], options?: optionsType) => void;
-    loading: boolean;
-    response: any;
-    error: any;
+    state: TransactionStatus;
+    events: LogDescription[] | undefined;
 };
 interface DeployContractParams {
     abi: ContractABIUnit[] | ethers.ContractInterface;
