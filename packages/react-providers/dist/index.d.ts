@@ -395,6 +395,7 @@ declare const writeContractCall: ({ abi, address, contract, method, }: PostContr
     send: (args?: any[], options?: optionsType) => void;
     state: TransactionStatus;
     events: LogDescription[] | undefined;
+    resetState: () => void;
 };
 interface DeployContractParams {
     abi: ContractABIUnit[] | ethers.ContractInterface;

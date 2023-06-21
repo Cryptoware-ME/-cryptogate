@@ -242,6 +242,7 @@ export const writeContractCall = ({
   send: (args?: any[], options?: optionsType) => void;
   state: TransactionStatus;
   events: LogDescription[] | undefined;
+  resetState: () => void;
 } => {
   const config = useConfig();
   const { network, provider } = useEthereum();
@@ -268,6 +269,12 @@ export const writeContractCall = ({
     any,
     React.Dispatch<React.SetStateAction<any>>
   ] = React.useState(undefined);
+
+  const resetState = React.useCallback(() => {
+    setState({
+      status: "None",
+    });
+  }, [setState]);
 
   const send = React.useCallback(
     async (
@@ -300,7 +307,7 @@ export const writeContractCall = ({
         }
       }
     },
-    [method]
+    [method, network, setState, setResponse]
   );
 
   const waitResponse = async () => {
@@ -313,7 +320,6 @@ export const writeContractCall = ({
         chainId: network.chainId,
       });
       if (contractObj && receipt?.logs) {
-        console.log(contractObj);
         const _events = receipt.logs.reduce(
           (accumulatedLogs: any, log: any) => {
             try {
@@ -401,6 +407,7 @@ export const writeContractCall = ({
     },
     state,
     events,
+    resetState,
   };
 };
 

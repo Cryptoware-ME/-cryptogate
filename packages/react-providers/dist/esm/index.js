@@ -954,6 +954,11 @@ const writeContractCall = ({ abi, address, contract, method, }) => {
     });
     const [events, setEvents] = React.useState();
     const [response, setResponse] = React.useState(undefined);
+    const resetState = React.useCallback(() => {
+        setState({
+            status: "None",
+        });
+    }, [setState]);
     const send = React.useCallback((_contractObj, args, options) => __awaiter(void 0, void 0, void 0, function* () {
         if (_contractObj) {
             try {
@@ -980,7 +985,7 @@ const writeContractCall = ({ abi, address, contract, method, }) => {
                 });
             }
         }
-    }), [method]);
+    }), [method, network, setState, setResponse]);
     const waitResponse = () => __awaiter(void 0, void 0, void 0, function* () {
         try {
             const receipt = yield response.wait();
@@ -991,7 +996,6 @@ const writeContractCall = ({ abi, address, contract, method, }) => {
                 chainId: network.chainId,
             });
             if (contractObj && (receipt === null || receipt === void 0 ? void 0 : receipt.logs)) {
-                console.log(contractObj);
                 const _events = receipt.logs.reduce((accumulatedLogs, log) => {
                     try {
                         return log.address.toLowerCase() ===
@@ -1078,6 +1082,7 @@ const writeContractCall = ({ abi, address, contract, method, }) => {
         },
         state,
         events,
+        resetState,
     };
 };
 /**
