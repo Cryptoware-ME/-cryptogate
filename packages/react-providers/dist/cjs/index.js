@@ -869,6 +869,7 @@ const readContractCall = ({ abi, address, contract, method, args, enabled = true
                     }
                 }
                 if (_abi && _address) {
+                    console.log("_address: ", _address);
                     clearErrors();
                     setError(undefined);
                     try {

@@ -89,6 +89,7 @@ export const readContractCall = ({
           }
         }
         if (_abi && _address) {
+          console.log("_address: ", _address);
           clearErrors();
           setError(undefined);
           try {
