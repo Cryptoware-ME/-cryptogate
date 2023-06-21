@@ -45,7 +45,6 @@ export const readContractCall = ({
 
   const callFunction = React.useCallback(
     async (contract: any, args?: any[]) => {
-      console.log("method: ", method);
       try {
         clearErrors();
         setError(undefined);
@@ -55,7 +54,7 @@ export const readContractCall = ({
         setResponse(undefined);
         setResponse(res);
       } catch (err) {
-        console.log("1************************ ", err);
+        console.log("************************ ", err);
         setError(err);
         addError(err);
       }
@@ -89,7 +88,6 @@ export const readContractCall = ({
           }
         }
         if (_abi && _address) {
-          console.log("_address: ", _address);
           clearErrors();
           setError(undefined);
           try {
