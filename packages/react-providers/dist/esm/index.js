@@ -798,6 +798,7 @@ const readContractCall = ({ abi, address, contract, method, args, enabled = true
     const [response, setResponse] = React.useState(undefined);
     const [error, setError] = React.useState(undefined);
     const callFunction = React.useCallback((contract, args) => __awaiter(void 0, void 0, void 0, function* () {
+        console.log("method: ", method);
         try {
             clearErrors();
             setError(undefined);
@@ -808,7 +809,7 @@ const readContractCall = ({ abi, address, contract, method, args, enabled = true
             setResponse(res);
         }
         catch (err) {
-            console.log("************************ ", err);
+            console.log("1************************ ", err);
             setError(err);
             addError(err);
         }

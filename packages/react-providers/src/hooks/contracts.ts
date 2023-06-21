@@ -45,6 +45,7 @@ export const readContractCall = ({
 
   const callFunction = React.useCallback(
     async (contract: any, args?: any[]) => {
+      console.log("method: ", method);
       try {
         clearErrors();
         setError(undefined);
@@ -54,7 +55,7 @@ export const readContractCall = ({
         setResponse(undefined);
         setResponse(res);
       } catch (err) {
-        console.log("************************ ", err);
+        console.log("1************************ ", err);
         setError(err);
         addError(err);
       }
