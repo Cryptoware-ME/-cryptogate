@@ -5,6 +5,7 @@ import {
   SolAddress,
   EvmAddress,
   useSolana,
+  useSui,
 } from "@cryptogate/react-providers";
 import { ConnectedMenu } from "../ConnectMenu";
 import { ethSignMessage } from "@cryptogate/core";
@@ -92,7 +93,8 @@ export const ConnectWalletButton = ({
 
   const { account, network, provider, deactivate } = useEthereum();
   const { publicKey, connected, wallet } = useSolana();
-  const { ethConfig } = useConfig();
+  const { address } = useSui();
+  const { ethConfig, solConfig } = useConfig();
 
   React.useEffect(() => {
     if (ethConfig && account && provider) {
@@ -132,7 +134,7 @@ export const ConnectWalletButton = ({
   }, [ethConfig, account, provider]);
 
   React.useEffect(() => {
-    if (publicKey && connected) {
+    if (solConfig && publicKey && connected) {
       if (onSign) {
         let key = getWithExpiry(`sig-${publicKey.toString()}`);
         if (key) {
@@ -155,9 +157,9 @@ export const ConnectWalletButton = ({
         setKeyValue({ address: account });
       }
     }
-  }, [publicKey, connected]);
+  }, [solConfig, publicKey, connected]);
 
-  return account || (publicKey && connected) ? (
+  return account || address || (publicKey && connected) ? (
     <>
       {keyValue ? (
         <div onClick={() => setOpenMenu(!openMenu)}>{ConnectedComponent}</div>

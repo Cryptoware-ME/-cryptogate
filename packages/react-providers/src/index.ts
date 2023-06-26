@@ -1,4 +1,9 @@
-export { MultiChainProvider } from "./providers";
+export {
+  MultiChainProvider,
+  useConfig,
+  useErrorsBag,
+  useNetwork,
+} from "./providers";
 
 export type {
   MultiChainProviderConfigProps,

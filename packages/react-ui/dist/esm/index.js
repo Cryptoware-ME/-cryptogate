@@ -520,7 +520,8 @@ var ConnectWalletButton = function (_a) {
     var _c = React.useState(null), keyValue = _c[0], setKeyValue = _c[1];
     var _d = useEthereum(), account = _d.account, network = _d.network, provider = _d.provider, deactivate = _d.deactivate;
     var _e = useSolana(), publicKey = _e.publicKey, connected = _e.connected, wallet = _e.wallet;
-    var ethConfig = useConfig().ethConfig;
+    var address = useSui().address;
+    var _f = useConfig(), ethConfig = _f.ethConfig, solConfig = _f.solConfig;
     React.useEffect(function () {
         if (ethConfig && account && provider) {
             if (ethConfig.allowedNetworks &&
@@ -550,7 +551,7 @@ var ConnectWalletButton = function (_a) {
         }
     }, [ethConfig, account, provider]);
     React.useEffect(function () {
-        if (publicKey && connected) {
+        if (solConfig && publicKey && connected) {
             if (onSign) {
                 var key = getWithExpiry("sig-".concat(publicKey.toString()));
                 if (key) {
@@ -568,8 +569,8 @@ var ConnectWalletButton = function (_a) {
                 setKeyValue({ address: account });
             }
         }
-    }, [publicKey, connected]);
-    return account || (publicKey && connected) ? (jsxs(Fragment, { children: [keyValue ? (jsx("div", __assign({ onClick: function () { return setOpenMenu(!openMenu); } }, { children: ConnectedComponent }))) : (jsx(Fragment, { children: DisabledComponent })), jsx(ConnectedMenu, { ChosenConnectedMenu: ChosenConnectedMenu, Store: Store, onClose: function () {
+    }, [solConfig, publicKey, connected]);
+    return account || address || (publicKey && connected) ? (jsxs(Fragment, { children: [keyValue ? (jsx("div", __assign({ onClick: function () { return setOpenMenu(!openMenu); } }, { children: ConnectedComponent }))) : (jsx(Fragment, { children: DisabledComponent })), jsx(ConnectedMenu, { ChosenConnectedMenu: ChosenConnectedMenu, Store: Store, onClose: function () {
                     setOpenMenu(false);
                 }, isOpen: openMenu })] })) : (jsx("div", __assign({ onClick: function () {
             setOpenOptions(true);

@@ -1,4 +1,4 @@
-export { MultiChainProvider } from "./providers";
+export { MultiChainProvider, useConfig, useErrorsBag, useNetwork, } from "./providers";
 export type { MultiChainProviderConfigProps, MultiChainProviderProps, } from "./providers";
 export { ChainId, DEFAULT_SUPPORTED_CHAINS, sepoliaEtherscanUrl, goerliEtherscanUrl, mainnetEtherscanUrl, bscScanUrl, bscTestnetScanUrl, polygonScanUrl, mumbaiPolygonScanUrl, avalancheExplorerUrl, testAvalancheExplorerUrl, goerliBasescanUrl, mainnetArbscanUrl, xinfinExplorerUrl, apothemExplorerUrl, } from "./constants/chains";
 export { SolWallets, EvmWallets, SuiWallets } from "./constants/wallets";

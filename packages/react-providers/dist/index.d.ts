@@ -116,6 +116,14 @@ interface MultiChainProviderProps {
 }
 declare const MultiChainProvider: ({ config, children, }: MultiChainProviderProps) => JSX.Element;
 
+declare function useConfig(): MultiChainProviderConfigProps;
+
+declare function useErrorsBag(): {
+    errors: string[];
+    addError: (_: any) => void;
+    clearErrors: () => void;
+};
+
 declare const mainnetEtherscanUrl = "https://mainnet.etherscan.io";
 declare const goerliEtherscanUrl = "https://goerli.etherscan.io";
 declare const sepoliaEtherscanUrl = "https://sepolia.etherscan.io";
@@ -159,6 +167,13 @@ declare type NetworkDataType = {
     chainId: ChainId | undefined;
     chain: Chain | undefined;
 };
+
+declare type NetworkContextType = {
+    networkData: NetworkDataType;
+    setNetworkData: React.Dispatch<React.SetStateAction<NetworkDataType>>;
+    updateNetwork: (_chainId: ChainId) => void;
+};
+declare function useNetwork(): NetworkContextType;
 
 /**
  * @public
@@ -383,4 +398,4 @@ declare const useContract: () => {
     deployContract: ({ abi, byteCode, args, }: DeployContractParams) => Promise<ethers.ethers.Contract>;
 };
 
-export { Apothem, Arbitrum, Avalanche, AvalancheTestnet, BSC, BSCTestnet, BaseGoerli, Chain, ChainId, ContractABIUnit, ContractIO, DEFAULT_SUPPORTED_CHAINS, EthConfig, EthContract, EvmAddress, EvmWallets, Goerli, Mainnet, MultiChainProvider, MultiChainProviderConfigProps, MultiChainProviderProps, Mumbai, NodeUrls, Polygon, Sepolia, SolAddress, SolConfig, SolWallets, SuiConfig, SuiWallets, WalletsConfig, XinFin, apothemExplorerUrl, avalancheExplorerUrl, bscScanUrl, bscTestnetScanUrl, getAddressLink, getChainById, getTransactionLink, goerliBasescanUrl, goerliEtherscanUrl, mainnetArbscanUrl, mainnetEtherscanUrl, mumbaiPolygonScanUrl, polygonScanUrl, readContractCall, readContractCalls, resolveENS, sepoliaEtherscanUrl, testAvalancheExplorerUrl, useAccount, useContract, useEthereum, useGasPrice, useMultichain, useSolana, useSui, writeContractCall, xinfinExplorerUrl };
+export { Apothem, Arbitrum, Avalanche, AvalancheTestnet, BSC, BSCTestnet, BaseGoerli, Chain, ChainId, ContractABIUnit, ContractIO, DEFAULT_SUPPORTED_CHAINS, EthConfig, EthContract, EvmAddress, EvmWallets, Goerli, Mainnet, MultiChainProvider, MultiChainProviderConfigProps, MultiChainProviderProps, Mumbai, NodeUrls, Polygon, Sepolia, SolAddress, SolConfig, SolWallets, SuiConfig, SuiWallets, WalletsConfig, XinFin, apothemExplorerUrl, avalancheExplorerUrl, bscScanUrl, bscTestnetScanUrl, getAddressLink, getChainById, getTransactionLink, goerliBasescanUrl, goerliEtherscanUrl, mainnetArbscanUrl, mainnetEtherscanUrl, mumbaiPolygonScanUrl, polygonScanUrl, readContractCall, readContractCalls, resolveENS, sepoliaEtherscanUrl, testAvalancheExplorerUrl, useAccount, useConfig, useContract, useErrorsBag, useEthereum, useGasPrice, useMultichain, useNetwork, useSolana, useSui, writeContractCall, xinfinExplorerUrl };
