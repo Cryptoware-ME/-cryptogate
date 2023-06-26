@@ -2,9 +2,9 @@ import { EvmAddress } from "./common";
 /**
  * @public
  * @typedef {object} Chain
-*/
+ */
 export declare type Chain = {
-    chainId?: number;
+    chainId: number;
     chainName: string;
     isTestChain: boolean;
     isLocalChain: boolean;

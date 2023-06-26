@@ -1,2 +1,2 @@
-import { useSolana } from "./solana";
+import { useSolana } from "./useSolana";
 export { useSolana };

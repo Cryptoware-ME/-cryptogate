@@ -1,3 +1,3 @@
-import { useEthereum } from "./ethereum";
+import { useEthereum } from "./useEthereum";
 import { useBrowserWallets } from "./useBrowserWallet";
 export { useEthereum, useBrowserWallets };

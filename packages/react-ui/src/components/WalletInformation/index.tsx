@@ -1,4 +1,4 @@
-import { useEthereum, useSolana } from "@cryptogate/react-providers";
+import { useEthereum, useSolana, useSui } from "@cryptogate/react-providers";
 import { Identicon } from "../Identicon";
 import DisconnectBtn from "./DisconnectBtn";
 
@@ -10,11 +10,18 @@ const WalletInformation = ({
   direction?: string;
 }) => {
   const { account, deactivate, ethBalance, ens } = useEthereum();
-  const { publicKey, connected, wallet, solBalance } = useSolana();
+  const {
+    publicKey,
+    connected: solConnected,
+    wallet,
+    solBalance,
+  } = useSolana();
+  const { address, connected: suiConnected, disconnect } = useSui();
 
   const handleDisconnect = () => {
     account && deactivate();
-    publicKey && connected && wallet.disconnect();
+    publicKey && solConnected && wallet.disconnect();
+    address && disconnect();
     onDisconnect();
   };
 
@@ -76,7 +83,7 @@ const WalletInformation = ({
             {account?.slice(0, 6)}...{account?.slice(-3)}
           </p>
         )}
-        {publicKey && connected && (
+        {publicKey && solConnected && (
           <p
             style={{
               color: `#000`,
@@ -87,6 +94,19 @@ const WalletInformation = ({
           >
             {publicKey?.toString().slice(0, 3)}...
             {publicKey?.toString().slice(-3)}
+          </p>
+        )}
+        {address && suiConnected && (
+          <p
+            style={{
+              color: `#000`,
+              margin: "0 10px 0 0",
+              opacity: "50%",
+              lineHeight: 1,
+            }}
+          >
+            {address?.toString().slice(0, 3)}...
+            {address?.toString().slice(-3)}
           </p>
         )}
         <span

@@ -5,6 +5,7 @@ import { ConnectionProvider, WalletProvider as WalletProvider$1, useWallet as us
 import { SlopeWalletAdapter, SolflareWalletAdapter, SolletExtensionWalletAdapter } from '@solana/wallet-adapter-wallets';
 import { WalletAdapterNetwork, WalletReadyState } from '@solana/wallet-adapter-base';
 import { clusterApiUrl } from '@solana/web3.js';
+import { WalletProvider as WalletProvider$2, useWallet as useWallet$2, useAccountBalance, useCoinBalance, useChain, useSuiProvider } from '@suiet/wallet-kit';
 import CoinbaseWalletSDK from '@coinbase/wallet-sdk';
 import QRCodeModal from '@walletconnect/qrcode-modal';
 import WalletConnectProvider from '@walletconnect/web3-provider';
@@ -46,20 +47,18 @@ function useEvmNode() {
 
 // Chain Explorer URLs
 // Etherscan
-const mainnetEtherscanUrl = 'https://mainnet.etherscan.io';
-const goerliEtherscanUrl = 'https://goerli.etherscan.io';
-const sepoliaEtherscanUrl = 'https://sepolia.etherscan.io';
+const mainnetEtherscanUrl = "https://mainnet.etherscan.io";
+const goerliEtherscanUrl = "https://goerli.etherscan.io";
+const sepoliaEtherscanUrl = "https://sepolia.etherscan.io";
 // BSC Scan
-const bscScanUrl = 'https://testnet.bscscan.com';
-const bscTestnetScanUrl = 'https://testnet.bscscan.com';
+const bscScanUrl = "https://testnet.bscscan.com";
+const bscTestnetScanUrl = "https://testnet.bscscan.com";
 // Polygon Scan
-const polygonScanUrl = 'https://polygonscan.com';
-const mumbaiPolygonScanUrl = 'https://mumbai.polygonscan.com';
+const polygonScanUrl = "https://polygonscan.com";
+const mumbaiPolygonScanUrl = "https://mumbai.polygonscan.com";
 // Snow Trace (Avalanche)
-const avalancheExplorerUrl = 'https://snowtrace.io';
-const testAvalancheExplorerUrl = 'https://testnet.snowtrace.io';
-// Sol Scan
-const mainnetSolscanUrl = "https://solscan.io";
+const avalancheExplorerUrl = "https://snowtrace.io";
+const testAvalancheExplorerUrl = "https://testnet.snowtrace.io";
 // Basescan
 const goerliBasescanUrl = "https://goerli.basescan.org";
 // Arbscan
@@ -211,40 +210,6 @@ const AvalancheTestnet = {
 /*
  * @Cryptogate: For intertanl use only, reference at your own risk
 */
-const SolanaMainnet = {
-    chainName: 'SolanaMainnet',
-    isTestChain: false,
-    isLocalChain: false,
-    blockExplorerUrl: mainnetSolscanUrl,
-    getExplorerAddressLink: (address) => getAddressLink(mainnetSolscanUrl, address),
-    getExplorerTransactionLink: (txnId) => getTransactionLink(mainnetSolscanUrl, txnId)
-};
-/*
- * @Cryptogate: For intertanl use only, reference at your own risk
-*/
-const SolanaTestnet = {
-    chainName: 'SolanaTestnet',
-    isTestChain: true,
-    isLocalChain: false,
-    blockExplorerUrl: mainnetSolscanUrl,
-    getExplorerAddressLink: (address) => getAddressLink(mainnetSolscanUrl, address) + "?cluster=testnet",
-    getExplorerTransactionLink: (txnId) => getTransactionLink(mainnetSolscanUrl, txnId) + "?cluster=testnet"
-};
-/*
- * @Cryptogate: For intertanl use only, reference at your own risk
-*/
-const SolanaDevnet = {
-    chainName: 'SolanaDevnet',
-    isTestChain: true,
-    isLocalChain: false,
-    blockExplorerUrl: mainnetSolscanUrl,
-    getExplorerAddressLink: (address) => getAddressLink(mainnetSolscanUrl, address) + "?cluster=devnet",
-    getExplorerTransactionLink: (txnId) => getTransactionLink(mainnetSolscanUrl, txnId) + "?cluster=devnet"
-};
-
-/*
- * @Cryptogate: For intertanl use only, reference at your own risk
-*/
 const BaseGoerli = {
     chainId: 84531,
     chainName: 'BaseGoerli',
@@ -296,21 +261,26 @@ const Apothem = {
 /**
  * @array
  * @description The Default Chains Supported By Cryptogate
-*/
+ */
 const DEFAULT_SUPPORTED_CHAINS = [
-    Sepolia, Goerli, Mainnet,
-    BSC, BSCTestnet,
-    Polygon, Mumbai,
-    Avalanche, AvalancheTestnet,
-    SolanaMainnet,
+    Sepolia,
+    Goerli,
+    Mainnet,
+    BSC,
+    BSCTestnet,
+    Polygon,
+    Mumbai,
+    Avalanche,
+    AvalancheTestnet,
     BaseGoerli,
     Arbitrum,
-    XinFin, Apothem
+    XinFin,
+    Apothem,
 ];
 /**
  * @enum
  * @description ChainIds Of The Default Chains Supported By Cryptogate
-*/
+ */
 var ChainId;
 (function (ChainId) {
     ChainId[ChainId["Mainnet"] = 1] = "Mainnet";
@@ -377,9 +347,6 @@ function EvmNodeProvider({ children, readOnlyUrls }) {
 }
 
 const WindowContext = React.createContext(true);
-function useWindow() {
-    return React.useContext(WindowContext);
-}
 
 function WindowProvider({ children }) {
     const [isActiveWindow, setActiveWindow] = React.useState(true);
@@ -439,6 +406,10 @@ function SolanaProvider({ children, solConfig }) {
         React.createElement(WalletProvider$1, { wallets: wallets, autoConnect: solConfig ? solConfig.autoConnect : defaultSolConfig.autoConnect }, children)));
 }
 
+function SuiProvider({ children, suiConfig }) {
+    return (React.createElement(WalletProvider$2, { autoConnect: suiConfig ? suiConfig.autoConnect : false }, children));
+}
+
 const MultiChainProvider = ({ config, children, }) => {
     var _a;
     if (!config) {
@@ -449,6 +420,8 @@ const MultiChainProvider = ({ config, children, }) => {
         console.warn("@Cryptogate: Missing ethConfig in config. ethConfig is required for EVM providers and hooks");
     if (!config.solConfig)
         console.warn("@Cryptogate: Missing solConfig in config. solConfig is required for Solana providers and hooks");
+    if (!config.suiConfig)
+        console.warn("@Cryptogate: Missing suiConfig in config. suiConfig is required for Sui providers and hooks");
     useEffect(() => {
         if (config.ethConfig)
             config.ethConfig = Object.assign(Object.assign({}, defaultEthConfig), config.ethConfig);
@@ -459,7 +432,8 @@ const MultiChainProvider = ({ config, children, }) => {
                 React.createElement(NetworkProvider, { config: config },
                     React.createElement(EvmNodeProvider, { readOnlyUrls: (_a = config.ethConfig) === null || _a === void 0 ? void 0 : _a.readOnlyUrls },
                         React.createElement(SolanaProvider, { solConfig: config.solConfig },
-                            React.createElement(WalletProvider, null, children))))))));
+                            React.createElement(SuiProvider, { suiConfig: config.suiConfig },
+                                React.createElement(WalletProvider, null, children)))))))));
 };
 
 var SolWallets;
@@ -481,7 +455,15 @@ var EvmWallets;
     EvmWallets["BRAVEWALLET"] = "braveWallet";
 })(EvmWallets || (EvmWallets = {}));
 
-/*! *****************************************************************************
+var SuiWallets;
+(function (SuiWallets) {
+    SuiWallets["ALL"] = "all";
+    SuiWallets["SUIET"] = "suiet";
+    SuiWallets["SUI"] = "sui";
+    SuiWallets["ETHOS"] = "ethos";
+})(SuiWallets || (SuiWallets = {}));
+
+/******************************************************************************
 Copyright (c) Microsoft Corporation.
 
 Permission to use, copy, modify, and/or distribute this software for any
@@ -760,6 +742,14 @@ const useSolana = () => {
     };
 };
 
+const useSui = () => {
+    const wallet = useWallet$2();
+    return Object.assign(Object.assign({}, wallet), { useAccountBalance,
+        useCoinBalance,
+        useChain,
+        useSuiProvider });
+};
+
 const useMultichain = () => {
     const ethereum = useEthereum();
     const solana = useSolana();
@@ -804,11 +794,9 @@ const readContractCall = ({ abi, address, contract, method, args, enabled = true
             const res = args
                 ? yield contract[method](...args)
                 : yield contract[method]();
-            setResponse(undefined);
             setResponse(res);
         }
         catch (err) {
-            console.log("************************ ", err);
             setError(err);
             addError(err);
         }
@@ -1101,5 +1089,5 @@ const useContract = () => {
     return { deployContract };
 };
 
-export { Apothem, Arbitrum, Avalanche, AvalancheTestnet, BSC, BSCTestnet, BaseGoerli, ChainId, ConfigContext, ConfigProvider, DEFAULT_SUPPORTED_CHAINS, EvmNodeContext, EvmNodeProvider, EvmWallets, Goerli, Mainnet, MultiChainProvider, Mumbai, NetworkContext, NetworkProvider, Polygon, Sepolia, SolWallets, SolanaDevnet, SolanaMainnet, SolanaProvider, SolanaTestnet, WalletContext, WalletProvider, WindowContext, WindowProvider, XinFin, apothemExplorerUrl, avalancheExplorerUrl, bscScanUrl, bscTestnetScanUrl, getAddressLink, getChainById, getTransactionLink, goerliBasescanUrl, goerliEtherscanUrl, mainnetArbscanUrl, mainnetEtherscanUrl, mainnetSolscanUrl, mumbaiPolygonScanUrl, polygonScanUrl, readContractCall, readContractCalls, resolveENS, sepoliaEtherscanUrl, testAvalancheExplorerUrl, useAccount, useConfig, useContract, useEthereum, useEvmNode, useGasPrice, useMultichain, useNetwork, useSolana, useWallet, useWindow, writeContractCall, xinfinExplorerUrl };
+export { Apothem, Arbitrum, Avalanche, AvalancheTestnet, BSC, BSCTestnet, BaseGoerli, ChainId, DEFAULT_SUPPORTED_CHAINS, EvmWallets, Goerli, Mainnet, MultiChainProvider, Mumbai, Polygon, Sepolia, SolWallets, SuiWallets, XinFin, apothemExplorerUrl, avalancheExplorerUrl, bscScanUrl, bscTestnetScanUrl, getAddressLink, getChainById, getTransactionLink, goerliBasescanUrl, goerliEtherscanUrl, mainnetArbscanUrl, mainnetEtherscanUrl, mumbaiPolygonScanUrl, polygonScanUrl, readContractCall, readContractCalls, resolveENS, sepoliaEtherscanUrl, testAvalancheExplorerUrl, useAccount, useContract, useEthereum, useGasPrice, useMultichain, useSolana, useSui, writeContractCall, xinfinExplorerUrl };
 //# sourceMappingURL=index.js.map

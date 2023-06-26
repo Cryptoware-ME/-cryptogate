@@ -51,10 +51,8 @@ export const readContractCall = ({
         const res = args
           ? await contract[method](...args)
           : await contract[method]();
-        setResponse(undefined);
         setResponse(res);
       } catch (err) {
-        console.log("************************ ", err);
         setError(err);
         addError(err);
       }

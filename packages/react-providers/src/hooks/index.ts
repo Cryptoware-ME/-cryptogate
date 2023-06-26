@@ -1,5 +1,6 @@
 import { useEthereum } from "./ethereum";
 import { useSolana } from "./solana";
+import { useSui } from "./sui";
 import { useMultichain } from "./multichain";
 import { useGasPrice } from "./network";
 import { useAccount, resolveENS } from "./account";
@@ -11,6 +12,9 @@ import {
 } from "./contracts";
 
 export {
+  useMultichain,
+  useSolana,
+  useSui,
   useEthereum,
   useGasPrice,
   readContractCall,
@@ -19,6 +23,4 @@ export {
   useContract,
   useAccount,
   resolveENS,
-  useSolana,
-  useMultichain,
 };

@@ -1,0 +1,27 @@
+import { useSuiProvider, useAccountBalance, useCoinBalance, useChain } from "@suiet/wallet-kit";
+export declare const useSui: () => {
+    useAccountBalance: typeof useAccountBalance;
+    useCoinBalance: typeof useCoinBalance;
+    useChain: typeof useChain;
+    useSuiProvider: typeof useSuiProvider;
+    configuredWallets: import("@suiet/wallet-kit").IWallet[];
+    detectedWallets: import("@suiet/wallet-kit").IWallet[];
+    allAvailableWallets: import("@suiet/wallet-kit").IWallet[];
+    chains: import("@suiet/wallet-kit").Chain[];
+    chain: import("@suiet/wallet-kit").Chain | undefined;
+    name: string | undefined;
+    adapter: import("@suiet/wallet-kit").IWalletAdapter | undefined;
+    account: import("@wallet-standard/base").WalletAccount | undefined;
+    address: string | undefined;
+    connecting: boolean;
+    connected: boolean;
+    status: "disconnected" | "connected" | "connecting";
+    select: (walletName: string) => Promise<void>;
+    disconnect: () => Promise<void>;
+    getAccounts: () => readonly import("@wallet-standard/base").WalletAccount[];
+    signAndExecuteTransactionBlock(input: Omit<import("@mysten/wallet-standard").SuiSignAndExecuteTransactionBlockInput, "chain" | "account">): Promise<import("@mysten/wallet-standard").SuiSignAndExecuteTransactionBlockOutput>;
+    signTransactionBlock(input: Omit<import("@mysten/wallet-standard").SuiSignTransactionBlockInput, "chain" | "account">): Promise<import("@mysten/wallet-standard").SuiSignTransactionBlockOutput>;
+    signMessage(input: Omit<import("@mysten/wallet-standard").SuiSignMessageInput, "account">): Promise<import("@mysten/wallet-standard").SuiSignMessageOutput>;
+    verifySignedMessage(input: import("@mysten/wallet-standard").SuiSignMessageOutput): boolean;
+    on: <E extends import("@suiet/wallet-kit").WalletEvent>(event: E, listener: import("@suiet/wallet-kit").WalletEventListeners[E]) => () => void;
+};

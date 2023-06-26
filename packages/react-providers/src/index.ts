@@ -1,22 +1,5 @@
-export {
-  MultiChainProvider,
-  ConfigContext,
-  ConfigProvider,
-  useConfig,
-  EvmNodeContext,
-  EvmNodeProvider,
-  useEvmNode,
-  WalletContext,
-  WalletProvider,
-  useWallet,
-  WindowContext,
-  WindowProvider,
-  useWindow,
-  NetworkContext,
-  NetworkProvider,
-  useNetwork,
-  SolanaProvider,
-} from "./providers";
+export { MultiChainProvider } from "./providers";
+
 export type {
   MultiChainProviderConfigProps,
   MultiChainProviderProps,
@@ -34,14 +17,13 @@ export {
   mumbaiPolygonScanUrl,
   avalancheExplorerUrl,
   testAvalancheExplorerUrl,
-  mainnetSolscanUrl,
   goerliBasescanUrl,
   mainnetArbscanUrl,
   xinfinExplorerUrl,
   apothemExplorerUrl,
 } from "./constants/chains";
 
-export { SolWallets, EvmWallets } from "./constants/wallets";
+export { SolWallets, EvmWallets, SuiWallets } from "./constants/wallets";
 
 export { getAddressLink, getChainById, getTransactionLink } from "./helpers";
 
@@ -55,9 +37,6 @@ export {
   Mumbai,
   Avalanche,
   AvalancheTestnet,
-  SolanaMainnet,
-  SolanaTestnet,
-  SolanaDevnet,
   BaseGoerli,
   Arbitrum,
   XinFin,
@@ -75,9 +54,13 @@ export type {
   WalletsConfig,
   SolAddress,
   SolConfig,
+  SuiConfig,
 } from "./models/types";
 
 export {
+  useMultichain,
+  useSolana,
+  useSui,
   useEthereum,
   useGasPrice,
   readContractCall,
@@ -86,6 +69,4 @@ export {
   useContract,
   useAccount,
   resolveENS,
-  useSolana,
-  useMultichain,
 } from "./hooks";

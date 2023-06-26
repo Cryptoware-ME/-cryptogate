@@ -1,12 +1,15 @@
 /// <reference types="@solana/web3.js" />
-import React, { ReactNode } from 'react';
+import React from 'react';
 import * as _solana_web3_js from '@solana/web3.js';
 import { PublicKey } from '@solana/web3.js';
 import * as _solana_wallet_adapter_base from '@solana/wallet-adapter-base';
 import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
 import * as ethers from 'ethers';
-import { providers } from 'ethers';
 import * as _solana_wallet_adapter_react from '@solana/wallet-adapter-react';
+import * as _mysten_wallet_standard from '@mysten/wallet-standard';
+import * as _wallet_standard_base from '@wallet-standard/base';
+import * as _suiet_wallet_kit from '@suiet/wallet-kit';
+import { useAccountBalance, useCoinBalance, useChain, useSuiProvider } from '@suiet/wallet-kit';
 import * as _ethersproject_providers from '@ethersproject/providers';
 import { TransactionResponse, TransactionReceipt } from '@ethersproject/abstract-provider';
 import { LogDescription } from 'ethers/lib/utils';
@@ -17,9 +20,9 @@ declare type SolAddress = PublicKey;
 /**
  * @public
  * @typedef {object} Chain
-*/
+ */
 declare type Chain = {
-    chainId?: number;
+    chainId: number;
     chainName: string;
     isTestChain: boolean;
     isLocalChain: boolean;
@@ -43,6 +46,13 @@ declare enum EvmWallets {
     WALLETCONNECT = "walletconnect",
     COINBASE = "coinbase",
     BRAVEWALLET = "braveWallet"
+}
+
+declare enum SuiWallets {
+    ALL = "all",
+    SUIET = "suiet",
+    SUI = "sui",
+    ETHOS = "ethos"
 }
 
 declare type NodeUrls = {
@@ -83,6 +93,11 @@ declare type SolConfig = {
     lamportsPerSol: number;
 };
 
+declare type SuiConfig = {
+    wallets: SuiWallets[];
+    autoConnect?: boolean;
+};
+
 declare type WalletsConfig = {
     appName: string;
     appLogoUrl: string;
@@ -92,6 +107,7 @@ declare type WalletsConfig = {
 declare type MultiChainProviderConfigProps = {
     ethConfig?: EthConfig;
     solConfig?: SolConfig;
+    suiConfig?: SuiConfig;
     walletsConfig?: WalletsConfig;
 };
 interface MultiChainProviderProps {
@@ -99,51 +115,6 @@ interface MultiChainProviderProps {
     config: MultiChainProviderConfigProps;
 }
 declare const MultiChainProvider: ({ config, children, }: MultiChainProviderProps) => JSX.Element;
-
-declare const ConfigContext: React.Context<MultiChainProviderConfigProps>;
-declare function useConfig(): MultiChainProviderConfigProps;
-
-interface Props$5 {
-    children: React.ReactNode;
-    config: MultiChainProviderConfigProps;
-}
-declare function ConfigProvider({ config, children }: Props$5): JSX.Element;
-
-declare type EvmNodeContextType = {
-    provider: providers.JsonRpcProvider | providers.Web3Provider | undefined;
-    setProvider: React.Dispatch<React.SetStateAction<providers.JsonRpcProvider | providers.Web3Provider | undefined>>;
-};
-declare const EvmNodeContext: React.Context<EvmNodeContextType>;
-declare function useEvmNode(): EvmNodeContextType;
-
-interface Props$4 {
-    children: React.ReactNode;
-    readOnlyUrls?: NodeUrls;
-}
-declare function EvmNodeProvider({ children, readOnlyUrls }: Props$4): JSX.Element;
-
-declare const WindowContext: React.Context<boolean>;
-declare function useWindow(): boolean;
-
-interface Props$3 {
-    children: ReactNode;
-}
-declare function WindowProvider({ children }: Props$3): JSX.Element;
-
-interface Props$2 {
-    children: React.ReactNode;
-}
-declare type WalletDataType = {
-    account: EvmAddress | undefined;
-};
-declare function WalletProvider({ children }: Props$2): JSX.Element;
-
-declare type WalletContextType = {
-    walletData: WalletDataType;
-    setWalletData: React.Dispatch<React.SetStateAction<WalletDataType>>;
-};
-declare const WalletContext: React.Context<WalletContextType>;
-declare function useWallet(): WalletContextType;
 
 declare const mainnetEtherscanUrl = "https://mainnet.etherscan.io";
 declare const goerliEtherscanUrl = "https://goerli.etherscan.io";
@@ -154,7 +125,6 @@ declare const polygonScanUrl = "https://polygonscan.com";
 declare const mumbaiPolygonScanUrl = "https://mumbai.polygonscan.com";
 declare const avalancheExplorerUrl = "https://snowtrace.io";
 declare const testAvalancheExplorerUrl = "https://testnet.snowtrace.io";
-declare const mainnetSolscanUrl = "https://solscan.io";
 declare const goerliBasescanUrl = "https://goerli.basescan.org";
 declare const mainnetArbscanUrl = "https://arbscan.io";
 declare const xinfinExplorerUrl = "https://explorer.xinfin.nerwork";
@@ -163,12 +133,12 @@ declare const apothemExplorerUrl = "https://explorer.apothem.network";
 /**
  * @array
  * @description The Default Chains Supported By Cryptogate
-*/
+ */
 declare const DEFAULT_SUPPORTED_CHAINS: Chain[];
 /**
  * @enum
  * @description ChainIds Of The Default Chains Supported By Cryptogate
-*/
+ */
 declare enum ChainId {
     Mainnet = 1,
     Goerli = 5,
@@ -185,29 +155,10 @@ declare enum ChainId {
     Apothem = 51
 }
 
-interface Props$1 {
-    children: React.ReactNode;
-    config: MultiChainProviderConfigProps;
-}
 declare type NetworkDataType = {
     chainId: ChainId | undefined;
     chain: Chain | undefined;
 };
-declare function NetworkProvider({ children, config }: Props$1): JSX.Element;
-
-declare type NetworkContextType = {
-    networkData: NetworkDataType;
-    setNetworkData: React.Dispatch<React.SetStateAction<NetworkDataType>>;
-    updateNetwork: (_chainId: ChainId) => void;
-};
-declare const NetworkContext: React.Context<NetworkContextType>;
-declare function useNetwork(): NetworkContextType;
-
-interface Props {
-    children: React.ReactNode;
-    solConfig: SolConfig | undefined;
-}
-declare function SolanaProvider({ children, solConfig }: Props): JSX.Element;
 
 /**
  * @public
@@ -250,10 +201,6 @@ declare const Mumbai: Chain;
 declare const Avalanche: Chain;
 declare const AvalancheTestnet: Chain;
 
-declare const SolanaMainnet: Chain;
-declare const SolanaTestnet: Chain;
-declare const SolanaDevnet: Chain;
-
 declare const BaseGoerli: Chain;
 
 declare const Arbitrum: Chain;
@@ -288,6 +235,33 @@ declare const useSolana: () => {
     disconnect: () => Promise<void>;
     select: (walletName: _solana_wallet_adapter_base.WalletName<string> | null) => void;
     wallet: _solana_wallet_adapter_react.WalletContextState;
+};
+
+declare const useSui: () => {
+    useAccountBalance: typeof useAccountBalance;
+    useCoinBalance: typeof useCoinBalance;
+    useChain: typeof useChain;
+    useSuiProvider: typeof useSuiProvider;
+    configuredWallets: _suiet_wallet_kit.IWallet[];
+    detectedWallets: _suiet_wallet_kit.IWallet[];
+    allAvailableWallets: _suiet_wallet_kit.IWallet[];
+    chains: _suiet_wallet_kit.Chain[];
+    chain: _suiet_wallet_kit.Chain | undefined;
+    name: string | undefined;
+    adapter: _suiet_wallet_kit.IWalletAdapter | undefined;
+    account: _wallet_standard_base.WalletAccount | undefined;
+    address: string | undefined;
+    connecting: boolean;
+    connected: boolean;
+    status: "disconnected" | "connected" | "connecting";
+    select: (walletName: string) => Promise<void>;
+    disconnect: () => Promise<void>;
+    getAccounts: () => readonly _wallet_standard_base.WalletAccount[];
+    signAndExecuteTransactionBlock(input: Omit<_mysten_wallet_standard.SuiSignAndExecuteTransactionBlockInput, "chain" | "account">): Promise<_mysten_wallet_standard.SuiSignAndExecuteTransactionBlockOutput>;
+    signTransactionBlock(input: Omit<_mysten_wallet_standard.SuiSignTransactionBlockInput, "chain" | "account">): Promise<_mysten_wallet_standard.SuiSignTransactionBlockOutput>;
+    signMessage(input: Omit<_mysten_wallet_standard.SuiSignMessageInput, "account">): Promise<_mysten_wallet_standard.SuiSignMessageOutput>;
+    verifySignedMessage(input: _mysten_wallet_standard.SuiSignMessageOutput): boolean;
+    on: <E extends _suiet_wallet_kit.WalletEvent>(event: E, listener: _suiet_wallet_kit.WalletEventListeners[E]) => () => void;
 };
 
 declare const useMultichain: () => {
@@ -409,4 +383,4 @@ declare const useContract: () => {
     deployContract: ({ abi, byteCode, args, }: DeployContractParams) => Promise<ethers.ethers.Contract>;
 };
 
-export { Apothem, Arbitrum, Avalanche, AvalancheTestnet, BSC, BSCTestnet, BaseGoerli, Chain, ChainId, ConfigContext, ConfigProvider, ContractABIUnit, ContractIO, DEFAULT_SUPPORTED_CHAINS, EthConfig, EthContract, EvmAddress, EvmNodeContext, EvmNodeProvider, EvmWallets, Goerli, Mainnet, MultiChainProvider, MultiChainProviderConfigProps, MultiChainProviderProps, Mumbai, NetworkContext, NetworkProvider, NodeUrls, Polygon, Sepolia, SolAddress, SolConfig, SolWallets, SolanaDevnet, SolanaMainnet, SolanaProvider, SolanaTestnet, WalletContext, WalletProvider, WalletsConfig, WindowContext, WindowProvider, XinFin, apothemExplorerUrl, avalancheExplorerUrl, bscScanUrl, bscTestnetScanUrl, getAddressLink, getChainById, getTransactionLink, goerliBasescanUrl, goerliEtherscanUrl, mainnetArbscanUrl, mainnetEtherscanUrl, mainnetSolscanUrl, mumbaiPolygonScanUrl, polygonScanUrl, readContractCall, readContractCalls, resolveENS, sepoliaEtherscanUrl, testAvalancheExplorerUrl, useAccount, useConfig, useContract, useEthereum, useEvmNode, useGasPrice, useMultichain, useNetwork, useSolana, useWallet, useWindow, writeContractCall, xinfinExplorerUrl };
+export { Apothem, Arbitrum, Avalanche, AvalancheTestnet, BSC, BSCTestnet, BaseGoerli, Chain, ChainId, ContractABIUnit, ContractIO, DEFAULT_SUPPORTED_CHAINS, EthConfig, EthContract, EvmAddress, EvmWallets, Goerli, Mainnet, MultiChainProvider, MultiChainProviderConfigProps, MultiChainProviderProps, Mumbai, NodeUrls, Polygon, Sepolia, SolAddress, SolConfig, SolWallets, SuiConfig, SuiWallets, WalletsConfig, XinFin, apothemExplorerUrl, avalancheExplorerUrl, bscScanUrl, bscTestnetScanUrl, getAddressLink, getChainById, getTransactionLink, goerliBasescanUrl, goerliEtherscanUrl, mainnetArbscanUrl, mainnetEtherscanUrl, mumbaiPolygonScanUrl, polygonScanUrl, readContractCall, readContractCalls, resolveENS, sepoliaEtherscanUrl, testAvalancheExplorerUrl, useAccount, useContract, useEthereum, useGasPrice, useMultichain, useSolana, useSui, writeContractCall, xinfinExplorerUrl };

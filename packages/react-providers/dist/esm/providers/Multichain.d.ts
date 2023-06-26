@@ -1,8 +1,9 @@
 import React from "react";
-import { EthConfig, SolConfig, WalletsConfig } from "../models/types";
+import { EthConfig, SolConfig, SuiConfig, WalletsConfig } from "../models/types";
 export declare type MultiChainProviderConfigProps = {
     ethConfig?: EthConfig;
     solConfig?: SolConfig;
+    suiConfig?: SuiConfig;
     walletsConfig?: WalletsConfig;
 };
 export interface MultiChainProviderProps {

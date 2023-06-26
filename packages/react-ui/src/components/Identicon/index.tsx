@@ -1,4 +1,4 @@
-import { useEthereum, useSolana } from "@cryptogate/react-providers";
+import { useEthereum, useSolana, useSui } from "@cryptogate/react-providers";
 import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
 
 export const Identicon = ({
@@ -10,6 +10,7 @@ export const Identicon = ({
 }) => {
   const { account } = useEthereum();
   const { publicKey } = useSolana();
+  const { address } = useSui();
 
   return (
     <Jazzicon
@@ -21,6 +22,8 @@ export const Identicon = ({
           ? account.toString()
           : publicKey
           ? publicKey.toString()
+          : address
+          ? address.toString()
           : ""
       )}
     />

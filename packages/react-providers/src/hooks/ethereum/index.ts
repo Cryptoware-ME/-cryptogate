@@ -1,4 +1,4 @@
-import { useEthereum } from "./ethereum"
-import { useBrowserWallets } from "./useBrowserWallet"
+import { useEthereum } from "./useEthereum";
+import { useBrowserWallets } from "./useBrowserWallet";
 
-export { useEthereum, useBrowserWallets }
+export { useEthereum, useBrowserWallets };
