@@ -61,6 +61,31 @@ const signingSolMessage = async (
   });
 };
 
+const signingSuiMessage = async (
+  fn: any,
+  address: string,
+  SignatureMessage: string,
+  LocalStorage: boolean
+) => {
+  return new Promise((resolve, reject) => {
+    const message = new TextEncoder().encode(SignatureMessage);
+    fn(message)
+      .then((result: any) => {
+        const sigObj = {
+          message: new TextDecoder().decode(message),
+          signature: JSON.stringify(result.sig),
+          address: address.toString(),
+        };
+        LocalStorage &&
+          setWithExpiry(`sig-${address.toString()}`, sigObj, 43200000);
+        resolve(sigObj);
+      })
+      .catch((e: any) => {
+        reject(e);
+      });
+  });
+};
+
 export const ConnectWalletButton = ({
   ActiveComponent,
   DisabledComponent,
@@ -92,9 +117,13 @@ export const ConnectWalletButton = ({
   const [keyValue, setKeyValue] = React.useState(null as unknown as object);
 
   const { account, network, provider, deactivate } = useEthereum();
-  const { publicKey, connected, wallet } = useSolana();
-  const { address } = useSui();
-  const { ethConfig, solConfig } = useConfig();
+  const { publicKey, connected: solConnected, wallet } = useSolana();
+  const {
+    address,
+    connected: suiConnected,
+    signMessage: signSuiMessage,
+  } = useSui();
+  const { ethConfig, solConfig, suiConfig } = useConfig();
 
   React.useEffect(() => {
     if (ethConfig && account && provider) {
@@ -134,7 +163,7 @@ export const ConnectWalletButton = ({
   }, [ethConfig, account, provider]);
 
   React.useEffect(() => {
-    if (solConfig && publicKey && connected) {
+    if (solConfig && publicKey && solConnected) {
       if (onSign) {
         let key = getWithExpiry(`sig-${publicKey.toString()}`);
         if (key) {
@@ -157,9 +186,35 @@ export const ConnectWalletButton = ({
         setKeyValue({ address: account });
       }
     }
-  }, [solConfig, publicKey, connected]);
+  }, [solConfig, publicKey, solConnected]);
 
-  return account || address || (publicKey && connected) ? (
+  React.useEffect(() => {
+    if (solConfig && address && suiConnected) {
+      if (onSign) {
+        let key = getWithExpiry(`sig-${address.toString()}`);
+        if (key) {
+          setKeyValue(key);
+          onSign(key);
+        } else {
+          signingSuiMessage(
+            signSuiMessage,
+            address,
+            `${SignatureMessage.msg.trim()}${
+              SignatureMessage.address ? address.toString().toLowerCase() : ""
+            }${SignatureMessage.timestamp ? "ts-" + Date.now() : ""}`.trim(),
+            LocalStorage
+          ).then((key) => {
+            setKeyValue(key as any);
+            onSign(key as any);
+          });
+        }
+      } else {
+        setKeyValue({ address: address });
+      }
+    }
+  }, [suiConfig, address, suiConnected]);
+
+  return account || address || (publicKey && solConnected) ? (
     <>
       {keyValue ? (
         <div onClick={() => setOpenMenu(!openMenu)}>{ConnectedComponent}</div>

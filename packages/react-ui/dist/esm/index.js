@@ -514,14 +514,35 @@ var signingSolMessage = function (fn, pubK, SignatureMessage, LocalStorage) { re
             })];
     });
 }); };
+var signingSuiMessage = function (fn, address, SignatureMessage, LocalStorage) { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        return [2 /*return*/, new Promise(function (resolve, reject) {
+                var message = new TextEncoder().encode(SignatureMessage);
+                fn(message)
+                    .then(function (result) {
+                    var sigObj = {
+                        message: new TextDecoder().decode(message),
+                        signature: JSON.stringify(result.sig),
+                        address: address.toString(),
+                    };
+                    LocalStorage &&
+                        setWithExpiry("sig-".concat(address.toString()), sigObj, 43200000);
+                    resolve(sigObj);
+                })
+                    .catch(function (e) {
+                    reject(e);
+                });
+            })];
+    });
+}); };
 var ConnectWalletButton = function (_a) {
     var ActiveComponent = _a.ActiveComponent, DisabledComponent = _a.DisabledComponent, ConnectedComponent = _a.ConnectedComponent, SignatureMessage = _a.SignatureMessage, NetworkAlertMessage = _a.NetworkAlertMessage, ChosenConnectedMenu = _a.ChosenConnectedMenu, onSign = _a.onSign, Store = _a.Store, setOpenOptions = _a.setOpenOptions, LocalStorage = _a.LocalStorage;
     var _b = React.useState(false), openMenu = _b[0], setOpenMenu = _b[1];
     var _c = React.useState(null), keyValue = _c[0], setKeyValue = _c[1];
     var _d = useEthereum(), account = _d.account, network = _d.network, provider = _d.provider, deactivate = _d.deactivate;
-    var _e = useSolana(), publicKey = _e.publicKey, connected = _e.connected, wallet = _e.wallet;
-    var address = useSui().address;
-    var _f = useConfig(), ethConfig = _f.ethConfig, solConfig = _f.solConfig;
+    var _e = useSolana(), publicKey = _e.publicKey, solConnected = _e.connected, wallet = _e.wallet;
+    var _f = useSui(), address = _f.address, suiConnected = _f.connected, signSuiMessage = _f.signMessage;
+    var _g = useConfig(), ethConfig = _g.ethConfig, solConfig = _g.solConfig, suiConfig = _g.suiConfig;
     React.useEffect(function () {
         if (ethConfig && account && provider) {
             if (ethConfig.allowedNetworks &&
@@ -551,7 +572,7 @@ var ConnectWalletButton = function (_a) {
         }
     }, [ethConfig, account, provider]);
     React.useEffect(function () {
-        if (solConfig && publicKey && connected) {
+        if (solConfig && publicKey && solConnected) {
             if (onSign) {
                 var key = getWithExpiry("sig-".concat(publicKey.toString()));
                 if (key) {
@@ -569,8 +590,28 @@ var ConnectWalletButton = function (_a) {
                 setKeyValue({ address: account });
             }
         }
-    }, [solConfig, publicKey, connected]);
-    return account || address || (publicKey && connected) ? (jsxs(Fragment, { children: [keyValue ? (jsx("div", __assign({ onClick: function () { return setOpenMenu(!openMenu); } }, { children: ConnectedComponent }))) : (jsx(Fragment, { children: DisabledComponent })), jsx(ConnectedMenu, { ChosenConnectedMenu: ChosenConnectedMenu, Store: Store, onClose: function () {
+    }, [solConfig, publicKey, solConnected]);
+    React.useEffect(function () {
+        if (solConfig && address && suiConnected) {
+            if (onSign) {
+                var key = getWithExpiry("sig-".concat(address.toString()));
+                if (key) {
+                    setKeyValue(key);
+                    onSign(key);
+                }
+                else {
+                    signingSuiMessage(signSuiMessage, address, "".concat(SignatureMessage.msg.trim()).concat(SignatureMessage.address ? address.toString().toLowerCase() : "").concat(SignatureMessage.timestamp ? "ts-" + Date.now() : "").trim(), LocalStorage).then(function (key) {
+                        setKeyValue(key);
+                        onSign(key);
+                    });
+                }
+            }
+            else {
+                setKeyValue({ address: address });
+            }
+        }
+    }, [suiConfig, address, suiConnected]);
+    return account || address || (publicKey && solConnected) ? (jsxs(Fragment, { children: [keyValue ? (jsx("div", __assign({ onClick: function () { return setOpenMenu(!openMenu); } }, { children: ConnectedComponent }))) : (jsx(Fragment, { children: DisabledComponent })), jsx(ConnectedMenu, { ChosenConnectedMenu: ChosenConnectedMenu, Store: Store, onClose: function () {
                     setOpenMenu(false);
                 }, isOpen: openMenu })] })) : (jsx("div", __assign({ onClick: function () {
             setOpenOptions(true);
