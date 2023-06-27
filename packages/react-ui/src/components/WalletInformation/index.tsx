@@ -16,7 +16,7 @@ const WalletInformation = ({
     wallet,
     solBalance,
   } = useSolana();
-  const { address, connected: suiConnected, disconnect } = useSui();
+  const { address, connected: suiConnected, disconnect, suiBalance } = useSui();
 
   const handleDisconnect = () => {
     account && deactivate();
@@ -105,8 +105,7 @@ const WalletInformation = ({
               lineHeight: 1,
             }}
           >
-            {address?.toString().slice(0, 3)}...
-            {address?.toString().slice(-3)}
+            {address?.toString().slice(0, 3)}...{address?.toString().slice(-3)}
           </p>
         )}
         <span
@@ -150,7 +149,11 @@ const WalletInformation = ({
         >
           {account && ethBalance
             ? ethBalance?.slice(0, 7) + " ETH"
-            : solBalance + " SOL"}
+            : publicKey && solBalance
+            ? solBalance + " SOL"
+            : address && suiBalance
+            ? solBalance
+            : ""}
         </p>
       </div>
     </div>

@@ -8,8 +8,11 @@ import {
 
 export const useSui = () => {
   const wallet = useWallet();
+  const suiBalance = useAccountBalance();
+
   return {
     ...wallet,
+    suiBalance: suiBalance.balance,
     useAccountBalance,
     useCoinBalance,
     useChain,

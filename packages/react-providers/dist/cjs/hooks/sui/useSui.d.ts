@@ -1,5 +1,6 @@
 import { useSuiProvider, useAccountBalance, useCoinBalance, useChain } from "@suiet/wallet-kit";
 export declare const useSui: () => {
+    suiBalance: bigint | undefined;
     useAccountBalance: typeof useAccountBalance;
     useCoinBalance: typeof useCoinBalance;
     useChain: typeof useChain;

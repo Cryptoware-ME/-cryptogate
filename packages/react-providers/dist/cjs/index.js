@@ -773,7 +773,8 @@ const useSolana = () => {
 
 const useSui = () => {
     const wallet = walletKit.useWallet();
-    return Object.assign(Object.assign({}, wallet), { useAccountBalance: walletKit.useAccountBalance,
+    const suiBalance = walletKit.useAccountBalance();
+    return Object.assign(Object.assign({}, wallet), { suiBalance: suiBalance.balance, useAccountBalance: walletKit.useAccountBalance,
         useCoinBalance: walletKit.useCoinBalance,
         useChain: walletKit.useChain,
         useSuiProvider: walletKit.useSuiProvider });

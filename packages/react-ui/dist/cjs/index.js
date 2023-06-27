@@ -107,7 +107,7 @@ var WalletInformation = function (_a) {
     var onDisconnect = _a.onDisconnect, _b = _a.direction, direction = _b === void 0 ? "y" : _b;
     var _c = reactProviders.useEthereum(), account = _c.account, deactivate = _c.deactivate, ethBalance = _c.ethBalance, ens = _c.ens;
     var _d = reactProviders.useSolana(), publicKey = _d.publicKey, solConnected = _d.connected, wallet = _d.wallet, solBalance = _d.solBalance;
-    var _e = reactProviders.useSui(), address = _e.address, suiConnected = _e.connected, disconnect = _e.disconnect;
+    var _e = reactProviders.useSui(), address = _e.address, suiConnected = _e.connected, disconnect = _e.disconnect, suiBalance = _e.suiBalance;
     var handleDisconnect = function () {
         account && deactivate();
         publicKey && solConnected && wallet.disconnect();
@@ -169,7 +169,11 @@ var WalletInformation = function (_a) {
                             color: "#000",
                         } }, { children: account && ethBalance
                             ? (ethBalance === null || ethBalance === void 0 ? void 0 : ethBalance.slice(0, 7)) + " ETH"
-                            : solBalance + " SOL" }))] }))] })));
+                            : publicKey && solBalance
+                                ? solBalance + " SOL"
+                                : address && suiBalance
+                                    ? solBalance
+                                    : "" }))] }))] })));
 };
 
 var useTokensMultiCall = function (_a) {

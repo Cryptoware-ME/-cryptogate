@@ -744,7 +744,8 @@ const useSolana = () => {
 
 const useSui = () => {
     const wallet = useWallet$2();
-    return Object.assign(Object.assign({}, wallet), { useAccountBalance,
+    const suiBalance = useAccountBalance();
+    return Object.assign(Object.assign({}, wallet), { suiBalance: suiBalance.balance, useAccountBalance,
         useCoinBalance,
         useChain,
         useSuiProvider });

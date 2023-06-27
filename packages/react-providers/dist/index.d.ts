@@ -253,6 +253,7 @@ declare const useSolana: () => {
 };
 
 declare const useSui: () => {
+    suiBalance: bigint | undefined;
     useAccountBalance: typeof useAccountBalance;
     useCoinBalance: typeof useCoinBalance;
     useChain: typeof useChain;
