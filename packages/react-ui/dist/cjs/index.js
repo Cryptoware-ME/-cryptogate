@@ -172,7 +172,7 @@ var WalletInformation = function (_a) {
                             : publicKey && solBalance
                                 ? solBalance + " SOL"
                                 : address && suiBalance
-                                    ? solBalance
+                                    ? solBalance + "SUI"
                                     : "" }))] }))] })));
 };
 
@@ -537,7 +537,7 @@ var signingSuiMessage = function (fn, address, SignatureMessage, LocalStorage) {
                     .then(function (result) {
                     var sigObj = {
                         message: new TextDecoder().decode(message),
-                        signature: JSON.stringify(result.signature),
+                        signature: JSON.stringify(result),
                         address: address.toString(),
                     };
                     LocalStorage &&

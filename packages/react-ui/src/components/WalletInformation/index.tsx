@@ -152,7 +152,7 @@ const WalletInformation = ({
             : publicKey && solBalance
             ? solBalance + " SOL"
             : address && suiBalance
-            ? solBalance
+            ? solBalance + "SUI"
             : ""}
         </p>
       </div>
