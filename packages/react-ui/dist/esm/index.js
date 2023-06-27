@@ -518,11 +518,11 @@ var signingSuiMessage = function (fn, address, SignatureMessage, LocalStorage) {
     return __generator(this, function (_a) {
         return [2 /*return*/, new Promise(function (resolve, reject) {
                 var message = new TextEncoder().encode(SignatureMessage);
-                fn(message)
+                fn({ message: message })
                     .then(function (result) {
                     var sigObj = {
                         message: new TextDecoder().decode(message),
-                        signature: JSON.stringify(result.sig),
+                        signature: JSON.stringify(result.signature),
                         address: address.toString(),
                     };
                     LocalStorage &&
@@ -539,10 +539,10 @@ var ConnectWalletButton = function (_a) {
     var ActiveComponent = _a.ActiveComponent, DisabledComponent = _a.DisabledComponent, ConnectedComponent = _a.ConnectedComponent, SignatureMessage = _a.SignatureMessage, NetworkAlertMessage = _a.NetworkAlertMessage, ChosenConnectedMenu = _a.ChosenConnectedMenu, onSign = _a.onSign, Store = _a.Store, setOpenOptions = _a.setOpenOptions, LocalStorage = _a.LocalStorage;
     var _b = React.useState(false), openMenu = _b[0], setOpenMenu = _b[1];
     var _c = React.useState(null), keyValue = _c[0], setKeyValue = _c[1];
-    var _d = useEthereum(), account = _d.account, network = _d.network, provider = _d.provider, deactivate = _d.deactivate;
-    var _e = useSolana(), publicKey = _e.publicKey, solConnected = _e.connected, wallet = _e.wallet;
-    var _f = useSui(), address = _f.address, suiConnected = _f.connected, signSuiMessage = _f.signMessage;
-    var _g = useConfig(), ethConfig = _g.ethConfig, solConfig = _g.solConfig, suiConfig = _g.suiConfig;
+    var _d = useConfig(), ethConfig = _d.ethConfig, solConfig = _d.solConfig, suiConfig = _d.suiConfig;
+    var _e = useEthereum(), account = _e.account, network = _e.network, provider = _e.provider, deactivate = _e.deactivate;
+    var _f = useSolana(), publicKey = _f.publicKey, solConnected = _f.connected, signSolMessage = _f.wallet.signMessage;
+    var _g = useSui(), address = _g.address, suiConnected = _g.connected, signSuiMessage = _g.signMessage;
     React.useEffect(function () {
         if (ethConfig && account && provider) {
             if (ethConfig.allowedNetworks &&
@@ -580,7 +580,7 @@ var ConnectWalletButton = function (_a) {
                     onSign(key);
                 }
                 else {
-                    signingSolMessage(wallet.signMessage, publicKey, "".concat(SignatureMessage.msg.trim()).concat(SignatureMessage.address ? publicKey.toString().toLowerCase() : "").concat(SignatureMessage.timestamp ? "ts-" + Date.now() : "").trim(), LocalStorage).then(function (key) {
+                    signingSolMessage(signSolMessage, publicKey, "".concat(SignatureMessage.msg.trim()).concat(SignatureMessage.address ? publicKey.toString().toLowerCase() : "").concat(SignatureMessage.timestamp ? "ts-" + Date.now() : "").trim(), LocalStorage).then(function (key) {
                         setKeyValue(key);
                         onSign(key);
                     });
@@ -592,7 +592,7 @@ var ConnectWalletButton = function (_a) {
         }
     }, [solConfig, publicKey, solConnected]);
     React.useEffect(function () {
-        if (solConfig && address && suiConnected) {
+        if (suiConfig && address && suiConnected) {
             if (onSign) {
                 var key = getWithExpiry("sig-".concat(address.toString()));
                 if (key) {
@@ -611,7 +611,9 @@ var ConnectWalletButton = function (_a) {
             }
         }
     }, [suiConfig, address, suiConnected]);
-    return account || address || (publicKey && solConnected) ? (jsxs(Fragment, { children: [keyValue ? (jsx("div", __assign({ onClick: function () { return setOpenMenu(!openMenu); } }, { children: ConnectedComponent }))) : (jsx(Fragment, { children: DisabledComponent })), jsx(ConnectedMenu, { ChosenConnectedMenu: ChosenConnectedMenu, Store: Store, onClose: function () {
+    return (account && provider) ||
+        (address && suiConnected) ||
+        (publicKey && solConnected) ? (jsxs(Fragment, { children: [keyValue ? (jsx("div", __assign({ onClick: function () { return setOpenMenu(!openMenu); } }, { children: ConnectedComponent }))) : (jsx(Fragment, { children: DisabledComponent })), jsx(ConnectedMenu, { ChosenConnectedMenu: ChosenConnectedMenu, Store: Store, onClose: function () {
                     setOpenMenu(false);
                 }, isOpen: openMenu })] })) : (jsx("div", __assign({ onClick: function () {
             setOpenOptions(true);

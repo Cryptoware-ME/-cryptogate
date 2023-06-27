@@ -69,11 +69,11 @@ const signingSuiMessage = async (
 ) => {
   return new Promise((resolve, reject) => {
     const message = new TextEncoder().encode(SignatureMessage);
-    fn(message)
+    fn({ message })
       .then((result: any) => {
         const sigObj = {
           message: new TextDecoder().decode(message),
-          signature: JSON.stringify(result.sig),
+          signature: JSON.stringify(result.signature),
           address: address.toString(),
         };
         LocalStorage &&
@@ -116,14 +116,18 @@ export const ConnectWalletButton = ({
   const [openMenu, setOpenMenu] = React.useState(false);
   const [keyValue, setKeyValue] = React.useState(null as unknown as object);
 
+  const { ethConfig, solConfig, suiConfig } = useConfig();
   const { account, network, provider, deactivate } = useEthereum();
-  const { publicKey, connected: solConnected, wallet } = useSolana();
+  const {
+    publicKey,
+    connected: solConnected,
+    wallet: { signMessage: signSolMessage },
+  } = useSolana();
   const {
     address,
     connected: suiConnected,
     signMessage: signSuiMessage,
   } = useSui();
-  const { ethConfig, solConfig, suiConfig } = useConfig();
 
   React.useEffect(() => {
     if (ethConfig && account && provider) {
@@ -171,7 +175,7 @@ export const ConnectWalletButton = ({
           onSign(key);
         } else {
           signingSolMessage(
-            wallet.signMessage,
+            signSolMessage,
             publicKey as SolAddress,
             `${SignatureMessage.msg.trim()}${
               SignatureMessage.address ? publicKey.toString().toLowerCase() : ""
@@ -189,7 +193,7 @@ export const ConnectWalletButton = ({
   }, [solConfig, publicKey, solConnected]);
 
   React.useEffect(() => {
-    if (solConfig && address && suiConnected) {
+    if (suiConfig && address && suiConnected) {
       if (onSign) {
         let key = getWithExpiry(`sig-${address.toString()}`);
         if (key) {
@@ -214,7 +218,9 @@ export const ConnectWalletButton = ({
     }
   }, [suiConfig, address, suiConnected]);
 
-  return account || address || (publicKey && solConnected) ? (
+  return (account && provider) ||
+    (address && suiConnected) ||
+    (publicKey && solConnected) ? (
     <>
       {keyValue ? (
         <div onClick={() => setOpenMenu(!openMenu)}>{ConnectedComponent}</div>
