@@ -281,26 +281,57 @@ declare const useSui: () => {
 };
 
 declare const useMultichain: () => {
-    publicKey: string | _solana_web3_js.PublicKey | null;
-    solBalance: number;
-    connection: _solana_web3_js.Connection;
-    connected: boolean;
-    disconnect: () => Promise<void>;
-    select: (walletName: _solana_wallet_adapter_base.WalletName<string> | null) => void;
-    wallet: _solana_wallet_adapter_react.WalletContextState;
-    account: `0x${string}` | undefined;
-    ethBalance: string | undefined;
-    ens: string | undefined;
-    provider: _ethersproject_providers.JsonRpcProvider | _ethersproject_providers.Web3Provider | undefined;
-    active: boolean;
-    network: NetworkDataType;
-    activateBraveWallet: () => Promise<void>;
-    activateMetamaskWallet: () => Promise<void>;
-    activateCoinbaseWallet: () => Promise<void>;
-    activateWalletConnect: () => Promise<void>;
-    activateShabakatWallet: () => Promise<void>;
-    deactivate: () => void;
-    errors: string[];
+    ethereum: {
+        account: `0x${string}` | undefined;
+        ethBalance: string | undefined;
+        ens: string | undefined;
+        provider: _ethersproject_providers.JsonRpcProvider | _ethersproject_providers.Web3Provider | undefined;
+        active: boolean;
+        network: NetworkDataType;
+        activateBraveWallet: () => Promise<void>;
+        activateMetamaskWallet: () => Promise<void>;
+        activateCoinbaseWallet: () => Promise<void>;
+        activateWalletConnect: () => Promise<void>;
+        activateShabakatWallet: () => Promise<void>;
+        deactivate: () => void;
+        errors: string[];
+    };
+    solana: {
+        publicKey: string | _solana_web3_js.PublicKey | null;
+        solBalance: number;
+        connection: _solana_web3_js.Connection;
+        connected: boolean;
+        disconnect: () => Promise<void>;
+        select: (walletName: _solana_wallet_adapter_base.WalletName<string> | null) => void;
+        wallet: _solana_wallet_adapter_react.WalletContextState;
+    };
+    sui: {
+        suiBalance: bigint | undefined;
+        useAccountBalance: typeof _suiet_wallet_kit.useAccountBalance;
+        useCoinBalance: typeof _suiet_wallet_kit.useCoinBalance;
+        useChain: typeof _suiet_wallet_kit.useChain;
+        useSuiProvider: typeof _suiet_wallet_kit.useSuiProvider;
+        configuredWallets: _suiet_wallet_kit.IWallet[];
+        detectedWallets: _suiet_wallet_kit.IWallet[];
+        allAvailableWallets: _suiet_wallet_kit.IWallet[];
+        chains: _suiet_wallet_kit.Chain[];
+        chain: _suiet_wallet_kit.Chain | undefined;
+        name: string | undefined;
+        adapter: _suiet_wallet_kit.IWalletAdapter | undefined;
+        account: _wallet_standard_base.WalletAccount | undefined;
+        address: string | undefined;
+        connecting: boolean;
+        connected: boolean;
+        status: "disconnected" | "connected" | "connecting";
+        select: (walletName: string) => Promise<void>;
+        disconnect: () => Promise<void>;
+        getAccounts: () => readonly _wallet_standard_base.WalletAccount[];
+        signAndExecuteTransactionBlock(input: Omit<_mysten_wallet_standard.SuiSignAndExecuteTransactionBlockInput, "chain" | "account">): Promise<_mysten_wallet_standard.SuiSignAndExecuteTransactionBlockOutput>;
+        signTransactionBlock(input: Omit<_mysten_wallet_standard.SuiSignTransactionBlockInput, "chain" | "account">): Promise<_mysten_wallet_standard.SuiSignTransactionBlockOutput>;
+        signMessage(input: Omit<_mysten_wallet_standard.SuiSignMessageInput, "account">): Promise<_mysten_wallet_standard.SuiSignMessageOutput>;
+        verifySignedMessage(input: _mysten_wallet_standard.SuiSignMessageOutput): boolean;
+        on: <E extends _suiet_wallet_kit.WalletEvent>(event: E, listener: _suiet_wallet_kit.WalletEventListeners[E]) => () => void;
+    };
 };
 
 /**

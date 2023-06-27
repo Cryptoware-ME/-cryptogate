@@ -73,7 +73,7 @@ const signingSuiMessage = async (
       .then((result: any) => {
         const sigObj = {
           message: new TextDecoder().decode(message),
-          signature: JSON.stringify(result),
+          signature: result.messageBytes + "." + result.signature,
           address: address.toString(),
         };
         LocalStorage &&

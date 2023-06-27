@@ -754,7 +754,12 @@ const useSui = () => {
 const useMultichain = () => {
     const ethereum = useEthereum();
     const solana = useSolana();
-    return Object.assign(Object.assign({}, ethereum), solana);
+    const sui = useSui();
+    return {
+        ethereum,
+        solana,
+        sui,
+    };
 };
 
 /**

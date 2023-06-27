@@ -537,7 +537,7 @@ var signingSuiMessage = function (fn, address, SignatureMessage, LocalStorage) {
                     .then(function (result) {
                     var sigObj = {
                         message: new TextDecoder().decode(message),
-                        signature: JSON.stringify(result),
+                        signature: result.messageBytes + "." + result.signature,
                         address: address.toString(),
                     };
                     LocalStorage &&
