@@ -520,7 +520,6 @@ var signingSuiMessage = function (fn, address, SignatureMessage, LocalStorage) {
                 var message = new TextEncoder().encode(SignatureMessage);
                 fn({ message: message })
                     .then(function (result) {
-                    console.log("res: ", result);
                     var sigObj = {
                         message: new TextDecoder().decode(message),
                         signature: JSON.stringify(result.signature),
@@ -593,27 +592,21 @@ var ConnectWalletButton = function (_a) {
         }
     }, [solConfig, publicKey, solConnected]);
     React.useEffect(function () {
-        console.log(suiConfig, address, suiConnected);
         if (suiConfig && address && suiConnected) {
-            console.log(1);
             if (onSign) {
-                console.log(2);
                 var key = getWithExpiry("sig-".concat(address.toString()));
-                console.log("key1: ", key);
                 if (key) {
                     setKeyValue(key);
                     onSign(key);
                 }
                 else {
                     signingSuiMessage(signSuiMessage, address, "".concat(SignatureMessage.msg.trim()).concat(SignatureMessage.address ? address.toString().toLowerCase() : "").concat(SignatureMessage.timestamp ? "ts-" + Date.now() : "").trim(), LocalStorage).then(function (key) {
-                        console.log("key2: ", key);
                         setKeyValue(key);
                         onSign(key);
                     });
                 }
             }
             else {
-                console.log(3, address);
                 setKeyValue({ address: address });
             }
         }
