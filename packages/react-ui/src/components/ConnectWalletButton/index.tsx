@@ -71,6 +71,7 @@ const signingSuiMessage = async (
     const message = new TextEncoder().encode(SignatureMessage);
     fn({ message })
       .then((result: any) => {
+        console.log("res: ", result);
         const sigObj = {
           message: new TextDecoder().decode(message),
           signature: JSON.stringify(result.signature),
@@ -193,9 +194,13 @@ export const ConnectWalletButton = ({
   }, [solConfig, publicKey, solConnected]);
 
   React.useEffect(() => {
+    console.log(suiConfig, address, suiConnected);
     if (suiConfig && address && suiConnected) {
+      console.log(1);
       if (onSign) {
+        console.log(2);
         let key = getWithExpiry(`sig-${address.toString()}`);
+        console.log("key1: ", key);
         if (key) {
           setKeyValue(key);
           onSign(key);
@@ -208,11 +213,13 @@ export const ConnectWalletButton = ({
             }${SignatureMessage.timestamp ? "ts-" + Date.now() : ""}`.trim(),
             LocalStorage
           ).then((key) => {
+            console.log("key2: ", key);
             setKeyValue(key as any);
             onSign(key as any);
           });
         }
       } else {
+        console.log(3, address);
         setKeyValue({ address: address });
       }
     }
