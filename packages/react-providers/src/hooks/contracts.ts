@@ -397,7 +397,7 @@ export const writeContractCall = ({
         errorMessage: "No provider available",
       });
     }
-  }, [provider, config]);
+  }, [provider, config, abi, address, contract, method]);
 
   return {
     send: (args?: any[], options?: optionsType) => {

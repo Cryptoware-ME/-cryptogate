@@ -1069,7 +1069,7 @@ const writeContractCall = ({ abi, address, contract, method, }) => {
                 errorMessage: "No provider available",
             });
         }
-    }, [provider, config]);
+    }, [provider, config, abi, address, contract, method]);
     return {
         send: (args, options) => {
             send(contractObj, args, options);
