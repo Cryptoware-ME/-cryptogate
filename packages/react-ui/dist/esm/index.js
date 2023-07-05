@@ -481,7 +481,6 @@ var getWithExpiry = function (key) {
 var signingEvmMessage = function (account, provider, SignatureMessage, LocalStorage) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         return [2 /*return*/, new Promise(function (resolve, reject) {
-                console.log("Signing...");
                 ethSignMessage({
                     account: account,
                     provider: provider,
@@ -493,7 +492,6 @@ var signingEvmMessage = function (account, provider, SignatureMessage, LocalStor
                     resolve(sig);
                 })
                     .catch(function (e) {
-                    console.log("Error: ", e);
                     reject(e);
                 });
             })];
@@ -558,8 +556,8 @@ var ConnectWalletButton = function (_a) {
             (account != prevAccount.current || provider != prevProvider.current)) {
             prevAccount.current = account;
             prevProvider.current = provider;
-            console.log("Account 1: ", account);
-            console.log("Provider 1: ", provider);
+            console.log("Account 1: ", account != prevAccount.current, account);
+            console.log("Provider 1: ", provider != prevProvider.current, typeof provider, provider);
             if (ethConfig.allowedNetworks &&
                 ethConfig.allowedNetworks.length &&
                 ethConfig.allowedNetworks.filter(function (chain) { return (chain === null || chain === void 0 ? void 0 : chain.chainId) == network.chainId; }).length) {
@@ -570,7 +568,6 @@ var ConnectWalletButton = function (_a) {
                         onSign(key);
                     }
                     else {
-                        console.log("Else");
                         signingEvmMessage(account, provider, "".concat(SignatureMessage.msg.trim()).concat(SignatureMessage.address ? account.toString().toLowerCase() : "").concat(SignatureMessage.timestamp ? "ts-" + Date.now() : "").trim(), LocalStorage).then(function (key) {
                             setKeyValue(key);
                             onSign(key);

@@ -20,7 +20,6 @@ const signingEvmMessage = async (
   LocalStorage: boolean
 ) => {
   return new Promise((resolve, reject) => {
-    console.log("Signing...");
     ethSignMessage({
       account,
       provider: provider,
@@ -32,7 +31,6 @@ const signingEvmMessage = async (
         resolve(sig);
       })
       .catch((e) => {
-        console.log("Error: ", e);
         reject(e);
       });
   });
@@ -143,8 +141,13 @@ export const ConnectWalletButton = ({
     ) {
       prevAccount.current = account;
       prevProvider.current = provider;
-      console.log("Account 1: ", account);
-      console.log("Provider 1: ", provider);
+      console.log("Account 1: ", account != prevAccount.current, account);
+      console.log(
+        "Provider 1: ",
+        provider != prevProvider.current,
+        typeof provider,
+        provider
+      );
       if (
         ethConfig.allowedNetworks &&
         ethConfig.allowedNetworks.length &&
@@ -158,7 +161,6 @@ export const ConnectWalletButton = ({
             setKeyValue(key);
             onSign(key);
           } else {
-            console.log("Else");
             signingEvmMessage(
               account,
               provider,

@@ -618,8 +618,6 @@ const useEthereum = () => {
         setWalletData({ account: _account });
         setNetworkData({ chainId: _chainId, chain: getChainById(_chainId) });
         provider === null || provider === void 0 ? void 0 : provider.removeAllListeners();
-        console.log("Setting provider: ", _provider);
-        console.log("Web3 provider: ", new ethers.providers.Web3Provider(_provider));
         _provider && setProvider(new ethers.providers.Web3Provider(_provider));
     };
     const activateWallet = (_provider) => __awaiter(void 0, void 0, void 0, function* () {
