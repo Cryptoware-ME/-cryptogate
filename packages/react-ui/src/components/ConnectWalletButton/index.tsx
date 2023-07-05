@@ -20,6 +20,7 @@ const signingEvmMessage = async (
   LocalStorage: boolean
 ) => {
   return new Promise((resolve, reject) => {
+    console.log("Signing...");
     ethSignMessage({
       account,
       provider: provider,
@@ -131,6 +132,7 @@ export const ConnectWalletButton = ({
 
   React.useEffect(() => {
     if (ethConfig && account && provider) {
+      console.log("Account 1: ", account);
       if (
         ethConfig.allowedNetworks &&
         ethConfig.allowedNetworks.length &&
@@ -144,6 +146,7 @@ export const ConnectWalletButton = ({
             setKeyValue(key);
             onSign(key);
           } else {
+            console.log("Else");
             signingEvmMessage(
               account,
               provider,

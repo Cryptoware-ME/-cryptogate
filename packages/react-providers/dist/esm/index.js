@@ -615,12 +615,14 @@ const useEthereum = () => {
         }
     }, [provider]);
     const setData = (_account, _chainId, _provider) => {
+        console.log("Set Data");
         setWalletData({ account: _account });
         setNetworkData({ chainId: _chainId, chain: getChainById(_chainId) });
         provider === null || provider === void 0 ? void 0 : provider.removeAllListeners();
         _provider && setProvider(new ethers.providers.Web3Provider(_provider));
     };
     const activateWallet = (_provider) => __awaiter(void 0, void 0, void 0, function* () {
+        console.log("Activate Wallet");
         try {
             const res = yield _provider.send("eth_requestAccounts", []);
             const chainIdRes = yield _provider.send("eth_chainId", []);
@@ -642,6 +644,7 @@ const useEthereum = () => {
             activateWallet(brave);
     }), [brave]);
     const activateMetamaskWallet = React.useCallback(() => __awaiter(void 0, void 0, void 0, function* () {
+        console.log("Activate Metamask");
         if (metamask)
             activateWallet(metamask);
     }), [metamask]);

@@ -481,6 +481,7 @@ var getWithExpiry = function (key) {
 var signingEvmMessage = function (account, provider, SignatureMessage, LocalStorage) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         return [2 /*return*/, new Promise(function (resolve, reject) {
+                console.log("Signing...");
                 ethSignMessage({
                     account: account,
                     provider: provider,
@@ -549,6 +550,7 @@ var ConnectWalletButton = function (_a) {
     var _g = useSui(), address = _g.address, suiConnected = _g.connected, signSuiMessage = _g.signMessage;
     React.useEffect(function () {
         if (ethConfig && account && provider) {
+            console.log("Account 1: ", account);
             if (ethConfig.allowedNetworks &&
                 ethConfig.allowedNetworks.length &&
                 ethConfig.allowedNetworks.filter(function (chain) { return (chain === null || chain === void 0 ? void 0 : chain.chainId) == network.chainId; }).length) {
@@ -559,6 +561,7 @@ var ConnectWalletButton = function (_a) {
                         onSign(key);
                     }
                     else {
+                        console.log("Else");
                         signingEvmMessage(account, provider, "".concat(SignatureMessage.msg.trim()).concat(SignatureMessage.address ? account.toString().toLowerCase() : "").concat(SignatureMessage.timestamp ? "ts-" + Date.now() : "").trim(), LocalStorage).then(function (key) {
                             setKeyValue(key);
                             onSign(key);
