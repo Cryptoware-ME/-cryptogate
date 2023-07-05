@@ -48,7 +48,7 @@ const ShabakatComp = () => {
             color: "white",
             borderRadius: "8px",
             padding: "2px 4px",
-            fontSize: "12px",
+            fontSize: "10px",
           }}
         >
           coming soon

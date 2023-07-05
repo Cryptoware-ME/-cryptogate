@@ -773,7 +773,7 @@ var ShabakatComp = function () {
                             color: "white",
                             borderRadius: "8px",
                             padding: "2px 4px",
-                            fontSize: "12px",
+                            fontSize: "10px",
                         } }, { children: "coming soon" }))] })), jsx("div", { style: {
                     display: "flex",
                     justifyContent: "flex-end",
