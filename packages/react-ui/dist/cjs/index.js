@@ -565,10 +565,15 @@ var ConnectWalletButton = function (_a) {
             account &&
             provider &&
             (account != prevAccount.current || provider != prevProvider.current)) {
+            console.log("prevAccount.current: ", prevAccount.current);
+            console.log("Account 1: ", account);
+            console.log("Equal: ", account == prevAccount.current);
             prevAccount.current = account;
+            console.log("prevProvider.current: ", prevProvider.current);
+            console.log("Provider 1: ", provider);
+            console.log("Equal: ", provider == prevProvider.current);
             prevProvider.current = provider;
-            console.log("Account 1: ", account != prevAccount.current, account);
-            console.log("Provider 1: ", provider != prevProvider.current, typeof provider, provider);
+            console.log("-------------------------------------");
             if (ethConfig.allowedNetworks &&
                 ethConfig.allowedNetworks.length &&
                 ethConfig.allowedNetworks.filter(function (chain) { return (chain === null || chain === void 0 ? void 0 : chain.chainId) == network.chainId; }).length) {
