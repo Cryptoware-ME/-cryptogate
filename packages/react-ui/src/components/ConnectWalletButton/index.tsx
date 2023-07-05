@@ -21,8 +21,6 @@ const signingEvmMessage = async (
 ) => {
   return new Promise((resolve, reject) => {
     console.log("Signing...");
-    console.log("Account 2: ", account);
-    console.log("Provider 2: ", provider);
     ethSignMessage({
       account,
       provider: provider,

@@ -51,15 +51,18 @@ export const useEthereum = () => {
   }, [provider]);
 
   const setData = (_account: EvmAddress, _chainId: number, _provider: any) => {
-    console.log("Set Data");
     setWalletData({ account: _account });
     setNetworkData({ chainId: _chainId, chain: getChainById(_chainId) });
     provider?.removeAllListeners();
+    console.log("Setting provider: ", _provider);
+    console.log(
+      "Web3 provider: ",
+      new ethers.providers.Web3Provider(_provider)
+    );
     _provider && setProvider(new ethers.providers.Web3Provider(_provider));
   };
 
   const activateWallet = async (_provider: any) => {
-    console.log("Activate Wallet");
     try {
       const res = await _provider.send("eth_requestAccounts", []);
       const chainIdRes = await _provider.send("eth_chainId", []);
@@ -80,7 +83,6 @@ export const useEthereum = () => {
   }, [brave]);
 
   const activateMetamaskWallet = React.useCallback(async () => {
-    console.log("Activate Metamask");
     if (metamask) activateWallet(metamask);
   }, [metamask]);
 

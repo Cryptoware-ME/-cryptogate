@@ -493,8 +493,6 @@ var signingEvmMessage = function (account, provider, SignatureMessage, LocalStor
     return __generator(this, function (_a) {
         return [2 /*return*/, new Promise(function (resolve, reject) {
                 console.log("Signing...");
-                console.log("Account 2: ", account);
-                console.log("Provider 2: ", provider);
                 core.ethSignMessage({
                     account: account,
                     provider: provider,
