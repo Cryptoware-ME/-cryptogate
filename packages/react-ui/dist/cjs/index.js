@@ -492,6 +492,7 @@ var getWithExpiry = function (key) {
 var signingEvmMessage = function (account, provider, SignatureMessage, LocalStorage) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         return [2 /*return*/, new Promise(function (resolve, reject) {
+                console.log("Signing: ", account, provider);
                 core.ethSignMessage({
                     account: account,
                     provider: provider,
@@ -577,6 +578,7 @@ var ConnectWalletButton = function (_a) {
             if (ethConfig.allowedNetworks &&
                 ethConfig.allowedNetworks.length &&
                 ethConfig.allowedNetworks.filter(function (chain) { return (chain === null || chain === void 0 ? void 0 : chain.chainId) == network.chainId; }).length) {
+                console.log("Cond: ", provider.provider, " - ", onSign && provider.provider);
                 if (onSign && provider.provider) {
                     var key = getWithExpiry("sig-".concat(account === null || account === void 0 ? void 0 : account.toLowerCase()));
                     if (key) {

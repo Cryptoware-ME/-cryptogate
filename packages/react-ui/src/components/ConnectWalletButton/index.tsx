@@ -20,6 +20,7 @@ const signingEvmMessage = async (
   LocalStorage: boolean
 ) => {
   return new Promise((resolve, reject) => {
+    console.log("Signing: ", account, provider);
     ethSignMessage({
       account,
       provider: provider,
@@ -157,6 +158,12 @@ export const ConnectWalletButton = ({
           (chain) => chain?.chainId == network.chainId
         ).length
       ) {
+        console.log(
+          "Cond: ",
+          provider.provider,
+          " - ",
+          onSign && provider.provider
+        );
         if (onSign && provider.provider) {
           let key = getWithExpiry(`sig-${account?.toLowerCase()}`);
           if (key) {
