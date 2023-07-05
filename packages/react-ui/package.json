@@ -26,7 +26,6 @@
     "@cryptogate/core": "*",
     "@cryptogate/react-providers": "^2.0.37",
     "bignumber.js": "*",
-    "ethers": "^5.7.1",
     "react-device-detect": "^2.2.2",
     "react-jazzicon": "^1.0.3",
     "react-slick": "^0.29.0",
