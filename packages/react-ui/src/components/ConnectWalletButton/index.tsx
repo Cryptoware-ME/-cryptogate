@@ -119,6 +119,7 @@ export const ConnectWalletButton = ({
 
   const { ethConfig, solConfig, suiConfig } = useConfig();
   const { account, network, provider, deactivate } = useEthereum();
+  const prevAccount = React.useRef("");
   const {
     publicKey,
     connected: solConnected,
@@ -131,7 +132,8 @@ export const ConnectWalletButton = ({
   } = useSui();
 
   React.useEffect(() => {
-    if (ethConfig && account && provider) {
+    if (ethConfig && account && provider && account != prevAccount.current) {
+      prevAccount.current = account;
       console.log("Account 1: ", account);
       if (
         ethConfig.allowedNetworks &&
