@@ -119,6 +119,7 @@ export const ConnectWalletButton = ({
   const [keyValue, setKeyValue] = React.useState(null as unknown as object);
 
   const prevAccount = React.useRef("");
+  const prevProvider = React.useRef({});
 
   const { ethConfig, solConfig, suiConfig } = useConfig();
   const { account, network, provider, deactivate } = useEthereum();
@@ -134,8 +135,14 @@ export const ConnectWalletButton = ({
   } = useSui();
 
   React.useEffect(() => {
-    if (ethConfig && account && provider && account != prevAccount.current) {
+    if (
+      ethConfig &&
+      account &&
+      provider &&
+      (account != prevAccount.current || provider != prevProvider.current)
+    ) {
       prevAccount.current = account;
+      prevProvider.current = provider;
       console.log("Account 1: ", account);
       console.log("Provider 1: ", provider);
       if (

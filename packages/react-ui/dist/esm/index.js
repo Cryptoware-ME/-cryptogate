@@ -546,13 +546,18 @@ var ConnectWalletButton = function (_a) {
     var _b = React.useState(false), openMenu = _b[0], setOpenMenu = _b[1];
     var _c = React.useState(null), keyValue = _c[0], setKeyValue = _c[1];
     var prevAccount = React.useRef("");
+    var prevProvider = React.useRef({});
     var _d = useConfig(), ethConfig = _d.ethConfig, solConfig = _d.solConfig, suiConfig = _d.suiConfig;
     var _e = useEthereum(), account = _e.account, network = _e.network, provider = _e.provider, deactivate = _e.deactivate;
     var _f = useSolana(), publicKey = _f.publicKey, solConnected = _f.connected, signSolMessage = _f.wallet.signMessage;
     var _g = useSui(), address = _g.address, suiConnected = _g.connected, signSuiMessage = _g.signMessage;
     React.useEffect(function () {
-        if (ethConfig && account && provider && account != prevAccount.current) {
+        if (ethConfig &&
+            account &&
+            provider &&
+            (account != prevAccount.current || provider != prevProvider.current)) {
             prevAccount.current = account;
+            prevProvider.current = provider;
             console.log("Account 1: ", account);
             console.log("Provider 1: ", provider);
             if (ethConfig.allowedNetworks &&
