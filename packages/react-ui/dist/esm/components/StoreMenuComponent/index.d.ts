@@ -1,3 +1,4 @@
+/// <reference types="react" />
 declare const index: ({ onDisconnect, Store, }: {
     onDisconnect: any;
     Store?: {

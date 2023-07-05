@@ -5,6 +5,7 @@ import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
 import { ERC20, IERC721Metadata, ERC721, ethSignMessage } from '@cryptogate/core';
 import BigNumber from 'bignumber.js';
 import Slider from 'react-slick';
+import { providers } from 'ethers';
 import { WalletIcon } from '@solana/wallet-adapter-react-ui';
 import { PhantomWalletAdapter, PhantomWalletName, SlopeWalletAdapter, SlopeWalletName, SolflareWalletAdapter, SolflareWalletName, SolletExtensionWalletAdapter, SolletWalletName } from '@solana/wallet-adapter-wallets';
 
@@ -566,7 +567,7 @@ var ConnectWalletButton = function (_a) {
             if (ethConfig.allowedNetworks &&
                 ethConfig.allowedNetworks.length &&
                 ethConfig.allowedNetworks.filter(function (chain) { return (chain === null || chain === void 0 ? void 0 : chain.chainId) == network.chainId; }).length) {
-                if (onSign) {
+                if (onSign && typeof provider == providers.Web3Provider) {
                     var key = getWithExpiry("sig-".concat(account === null || account === void 0 ? void 0 : account.toLowerCase()));
                     if (key) {
                         setKeyValue(key);

@@ -1,3 +1,4 @@
+/// <reference types="react" />
 import "./TokenDetails.module.css";
 declare const index: ({ tokens, nfts }: {
     tokens?: string[] | undefined;

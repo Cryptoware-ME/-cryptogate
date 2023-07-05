@@ -1,3 +1,4 @@
+/// <reference types="react" />
 import { Adapter } from "@solana/wallet-adapter-base";
 declare const WalletListing: ({ wallet, heading, onWalletCall, }: {
     wallet: Adapter;

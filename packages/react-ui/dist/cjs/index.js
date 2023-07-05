@@ -9,6 +9,7 @@ var Jazzicon = require('react-jazzicon');
 var core = require('@cryptogate/core');
 var BigNumber = require('bignumber.js');
 var Slider = require('react-slick');
+var ethers = require('ethers');
 var walletAdapterReactUi = require('@solana/wallet-adapter-react-ui');
 var walletAdapterWallets = require('@solana/wallet-adapter-wallets');
 
@@ -577,7 +578,7 @@ var ConnectWalletButton = function (_a) {
             if (ethConfig.allowedNetworks &&
                 ethConfig.allowedNetworks.length &&
                 ethConfig.allowedNetworks.filter(function (chain) { return (chain === null || chain === void 0 ? void 0 : chain.chainId) == network.chainId; }).length) {
-                if (onSign) {
+                if (onSign && typeof provider == ethers.providers.Web3Provider) {
                     var key = getWithExpiry("sig-".concat(account === null || account === void 0 ? void 0 : account.toLowerCase()));
                     if (key) {
                         setKeyValue(key);

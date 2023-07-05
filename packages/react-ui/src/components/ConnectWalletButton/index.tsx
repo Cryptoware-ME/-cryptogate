@@ -12,6 +12,7 @@ import { ethSignMessage } from "@cryptogate/core";
 import { setWithExpiry } from "../../localStorage/setWithExpire";
 import { getWithExpiry } from "../../localStorage/getWithExpire";
 import { ConnectedMenuOptions } from "../ConnectWalletComponent";
+import { providers } from "ethers";
 
 const signingEvmMessage = async (
   account: EvmAddress,
@@ -157,7 +158,7 @@ export const ConnectWalletButton = ({
           (chain) => chain?.chainId == network.chainId
         ).length
       ) {
-        if (onSign) {
+        if (onSign && typeof provider == providers.Web3Provider) {
           let key = getWithExpiry(`sig-${account?.toLowerCase()}`);
           if (key) {
             setKeyValue(key);

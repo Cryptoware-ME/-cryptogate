@@ -1,3 +1,4 @@
+/// <reference types="react" />
 import "./slick.css";
 import "./slick-theme.css";
 declare const index: ({ URIs, symbols, numbers, onCollectionSelected, }: {
