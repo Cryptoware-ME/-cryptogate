@@ -493,6 +493,7 @@ var signingEvmMessage = function (account, provider, SignatureMessage, LocalStor
                     resolve(sig);
                 })
                     .catch(function (e) {
+                    console.log("Error: ", e);
                     reject(e);
                 });
             })];
@@ -544,9 +545,9 @@ var ConnectWalletButton = function (_a) {
     var ActiveComponent = _a.ActiveComponent, DisabledComponent = _a.DisabledComponent, ConnectedComponent = _a.ConnectedComponent, SignatureMessage = _a.SignatureMessage, NetworkAlertMessage = _a.NetworkAlertMessage, ChosenConnectedMenu = _a.ChosenConnectedMenu, onSign = _a.onSign, Store = _a.Store, setOpenOptions = _a.setOpenOptions, LocalStorage = _a.LocalStorage;
     var _b = React.useState(false), openMenu = _b[0], setOpenMenu = _b[1];
     var _c = React.useState(null), keyValue = _c[0], setKeyValue = _c[1];
+    var prevAccount = React.useRef("");
     var _d = useConfig(), ethConfig = _d.ethConfig, solConfig = _d.solConfig, suiConfig = _d.suiConfig;
     var _e = useEthereum(), account = _e.account, network = _e.network, provider = _e.provider, deactivate = _e.deactivate;
-    var prevAccount = React.useRef("");
     var _f = useSolana(), publicKey = _f.publicKey, solConnected = _f.connected, signSolMessage = _f.wallet.signMessage;
     var _g = useSui(), address = _g.address, suiConnected = _g.connected, signSuiMessage = _g.signMessage;
     React.useEffect(function () {

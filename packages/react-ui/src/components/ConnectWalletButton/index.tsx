@@ -32,6 +32,7 @@ const signingEvmMessage = async (
         resolve(sig);
       })
       .catch((e) => {
+        console.log("Error: ", e);
         reject(e);
       });
   });
@@ -117,9 +118,10 @@ export const ConnectWalletButton = ({
   const [openMenu, setOpenMenu] = React.useState(false);
   const [keyValue, setKeyValue] = React.useState(null as unknown as object);
 
+  const prevAccount = React.useRef("");
+
   const { ethConfig, solConfig, suiConfig } = useConfig();
   const { account, network, provider, deactivate } = useEthereum();
-  const prevAccount = React.useRef("");
   const {
     publicKey,
     connected: solConnected,
