@@ -21,6 +21,8 @@ const signingEvmMessage = async (
 ) => {
   return new Promise((resolve, reject) => {
     console.log("Signing...");
+    console.log("Account 2: ", account);
+    console.log("Provider 2: ", provider);
     ethSignMessage({
       account,
       provider: provider,
@@ -137,6 +139,7 @@ export const ConnectWalletButton = ({
     if (ethConfig && account && provider && account != prevAccount.current) {
       prevAccount.current = account;
       console.log("Account 1: ", account);
+      console.log("Provider 1: ", provider);
       if (
         ethConfig.allowedNetworks &&
         ethConfig.allowedNetworks.length &&

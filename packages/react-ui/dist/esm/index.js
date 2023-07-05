@@ -482,6 +482,8 @@ var signingEvmMessage = function (account, provider, SignatureMessage, LocalStor
     return __generator(this, function (_a) {
         return [2 /*return*/, new Promise(function (resolve, reject) {
                 console.log("Signing...");
+                console.log("Account 2: ", account);
+                console.log("Provider 2: ", provider);
                 ethSignMessage({
                     account: account,
                     provider: provider,
@@ -554,6 +556,7 @@ var ConnectWalletButton = function (_a) {
         if (ethConfig && account && provider && account != prevAccount.current) {
             prevAccount.current = account;
             console.log("Account 1: ", account);
+            console.log("Provider 1: ", provider);
             if (ethConfig.allowedNetworks &&
                 ethConfig.allowedNetworks.length &&
                 ethConfig.allowedNetworks.filter(function (chain) { return (chain === null || chain === void 0 ? void 0 : chain.chainId) == network.chainId; }).length) {
