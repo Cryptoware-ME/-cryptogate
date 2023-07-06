@@ -554,7 +554,10 @@ var ConnectWalletButton = function (_a) {
         if (ethConfig &&
             account &&
             provider &&
-            (account != prevAccount.current || provider != prevProvider.current)) {
+            (account != prevAccount.current ||
+                (account == prevAccount.current &&
+                    provider != prevProvider.current &&
+                    provider.provider))) {
             console.log("prevAccount.current: ", prevAccount.current);
             console.log("Account 1: ", account);
             console.log("Equal: ", account == prevAccount.current);

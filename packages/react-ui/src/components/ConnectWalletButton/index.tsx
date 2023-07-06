@@ -138,7 +138,10 @@ export const ConnectWalletButton = ({
       ethConfig &&
       account &&
       provider &&
-      (account != prevAccount.current || provider != prevProvider.current)
+      (account != prevAccount.current ||
+        (account == prevAccount.current &&
+          provider != prevProvider.current &&
+          provider.provider))
     ) {
       console.log("prevAccount.current: ", prevAccount.current);
       console.log("Account 1: ", account);
