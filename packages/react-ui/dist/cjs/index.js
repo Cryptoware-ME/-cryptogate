@@ -565,7 +565,7 @@ var ConnectWalletButton = function (_a) {
             if (ethConfig.allowedNetworks &&
                 ethConfig.allowedNetworks.length &&
                 ethConfig.allowedNetworks.filter(function (chain) { return (chain === null || chain === void 0 ? void 0 : chain.chainId) == network.chainId; }).length) {
-                if (!isSigning && onSign) {
+                if (!isSigning && onSign && provider.provider) {
                     var key = getWithExpiry("sig-".concat(account === null || account === void 0 ? void 0 : account.toLowerCase()));
                     if (key) {
                         setKeyValue(key);
