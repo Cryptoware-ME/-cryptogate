@@ -8,7 +8,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "2.0.97",
+  "version": "2.0.98",
   "description": "Cryptogate Web3 UI Components",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
