@@ -555,43 +555,28 @@ var ConnectWalletButton = function (_a) {
     var ActiveComponent = _a.ActiveComponent, DisabledComponent = _a.DisabledComponent, ConnectedComponent = _a.ConnectedComponent, SignatureMessage = _a.SignatureMessage, NetworkAlertMessage = _a.NetworkAlertMessage, ChosenConnectedMenu = _a.ChosenConnectedMenu, onSign = _a.onSign, Store = _a.Store, setOpenOptions = _a.setOpenOptions, LocalStorage = _a.LocalStorage;
     var _b = React__default["default"].useState(false), openMenu = _b[0], setOpenMenu = _b[1];
     var _c = React__default["default"].useState(null), keyValue = _c[0], setKeyValue = _c[1];
-    var prevAccount = React__default["default"].useRef("");
-    var prevProvider = React__default["default"].useRef({});
     var _d = reactProviders.useConfig(), ethConfig = _d.ethConfig, solConfig = _d.solConfig, suiConfig = _d.suiConfig;
     var _e = reactProviders.useEthereum(), account = _e.account, network = _e.network, provider = _e.provider, deactivate = _e.deactivate;
     var _f = reactProviders.useSolana(), publicKey = _f.publicKey, solConnected = _f.connected, signSolMessage = _f.wallet.signMessage;
     var _g = reactProviders.useSui(), address = _g.address, suiConnected = _g.connected, signSuiMessage = _g.signMessage;
+    var _h = React__default["default"].useState(false), isSigning = _h[0], setIsSigning = _h[1];
     React__default["default"].useEffect(function () {
-        if (ethConfig &&
-            account &&
-            provider &&
-            (account != prevAccount.current ||
-                (account == prevAccount.current &&
-                    provider != prevProvider.current &&
-                    provider.provider))) {
-            console.log("prevAccount.current: ", prevAccount.current);
-            console.log("Account 1: ", account);
-            console.log("Equal: ", account == prevAccount.current);
-            prevAccount.current = account;
-            console.log("prevProvider.current: ", prevProvider.current);
-            console.log("Provider 1: ", provider);
-            console.log("Equal: ", provider == prevProvider.current);
-            prevProvider.current = provider;
-            console.log("-------------------------------------");
+        if (ethConfig && account && provider) {
             if (ethConfig.allowedNetworks &&
                 ethConfig.allowedNetworks.length &&
                 ethConfig.allowedNetworks.filter(function (chain) { return (chain === null || chain === void 0 ? void 0 : chain.chainId) == network.chainId; }).length) {
-                console.log("Cond: ", provider.provider, " - ", onSign && provider.provider);
-                if (onSign && provider.provider) {
+                if (!isSigning && onSign) {
                     var key = getWithExpiry("sig-".concat(account === null || account === void 0 ? void 0 : account.toLowerCase()));
                     if (key) {
                         setKeyValue(key);
                         onSign(key);
                     }
                     else {
+                        setIsSigning(true);
                         signingEvmMessage(account, provider, "".concat(SignatureMessage.msg.trim()).concat(SignatureMessage.address ? account.toString().toLowerCase() : "").concat(SignatureMessage.timestamp ? "ts-" + Date.now() : "").trim(), LocalStorage).then(function (key) {
                             setKeyValue(key);
                             onSign(key);
+                            setIsSigning(false);
                         });
                     }
                 }

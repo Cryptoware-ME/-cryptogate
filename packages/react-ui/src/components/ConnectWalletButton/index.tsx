@@ -117,9 +117,6 @@ export const ConnectWalletButton = ({
   const [openMenu, setOpenMenu] = React.useState(false);
   const [keyValue, setKeyValue] = React.useState(null as unknown as object);
 
-  const prevAccount = React.useRef("");
-  const prevProvider = React.useRef({});
-
   const { ethConfig, solConfig, suiConfig } = useConfig();
   const { account, network, provider, deactivate } = useEthereum();
   const {
@@ -133,27 +130,10 @@ export const ConnectWalletButton = ({
     signMessage: signSuiMessage,
   } = useSui();
 
+  const [isSigning, setIsSigning] = React.useState(false);
+
   React.useEffect(() => {
-    if (
-      ethConfig &&
-      account &&
-      provider &&
-      (account != prevAccount.current ||
-        (account == prevAccount.current &&
-          provider != prevProvider.current &&
-          provider.provider))
-    ) {
-      console.log("prevAccount.current: ", prevAccount.current);
-      console.log("Account 1: ", account);
-      console.log("Equal: ", account == prevAccount.current);
-      prevAccount.current = account;
-
-      console.log("prevProvider.current: ", prevProvider.current);
-      console.log("Provider 1: ", provider);
-      console.log("Equal: ", provider == prevProvider.current);
-      prevProvider.current = provider;
-
-      console.log("-------------------------------------");
+    if (ethConfig && account && provider) {
       if (
         ethConfig.allowedNetworks &&
         ethConfig.allowedNetworks.length &&
@@ -161,18 +141,13 @@ export const ConnectWalletButton = ({
           (chain) => chain?.chainId == network.chainId
         ).length
       ) {
-        console.log(
-          "Cond: ",
-          provider.provider,
-          " - ",
-          onSign && provider.provider
-        );
-        if (onSign && provider.provider) {
+        if (!isSigning && onSign) {
           let key = getWithExpiry(`sig-${account?.toLowerCase()}`);
           if (key) {
             setKeyValue(key);
             onSign(key);
           } else {
+            setIsSigning(true);
             signingEvmMessage(
               account,
               provider,
@@ -183,6 +158,7 @@ export const ConnectWalletButton = ({
             ).then((key) => {
               setKeyValue(key as any);
               onSign(key as any);
+              setIsSigning(false);
             });
           }
         } else {
