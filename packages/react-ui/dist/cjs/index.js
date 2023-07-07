@@ -492,7 +492,6 @@ var getWithExpiry = function (key) {
 var signingEvmMessage = function (account, provider, SignatureMessage, LocalStorage) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         return [2 /*return*/, new Promise(function (resolve, reject) {
-                console.log("Signing: ", account, provider);
                 core.ethSignMessage({
                     account: account,
                     provider: provider,
@@ -559,24 +558,21 @@ var ConnectWalletButton = function (_a) {
     var _e = reactProviders.useEthereum(), account = _e.account, network = _e.network, provider = _e.provider, deactivate = _e.deactivate;
     var _f = reactProviders.useSolana(), publicKey = _f.publicKey, solConnected = _f.connected, signSolMessage = _f.wallet.signMessage;
     var _g = reactProviders.useSui(), address = _g.address, suiConnected = _g.connected, signSuiMessage = _g.signMessage;
-    var _h = React__default["default"].useState(false), isSigning = _h[0], setIsSigning = _h[1];
     React__default["default"].useEffect(function () {
         if (ethConfig && account && provider) {
             if (ethConfig.allowedNetworks &&
                 ethConfig.allowedNetworks.length &&
                 ethConfig.allowedNetworks.filter(function (chain) { return (chain === null || chain === void 0 ? void 0 : chain.chainId) == network.chainId; }).length) {
-                if (!isSigning && onSign && provider.provider) {
+                if (onSign) {
                     var key = getWithExpiry("sig-".concat(account === null || account === void 0 ? void 0 : account.toLowerCase()));
                     if (key) {
                         setKeyValue(key);
                         onSign(key);
                     }
                     else {
-                        setIsSigning(true);
                         signingEvmMessage(account, provider, "".concat(SignatureMessage.msg.trim()).concat(SignatureMessage.address ? account.toString().toLowerCase() : "").concat(SignatureMessage.timestamp ? "ts-" + Date.now() : "").trim(), LocalStorage).then(function (key) {
                             setKeyValue(key);
                             onSign(key);
-                            setIsSigning(false);
                         });
                     }
                 }
@@ -761,41 +757,6 @@ var SuiWalletListComp = function (_a) {
                 wallets.indexOf(reactProviders.SuiWallets.ETHOS) > -1) && (jsxRuntime.jsx(WalletListing, { heading: "Ethos", onWalletCall: function () { return select("Ethos Wallet"); } }))] })));
 };
 
-var ShabakatComp = function () {
-    var activateShabakatWallet = reactProviders.useEthereum().activateShabakatWallet;
-    return (jsxRuntime.jsxs("div", __assign({ style: {
-            border: "black 1px solid",
-            borderRadius: "8px",
-            marginBottom: "20px",
-            lineHeight: "20px",
-        } }, { children: [jsxRuntime.jsxs("div", __assign({ style: {
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    padding: "15px",
-                }, onClick: activateShabakatWallet }, { children: [jsxRuntime.jsxs("div", __assign({ style: {
-                            display: "flex",
-                            flexDirection: "row",
-                            justifyContent: "flex-start",
-                            alignItems: "center",
-                        } }, { children: [jsxRuntime.jsx("span", __assign({ style: { paddingRight: "15px" } }, { children: jsxRuntime.jsx(Shabakat, {}) })), jsxRuntime.jsx("h6", __assign({ style: {
-                                    margin: "0",
-                                    padding: "0",
-                                    color: "black",
-                                    fontSize: "15px",
-                                } }, { children: "Shabakat" }))] })), jsxRuntime.jsx("div", __assign({ style: {
-                            background: "#5e2ec3",
-                            color: "white",
-                            borderRadius: "8px",
-                            padding: "2px 4px",
-                            fontSize: "10px",
-                        } }, { children: "coming soon" }))] })), jsxRuntime.jsx("div", { style: {
-                    display: "flex",
-                    justifyContent: "flex-end",
-                    alignItems: "flex-end",
-                } })] })));
-};
-
 var ConnectWalletList = function (_a) {
     var openOptions = _a.openOptions, setOpenOptions = _a.setOpenOptions;
     var _b = reactProviders.useConfig(), ethConfig = _b.ethConfig, solConfig = _b.solConfig, suiConfig = _b.suiConfig;
@@ -824,7 +785,7 @@ var ConnectWalletList = function (_a) {
                     }, onClick: function () { return setOpenOptions(false); } }, { children: jsxRuntime.jsxs("div", __assign({ style: { marginRight: 10 } }, { children: [jsxRuntime.jsx("p", __assign({ style: {
                                     fontSize: "14px",
                                     color: "black",
-                                } }, { children: "Connect with one of the available wallet providers." })), jsxRuntime.jsx("br", {}), (ethConfig === null || ethConfig === void 0 ? void 0 : ethConfig.wallets) && (jsxRuntime.jsx(EvmWalletListComp, { wallets: ethConfig.wallets })), (solConfig === null || solConfig === void 0 ? void 0 : solConfig.wallets) && (jsxRuntime.jsx(SolWalletListComp, { wallets: solConfig.wallets })), (suiConfig === null || suiConfig === void 0 ? void 0 : suiConfig.wallets) && (jsxRuntime.jsx(SuiWalletListComp, { wallets: suiConfig.wallets })), jsxRuntime.jsx(ShabakatComp, {})] })) })) })), openOptions && (jsxRuntime.jsx("div", { style: {
+                                } }, { children: "Connect with one of the available wallet providers." })), jsxRuntime.jsx("br", {}), (ethConfig === null || ethConfig === void 0 ? void 0 : ethConfig.wallets) && (jsxRuntime.jsx(EvmWalletListComp, { wallets: ethConfig.wallets })), (solConfig === null || solConfig === void 0 ? void 0 : solConfig.wallets) && (jsxRuntime.jsx(SolWalletListComp, { wallets: solConfig.wallets })), (suiConfig === null || suiConfig === void 0 ? void 0 : suiConfig.wallets) && (jsxRuntime.jsx(SuiWalletListComp, { wallets: suiConfig.wallets }))] })) })) })), openOptions && (jsxRuntime.jsx("div", { style: {
                     width: "100%",
                     height: "100%",
                     background: "transparent",

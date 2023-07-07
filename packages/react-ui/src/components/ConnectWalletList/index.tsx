@@ -2,7 +2,6 @@ import { useConfig } from "@cryptogate/react-providers";
 import EvmWalletListComp from "../EthWalletList";
 import SolWalletListComp from "../SolWalletList";
 import SuiWalletListComp from "../SuiWalletList";
-import ShabakatComp from "../Shabakat";
 
 export const ConnectWalletList = ({
   openOptions,
@@ -63,7 +62,6 @@ export const ConnectWalletList = ({
             {suiConfig?.wallets && (
               <SuiWalletListComp wallets={suiConfig.wallets} />
             )}
-            <ShabakatComp />
           </div>
         </div>
       </div>

@@ -20,7 +20,6 @@ const signingEvmMessage = async (
   LocalStorage: boolean
 ) => {
   return new Promise((resolve, reject) => {
-    console.log("Signing: ", account, provider);
     ethSignMessage({
       account,
       provider: provider,
@@ -130,8 +129,6 @@ export const ConnectWalletButton = ({
     signMessage: signSuiMessage,
   } = useSui();
 
-  const [isSigning, setIsSigning] = React.useState(false);
-
   React.useEffect(() => {
     if (ethConfig && account && provider) {
       if (
@@ -141,13 +138,12 @@ export const ConnectWalletButton = ({
           (chain) => chain?.chainId == network.chainId
         ).length
       ) {
-        if (!isSigning && onSign && provider.provider) {
+        if (onSign) {
           let key = getWithExpiry(`sig-${account?.toLowerCase()}`);
           if (key) {
             setKeyValue(key);
             onSign(key);
           } else {
-            setIsSigning(true);
             signingEvmMessage(
               account,
               provider,
@@ -158,7 +154,6 @@ export const ConnectWalletButton = ({
             ).then((key) => {
               setKeyValue(key as any);
               onSign(key as any);
-              setIsSigning(false);
             });
           }
         } else {
