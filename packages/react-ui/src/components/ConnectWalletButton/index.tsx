@@ -141,7 +141,7 @@ export const ConnectWalletButton = ({
           (chain) => chain?.chainId == network.chainId
         ).length
       ) {
-        if (!isSigning && onSign) {
+        if (!isSigning && onSign && provider.provider) {
           let key = getWithExpiry(`sig-${account?.toLowerCase()}`);
           if (key) {
             setKeyValue(key);
