@@ -377,7 +377,7 @@ function NetworkProvider({ children, config }) {
     }, [config]);
     const updateNetwork = (chainId) => __awaiter(this, void 0, void 0, function* () {
         provider &&
-            (yield provider.send("wallet_switchEthereumChain", [{ chainId }]));
+            provider.send("wallet_switchEthereumChain", [{ chainId: chainId }]);
     });
     return (React__default["default"].createElement(NetworkContext.Provider, { value: {
             networkData,

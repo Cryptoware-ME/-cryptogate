@@ -32,7 +32,7 @@ export function NetworkProvider({ children, config }: Props) {
 
   const updateNetwork = async (chainId: ChainId) => {
     provider &&
-      (await provider.send("wallet_switchEthereumChain", [{ chainId }]));
+      provider.send("wallet_switchEthereumChain", [{ chainId: chainId }]);
   };
 
   return (
