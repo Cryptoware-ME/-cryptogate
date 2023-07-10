@@ -37,9 +37,11 @@ export const useEthereum = () => {
     if (proxyProvider) {
       proxyProvider.removeAllListeners();
       proxyProvider.on("accountsChanged", (accounts: any) => {
+        console.log("accountsChanged: ", accounts);
         accounts[0] ? setWalletData({ account: accounts[0] }) : deactivate();
       });
       proxyProvider.on("chainChanged", (chainId: any) => {
+        console.log("chainChanged: ", chainId);
         const _chainId = chainId.toString().split("x")[1] ?? chainId;
         setNetworkData({
           chainId: _chainId,

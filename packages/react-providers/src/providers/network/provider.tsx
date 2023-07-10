@@ -3,7 +3,7 @@ import { ChainId } from "../../constants/chains";
 import { Chain } from "../../models/types";
 import { MultiChainProviderConfigProps } from "../Multichain";
 import { NetworkContext } from "./context";
-import { getChainById } from "../../helpers";
+import { useEvmNode } from "../evmNode";
 
 interface Props {
   children: React.ReactNode;
@@ -16,6 +16,8 @@ export type NetworkDataType = {
 };
 
 export function NetworkProvider({ children, config }: Props) {
+  const { provider } = useEvmNode();
+
   const [networkData, setNetworkData]: [
     NetworkDataType,
     React.Dispatch<React.SetStateAction<NetworkDataType>>
@@ -28,12 +30,9 @@ export function NetworkProvider({ children, config }: Props) {
     });
   }, [config]);
 
-  const updateNetwork = (_chainId: ChainId) => {
-    _chainId &&
-      setNetworkData({
-        chainId: _chainId,
-        chain: getChainById(_chainId),
-      });
+  const updateNetwork = async (chainId: ChainId) => {
+    provider &&
+      (await provider.send("wallet_switchEthereumChain", [{ chainId }]));
   };
 
   return (
