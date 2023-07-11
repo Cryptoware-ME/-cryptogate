@@ -2,7 +2,7 @@ import React from "react";
 import { useConfig, useErrorsBag } from "../providers";
 import * as ethers from "ethers";
 import { ContractABIUnit, EvmAddress } from "../models/types";
-import { useEthereum } from "./evm";
+import { useEvm } from "./evm";
 import {
   TransactionResponse,
   TransactionReceipt,
@@ -34,7 +34,7 @@ export const readContractCall = ({
 }: GetContractCallParams): { response: any; error: any } => {
   const config = useConfig();
   const { addError, clearErrors } = useErrorsBag();
-  const { network, provider } = useEthereum();
+  const { network, provider } = useEvm();
 
   const [response, setResponse]: [
     any,
@@ -133,7 +133,7 @@ export const readContractCall = ({
 export const readContractCalls = (params: GetContractCallParams[]): any[] => {
   const config = useConfig();
   const { addError, clearErrors } = useErrorsBag();
-  const { network, provider } = useEthereum();
+  const { network, provider } = useEvm();
 
   const [response, setResponse]: [
     any[],
@@ -243,7 +243,7 @@ export const writeContractCall = ({
   resetState: () => void;
 } => {
   const config = useConfig();
-  const { network, provider } = useEthereum();
+  const { network, provider } = useEvm();
 
   const [contractObj, setContractObj]: [
     ethers.Contract | undefined,
@@ -425,7 +425,7 @@ export const useContract = (): {
     args,
   }: DeployContractParams) => Promise<ethers.ethers.Contract>;
 } => {
-  const { provider } = useEthereum();
+  const { provider } = useEvm();
 
   const deployContract = async ({
     abi,

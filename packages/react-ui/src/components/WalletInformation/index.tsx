@@ -1,4 +1,4 @@
-import { useEthereum, useSolana, useSui } from "@cryptogate/react-providers";
+import { useEvm, useSolana, useSui } from "@cryptogate/react-providers";
 import { Identicon } from "../Identicon";
 import DisconnectBtn from "./DisconnectBtn";
 
@@ -9,7 +9,7 @@ const WalletInformation = ({
   onDisconnect: any;
   direction?: string;
 }) => {
-  const { account, deactivate, ethBalance, ens } = useEthereum();
+  const { account, deactivate, ethBalance, ens } = useEvm();
   const {
     publicKey,
     connected: solConnected,

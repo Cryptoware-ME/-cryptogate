@@ -1,4 +1,4 @@
-import { useEthereum, useSolana, useSui } from "@cryptogate/react-providers";
+import { useEvm, useSolana, useSui } from "@cryptogate/react-providers";
 import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
 
 export const Identicon = ({
@@ -8,7 +8,7 @@ export const Identicon = ({
   walletAddress?: string;
   diameter?: number;
 }) => {
-  const { account } = useEthereum();
+  const { account } = useEvm();
   const { publicKey } = useSolana();
   const { address } = useSui();
 

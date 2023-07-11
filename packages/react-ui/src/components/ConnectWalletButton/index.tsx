@@ -1,6 +1,6 @@
 import React from "react";
 import {
-  useEthereum,
+  useEvm,
   useConfig,
   SolAddress,
   EvmAddress,
@@ -117,7 +117,7 @@ export const ConnectWalletButton = ({
   const [keyValue, setKeyValue] = React.useState(null as unknown as object);
 
   const { ethConfig, solConfig, suiConfig } = useConfig();
-  const { account, network, provider, deactivate } = useEthereum();
+  const { account, network, provider, deactivate } = useEvm();
   const {
     publicKey,
     connected: solConnected,

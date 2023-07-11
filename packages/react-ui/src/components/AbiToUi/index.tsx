@@ -3,7 +3,7 @@ import {
   ContractABIUnit,
   EvmAddress,
   useConfig,
-  useEthereum,
+  useEvm,
 } from "@cryptogate/react-providers";
 import ReadMethodComponent from "./ReadMethodComponent";
 import WriteMethodComponent from "./WriteMethodComponent";
@@ -32,7 +32,7 @@ export const AbiToUi = ({
   }>();
   const [type, setType] = React.useState(0);
   const [searched, setSearched] = React.useState("");
-  const { network } = useEthereum();
+  const { network } = useEvm();
   const config = useConfig();
 
   const getAbiFromEtherscan = async (contractAddrss: string) => {

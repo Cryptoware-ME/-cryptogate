@@ -1,5 +1,5 @@
 import WalletListing from "./WalletListing";
-import { EvmWallets, useEthereum } from "@cryptogate/react-providers";
+import { EvmWallets, useEvm } from "@cryptogate/react-providers";
 import Shabakat from "../wallets/Shabakat";
 import Metamask from "../wallets/Metamask";
 import Brave from "../wallets/Brave";
@@ -13,7 +13,7 @@ const EvmWalletListComp = ({ wallets }: { wallets: EvmWallets[] }) => {
     activateCoinbaseWallet,
     activateWalletConnect,
     activateShabakatWallet,
-  } = useEthereum();
+  } = useEvm();
 
   return (
     <div

@@ -1,11 +1,11 @@
-import { useEthereum } from "@cryptogate/react-providers";
+import { useEvm } from "@cryptogate/react-providers";
 import { useTokensMultiCall } from "../../../hooks/useTokensMultiCall";
 import { toDecimals } from "../../../utils/helpers";
 import { TOKEN_CONTRACT_METHODS } from "../../../utils/constants";
 import "./TokenDetails.module.css";
 
 const index = ({ tokens, nfts }: { tokens?: string[]; nfts: Boolean }) => {
-  const { account } = useEthereum();
+  const { account } = useEvm();
   const balance = useTokensMultiCall({
     tokenList: tokens as string[],
     method: TOKEN_CONTRACT_METHODS.BALANCE_OF,

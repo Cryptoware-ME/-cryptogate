@@ -1,4 +1,4 @@
-import { useEthereum } from "@cryptogate/react-providers";
+import { useEvm } from "@cryptogate/react-providers";
 import { NFT_CONTRACT_METHODS } from "../../../utils/constants";
 import {
   useNFTMetadataMultiCall,
@@ -9,8 +9,8 @@ import NFTSlider from "./NFTSlider";
 // import NFTCollection from "./NFTCollection";
 
 const index = ({ NFTs }: { NFTs: string[] }) => {
-  const { account } = useEthereum();
-  
+  const { account } = useEvm();
+
   var balances = useNFTMetadataMultiCall({
     NFTs,
     method: NFT_CONTRACT_METHODS.BALANCE_OF,
