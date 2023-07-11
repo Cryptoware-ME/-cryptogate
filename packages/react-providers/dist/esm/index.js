@@ -490,8 +490,8 @@ var SuiWallets;
  * @internal INTENDED FOR INTERNAL USE ONLY. USE AT YOUR OWN
  * @return Providers (if available) for metamask, brave wallet and coinbase
  * @example
- *  const {metamask, brave, coinbase} = useBrowserWallets()
-*/
+ *  const {metamask, brave, coinbase, shabakat} = useBrowserWallets()
+ */
 const useBrowserWallets = () => {
     const [metamask, setMetamask] = React.useState();
     const [brave, setBrave] = React.useState();
@@ -585,7 +585,7 @@ const resolveENS = (ens) => {
 /**
  * @public
  */
-const useEthereum = () => {
+const useEvm = () => {
     const { walletData: { account }, setWalletData, } = useWallet();
     const { brave, metamask, coinbase, shabakat } = useBrowserWallets();
     const { networkData, setNetworkData } = useNetwork();
@@ -694,6 +694,14 @@ const useEthereum = () => {
     };
 };
 
+/**
+ * @deprecated This hook is deprecated and has been replaced by useEvm()
+ */
+const useEthereum = () => {
+    const evm = useEvm();
+    return Object.assign({}, evm);
+};
+
 const useSolana = () => {
     const wallet = useWallet$1();
     const { disconnect, select } = useWallet$1();
@@ -749,11 +757,11 @@ const useSui = () => {
 };
 
 const useMultichain = () => {
-    const ethereum = useEthereum();
+    const evm = useEvm();
     const solana = useSolana();
     const sui = useSui();
     return {
-        ethereum,
+        evm,
         solana,
         sui,
     };

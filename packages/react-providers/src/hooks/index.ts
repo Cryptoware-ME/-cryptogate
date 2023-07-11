@@ -1,4 +1,4 @@
-import { useEthereum } from "./ethereum";
+import { useEthereum, useEvm } from "./evm";
 import { useSolana } from "./solana";
 import { useSui } from "./sui";
 import { useMultichain } from "./multichain";
@@ -16,6 +16,7 @@ export {
   useSolana,
   useSui,
   useEthereum,
+  useEvm,
   useGasPrice,
   readContractCall,
   readContractCalls,

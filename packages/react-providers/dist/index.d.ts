@@ -4,13 +4,13 @@ import * as _solana_web3_js from '@solana/web3.js';
 import { PublicKey } from '@solana/web3.js';
 import * as _solana_wallet_adapter_base from '@solana/wallet-adapter-base';
 import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
-import * as ethers from 'ethers';
+import * as _ethersproject_providers from '@ethersproject/providers';
 import * as _solana_wallet_adapter_react from '@solana/wallet-adapter-react';
 import * as _mysten_wallet_standard from '@mysten/wallet-standard';
 import * as _wallet_standard_base from '@wallet-standard/base';
 import * as _suiet_wallet_kit from '@suiet/wallet-kit';
 import { useAccountBalance, useCoinBalance, useChain, useSuiProvider } from '@suiet/wallet-kit';
-import * as _ethersproject_providers from '@ethersproject/providers';
+import * as ethers from 'ethers';
 import { TransactionResponse, TransactionReceipt } from '@ethersproject/abstract-provider';
 import { LogDescription } from 'ethers/lib/utils';
 
@@ -224,13 +224,13 @@ declare const XinFin: Chain;
 declare const Apothem: Chain;
 
 /**
- * @public
+ * @deprecated This hook is deprecated and has been replaced by useEvm()
  */
 declare const useEthereum: () => {
     account: `0x${string}` | undefined;
     ethBalance: string | undefined;
     ens: string | undefined;
-    provider: ethers.ethers.providers.JsonRpcProvider | ethers.ethers.providers.Web3Provider | undefined;
+    provider: _ethersproject_providers.JsonRpcProvider | _ethersproject_providers.Web3Provider | undefined;
     active: boolean;
     network: NetworkDataType;
     activateBraveWallet: () => Promise<void>;
@@ -281,7 +281,7 @@ declare const useSui: () => {
 };
 
 declare const useMultichain: () => {
-    ethereum: {
+    evm: {
         account: `0x${string}` | undefined;
         ethBalance: string | undefined;
         ens: string | undefined;

@@ -1,6 +1,6 @@
 /// <reference types="@solana/web3.js" />
 export declare const useMultichain: () => {
-    ethereum: {
+    evm: {
         account: `0x${string}` | undefined;
         ethBalance: string | undefined;
         ens: string | undefined;

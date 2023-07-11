@@ -2,7 +2,7 @@ import React from "react";
 import { useConfig, useErrorsBag } from "../providers";
 import * as ethers from "ethers";
 import { ContractABIUnit, EvmAddress } from "../models/types";
-import { useEthereum } from "./ethereum";
+import { useEthereum } from "./evm";
 import {
   TransactionResponse,
   TransactionReceipt,

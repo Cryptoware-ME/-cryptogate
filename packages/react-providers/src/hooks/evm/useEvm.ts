@@ -18,7 +18,7 @@ import { useAccount } from "../account";
 /**
  * @public
  */
-export const useEthereum = () => {
+export const useEvm = () => {
   const {
     walletData: { account },
     setWalletData,

@@ -2,7 +2,7 @@ import * as ethers from "ethers";
 /**
  * @public
  */
-export declare const useEthereum: () => {
+export declare const useEvm: () => {
     account: `0x${string}` | undefined;
     ethBalance: string | undefined;
     ens: string | undefined;
