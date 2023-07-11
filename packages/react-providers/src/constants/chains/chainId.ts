@@ -12,6 +12,7 @@ import {
   Arbitrum,
   XinFin,
   Apothem,
+  SkaleTestnet,
 } from "../../models/chains";
 import { Chain } from "../../models/types";
 
@@ -33,6 +34,7 @@ export const DEFAULT_SUPPORTED_CHAINS: Chain[] = [
   Arbitrum,
   XinFin,
   Apothem,
+  SkaleTestnet,
 ];
 
 /**
@@ -53,4 +55,5 @@ export enum ChainId {
   Arbitrum = 42161,
   XinFin = 50,
   Apothem = 51,
+  SkaleTestnet = 1351057110,
 }

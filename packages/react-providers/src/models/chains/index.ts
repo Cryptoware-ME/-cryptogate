@@ -5,6 +5,7 @@ import { Avalanche, AvalancheTestnet } from "./avalanche";
 import { BaseGoerli } from "./base";
 import { Arbitrum } from "./arbitrum";
 import { XinFin, Apothem } from "./xdc";
+import { SkaleTestnet } from "./skale";
 
 export { Sepolia, Goerli, Mainnet };
 export { BSC, BSCTestnet };
@@ -13,3 +14,4 @@ export { Avalanche, AvalancheTestnet };
 export { BaseGoerli };
 export { Arbitrum };
 export { XinFin, Apothem };
+export { SkaleTestnet };

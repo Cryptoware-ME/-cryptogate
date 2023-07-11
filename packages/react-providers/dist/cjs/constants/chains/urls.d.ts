@@ -11,3 +11,4 @@ export declare const goerliBasescanUrl = "https://goerli.basescan.org";
 export declare const mainnetArbscanUrl = "https://arbscan.io";
 export declare const xinfinExplorerUrl = "https://explorer.xinfin.nerwork";
 export declare const apothemExplorerUrl = "https://explorer.apothem.network";
+export declare const skaleTestnetExplorerUrl = "https://staging-fast-active-bellatrix.explorer.staging-v3.skalenodes.com";

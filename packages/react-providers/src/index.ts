@@ -26,6 +26,7 @@ export {
   mainnetArbscanUrl,
   xinfinExplorerUrl,
   apothemExplorerUrl,
+  skaleTestnetExplorerUrl,
 } from "./constants/chains";
 
 export { SolWallets, EvmWallets, SuiWallets } from "./constants/wallets";
@@ -46,6 +47,7 @@ export {
   Arbitrum,
   XinFin,
   Apothem,
+  SkaleTestnet,
 } from "./models/chains";
 
 export type {

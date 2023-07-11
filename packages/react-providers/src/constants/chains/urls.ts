@@ -20,3 +20,6 @@ export const mainnetArbscanUrl = "https://arbscan.io";
 // XDC Scanner
 export const xinfinExplorerUrl = "https://explorer.xinfin.nerwork";
 export const apothemExplorerUrl = "https://explorer.apothem.network";
+// Skale Scanner
+export const skaleTestnetExplorerUrl =
+  "https://staging-fast-active-bellatrix.explorer.staging-v3.skalenodes.com";

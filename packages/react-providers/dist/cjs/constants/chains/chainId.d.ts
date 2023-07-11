@@ -21,5 +21,6 @@ export declare enum ChainId {
     BaseGoerli = 84531,
     Arbitrum = 42161,
     XinFin = 50,
-    Apothem = 51
+    Apothem = 51,
+    SkaleTestnet = 1351057110
 }

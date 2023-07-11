@@ -95,6 +95,8 @@ const mainnetArbscanUrl = "https://arbscan.io";
 // XDC Scanner
 const xinfinExplorerUrl = "https://explorer.xinfin.nerwork";
 const apothemExplorerUrl = "https://explorer.apothem.network";
+// Skale Scanner
+const skaleTestnetExplorerUrl = "https://staging-fast-active-bellatrix.explorer.staging-v3.skalenodes.com";
 
 /**
  * @public
@@ -287,6 +289,19 @@ const Apothem = {
     getExplorerTransactionLink: (txnId) => getTransactionLink(apothemExplorerUrl, txnId)
 };
 
+/*
+ * @Cryptogate: For intertanl use only, reference at your own risk
+ */
+const SkaleTestnet = {
+    chainId: 1351057110,
+    chainName: "SkaleTestnet",
+    isTestChain: true,
+    isLocalChain: false,
+    blockExplorerUrl: skaleTestnetExplorerUrl,
+    getExplorerAddressLink: (address) => getAddressLink(skaleTestnetExplorerUrl, address),
+    getExplorerTransactionLink: (txnId) => getTransactionLink(skaleTestnetExplorerUrl, txnId),
+};
+
 /**
  * @array
  * @description The Default Chains Supported By Cryptogate
@@ -305,6 +320,7 @@ const DEFAULT_SUPPORTED_CHAINS = [
     Arbitrum,
     XinFin,
     Apothem,
+    SkaleTestnet,
 ];
 /**
  * @enum
@@ -325,6 +341,7 @@ exports.ChainId = void 0;
     ChainId[ChainId["Arbitrum"] = 42161] = "Arbitrum";
     ChainId[ChainId["XinFin"] = 50] = "XinFin";
     ChainId[ChainId["Apothem"] = 51] = "Apothem";
+    ChainId[ChainId["SkaleTestnet"] = 1351057110] = "SkaleTestnet";
 })(exports.ChainId || (exports.ChainId = {}));
 
 const NetworkContext = React__default["default"].createContext({
@@ -824,7 +841,7 @@ const useGasPrice = () => {
 const readContractCall = ({ abi, address, contract, method, args, enabled = true, }) => {
     const config = useConfig();
     const { addError, clearErrors } = useErrorsBag();
-    const { network, provider } = useEthereum();
+    const { network, provider } = useEvm();
     const [response, setResponse] = React__default["default"].useState(undefined);
     const [error, setError] = React__default["default"].useState(undefined);
     const callFunction = React__default["default"].useCallback((contract, args) => __awaiter(void 0, void 0, void 0, function* () {
@@ -911,7 +928,7 @@ const readContractCall = ({ abi, address, contract, method, args, enabled = true
 const readContractCalls = (params) => {
     const config = useConfig();
     const { addError, clearErrors } = useErrorsBag();
-    const { network, provider } = useEthereum();
+    const { network, provider } = useEvm();
     const [response, setResponse] = React__default["default"].useState([]);
     const callFunction = (contract, name, args) => __awaiter(void 0, void 0, void 0, function* () {
         try {
@@ -974,7 +991,7 @@ const readContractCalls = (params) => {
  */
 const writeContractCall = ({ abi, address, contract, method, }) => {
     const config = useConfig();
-    const { network, provider } = useEthereum();
+    const { network, provider } = useEvm();
     const [contractObj, setContractObj] = React__default["default"].useState();
     const [state, setState] = React__default["default"].useState({
         status: "None",
@@ -1117,7 +1134,7 @@ const writeContractCall = ({ abi, address, contract, method, }) => {
  * @public
  */
 const useContract = () => {
-    const { provider } = useEthereum();
+    const { provider } = useEvm();
     const deployContract = ({ abi, byteCode, args, }) => __awaiter(void 0, void 0, void 0, function* () {
         const signer = provider === null || provider === void 0 ? void 0 : provider.getSigner();
         const factory = new ethers__namespace.ContractFactory(abi, byteCode, signer);
@@ -1143,6 +1160,7 @@ exports.MultiChainProvider = MultiChainProvider;
 exports.Mumbai = Mumbai;
 exports.Polygon = Polygon;
 exports.Sepolia = Sepolia;
+exports.SkaleTestnet = SkaleTestnet;
 exports.XinFin = XinFin;
 exports.apothemExplorerUrl = apothemExplorerUrl;
 exports.avalancheExplorerUrl = avalancheExplorerUrl;
@@ -1161,6 +1179,7 @@ exports.readContractCall = readContractCall;
 exports.readContractCalls = readContractCalls;
 exports.resolveENS = resolveENS;
 exports.sepoliaEtherscanUrl = sepoliaEtherscanUrl;
+exports.skaleTestnetExplorerUrl = skaleTestnetExplorerUrl;
 exports.testAvalancheExplorerUrl = testAvalancheExplorerUrl;
 exports.useAccount = useAccount;
 exports.useConfig = useConfig;
