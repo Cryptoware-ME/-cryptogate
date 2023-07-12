@@ -85,7 +85,7 @@ function __generator(thisArg, body) {
 
 var Identicon = function (_a) {
     var walletAddress = _a.walletAddress, diameter = _a.diameter;
-    var account = reactProviders.useEthereum().account;
+    var account = reactProviders.useEvm().account;
     var publicKey = reactProviders.useSolana().publicKey;
     var address = reactProviders.useSui().address;
     return (jsxRuntime.jsx(Jazzicon__default["default"], { diameter: diameter || 35, seed: Jazzicon.jsNumberForAddress(walletAddress
@@ -105,7 +105,7 @@ var DisconnectBtn = function () {
 
 var WalletInformation = function (_a) {
     var onDisconnect = _a.onDisconnect, _b = _a.direction, direction = _b === void 0 ? "y" : _b;
-    var _c = reactProviders.useEthereum(), account = _c.account, deactivate = _c.deactivate, ethBalance = _c.ethBalance, ens = _c.ens;
+    var _c = reactProviders.useEvm(), account = _c.account, deactivate = _c.deactivate, ethBalance = _c.ethBalance, ens = _c.ens;
     var _d = reactProviders.useSolana(), publicKey = _d.publicKey, solConnected = _d.connected, wallet = _d.wallet, solBalance = _d.solBalance;
     var _e = reactProviders.useSui(), address = _e.address, suiConnected = _e.connected, disconnect = _e.disconnect, suiBalance = _e.suiBalance;
     var handleDisconnect = function () {
@@ -249,7 +249,7 @@ var build_slider_settings = function (_a) {
 
 var index$4 = function (_a) {
     var tokens = _a.tokens, nfts = _a.nfts;
-    var account = reactProviders.useEthereum().account;
+    var account = reactProviders.useEvm().account;
     var balance = useTokensMultiCall({
         tokenList: tokens,
         method: TOKEN_CONTRACT_METHODS.BALANCE_OF,
@@ -391,7 +391,7 @@ var index$2 = function (_a) {
 // import NFTCollection from "./NFTCollection";
 var index$1 = function (_a) {
     var NFTs = _a.NFTs;
-    var account = reactProviders.useEthereum().account;
+    var account = reactProviders.useEvm().account;
     var balances = useNFTMetadataMultiCall({
         NFTs: NFTs,
         method: NFT_CONTRACT_METHODS.BALANCE_OF,
@@ -555,7 +555,7 @@ var ConnectWalletButton = function (_a) {
     var _b = React__default["default"].useState(false), openMenu = _b[0], setOpenMenu = _b[1];
     var _c = React__default["default"].useState(null), keyValue = _c[0], setKeyValue = _c[1];
     var _d = reactProviders.useConfig(), ethConfig = _d.ethConfig, solConfig = _d.solConfig, suiConfig = _d.suiConfig;
-    var _e = reactProviders.useEthereum(), account = _e.account, network = _e.network, provider = _e.provider, deactivate = _e.deactivate;
+    var _e = reactProviders.useEvm(), account = _e.account, network = _e.network, provider = _e.provider, deactivate = _e.deactivate;
     var _f = reactProviders.useSolana(), publicKey = _f.publicKey, solConnected = _f.connected, signSolMessage = _f.wallet.signMessage;
     var _g = reactProviders.useSui(), address = _g.address, suiConnected = _g.connected, signSuiMessage = _g.signMessage;
     React__default["default"].useEffect(function () {
@@ -674,7 +674,7 @@ var WalletConnect = function () {
 
 var EvmWalletListComp = function (_a) {
     var wallets = _a.wallets;
-    var _b = reactProviders.useEthereum(), activateBraveWallet = _b.activateBraveWallet, activateMetamaskWallet = _b.activateMetamaskWallet, activateCoinbaseWallet = _b.activateCoinbaseWallet, activateWalletConnect = _b.activateWalletConnect, activateShabakatWallet = _b.activateShabakatWallet;
+    var _b = reactProviders.useEvm(), activateBraveWallet = _b.activateBraveWallet, activateMetamaskWallet = _b.activateMetamaskWallet, activateCoinbaseWallet = _b.activateCoinbaseWallet, activateWalletConnect = _b.activateWalletConnect, activateShabakatWallet = _b.activateShabakatWallet;
     return (jsxRuntime.jsxs("div", __assign({ style: {
             borderLeft: "black 1px solid",
             borderTop: "black 1px solid",
@@ -893,16 +893,18 @@ var ReadMethodComponent = function (_a) {
 
 var WriteMethodComponent = function (_a) {
     var method = _a.method, contractObj = _a.contractObj, methodData = _a.methodData, gasPrice = _a.gasPrice, gasLimit = _a.gasLimit;
-    var _b = React__default["default"].useState(false), isLoading = _b[0], setLoading = _b[1];
+    var _b = React__default["default"].useState(false), isLoading = _b[0], setIsLoading = _b[1];
     var _c = reactProviders.writeContractCall({
         address: contractObj.address,
         abi: contractObj.abi,
         method: method.name,
-    }), send = _c.send, loading = _c.loading, error = _c.error, response = _c.response;
+    }), send = _c.send, state = _c.state;
     React__default["default"].useEffect(function () {
-        if (response || error)
-            setLoading(false);
-    }, [response, error]);
+        if (state.status == "PendingSignature" || state.status == "Mining")
+            setIsLoading(true);
+        else
+            setIsLoading(false);
+    }, [state]);
     var extractErrorMessage = function (msg) {
         if (msg.startsWith("sending a transaction requires a signer"))
             return "Authentication error: Connect wallet to send a transaction";
@@ -916,7 +918,6 @@ var WriteMethodComponent = function (_a) {
         var _a, _b;
         return __generator(this, function (_c) {
             e.preventDefault();
-            setLoading(true);
             args = [];
             options = {};
             if (method.inputs && method.inputs.length) {
@@ -939,9 +940,7 @@ var WriteMethodComponent = function (_a) {
                 method.inputs.map(function (input, index) { return (jsxRuntime.jsx("input", { id: "".concat(method.name, "-").concat(input.name), placeholder: input.name, required: true }, index)); }), !gasPrice && (jsxRuntime.jsx("input", { id: "".concat(method.name, "-gasPrice"), placeholder: "gasPrice", required: true })), (!methodData ||
                 !methodData[method.name] ||
                 !methodData[method.name].gasLimit) &&
-                !gasLimit && (jsxRuntime.jsx("input", { id: "".concat(method.name, "-gasLimit"), placeholder: "gasLimit", required: true })), jsxRuntime.jsx("button", __assign({ type: "submit" }, { children: "Query" })), " ", jsxRuntime.jsx("br", {}), " ", jsxRuntime.jsx("br", {}), isLoading && jsxRuntime.jsx(Loader, {}), !loading && response ? response.toString() : jsxRuntime.jsx(jsxRuntime.Fragment, {}), !isLoading && error ? (jsxRuntime.jsx("span", __assign({ className: "error" }, { children: error.message
-                    ? extractErrorMessage(error.message.toString())
-                    : extractErrorMessage(error.toString()) }))) : (jsxRuntime.jsx(jsxRuntime.Fragment, {}))] })));
+                !gasLimit && (jsxRuntime.jsx("input", { id: "".concat(method.name, "-gasLimit"), placeholder: "gasLimit", required: true })), jsxRuntime.jsx("button", __assign({ type: "submit" }, { children: "Query" })), " ", jsxRuntime.jsx("br", {}), " ", jsxRuntime.jsx("br", {}), isLoading && jsxRuntime.jsx(Loader, {}), !isLoading && state.errorMessage ? (jsxRuntime.jsx("span", __assign({ className: "error" }, { children: extractErrorMessage(state.errorMessage.toString()) }))) : (jsxRuntime.jsx(jsxRuntime.Fragment, {}))] })));
 };
 
 // import styles from "./AbiToUi.module.css";
@@ -950,7 +949,7 @@ var AbiToUi = function (_a) {
     var _b = React__default["default"].useState(), contractObj = _b[0], setContractObj = _b[1];
     var _c = React__default["default"].useState(0), type = _c[0], setType = _c[1];
     var _d = React__default["default"].useState(""), searched = _d[0], setSearched = _d[1];
-    var network = reactProviders.useEthereum().network;
+    var network = reactProviders.useEvm().network;
     var config = reactProviders.useConfig();
     var getAbiFromEtherscan = function (contractAddrss) { return __awaiter(void 0, void 0, void 0, function () {
         var res, response, _a, _b;

@@ -25,16 +25,18 @@ const WriteMethodComponent = ({
   gasPrice?: string;
   gasLimit?: number;
 }) => {
-  const [isLoading, setLoading] = React.useState(false);
-  const { send, loading, error, response } = writeContractCall({
+  const [isLoading, setIsLoading] = React.useState(false);
+  const { send, state } = writeContractCall({
     address: contractObj.address,
     abi: contractObj.abi,
     method: method.name,
   });
 
   React.useEffect(() => {
-    if (response || error) setLoading(false);
-  }, [response, error]);
+    if (state.status == "PendingSignature" || state.status == "Mining")
+      setIsLoading(true);
+    else setIsLoading(false);
+  }, [state]);
 
   const extractErrorMessage = (msg: string) => {
     if (msg.startsWith("sending a transaction requires a signer"))
@@ -46,7 +48,6 @@ const WriteMethodComponent = ({
 
   const queryContract = async (e: any, method: any) => {
     e.preventDefault();
-    setLoading(true);
     let args: any = [];
     let options: any = {};
     if (method.inputs && method.inputs.length) {
@@ -114,12 +115,9 @@ const WriteMethodComponent = ({
         )}
       <button type="submit">Query</button> <br /> <br />
       {isLoading && <Loader />}
-      {!loading && response ? response.toString() : <></>}
-      {!isLoading && error ? (
+      {!isLoading && state.errorMessage ? (
         <span className="error">
-          {error.message
-            ? extractErrorMessage(error.message.toString())
-            : extractErrorMessage(error.toString())}
+          {extractErrorMessage(state.errorMessage.toString())}
         </span>
       ) : (
         <></>
