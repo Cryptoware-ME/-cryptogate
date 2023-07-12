@@ -5,4 +5,4 @@ export { SolWallets, EvmWallets, SuiWallets } from "./constants/wallets";
 export { getAddressLink, getChainById, getTransactionLink } from "./helpers";
 export { Sepolia, Goerli, Mainnet, BSC, BSCTestnet, Polygon, Mumbai, Avalanche, AvalancheTestnet, BaseGoerli, Arbitrum, XinFin, Apothem, SkaleTestnet, } from "./models/chains";
 export type { Chain, EthConfig, EthContract, NodeUrls, ContractABIUnit, ContractIO, EvmAddress, WalletsConfig, SolAddress, SolConfig, SuiConfig, } from "./models/types";
-export { useMultichain, useSolana, useSui, useEthereum, useGasPrice, readContractCall, readContractCalls, writeContractCall, useContract, useAccount, resolveENS, } from "./hooks";
+export { useMultichain, useSolana, useSui, useEthereum, useEvm, useGasPrice, readContractCall, readContractCalls, writeContractCall, useContract, useAccount, resolveENS, } from "./hooks";

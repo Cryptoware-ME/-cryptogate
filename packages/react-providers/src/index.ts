@@ -69,6 +69,7 @@ export {
   useSolana,
   useSui,
   useEthereum,
+  useEvm,
   useGasPrice,
   readContractCall,
   readContractCalls,

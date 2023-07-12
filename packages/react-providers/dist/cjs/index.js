@@ -1186,6 +1186,7 @@ exports.useConfig = useConfig;
 exports.useContract = useContract;
 exports.useErrorsBag = useErrorsBag;
 exports.useEthereum = useEthereum;
+exports.useEvm = useEvm;
 exports.useGasPrice = useGasPrice;
 exports.useMultichain = useMultichain;
 exports.useNetwork = useNetwork;

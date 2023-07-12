@@ -5,12 +5,12 @@ import { PublicKey } from '@solana/web3.js';
 import * as _solana_wallet_adapter_base from '@solana/wallet-adapter-base';
 import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
 import * as _ethersproject_providers from '@ethersproject/providers';
+import * as ethers from 'ethers';
 import * as _solana_wallet_adapter_react from '@solana/wallet-adapter-react';
 import * as _mysten_wallet_standard from '@mysten/wallet-standard';
 import * as _wallet_standard_base from '@wallet-standard/base';
 import * as _suiet_wallet_kit from '@suiet/wallet-kit';
 import { useAccountBalance, useCoinBalance, useChain, useSuiProvider } from '@suiet/wallet-kit';
-import * as ethers from 'ethers';
 import { TransactionResponse, TransactionReceipt } from '@ethersproject/abstract-provider';
 import { LogDescription } from 'ethers/lib/utils';
 
@@ -246,6 +246,25 @@ declare const useEthereum: () => {
     errors: string[];
 };
 
+/**
+ * @public
+ */
+declare const useEvm: () => {
+    account: `0x${string}` | undefined;
+    ethBalance: string | undefined;
+    ens: string | undefined;
+    provider: ethers.ethers.providers.JsonRpcProvider | ethers.ethers.providers.Web3Provider | undefined;
+    active: boolean;
+    network: NetworkDataType;
+    activateBraveWallet: () => Promise<void>;
+    activateMetamaskWallet: () => Promise<void>;
+    activateCoinbaseWallet: () => Promise<void>;
+    activateWalletConnect: () => Promise<void>;
+    activateShabakatWallet: () => Promise<void>;
+    deactivate: () => void;
+    errors: string[];
+};
+
 declare const useSolana: () => {
     publicKey: string | _solana_web3_js.PublicKey | null;
     solBalance: number;
@@ -434,4 +453,4 @@ declare const useContract: () => {
     deployContract: ({ abi, byteCode, args, }: DeployContractParams) => Promise<ethers.ethers.Contract>;
 };
 
-export { Apothem, Arbitrum, Avalanche, AvalancheTestnet, BSC, BSCTestnet, BaseGoerli, Chain, ChainId, ContractABIUnit, ContractIO, DEFAULT_SUPPORTED_CHAINS, EthConfig, EthContract, EvmAddress, EvmWallets, Goerli, Mainnet, MultiChainProvider, MultiChainProviderConfigProps, MultiChainProviderProps, Mumbai, NodeUrls, Polygon, Sepolia, SkaleTestnet, SolAddress, SolConfig, SolWallets, SuiConfig, SuiWallets, WalletsConfig, XinFin, apothemExplorerUrl, avalancheExplorerUrl, bscScanUrl, bscTestnetScanUrl, getAddressLink, getChainById, getTransactionLink, goerliBasescanUrl, goerliEtherscanUrl, mainnetArbscanUrl, mainnetEtherscanUrl, mumbaiPolygonScanUrl, polygonScanUrl, readContractCall, readContractCalls, resolveENS, sepoliaEtherscanUrl, skaleTestnetExplorerUrl, testAvalancheExplorerUrl, useAccount, useConfig, useContract, useErrorsBag, useEthereum, useGasPrice, useMultichain, useNetwork, useSolana, useSui, writeContractCall, xinfinExplorerUrl };
+export { Apothem, Arbitrum, Avalanche, AvalancheTestnet, BSC, BSCTestnet, BaseGoerli, Chain, ChainId, ContractABIUnit, ContractIO, DEFAULT_SUPPORTED_CHAINS, EthConfig, EthContract, EvmAddress, EvmWallets, Goerli, Mainnet, MultiChainProvider, MultiChainProviderConfigProps, MultiChainProviderProps, Mumbai, NodeUrls, Polygon, Sepolia, SkaleTestnet, SolAddress, SolConfig, SolWallets, SuiConfig, SuiWallets, WalletsConfig, XinFin, apothemExplorerUrl, avalancheExplorerUrl, bscScanUrl, bscTestnetScanUrl, getAddressLink, getChainById, getTransactionLink, goerliBasescanUrl, goerliEtherscanUrl, mainnetArbscanUrl, mainnetEtherscanUrl, mumbaiPolygonScanUrl, polygonScanUrl, readContractCall, readContractCalls, resolveENS, sepoliaEtherscanUrl, skaleTestnetExplorerUrl, testAvalancheExplorerUrl, useAccount, useConfig, useContract, useErrorsBag, useEthereum, useEvm, useGasPrice, useMultichain, useNetwork, useSolana, useSui, writeContractCall, xinfinExplorerUrl };
