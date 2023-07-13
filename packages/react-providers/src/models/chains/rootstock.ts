@@ -21,7 +21,7 @@ export const RSKMainnet: Chain = {
  * @Cryptogate: For intertanl use only, reference at your own risk
  */
 export const RSKTestnet: Chain = {
-  chainId: 21,
+  chainId: 31,
   chainName: "RSK Testnet",
   isTestChain: true,
   isLocalChain: false,

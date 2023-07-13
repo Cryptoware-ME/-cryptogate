@@ -321,7 +321,7 @@ const RSKMainnet = {
  * @Cryptogate: For intertanl use only, reference at your own risk
  */
 const RSKTestnet = {
-    chainId: 21,
+    chainId: 31,
     chainName: "RSK Testnet",
     isTestChain: true,
     isLocalChain: false,
