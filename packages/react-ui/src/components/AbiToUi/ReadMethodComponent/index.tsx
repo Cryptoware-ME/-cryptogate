@@ -41,78 +41,15 @@ const ReadMethodComponent = ({
     setLoading(true);
     let args: any = [];
     if (method.inputs && method.inputs.length) {
-      method.inputs.map((input: any) => {
-        try {
-          console.log(
-            "ll: ",
-            (
-              document.getElementById(
-                method.name + "-" + input.name
-              ) as HTMLInputElement
-            )?.value
-              .substring(
-                1,
-                (
-                  document.getElementById(
-                    method.name + "-" + input.name
-                  ) as HTMLInputElement
-                )?.value.length - 1
-              )
-              .split(",")
-          );
-        } catch (err) {
-          console.log(
-            "here: ",
-            (
-              document.getElementById(
-                method.name + "-" + input.name
-              ) as HTMLInputElement
-            )?.value,
-            (
-              document.getElementById(
-                method.name + "-" + input.name
-              ) as HTMLInputElement
-            )?.value.length
-          );
-          console.log(
-            (
-              document.getElementById(
-                method.name + "-" + input.name
-              ) as HTMLInputElement
-            )?.value.substring(
-              1,
-              (
-                document.getElementById(
-                  method.name + "-" + input.name
-                ) as HTMLInputElement
-              )?.value.length - 1
-            )
-          );
-        }
-
-        return args.push(
-          method.inputs.type.startWith("uint")
-            ? (
-                document.getElementById(
-                  method.name + "-" + input.name
-                ) as HTMLInputElement
-              )?.value
-                .substring(
-                  1,
-                  (
-                    document.getElementById(
-                      method.name + "-" + input.name
-                    ) as HTMLInputElement
-                  )?.value.length - 1
-                )
-                .split(",") // [1] [1,2]
-            : (
-                document.getElementById(
-                  method.name + "-" + input.name
-                ) as HTMLInputElement
-              )?.value
-        );
-      });
+      method.inputs.map((input: any) =>
+        args.push(
+          (
+            document.getElementById(
+              method.name + "-" + input.name
+            ) as HTMLInputElement
+          )?.value
+        )
+      );
       setEnabled(true);
       setArgs(args);
     } else {
