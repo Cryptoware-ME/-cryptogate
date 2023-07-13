@@ -863,14 +863,17 @@ var ReadMethodComponent = function (_a) {
             args = [];
             if (method.inputs && method.inputs.length) {
                 method.inputs.map(function (input) {
-                    var _a, _b, _c, _d, _e;
+                    var _a, _b, _c, _d, _e, _f, _g, _h, _j;
                     try {
                         console.log("ll: ", (_a = document.getElementById(method.name + "-" + input.name)) === null || _a === void 0 ? void 0 : _a.value.substring(1, ((_b = document.getElementById(method.name + "-" + input.name)) === null || _b === void 0 ? void 0 : _b.value.length) - 1).split(","));
                     }
-                    catch (err) { }
+                    catch (err) {
+                        console.log("here: ", (_c = document.getElementById(method.name + "-" + input.name)) === null || _c === void 0 ? void 0 : _c.value, (_d = document.getElementById(method.name + "-" + input.name)) === null || _d === void 0 ? void 0 : _d.value.length);
+                        console.log((_e = document.getElementById(method.name + "-" + input.name)) === null || _e === void 0 ? void 0 : _e.value.substring(1, ((_f = document.getElementById(method.name + "-" + input.name)) === null || _f === void 0 ? void 0 : _f.value.length) - 1));
+                    }
                     return args.push(method.inputs.type.startWith("uint")
-                        ? (_c = document.getElementById(method.name + "-" + input.name)) === null || _c === void 0 ? void 0 : _c.value.substring(1, ((_d = document.getElementById(method.name + "-" + input.name)) === null || _d === void 0 ? void 0 : _d.value.length) - 1).split(",") // [1] [1,2]
-                        : (_e = document.getElementById(method.name + "-" + input.name)) === null || _e === void 0 ? void 0 : _e.value);
+                        ? (_g = document.getElementById(method.name + "-" + input.name)) === null || _g === void 0 ? void 0 : _g.value.substring(1, ((_h = document.getElementById(method.name + "-" + input.name)) === null || _h === void 0 ? void 0 : _h.value.length) - 1).split(",") // [1] [1,2]
+                        : (_j = document.getElementById(method.name + "-" + input.name)) === null || _j === void 0 ? void 0 : _j.value);
                 });
                 setEnabled(true);
                 setArgs(args);

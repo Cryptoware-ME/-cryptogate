@@ -60,7 +60,35 @@ const ReadMethodComponent = ({
               )
               .split(",")
           );
-        } catch (err) {}
+        } catch (err) {
+          console.log(
+            "here: ",
+            (
+              document.getElementById(
+                method.name + "-" + input.name
+              ) as HTMLInputElement
+            )?.value,
+            (
+              document.getElementById(
+                method.name + "-" + input.name
+              ) as HTMLInputElement
+            )?.value.length
+          );
+          console.log(
+            (
+              document.getElementById(
+                method.name + "-" + input.name
+              ) as HTMLInputElement
+            )?.value.substring(
+              1,
+              (
+                document.getElementById(
+                  method.name + "-" + input.name
+                ) as HTMLInputElement
+              )?.value.length - 1
+            )
+          );
+        }
 
         return args.push(
           method.inputs.type.startWith("uint")
