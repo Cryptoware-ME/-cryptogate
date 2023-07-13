@@ -874,8 +874,14 @@ var ReadMethodComponent = function (_a) {
             args = [];
             if (method.inputs && method.inputs.length) {
                 method.inputs.map(function (input) {
-                    var _a;
-                    return args.push((_a = document.getElementById(method.name + "-" + input.name)) === null || _a === void 0 ? void 0 : _a.value);
+                    var _a, _b, _c, _d, _e;
+                    try {
+                        console.log("ll: ", (_a = document.getElementById(method.name + "-" + input.name)) === null || _a === void 0 ? void 0 : _a.value.substring(1, ((_b = document.getElementById(method.name + "-" + input.name)) === null || _b === void 0 ? void 0 : _b.value.length) - 1).split(","));
+                    }
+                    catch (err) { }
+                    return args.push(method.inputs.type.startWith("uint")
+                        ? (_c = document.getElementById(method.name + "-" + input.name)) === null || _c === void 0 ? void 0 : _c.value.substring(1, ((_d = document.getElementById(method.name + "-" + input.name)) === null || _d === void 0 ? void 0 : _d.value.length) - 1).split(",") // [1] [1,2]
+                        : (_e = document.getElementById(method.name + "-" + input.name)) === null || _e === void 0 ? void 0 : _e.value);
                 });
                 setEnabled(true);
                 setArgs(args);
@@ -887,7 +893,7 @@ var ReadMethodComponent = function (_a) {
             return [2 /*return*/];
         });
     }); };
-    return (jsxRuntime.jsxs("form", __assign({ method: "POST", onSubmit: function (e) { return queryContract(e, method); }, className: "methodComponent" }, { children: [jsxRuntime.jsx("h1", { children: method.name }), methodData && methodData[method.name] ? jsxRuntime.jsx("p", { children: methodData[method.name].description }) : jsxRuntime.jsx(jsxRuntime.Fragment, {}), method.inputs &&
+    return (jsxRuntime.jsxs("form", __assign({ method: "POST", onSubmit: function (e) { return queryContract(e, method); }, className: "methodComponent" }, { children: [jsxRuntime.jsx("h1", { children: method.name }), methodData && methodData[method.name] ? (jsxRuntime.jsx("p", { children: methodData[method.name].description })) : (jsxRuntime.jsx(jsxRuntime.Fragment, {})), method.inputs &&
                 method.inputs.map(function (input, index) { return (jsxRuntime.jsx("input", { id: "".concat(method.name, "-").concat(input.name), placeholder: input.name, required: true }, index)); }), jsxRuntime.jsx("button", __assign({ type: "submit" }, { children: "Query" })), " ", jsxRuntime.jsx("br", {}), " ", jsxRuntime.jsx("br", {}), loading && jsxRuntime.jsx(Loader, {}), !loading && response ? response.toString() : jsxRuntime.jsx(jsxRuntime.Fragment, {}), !loading && error ? (jsxRuntime.jsx("span", __assign({ className: "error" }, { children: error && error.toString() }))) : (jsxRuntime.jsx(jsxRuntime.Fragment, {}))] })));
 };
 
