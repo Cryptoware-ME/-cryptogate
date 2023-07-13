@@ -97,6 +97,9 @@ const xinfinExplorerUrl = "https://explorer.xinfin.nerwork";
 const apothemExplorerUrl = "https://explorer.apothem.network";
 // Skale Scanner
 const skaleTestnetExplorerUrl = "https://staging-fast-active-bellatrix.explorer.staging-v3.skalenodes.com";
+// RSK Scanner
+const rskExplorer = "https://explorer.rsk.co";
+const rskTestnetExplorer = "https://explorer.testnet.rsk.co";
 
 /**
  * @public
@@ -302,6 +305,31 @@ const SkaleTestnet = {
     getExplorerTransactionLink: (txnId) => getTransactionLink(skaleTestnetExplorerUrl, txnId),
 };
 
+/*
+ * @Cryptogate: For intertanl use only, reference at your own risk
+ */
+const RSKMainnet = {
+    chainId: 30,
+    chainName: "RSK Mainnet",
+    isTestChain: false,
+    isLocalChain: false,
+    blockExplorerUrl: rskExplorer,
+    getExplorerAddressLink: (address) => getAddressLink(rskExplorer, address),
+    getExplorerTransactionLink: (txnId) => getTransactionLink(rskExplorer, txnId),
+};
+/*
+ * @Cryptogate: For intertanl use only, reference at your own risk
+ */
+const RSKTestnet = {
+    chainId: 21,
+    chainName: "RSK Testnet",
+    isTestChain: true,
+    isLocalChain: false,
+    blockExplorerUrl: rskTestnetExplorer,
+    getExplorerAddressLink: (address) => getAddressLink(rskTestnetExplorer, address),
+    getExplorerTransactionLink: (txnId) => getTransactionLink(rskTestnetExplorer, txnId),
+};
+
 /**
  * @array
  * @description The Default Chains Supported By Cryptogate
@@ -321,6 +349,8 @@ const DEFAULT_SUPPORTED_CHAINS = [
     XinFin,
     Apothem,
     SkaleTestnet,
+    RSKMainnet,
+    RSKTestnet,
 ];
 /**
  * @enum
@@ -342,6 +372,8 @@ exports.ChainId = void 0;
     ChainId[ChainId["XinFin"] = 50] = "XinFin";
     ChainId[ChainId["Apothem"] = 51] = "Apothem";
     ChainId[ChainId["SkaleTestnet"] = 1351057110] = "SkaleTestnet";
+    ChainId[ChainId["RSKMainnet"] = 30] = "RSKMainnet";
+    ChainId[ChainId["RSKTestnet"] = 31] = "RSKTestnet";
 })(exports.ChainId || (exports.ChainId = {}));
 
 const NetworkContext = React__default["default"].createContext({
@@ -1159,6 +1191,8 @@ exports.Mainnet = Mainnet;
 exports.MultiChainProvider = MultiChainProvider;
 exports.Mumbai = Mumbai;
 exports.Polygon = Polygon;
+exports.RSKMainnet = RSKMainnet;
+exports.RSKTestnet = RSKTestnet;
 exports.Sepolia = Sepolia;
 exports.SkaleTestnet = SkaleTestnet;
 exports.XinFin = XinFin;
@@ -1178,6 +1212,8 @@ exports.polygonScanUrl = polygonScanUrl;
 exports.readContractCall = readContractCall;
 exports.readContractCalls = readContractCalls;
 exports.resolveENS = resolveENS;
+exports.rskExplorer = rskExplorer;
+exports.rskTestnetExplorer = rskTestnetExplorer;
 exports.sepoliaEtherscanUrl = sepoliaEtherscanUrl;
 exports.skaleTestnetExplorerUrl = skaleTestnetExplorerUrl;
 exports.testAvalancheExplorerUrl = testAvalancheExplorerUrl;

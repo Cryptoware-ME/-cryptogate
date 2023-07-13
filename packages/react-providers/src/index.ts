@@ -27,6 +27,8 @@ export {
   xinfinExplorerUrl,
   apothemExplorerUrl,
   skaleTestnetExplorerUrl,
+  rskExplorer,
+  rskTestnetExplorer,
 } from "./constants/chains";
 
 export { SolWallets, EvmWallets, SuiWallets } from "./constants/wallets";
@@ -48,6 +50,8 @@ export {
   XinFin,
   Apothem,
   SkaleTestnet,
+  RSKMainnet,
+  RSKTestnet,
 } from "./models/chains";
 
 export type {

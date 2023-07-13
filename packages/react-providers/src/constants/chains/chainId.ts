@@ -13,6 +13,8 @@ import {
   XinFin,
   Apothem,
   SkaleTestnet,
+  RSKMainnet,
+  RSKTestnet,
 } from "../../models/chains";
 import { Chain } from "../../models/types";
 
@@ -35,6 +37,8 @@ export const DEFAULT_SUPPORTED_CHAINS: Chain[] = [
   XinFin,
   Apothem,
   SkaleTestnet,
+  RSKMainnet,
+  RSKTestnet,
 ];
 
 /**
@@ -56,4 +60,6 @@ export enum ChainId {
   XinFin = 50,
   Apothem = 51,
   SkaleTestnet = 1351057110,
+  RSKMainnet = 30,
+  RSKTestnet = 31,
 }

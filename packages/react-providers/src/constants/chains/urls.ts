@@ -23,3 +23,6 @@ export const apothemExplorerUrl = "https://explorer.apothem.network";
 // Skale Scanner
 export const skaleTestnetExplorerUrl =
   "https://staging-fast-active-bellatrix.explorer.staging-v3.skalenodes.com";
+// RSK Scanner
+export const rskExplorer = "https://explorer.rsk.co";
+export const rskTestnetExplorer = "https://explorer.testnet.rsk.co";

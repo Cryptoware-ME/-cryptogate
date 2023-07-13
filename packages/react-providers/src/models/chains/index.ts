@@ -6,6 +6,7 @@ import { BaseGoerli } from "./base";
 import { Arbitrum } from "./arbitrum";
 import { XinFin, Apothem } from "./xdc";
 import { SkaleTestnet } from "./skale";
+import { RSKMainnet, RSKTestnet } from "./rootstock";
 
 export { Sepolia, Goerli, Mainnet };
 export { BSC, BSCTestnet };
@@ -15,3 +16,4 @@ export { BaseGoerli };
 export { Arbitrum };
 export { XinFin, Apothem };
 export { SkaleTestnet };
+export { RSKMainnet, RSKTestnet };

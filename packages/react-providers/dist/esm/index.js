@@ -68,6 +68,9 @@ const xinfinExplorerUrl = "https://explorer.xinfin.nerwork";
 const apothemExplorerUrl = "https://explorer.apothem.network";
 // Skale Scanner
 const skaleTestnetExplorerUrl = "https://staging-fast-active-bellatrix.explorer.staging-v3.skalenodes.com";
+// RSK Scanner
+const rskExplorer = "https://explorer.rsk.co";
+const rskTestnetExplorer = "https://explorer.testnet.rsk.co";
 
 /**
  * @public
@@ -273,6 +276,31 @@ const SkaleTestnet = {
     getExplorerTransactionLink: (txnId) => getTransactionLink(skaleTestnetExplorerUrl, txnId),
 };
 
+/*
+ * @Cryptogate: For intertanl use only, reference at your own risk
+ */
+const RSKMainnet = {
+    chainId: 30,
+    chainName: "RSK Mainnet",
+    isTestChain: false,
+    isLocalChain: false,
+    blockExplorerUrl: rskExplorer,
+    getExplorerAddressLink: (address) => getAddressLink(rskExplorer, address),
+    getExplorerTransactionLink: (txnId) => getTransactionLink(rskExplorer, txnId),
+};
+/*
+ * @Cryptogate: For intertanl use only, reference at your own risk
+ */
+const RSKTestnet = {
+    chainId: 21,
+    chainName: "RSK Testnet",
+    isTestChain: true,
+    isLocalChain: false,
+    blockExplorerUrl: rskTestnetExplorer,
+    getExplorerAddressLink: (address) => getAddressLink(rskTestnetExplorer, address),
+    getExplorerTransactionLink: (txnId) => getTransactionLink(rskTestnetExplorer, txnId),
+};
+
 /**
  * @array
  * @description The Default Chains Supported By Cryptogate
@@ -292,6 +320,8 @@ const DEFAULT_SUPPORTED_CHAINS = [
     XinFin,
     Apothem,
     SkaleTestnet,
+    RSKMainnet,
+    RSKTestnet,
 ];
 /**
  * @enum
@@ -313,6 +343,8 @@ var ChainId;
     ChainId[ChainId["XinFin"] = 50] = "XinFin";
     ChainId[ChainId["Apothem"] = 51] = "Apothem";
     ChainId[ChainId["SkaleTestnet"] = 1351057110] = "SkaleTestnet";
+    ChainId[ChainId["RSKMainnet"] = 30] = "RSKMainnet";
+    ChainId[ChainId["RSKTestnet"] = 31] = "RSKTestnet";
 })(ChainId || (ChainId = {}));
 
 const NetworkContext = React.createContext({
@@ -1117,5 +1149,5 @@ const useContract = () => {
     return { deployContract };
 };
 
-export { Apothem, Arbitrum, Avalanche, AvalancheTestnet, BSC, BSCTestnet, BaseGoerli, ChainId, DEFAULT_SUPPORTED_CHAINS, EvmWallets, Goerli, Mainnet, MultiChainProvider, Mumbai, Polygon, Sepolia, SkaleTestnet, SolWallets, SuiWallets, XinFin, apothemExplorerUrl, avalancheExplorerUrl, bscScanUrl, bscTestnetScanUrl, getAddressLink, getChainById, getTransactionLink, goerliBasescanUrl, goerliEtherscanUrl, mainnetArbscanUrl, mainnetEtherscanUrl, mumbaiPolygonScanUrl, polygonScanUrl, readContractCall, readContractCalls, resolveENS, sepoliaEtherscanUrl, skaleTestnetExplorerUrl, testAvalancheExplorerUrl, useAccount, useConfig, useContract, useErrorsBag, useEthereum, useEvm, useGasPrice, useMultichain, useNetwork, useSolana, useSui, writeContractCall, xinfinExplorerUrl };
+export { Apothem, Arbitrum, Avalanche, AvalancheTestnet, BSC, BSCTestnet, BaseGoerli, ChainId, DEFAULT_SUPPORTED_CHAINS, EvmWallets, Goerli, Mainnet, MultiChainProvider, Mumbai, Polygon, RSKMainnet, RSKTestnet, Sepolia, SkaleTestnet, SolWallets, SuiWallets, XinFin, apothemExplorerUrl, avalancheExplorerUrl, bscScanUrl, bscTestnetScanUrl, getAddressLink, getChainById, getTransactionLink, goerliBasescanUrl, goerliEtherscanUrl, mainnetArbscanUrl, mainnetEtherscanUrl, mumbaiPolygonScanUrl, polygonScanUrl, readContractCall, readContractCalls, resolveENS, rskExplorer, rskTestnetExplorer, sepoliaEtherscanUrl, skaleTestnetExplorerUrl, testAvalancheExplorerUrl, useAccount, useConfig, useContract, useErrorsBag, useEthereum, useEvm, useGasPrice, useMultichain, useNetwork, useSolana, useSui, writeContractCall, xinfinExplorerUrl };
 //# sourceMappingURL=index.js.map

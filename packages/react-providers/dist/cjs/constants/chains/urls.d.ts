@@ -12,3 +12,5 @@ export declare const mainnetArbscanUrl = "https://arbscan.io";
 export declare const xinfinExplorerUrl = "https://explorer.xinfin.nerwork";
 export declare const apothemExplorerUrl = "https://explorer.apothem.network";
 export declare const skaleTestnetExplorerUrl = "https://staging-fast-active-bellatrix.explorer.staging-v3.skalenodes.com";
+export declare const rskExplorer = "https://explorer.rsk.co";
+export declare const rskTestnetExplorer = "https://explorer.testnet.rsk.co";

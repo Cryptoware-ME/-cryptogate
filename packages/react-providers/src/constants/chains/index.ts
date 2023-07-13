@@ -13,6 +13,8 @@ import {
   apothemExplorerUrl,
   xinfinExplorerUrl,
   skaleTestnetExplorerUrl,
+  rskExplorer,
+  rskTestnetExplorer,
 } from "./urls";
 import { ChainId, DEFAULT_SUPPORTED_CHAINS } from "./chainId";
 
@@ -31,5 +33,7 @@ export {
   apothemExplorerUrl,
   xinfinExplorerUrl,
   skaleTestnetExplorerUrl,
+  rskExplorer,
+  rskTestnetExplorer,
 };
 export { ChainId, DEFAULT_SUPPORTED_CHAINS };
