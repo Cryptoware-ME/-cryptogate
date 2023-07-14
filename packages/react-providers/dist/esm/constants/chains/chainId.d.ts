@@ -22,7 +22,8 @@ export declare enum ChainId {
     Arbitrum = 42161,
     XinFin = 50,
     Apothem = 51,
-    SkaleTestnet = 1351057110,
+    Bellatrix = 1351057110,
+    Calypso = 344106930,
     RSKMainnet = 30,
     RSKTestnet = 31
 }

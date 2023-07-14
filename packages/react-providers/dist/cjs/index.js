@@ -96,7 +96,8 @@ const mainnetArbscanUrl = "https://arbscan.io";
 const xinfinExplorerUrl = "https://explorer.xinfin.nerwork";
 const apothemExplorerUrl = "https://explorer.apothem.network";
 // Skale Scanner
-const skaleTestnetExplorerUrl = "https://staging-fast-active-bellatrix.explorer.staging-v3.skalenodes.com";
+const bellatrixExplorerUrl = "https://staging-fast-active-bellatrix.explorer.staging-v3.skalenodes.com";
+const calypsoExplorer = "https://staging-utter-unripe-menkar.explorer.staging-v3.skalenodes.com/";
 // RSK Scanner
 const rskExplorer = "https://explorer.rsk.co";
 const rskTestnetExplorer = "https://explorer.testnet.rsk.co";
@@ -295,14 +296,23 @@ const Apothem = {
 /*
  * @Cryptogate: For intertanl use only, reference at your own risk
  */
-const SkaleTestnet = {
+const Bellatrix = {
     chainId: 1351057110,
-    chainName: "SkaleTestnet",
+    chainName: "Bellatrix",
     isTestChain: true,
     isLocalChain: false,
-    blockExplorerUrl: skaleTestnetExplorerUrl,
-    getExplorerAddressLink: (address) => getAddressLink(skaleTestnetExplorerUrl, address),
-    getExplorerTransactionLink: (txnId) => getTransactionLink(skaleTestnetExplorerUrl, txnId),
+    blockExplorerUrl: bellatrixExplorerUrl,
+    getExplorerAddressLink: (address) => getAddressLink(bellatrixExplorerUrl, address),
+    getExplorerTransactionLink: (txnId) => getTransactionLink(bellatrixExplorerUrl, txnId),
+};
+const Calypso = {
+    chainId: 344106930,
+    chainName: "Calypso",
+    isTestChain: true,
+    isLocalChain: false,
+    blockExplorerUrl: calypsoExplorer,
+    getExplorerAddressLink: (address) => getAddressLink(calypsoExplorer, address),
+    getExplorerTransactionLink: (txnId) => getTransactionLink(calypsoExplorer, txnId),
 };
 
 /*
@@ -348,7 +358,8 @@ const DEFAULT_SUPPORTED_CHAINS = [
     Arbitrum,
     XinFin,
     Apothem,
-    SkaleTestnet,
+    Bellatrix,
+    Calypso,
     RSKMainnet,
     RSKTestnet,
 ];
@@ -371,7 +382,8 @@ exports.ChainId = void 0;
     ChainId[ChainId["Arbitrum"] = 42161] = "Arbitrum";
     ChainId[ChainId["XinFin"] = 50] = "XinFin";
     ChainId[ChainId["Apothem"] = 51] = "Apothem";
-    ChainId[ChainId["SkaleTestnet"] = 1351057110] = "SkaleTestnet";
+    ChainId[ChainId["Bellatrix"] = 1351057110] = "Bellatrix";
+    ChainId[ChainId["Calypso"] = 344106930] = "Calypso";
     ChainId[ChainId["RSKMainnet"] = 30] = "RSKMainnet";
     ChainId[ChainId["RSKTestnet"] = 31] = "RSKTestnet";
 })(exports.ChainId || (exports.ChainId = {}));
@@ -1185,6 +1197,8 @@ exports.AvalancheTestnet = AvalancheTestnet;
 exports.BSC = BSC;
 exports.BSCTestnet = BSCTestnet;
 exports.BaseGoerli = BaseGoerli;
+exports.Bellatrix = Bellatrix;
+exports.Calypso = Calypso;
 exports.DEFAULT_SUPPORTED_CHAINS = DEFAULT_SUPPORTED_CHAINS;
 exports.Goerli = Goerli;
 exports.Mainnet = Mainnet;
@@ -1194,12 +1208,13 @@ exports.Polygon = Polygon;
 exports.RSKMainnet = RSKMainnet;
 exports.RSKTestnet = RSKTestnet;
 exports.Sepolia = Sepolia;
-exports.SkaleTestnet = SkaleTestnet;
 exports.XinFin = XinFin;
 exports.apothemExplorerUrl = apothemExplorerUrl;
 exports.avalancheExplorerUrl = avalancheExplorerUrl;
+exports.bellatrixExplorerUrl = bellatrixExplorerUrl;
 exports.bscScanUrl = bscScanUrl;
 exports.bscTestnetScanUrl = bscTestnetScanUrl;
+exports.calypsoExplorer = calypsoExplorer;
 exports.getAddressLink = getAddressLink;
 exports.getChainById = getChainById;
 exports.getTransactionLink = getTransactionLink;
@@ -1215,7 +1230,6 @@ exports.resolveENS = resolveENS;
 exports.rskExplorer = rskExplorer;
 exports.rskTestnetExplorer = rskTestnetExplorer;
 exports.sepoliaEtherscanUrl = sepoliaEtherscanUrl;
-exports.skaleTestnetExplorerUrl = skaleTestnetExplorerUrl;
 exports.testAvalancheExplorerUrl = testAvalancheExplorerUrl;
 exports.useAccount = useAccount;
 exports.useConfig = useConfig;
