@@ -12,7 +12,8 @@ import {
   Arbitrum,
   XinFin,
   Apothem,
-  SkaleTestnet,
+  Bellatrix,
+  Calypso,
   RSKMainnet,
   RSKTestnet,
 } from "../../models/chains";
@@ -36,7 +37,8 @@ export const DEFAULT_SUPPORTED_CHAINS: Chain[] = [
   Arbitrum,
   XinFin,
   Apothem,
-  SkaleTestnet,
+  Bellatrix,
+  Calypso,
   RSKMainnet,
   RSKTestnet,
 ];
@@ -59,7 +61,8 @@ export enum ChainId {
   Arbitrum = 42161,
   XinFin = 50,
   Apothem = 51,
-  SkaleTestnet = 1351057110,
+  Bellatrix = 1351057110,
+  Calypso = 344106930,
   RSKMainnet = 30,
   RSKTestnet = 31,
 }

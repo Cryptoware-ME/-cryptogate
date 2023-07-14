@@ -21,8 +21,10 @@ export const mainnetArbscanUrl = "https://arbscan.io";
 export const xinfinExplorerUrl = "https://explorer.xinfin.nerwork";
 export const apothemExplorerUrl = "https://explorer.apothem.network";
 // Skale Scanner
-export const skaleTestnetExplorerUrl =
+export const bellatrixExplorerUrl =
   "https://staging-fast-active-bellatrix.explorer.staging-v3.skalenodes.com";
+export const calypsoExplorer =
+  "https://staging-utter-unripe-menkar.explorer.staging-v3.skalenodes.com/";
 // RSK Scanner
 export const rskExplorer = "https://explorer.rsk.co";
 export const rskTestnetExplorer = "https://explorer.testnet.rsk.co";

@@ -12,7 +12,8 @@ import {
   mainnetArbscanUrl,
   apothemExplorerUrl,
   xinfinExplorerUrl,
-  skaleTestnetExplorerUrl,
+  bellatrixExplorerUrl,
+  calypsoExplorer,
   rskExplorer,
   rskTestnetExplorer,
 } from "./urls";
@@ -32,7 +33,8 @@ export {
   mainnetArbscanUrl,
   apothemExplorerUrl,
   xinfinExplorerUrl,
-  skaleTestnetExplorerUrl,
+  bellatrixExplorerUrl,
+  calypsoExplorer,
   rskExplorer,
   rskTestnetExplorer,
 };

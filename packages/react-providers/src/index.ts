@@ -26,7 +26,8 @@ export {
   mainnetArbscanUrl,
   xinfinExplorerUrl,
   apothemExplorerUrl,
-  skaleTestnetExplorerUrl,
+  bellatrixExplorerUrl,
+  calypsoExplorer,
   rskExplorer,
   rskTestnetExplorer,
 } from "./constants/chains";
@@ -49,7 +50,8 @@ export {
   Arbitrum,
   XinFin,
   Apothem,
-  SkaleTestnet,
+  Bellatrix,
+  Calypso,
   RSKMainnet,
   RSKTestnet,
 } from "./models/chains";
