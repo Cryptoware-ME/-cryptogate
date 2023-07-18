@@ -409,6 +409,123 @@ export const writeContractCall = ({
   };
 };
 
+export const writeDynamicContractCall = ({
+  abi,
+  method,
+}: PostContractCallParams): {
+  send: (address: EvmAddress, args?: any[], options?: optionsType) => void;
+  state: TransactionStatus;
+  resetState: () => void;
+} => {
+  const config = useConfig();
+  const { network, provider } = useEvm();
+
+  const [state, setState]: [
+    TransactionStatus,
+    React.Dispatch<React.SetStateAction<TransactionStatus>>
+  ] = React.useState({
+    status: "None",
+    chainId: network.chainId,
+  } as TransactionStatus);
+
+  const [response, setResponse]: [
+    any,
+    React.Dispatch<React.SetStateAction<any>>
+  ] = React.useState(undefined);
+
+  const resetState = React.useCallback(() => {
+    setState({
+      status: "None",
+    });
+  }, [setState]);
+
+  const send = React.useCallback(
+    async (address: EvmAddress, args?: any, options?: optionsType) => {
+      if (provider) {
+        if (abi && address) {
+          try {
+            const signer = provider.getSigner();
+            const _contractObj = new ethers.Contract(address, abi, signer);
+            try {
+              setState({
+                status: "PendingSignature",
+                chainId: network.chainId,
+              });
+              const res = args
+                ? options
+                  ? await _contractObj[method](...args, options)
+                  : await _contractObj[method](...args)
+                : options
+                ? await _contractObj[method](options)
+                : await _contractObj[method]();
+              setResponse(res);
+              setState({
+                status: "Mining",
+                chainId: network.chainId,
+                transaction: res,
+              });
+            } catch (err: any) {
+              setState({
+                status: "Exception",
+                chainId: network.chainId,
+                errorMessage: err.toString(),
+              });
+            }
+          } catch (err: any) {
+            setState({
+              status: "Exception",
+              chainId: network.chainId,
+              errorMessage: err.toString(),
+            });
+          }
+        } else {
+          setState({
+            status: "Exception",
+            chainId: network.chainId,
+            errorMessage: "You need to either provide a contract address & abi",
+          });
+        }
+      } else {
+        setState({
+          status: "Exception",
+          chainId: network.chainId,
+          errorMessage: "No provider available",
+        });
+      }
+    },
+    [provider, config, abi, method]
+  );
+
+  const waitResponse = async () => {
+    try {
+      const receipt = await response.wait();
+      setState({
+        status: "Success",
+        receipt,
+        transaction: response,
+        chainId: network.chainId,
+      });
+    } catch (err: any) {
+      setState({
+        status: "Fail",
+        transaction: response,
+        chainId: network.chainId,
+        errorMessage: err.toString(),
+      });
+    }
+  };
+
+  React.useEffect(() => {
+    if (response) waitResponse();
+  }, [response]);
+
+  return {
+    send,
+    state,
+    resetState,
+  };
+};
+
 interface DeployContractParams {
   abi: ContractABIUnit[] | ethers.ContractInterface;
   byteCode: any;
