@@ -8,6 +8,7 @@ import {
   readContractCall,
   readContractCalls,
   writeContractCall,
+  writeDynamicContractCall,
   useContract,
 } from "./contracts";
 
@@ -21,6 +22,7 @@ export {
   readContractCall,
   readContractCalls,
   writeContractCall,
+  writeDynamicContractCall,
   useContract,
   useAccount,
   resolveENS,

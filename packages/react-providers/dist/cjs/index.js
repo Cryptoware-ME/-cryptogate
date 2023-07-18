@@ -1174,6 +1174,105 @@ const writeContractCall = ({ abi, address, contract, method, }) => {
         resetState,
     };
 };
+const writeDynamicContractCall = ({ abi, method, }) => {
+    const config = useConfig();
+    const { network, provider } = useEvm();
+    const [state, setState] = React__default["default"].useState({
+        status: "None",
+        chainId: network.chainId,
+    });
+    const [response, setResponse] = React__default["default"].useState(undefined);
+    const resetState = React__default["default"].useCallback(() => {
+        setState({
+            status: "None",
+        });
+    }, [setState]);
+    const send = React__default["default"].useCallback((address, args, options) => __awaiter(void 0, void 0, void 0, function* () {
+        if (provider) {
+            if (abi && address) {
+                try {
+                    const signer = provider.getSigner();
+                    const _contractObj = new ethers__namespace.Contract(address, abi, signer);
+                    try {
+                        setState({
+                            status: "PendingSignature",
+                            chainId: network.chainId,
+                        });
+                        const res = args
+                            ? options
+                                ? yield _contractObj[method](...args, options)
+                                : yield _contractObj[method](...args)
+                            : options
+                                ? yield _contractObj[method](options)
+                                : yield _contractObj[method]();
+                        setResponse(res);
+                        setState({
+                            status: "Mining",
+                            chainId: network.chainId,
+                            transaction: res,
+                        });
+                    }
+                    catch (err) {
+                        setState({
+                            status: "Exception",
+                            chainId: network.chainId,
+                            errorMessage: err.toString(),
+                        });
+                    }
+                }
+                catch (err) {
+                    setState({
+                        status: "Exception",
+                        chainId: network.chainId,
+                        errorMessage: err.toString(),
+                    });
+                }
+            }
+            else {
+                setState({
+                    status: "Exception",
+                    chainId: network.chainId,
+                    errorMessage: "You need to either provide a contract address & abi",
+                });
+            }
+        }
+        else {
+            setState({
+                status: "Exception",
+                chainId: network.chainId,
+                errorMessage: "No provider available",
+            });
+        }
+    }), [provider, config, abi, method]);
+    const waitResponse = () => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            const receipt = yield response.wait();
+            setState({
+                status: "Success",
+                receipt,
+                transaction: response,
+                chainId: network.chainId,
+            });
+        }
+        catch (err) {
+            setState({
+                status: "Fail",
+                transaction: response,
+                chainId: network.chainId,
+                errorMessage: err.toString(),
+            });
+        }
+    });
+    React__default["default"].useEffect(() => {
+        if (response)
+            waitResponse();
+    }, [response]);
+    return {
+        send,
+        state,
+        resetState,
+    };
+};
 /**
  * @public
  */
@@ -1243,5 +1342,6 @@ exports.useNetwork = useNetwork;
 exports.useSolana = useSolana;
 exports.useSui = useSui;
 exports.writeContractCall = writeContractCall;
+exports.writeDynamicContractCall = writeDynamicContractCall;
 exports.xinfinExplorerUrl = xinfinExplorerUrl;
 //# sourceMappingURL=index.js.map

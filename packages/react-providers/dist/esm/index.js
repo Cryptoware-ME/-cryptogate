@@ -1145,6 +1145,105 @@ const writeContractCall = ({ abi, address, contract, method, }) => {
         resetState,
     };
 };
+const writeDynamicContractCall = ({ abi, method, }) => {
+    const config = useConfig();
+    const { network, provider } = useEvm();
+    const [state, setState] = React.useState({
+        status: "None",
+        chainId: network.chainId,
+    });
+    const [response, setResponse] = React.useState(undefined);
+    const resetState = React.useCallback(() => {
+        setState({
+            status: "None",
+        });
+    }, [setState]);
+    const send = React.useCallback((address, args, options) => __awaiter(void 0, void 0, void 0, function* () {
+        if (provider) {
+            if (abi && address) {
+                try {
+                    const signer = provider.getSigner();
+                    const _contractObj = new ethers.Contract(address, abi, signer);
+                    try {
+                        setState({
+                            status: "PendingSignature",
+                            chainId: network.chainId,
+                        });
+                        const res = args
+                            ? options
+                                ? yield _contractObj[method](...args, options)
+                                : yield _contractObj[method](...args)
+                            : options
+                                ? yield _contractObj[method](options)
+                                : yield _contractObj[method]();
+                        setResponse(res);
+                        setState({
+                            status: "Mining",
+                            chainId: network.chainId,
+                            transaction: res,
+                        });
+                    }
+                    catch (err) {
+                        setState({
+                            status: "Exception",
+                            chainId: network.chainId,
+                            errorMessage: err.toString(),
+                        });
+                    }
+                }
+                catch (err) {
+                    setState({
+                        status: "Exception",
+                        chainId: network.chainId,
+                        errorMessage: err.toString(),
+                    });
+                }
+            }
+            else {
+                setState({
+                    status: "Exception",
+                    chainId: network.chainId,
+                    errorMessage: "You need to either provide a contract address & abi",
+                });
+            }
+        }
+        else {
+            setState({
+                status: "Exception",
+                chainId: network.chainId,
+                errorMessage: "No provider available",
+            });
+        }
+    }), [provider, config, abi, method]);
+    const waitResponse = () => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            const receipt = yield response.wait();
+            setState({
+                status: "Success",
+                receipt,
+                transaction: response,
+                chainId: network.chainId,
+            });
+        }
+        catch (err) {
+            setState({
+                status: "Fail",
+                transaction: response,
+                chainId: network.chainId,
+                errorMessage: err.toString(),
+            });
+        }
+    });
+    React.useEffect(() => {
+        if (response)
+            waitResponse();
+    }, [response]);
+    return {
+        send,
+        state,
+        resetState,
+    };
+};
 /**
  * @public
  */
@@ -1161,5 +1260,5 @@ const useContract = () => {
     return { deployContract };
 };
 
-export { Apothem, Arbitrum, Avalanche, AvalancheTestnet, BSC, BSCTestnet, BaseGoerli, Bellatrix, Calypso, ChainId, DEFAULT_SUPPORTED_CHAINS, EvmWallets, Goerli, Mainnet, MultiChainProvider, Mumbai, Polygon, RSKMainnet, RSKTestnet, Sepolia, SolWallets, SuiWallets, XinFin, apothemExplorerUrl, avalancheExplorerUrl, bellatrixExplorerUrl, bscScanUrl, bscTestnetScanUrl, calypsoExplorer, getAddressLink, getChainById, getTransactionLink, goerliBasescanUrl, goerliEtherscanUrl, mainnetArbscanUrl, mainnetEtherscanUrl, mumbaiPolygonScanUrl, polygonScanUrl, readContractCall, readContractCalls, resolveENS, rskExplorer, rskTestnetExplorer, sepoliaEtherscanUrl, testAvalancheExplorerUrl, useAccount, useConfig, useContract, useErrorsBag, useEthereum, useEvm, useGasPrice, useMultichain, useNetwork, useSolana, useSui, writeContractCall, xinfinExplorerUrl };
+export { Apothem, Arbitrum, Avalanche, AvalancheTestnet, BSC, BSCTestnet, BaseGoerli, Bellatrix, Calypso, ChainId, DEFAULT_SUPPORTED_CHAINS, EvmWallets, Goerli, Mainnet, MultiChainProvider, Mumbai, Polygon, RSKMainnet, RSKTestnet, Sepolia, SolWallets, SuiWallets, XinFin, apothemExplorerUrl, avalancheExplorerUrl, bellatrixExplorerUrl, bscScanUrl, bscTestnetScanUrl, calypsoExplorer, getAddressLink, getChainById, getTransactionLink, goerliBasescanUrl, goerliEtherscanUrl, mainnetArbscanUrl, mainnetEtherscanUrl, mumbaiPolygonScanUrl, polygonScanUrl, readContractCall, readContractCalls, resolveENS, rskExplorer, rskTestnetExplorer, sepoliaEtherscanUrl, testAvalancheExplorerUrl, useAccount, useConfig, useContract, useErrorsBag, useEthereum, useEvm, useGasPrice, useMultichain, useNetwork, useSolana, useSui, writeContractCall, writeDynamicContractCall, xinfinExplorerUrl };
 //# sourceMappingURL=index.js.map

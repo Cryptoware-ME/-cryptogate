@@ -80,6 +80,7 @@ export {
   readContractCall,
   readContractCalls,
   writeContractCall,
+  writeDynamicContractCall,
   useContract,
   useAccount,
   resolveENS,

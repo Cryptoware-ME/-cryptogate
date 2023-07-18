@@ -59,6 +59,11 @@ export declare const writeContractCall: ({ abi, address, contract, method, }: Po
     events: LogDescription[] | undefined;
     resetState: () => void;
 };
+export declare const writeDynamicContractCall: ({ abi, method, }: PostContractCallParams) => {
+    send: (address: EvmAddress, args?: any[], options?: optionsType) => void;
+    state: TransactionStatus;
+    resetState: () => void;
+};
 interface DeployContractParams {
     abi: ContractABIUnit[] | ethers.ContractInterface;
     byteCode: any;

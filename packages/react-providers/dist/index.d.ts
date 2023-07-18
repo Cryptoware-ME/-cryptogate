@@ -451,6 +451,11 @@ declare const writeContractCall: ({ abi, address, contract, method, }: PostContr
     events: LogDescription[] | undefined;
     resetState: () => void;
 };
+declare const writeDynamicContractCall: ({ abi, method, }: PostContractCallParams) => {
+    send: (address: EvmAddress, args?: any[], options?: optionsType) => void;
+    state: TransactionStatus;
+    resetState: () => void;
+};
 interface DeployContractParams {
     abi: ContractABIUnit[] | ethers.ContractInterface;
     byteCode: any;
@@ -463,4 +468,4 @@ declare const useContract: () => {
     deployContract: ({ abi, byteCode, args, }: DeployContractParams) => Promise<ethers.ethers.Contract>;
 };
 
-export { Apothem, Arbitrum, Avalanche, AvalancheTestnet, BSC, BSCTestnet, BaseGoerli, Bellatrix, Calypso, Chain, ChainId, ContractABIUnit, ContractIO, DEFAULT_SUPPORTED_CHAINS, EthConfig, EthContract, EvmAddress, EvmWallets, Goerli, Mainnet, MultiChainProvider, MultiChainProviderConfigProps, MultiChainProviderProps, Mumbai, NodeUrls, Polygon, RSKMainnet, RSKTestnet, Sepolia, SolAddress, SolConfig, SolWallets, SuiConfig, SuiWallets, WalletsConfig, XinFin, apothemExplorerUrl, avalancheExplorerUrl, bellatrixExplorerUrl, bscScanUrl, bscTestnetScanUrl, calypsoExplorer, getAddressLink, getChainById, getTransactionLink, goerliBasescanUrl, goerliEtherscanUrl, mainnetArbscanUrl, mainnetEtherscanUrl, mumbaiPolygonScanUrl, polygonScanUrl, readContractCall, readContractCalls, resolveENS, rskExplorer, rskTestnetExplorer, sepoliaEtherscanUrl, testAvalancheExplorerUrl, useAccount, useConfig, useContract, useErrorsBag, useEthereum, useEvm, useGasPrice, useMultichain, useNetwork, useSolana, useSui, writeContractCall, xinfinExplorerUrl };
+export { Apothem, Arbitrum, Avalanche, AvalancheTestnet, BSC, BSCTestnet, BaseGoerli, Bellatrix, Calypso, Chain, ChainId, ContractABIUnit, ContractIO, DEFAULT_SUPPORTED_CHAINS, EthConfig, EthContract, EvmAddress, EvmWallets, Goerli, Mainnet, MultiChainProvider, MultiChainProviderConfigProps, MultiChainProviderProps, Mumbai, NodeUrls, Polygon, RSKMainnet, RSKTestnet, Sepolia, SolAddress, SolConfig, SolWallets, SuiConfig, SuiWallets, WalletsConfig, XinFin, apothemExplorerUrl, avalancheExplorerUrl, bellatrixExplorerUrl, bscScanUrl, bscTestnetScanUrl, calypsoExplorer, getAddressLink, getChainById, getTransactionLink, goerliBasescanUrl, goerliEtherscanUrl, mainnetArbscanUrl, mainnetEtherscanUrl, mumbaiPolygonScanUrl, polygonScanUrl, readContractCall, readContractCalls, resolveENS, rskExplorer, rskTestnetExplorer, sepoliaEtherscanUrl, testAvalancheExplorerUrl, useAccount, useConfig, useContract, useErrorsBag, useEthereum, useEvm, useGasPrice, useMultichain, useNetwork, useSolana, useSui, writeContractCall, writeDynamicContractCall, xinfinExplorerUrl };
