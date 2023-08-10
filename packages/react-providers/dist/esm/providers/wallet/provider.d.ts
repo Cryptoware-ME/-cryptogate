@@ -6,5 +6,5 @@ interface Props {
 export declare type WalletDataType = {
     account: EvmAddress | undefined;
 };
-export declare function WalletProvider({ children }: Props): JSX.Element;
+export declare function WalletProvider({ children }: Props): React.JSX.Element;
 export {};

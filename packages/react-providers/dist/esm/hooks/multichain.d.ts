@@ -48,7 +48,7 @@ export declare const useMultichain: () => {
         signAndExecuteTransactionBlock(input: Omit<import("@mysten/wallet-standard").SuiSignAndExecuteTransactionBlockInput, "chain" | "account">): Promise<import("@mysten/wallet-standard").SuiSignAndExecuteTransactionBlockOutput>;
         signTransactionBlock(input: Omit<import("@mysten/wallet-standard").SuiSignTransactionBlockInput, "chain" | "account">): Promise<import("@mysten/wallet-standard").SuiSignTransactionBlockOutput>;
         signMessage(input: Omit<import("@mysten/wallet-standard").SuiSignMessageInput, "account">): Promise<import("@mysten/wallet-standard").SuiSignMessageOutput>;
-        verifySignedMessage(input: import("@mysten/wallet-standard").SuiSignMessageOutput): boolean;
+        verifySignedMessage(input: import("@mysten/wallet-standard").SuiSignMessageOutput, publicKey: Uint8Array): Promise<boolean>;
         on: <E extends import("@suiet/wallet-kit").WalletEvent>(event: E, listener: import("@suiet/wallet-kit").WalletEventListeners[E]) => () => void;
     };
 };

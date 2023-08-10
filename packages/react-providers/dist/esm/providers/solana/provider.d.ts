@@ -4,5 +4,5 @@ interface Props {
     children: React.ReactNode;
     solConfig: SolConfig | undefined;
 }
-export declare function SolanaProvider({ children, solConfig }: Props): JSX.Element;
+export declare function SolanaProvider({ children, solConfig }: Props): React.JSX.Element;
 export {};

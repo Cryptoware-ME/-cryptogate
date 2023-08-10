@@ -4,5 +4,5 @@ interface Props {
     children: React.ReactNode;
     config: MultiChainProviderConfigProps;
 }
-export declare function ConfigProvider({ config, children }: Props): JSX.Element;
+export declare function ConfigProvider({ config, children }: Props): React.JSX.Element;
 export {};

@@ -10,5 +10,5 @@ export declare type NetworkDataType = {
     chainId: ChainId | undefined;
     chain: Chain | undefined;
 };
-export declare function NetworkProvider({ children, config }: Props): JSX.Element;
+export declare function NetworkProvider({ children, config }: Props): React.JSX.Element;
 export {};

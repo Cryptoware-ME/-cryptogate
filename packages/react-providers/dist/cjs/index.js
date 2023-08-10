@@ -401,7 +401,7 @@ function useNetwork() {
     return context;
 }
 
-/******************************************************************************
+/*! *****************************************************************************
 Copyright (c) Microsoft Corporation.
 
 Permission to use, copy, modify, and/or distribute this software for any
@@ -710,7 +710,9 @@ const useEvm = () => {
     const activateWallet = (_provider) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             const res = yield _provider.send("eth_requestAccounts", []);
-            const chainIdRes = yield _provider.send("eth_chainId", []);
+            const chainIdRes = _provider.getChainId && typeof _provider.getChainId == "function"
+                ? _provider.getChainId()
+                : yield _provider.send("eth_chainId", []);
             if (res.result)
                 setData(res.result[0], parseInt(chainIdRes.result), _provider);
             else

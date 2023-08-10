@@ -60,7 +60,10 @@ export const useEvm = () => {
   const activateWallet = async (_provider: any) => {
     try {
       const res = await _provider.send("eth_requestAccounts", []);
-      const chainIdRes = await _provider.send("eth_chainId", []);
+      const chainIdRes =
+        _provider.getChainId && typeof _provider.getChainId == "function"
+          ? _provider.getChainId()
+          : await _provider.send("eth_chainId", []);
       if (res.result)
         setData(res.result[0], parseInt(chainIdRes.result), _provider);
       else setData(res[0], parseInt(chainIdRes.result), _provider);

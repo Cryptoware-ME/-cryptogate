@@ -4,5 +4,5 @@ interface Props {
     children: React.ReactNode;
     suiConfig: SuiConfig | undefined;
 }
-export declare function SuiProvider({ children, suiConfig }: Props): JSX.Element;
+export declare function SuiProvider({ children, suiConfig }: Props): React.JSX.Element;
 export {};

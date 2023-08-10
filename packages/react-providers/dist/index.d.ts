@@ -114,7 +114,7 @@ interface MultiChainProviderProps {
     children: React.ReactNode;
     config: MultiChainProviderConfigProps;
 }
-declare const MultiChainProvider: ({ config, children, }: MultiChainProviderProps) => JSX.Element;
+declare const MultiChainProvider: ({ config, children, }: MultiChainProviderProps) => React.JSX.Element;
 
 declare function useConfig(): MultiChainProviderConfigProps;
 
@@ -309,7 +309,7 @@ declare const useSui: () => {
     signAndExecuteTransactionBlock(input: Omit<_mysten_wallet_standard.SuiSignAndExecuteTransactionBlockInput, "chain" | "account">): Promise<_mysten_wallet_standard.SuiSignAndExecuteTransactionBlockOutput>;
     signTransactionBlock(input: Omit<_mysten_wallet_standard.SuiSignTransactionBlockInput, "chain" | "account">): Promise<_mysten_wallet_standard.SuiSignTransactionBlockOutput>;
     signMessage(input: Omit<_mysten_wallet_standard.SuiSignMessageInput, "account">): Promise<_mysten_wallet_standard.SuiSignMessageOutput>;
-    verifySignedMessage(input: _mysten_wallet_standard.SuiSignMessageOutput): boolean;
+    verifySignedMessage(input: _mysten_wallet_standard.SuiSignMessageOutput, publicKey: Uint8Array): Promise<boolean>;
     on: <E extends _suiet_wallet_kit.WalletEvent>(event: E, listener: _suiet_wallet_kit.WalletEventListeners[E]) => () => void;
 };
 
@@ -362,7 +362,7 @@ declare const useMultichain: () => {
         signAndExecuteTransactionBlock(input: Omit<_mysten_wallet_standard.SuiSignAndExecuteTransactionBlockInput, "chain" | "account">): Promise<_mysten_wallet_standard.SuiSignAndExecuteTransactionBlockOutput>;
         signTransactionBlock(input: Omit<_mysten_wallet_standard.SuiSignTransactionBlockInput, "chain" | "account">): Promise<_mysten_wallet_standard.SuiSignTransactionBlockOutput>;
         signMessage(input: Omit<_mysten_wallet_standard.SuiSignMessageInput, "account">): Promise<_mysten_wallet_standard.SuiSignMessageOutput>;
-        verifySignedMessage(input: _mysten_wallet_standard.SuiSignMessageOutput): boolean;
+        verifySignedMessage(input: _mysten_wallet_standard.SuiSignMessageOutput, publicKey: Uint8Array): Promise<boolean>;
         on: <E extends _suiet_wallet_kit.WalletEvent>(event: E, listener: _suiet_wallet_kit.WalletEventListeners[E]) => () => void;
     };
 };
