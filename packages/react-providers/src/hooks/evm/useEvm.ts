@@ -107,7 +107,7 @@ export const useEvm = () => {
     );
 
     provider.on("accountsChanged", (accounts: string[]) => {
-      setWalletData({ account: accounts[0] });
+      setWalletData({ account: accounts[0] as EvmAddress });
     });
 
     provider.on("chainChanged", (_network: any) => {

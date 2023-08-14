@@ -561,11 +561,9 @@ const useBrowserWallets = () => {
     React.useEffect(() => {
         var _a;
         setBrowserProviders(window.ethereum);
-        console.log("browserProviders: ", browserProviders);
         if (typeof browserProviders !== "undefined") {
             if (((_a = browserProviders.providers) === null || _a === void 0 ? void 0 : _a.length) > 0) {
                 browserProviders.providers.forEach((p) => __awaiter(void 0, void 0, void 0, function* () {
-                    console.log("p: ", p);
                     if (p.isShabakat) {
                         setShabakat(p);
                     }
@@ -579,7 +577,6 @@ const useBrowserWallets = () => {
                         setCoinbase(p);
                     }
                 }));
-                console.log("---------------------------------");
             }
             else {
                 if (browserProviders.isShabakat)
