@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 import * as ethers from "ethers";
 import CoinbaseWalletSDK from "@coinbase/wallet-sdk";
-import QRCodeModal from "@walletconnect/qrcode-modal";
-import WalletConnectProvider from "@walletconnect/web3-provider";
+import { EthereumProvider } from "@walletconnect/ethereum-provider";
 import {
   useConfig,
   useErrorsBag,
@@ -35,7 +34,7 @@ export const useEvm = () => {
     let proxyProvider =
       _provider?.provider as unknown as ethers.providers.Web3Provider;
     if (proxyProvider) {
-      proxyProvider.removeAllListeners();
+      proxyProvider.removeAllListeners && proxyProvider.removeAllListeners();
       proxyProvider.on("accountsChanged", (accounts: any) => {
         accounts[0] ? setWalletData({ account: accounts[0] }) : deactivate();
       });
@@ -60,12 +59,10 @@ export const useEvm = () => {
   const activateWallet = async (_provider: any) => {
     try {
       const res = await _provider.send("eth_requestAccounts", []);
-      console.log("res: ", res);
       const chainIdRes =
         _provider.getChainId && typeof _provider.getChainId == "function"
           ? _provider.getChainId()
           : (await _provider.send("eth_chainId", [])).result;
-      console.log("chainIdRes: ", chainIdRes);
       if (res.result) setData(res.result[0], parseInt(chainIdRes), _provider);
       else setData(res[0], parseInt(chainIdRes), _provider);
     } catch (err) {
@@ -86,7 +83,6 @@ export const useEvm = () => {
   }, [metamask]);
 
   const activateCoinbaseWallet = React.useCallback(async () => {
-    console.log(coinbase);
     if (coinbase) activateWallet(coinbase);
     // @Cryptogate: Might remove this later (handles popup if no extension found)
     // appLogo is optional
@@ -99,15 +95,29 @@ export const useEvm = () => {
   }, [coinbase, walletsConfig]);
 
   const activateWalletConnect = async () => {
-    const provider = new WalletConnectProvider({
-      infuraId: "98d5cf1c763f4224afa492b70366effa",
-      bridge: "https://bridge.walletconnect.org",
-      qrcodeModal: QRCodeModal,
+    const provider = await EthereumProvider.init({
+      projectId: "8f85185f326acbf30d95911cc164929a",
+      chains: [1],
+      optionalChains: [1, 11155111],
+      showQrModal: true,
     });
-    if (!provider.connected) {
-      await provider.enable();
-    }
-    setData(provider.accounts[0] as EvmAddress, provider.chainId, provider);
+
+    provider.on("connect", () =>
+      setProvider(new ethers.providers.Web3Provider(provider))
+    );
+
+    provider.on("accountsChanged", (accounts: string[]) => {
+      setWalletData({ account: accounts[0] });
+    });
+
+    provider.on("chainChanged", (_network: any) => {
+      let _chainId = parseInt(_network);
+      setNetworkData({ chainId: _chainId, chain: getChainById(_chainId) });
+    });
+
+    provider.on("disconnect", deactivate);
+
+    await provider.enable();
   };
 
   const deactivate = React.useCallback(() => {

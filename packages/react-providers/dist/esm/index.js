@@ -7,8 +7,7 @@ import { WalletAdapterNetwork, WalletReadyState } from '@solana/wallet-adapter-b
 import { clusterApiUrl } from '@solana/web3.js';
 import { WalletProvider as WalletProvider$2, useWallet as useWallet$2, useAccountBalance, useCoinBalance, useChain, useSuiProvider } from '@suiet/wallet-kit';
 import CoinbaseWalletSDK from '@coinbase/wallet-sdk';
-import QRCodeModal from '@walletconnect/qrcode-modal';
-import WalletConnectProvider from '@walletconnect/web3-provider';
+import { EthereumProvider } from '@walletconnect/ethereum-provider';
 
 const ConfigContext = React.createContext({ ethConfig: { defaultNetwork: undefined, readOnlyUrls: {} } });
 function useConfig() {
@@ -562,9 +561,11 @@ const useBrowserWallets = () => {
     React.useEffect(() => {
         var _a;
         setBrowserProviders(window.ethereum);
+        console.log("browserProviders: ", browserProviders);
         if (typeof browserProviders !== "undefined") {
             if (((_a = browserProviders.providers) === null || _a === void 0 ? void 0 : _a.length) > 0) {
                 browserProviders.providers.forEach((p) => __awaiter(void 0, void 0, void 0, function* () {
+                    console.log("p: ", p);
                     if (p.isShabakat) {
                         setShabakat(p);
                     }
@@ -578,6 +579,7 @@ const useBrowserWallets = () => {
                         setCoinbase(p);
                     }
                 }));
+                console.log("---------------------------------");
             }
             else {
                 if (browserProviders.isShabakat)
@@ -658,7 +660,7 @@ const useEvm = () => {
         let _provider = provider;
         let proxyProvider = _provider === null || _provider === void 0 ? void 0 : _provider.provider;
         if (proxyProvider) {
-            proxyProvider.removeAllListeners();
+            proxyProvider.removeAllListeners && proxyProvider.removeAllListeners();
             proxyProvider.on("accountsChanged", (accounts) => {
                 accounts[0] ? setWalletData({ account: accounts[0] }) : deactivate();
             });
@@ -681,11 +683,9 @@ const useEvm = () => {
     const activateWallet = (_provider) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             const res = yield _provider.send("eth_requestAccounts", []);
-            console.log("res: ", res);
             const chainIdRes = _provider.getChainId && typeof _provider.getChainId == "function"
                 ? _provider.getChainId()
                 : (yield _provider.send("eth_chainId", [])).result;
-            console.log("chainIdRes: ", chainIdRes);
             if (res.result)
                 setData(res.result[0], parseInt(chainIdRes), _provider);
             else
@@ -708,7 +708,6 @@ const useEvm = () => {
             activateWallet(metamask);
     }), [metamask]);
     const activateCoinbaseWallet = React.useCallback(() => __awaiter(void 0, void 0, void 0, function* () {
-        console.log(coinbase);
         if (coinbase)
             activateWallet(coinbase);
         // @Cryptogate: Might remove this later (handles popup if no extension found)
@@ -719,15 +718,22 @@ const useEvm = () => {
         }
     }), [coinbase, walletsConfig]);
     const activateWalletConnect = () => __awaiter(void 0, void 0, void 0, function* () {
-        const provider = new WalletConnectProvider({
-            infuraId: "98d5cf1c763f4224afa492b70366effa",
-            bridge: "https://bridge.walletconnect.org",
-            qrcodeModal: QRCodeModal,
+        const provider = yield EthereumProvider.init({
+            projectId: "8f85185f326acbf30d95911cc164929a",
+            chains: [1],
+            optionalChains: [1, 11155111],
+            showQrModal: true,
         });
-        if (!provider.connected) {
-            yield provider.enable();
-        }
-        setData(provider.accounts[0], provider.chainId, provider);
+        provider.on("connect", () => setProvider(new ethers.providers.Web3Provider(provider)));
+        provider.on("accountsChanged", (accounts) => {
+            setWalletData({ account: accounts[0] });
+        });
+        provider.on("chainChanged", (_network) => {
+            let _chainId = parseInt(_network);
+            setNetworkData({ chainId: _chainId, chain: getChainById(_chainId) });
+        });
+        provider.on("disconnect", deactivate);
+        yield provider.enable();
     });
     const deactivate = React.useCallback(() => {
         var _a, _b, _c, _d;

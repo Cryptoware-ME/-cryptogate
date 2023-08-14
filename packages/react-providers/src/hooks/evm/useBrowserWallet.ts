@@ -36,9 +36,11 @@ export const useBrowserWallets = () => {
 
   React.useEffect(() => {
     setBrowserProviders(window.ethereum);
+    console.log("browserProviders: ", browserProviders);
     if (typeof browserProviders !== "undefined") {
       if (browserProviders.providers?.length > 0) {
         browserProviders.providers.forEach(async (p: any) => {
+          console.log("p: ", p);
           if (p.isShabakat) {
             setShabakat(p);
           }
@@ -52,6 +54,7 @@ export const useBrowserWallets = () => {
             setCoinbase(p);
           }
         });
+        console.log("---------------------------------");
       } else {
         if (browserProviders.isShabakat) setShabakat(browserProviders);
         if (browserProviders.isMetaMask) setMetamask(browserProviders);

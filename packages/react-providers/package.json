@@ -30,8 +30,8 @@
     "@solana/wallet-adapter-wallets": "^0.19.11",
     "@solana/web3.js": "^1.73.2",
     "@suiet/wallet-kit": "^0.2.15",
-    "@walletconnect/qrcode-modal": "^1.8.0",
-    "@walletconnect/web3-provider": "^1.8.0",
+    "@walletconnect/ethereum-provider": "^2.9.2",
+    "@walletconnect/modal": "^2.6.1",
     "ethers": "^5.7.1"
   },
   "devDependencies": {
