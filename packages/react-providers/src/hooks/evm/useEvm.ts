@@ -60,13 +60,14 @@ export const useEvm = () => {
   const activateWallet = async (_provider: any) => {
     try {
       const res = await _provider.send("eth_requestAccounts", []);
+      console.log("res: ", res);
       const chainIdRes =
         _provider.getChainId && typeof _provider.getChainId == "function"
           ? _provider.getChainId()
-          : await _provider.send("eth_chainId", []);
-      if (res.result)
-        setData(res.result[0], parseInt(chainIdRes.result), _provider);
-      else setData(res[0], parseInt(chainIdRes.result), _provider);
+          : (await _provider.send("eth_chainId", [])).result;
+      console.log("chainIdRes: ", chainIdRes);
+      if (res.result) setData(res.result[0], parseInt(chainIdRes), _provider);
+      else setData(res[0], parseInt(chainIdRes), _provider);
     } catch (err) {
       addError(err);
     }
@@ -85,6 +86,7 @@ export const useEvm = () => {
   }, [metamask]);
 
   const activateCoinbaseWallet = React.useCallback(async () => {
+    console.log(coinbase);
     if (coinbase) activateWallet(coinbase);
     // @Cryptogate: Might remove this later (handles popup if no extension found)
     // appLogo is optional

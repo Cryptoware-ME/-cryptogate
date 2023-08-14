@@ -681,13 +681,15 @@ const useEvm = () => {
     const activateWallet = (_provider) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             const res = yield _provider.send("eth_requestAccounts", []);
+            console.log("res: ", res);
             const chainIdRes = _provider.getChainId && typeof _provider.getChainId == "function"
                 ? _provider.getChainId()
-                : yield _provider.send("eth_chainId", []);
+                : (yield _provider.send("eth_chainId", [])).result;
+            console.log("chainIdRes: ", chainIdRes);
             if (res.result)
-                setData(res.result[0], parseInt(chainIdRes.result), _provider);
+                setData(res.result[0], parseInt(chainIdRes), _provider);
             else
-                setData(res[0], parseInt(chainIdRes.result), _provider);
+                setData(res[0], parseInt(chainIdRes), _provider);
         }
         catch (err) {
             addError(err);
@@ -706,6 +708,7 @@ const useEvm = () => {
             activateWallet(metamask);
     }), [metamask]);
     const activateCoinbaseWallet = React.useCallback(() => __awaiter(void 0, void 0, void 0, function* () {
+        console.log(coinbase);
         if (coinbase)
             activateWallet(coinbase);
         // @Cryptogate: Might remove this later (handles popup if no extension found)
