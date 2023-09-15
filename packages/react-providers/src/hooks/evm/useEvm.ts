@@ -13,6 +13,7 @@ import { useWallet } from "../../providers/wallet";
 import { getChainById } from "../../helpers";
 import { EvmAddress } from "../../models/types";
 import { useAccount } from "../account";
+import { ChainId } from "../../constants/chains";
 
 /**
  * @public
@@ -97,8 +98,10 @@ export const useEvm = () => {
   const activateWalletConnect = async () => {
     const provider = await EthereumProvider.init({
       projectId: "8f85185f326acbf30d95911cc164929a",
-      chains: [1],
-      optionalChains: [1, 11155111],
+      chains: [137],
+      optionalChains: Object.values(ChainId)
+        .filter((i) => typeof i == "number")
+        .map((j) => j as number),
       showQrModal: true,
     });
 
