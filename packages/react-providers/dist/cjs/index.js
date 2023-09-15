@@ -744,8 +744,10 @@ const useEvm = () => {
     const activateWalletConnect = () => __awaiter(void 0, void 0, void 0, function* () {
         const provider = yield ethereumProvider.EthereumProvider.init({
             projectId: "8f85185f326acbf30d95911cc164929a",
-            chains: [1],
-            optionalChains: [1, 11155111],
+            chains: [137],
+            optionalChains: Object.values(exports.ChainId)
+                .filter((i) => typeof i == "number")
+                .map((j) => j),
             showQrModal: true,
         });
         provider.on("connect", () => setProvider(new ethers__namespace.providers.Web3Provider(provider)));
