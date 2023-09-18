@@ -4,6 +4,7 @@ import Shabakat from "../wallets/Shabakat";
 import Metamask from "../wallets/Metamask";
 import Brave from "../wallets/Brave";
 import Coinbase from "../wallets/Coinbase";
+import Torus from "../wallets/Torus";
 import WalletConnect from "../wallets/WalletConnect";
 
 const EvmWalletListComp = ({ wallets }: { wallets: EvmWallets[] }) => {
@@ -13,6 +14,7 @@ const EvmWalletListComp = ({ wallets }: { wallets: EvmWallets[] }) => {
     activateCoinbaseWallet,
     activateWalletConnect,
     activateShabakatWallet,
+    activateTorus,
   } = useEvm();
 
   return (
@@ -68,6 +70,15 @@ const EvmWalletListComp = ({ wallets }: { wallets: EvmWallets[] }) => {
           heading="Wallet Connect"
           Icon={<WalletConnect />}
           onWalletCall={activateWalletConnect}
+        />
+      )}
+
+      {(wallets.indexOf(EvmWallets.ALL) > -1 ||
+        wallets.indexOf(EvmWallets.TORUS) > -1) && (
+        <WalletListing
+          heading="Torus"
+          Icon={<Torus />}
+          onWalletCall={activateTorus}
         />
       )}
     </div>
