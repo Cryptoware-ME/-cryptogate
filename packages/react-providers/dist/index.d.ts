@@ -45,7 +45,8 @@ declare enum EvmWallets {
     METAMASK = "metamask",
     WALLETCONNECT = "walletconnect",
     COINBASE = "coinbase",
-    BRAVEWALLET = "braveWallet"
+    BRAVEWALLET = "braveWallet",
+    TORUS = "torus"
 }
 
 declare enum SuiWallets {
@@ -252,6 +253,7 @@ declare const useEthereum: () => {
     activateCoinbaseWallet: () => Promise<void>;
     activateWalletConnect: () => Promise<void>;
     activateShabakatWallet: () => Promise<void>;
+    activateTorus: () => Promise<_ethersproject_providers.Web3Provider | null>;
     deactivate: () => void;
     errors: string[];
 };
@@ -271,6 +273,7 @@ declare const useEvm: () => {
     activateCoinbaseWallet: () => Promise<void>;
     activateWalletConnect: () => Promise<void>;
     activateShabakatWallet: () => Promise<void>;
+    activateTorus: () => Promise<ethers.ethers.providers.Web3Provider | null>;
     deactivate: () => void;
     errors: string[];
 };
@@ -326,6 +329,7 @@ declare const useMultichain: () => {
         activateCoinbaseWallet: () => Promise<void>;
         activateWalletConnect: () => Promise<void>;
         activateShabakatWallet: () => Promise<void>;
+        activateTorus: () => Promise<_ethersproject_providers.Web3Provider | null>;
         deactivate: () => void;
         errors: string[];
     };

@@ -12,6 +12,7 @@ export declare const useMultichain: () => {
         activateCoinbaseWallet: () => Promise<void>;
         activateWalletConnect: () => Promise<void>;
         activateShabakatWallet: () => Promise<void>;
+        activateTorus: () => Promise<import("@ethersproject/providers").Web3Provider | null>;
         deactivate: () => void;
         errors: string[];
     };

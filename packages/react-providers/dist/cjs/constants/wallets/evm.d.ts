@@ -4,5 +4,6 @@ export declare enum EvmWallets {
     METAMASK = "metamask",
     WALLETCONNECT = "walletconnect",
     COINBASE = "coinbase",
-    BRAVEWALLET = "braveWallet"
+    BRAVEWALLET = "braveWallet",
+    TORUS = "torus"
 }

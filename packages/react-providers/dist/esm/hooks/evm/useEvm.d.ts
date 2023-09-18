@@ -14,6 +14,7 @@ export declare const useEvm: () => {
     activateCoinbaseWallet: () => Promise<void>;
     activateWalletConnect: () => Promise<void>;
     activateShabakatWallet: () => Promise<void>;
+    activateTorus: () => Promise<ethers.ethers.providers.Web3Provider | null>;
     deactivate: () => void;
     errors: string[];
 };

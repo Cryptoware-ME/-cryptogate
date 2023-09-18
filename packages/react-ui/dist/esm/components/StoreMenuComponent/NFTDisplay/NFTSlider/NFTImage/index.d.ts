@@ -1,4 +1,3 @@
-/// <reference types="react" />
 declare const index: ({ URI, number, symbol, }: {
     URI: string;
     number: number;

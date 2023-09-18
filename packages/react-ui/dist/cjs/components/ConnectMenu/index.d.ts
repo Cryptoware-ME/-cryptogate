@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import { ConnectedMenuOptions } from "../ConnectWalletComponent";
 export declare const ConnectedMenu: ({ ChosenConnectedMenu, onClose, onDisconnect, isOpen, Store, }: {
     ChosenConnectedMenu: ConnectedMenuOptions;

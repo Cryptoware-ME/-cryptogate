@@ -9,6 +9,7 @@ var walletAdapterWallets = require('@solana/wallet-adapter-wallets');
 var walletAdapterBase = require('@solana/wallet-adapter-base');
 var web3_js = require('@solana/web3.js');
 var walletKit = require('@suiet/wallet-kit');
+var Torus = require('@toruslabs/torus-embed');
 var CoinbaseWalletSDK = require('@coinbase/wallet-sdk');
 var ethereumProvider = require('@walletconnect/ethereum-provider');
 
@@ -34,6 +35,7 @@ function _interopNamespace(e) {
 
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
 var ethers__namespace = /*#__PURE__*/_interopNamespace(ethers);
+var Torus__default = /*#__PURE__*/_interopDefaultLegacy(Torus);
 var CoinbaseWalletSDK__default = /*#__PURE__*/_interopDefaultLegacy(CoinbaseWalletSDK);
 
 const ConfigContext = React__default["default"].createContext({ ethConfig: { defaultNetwork: undefined, readOnlyUrls: {} } });
@@ -563,6 +565,7 @@ exports.EvmWallets = void 0;
     EvmWallets["WALLETCONNECT"] = "walletconnect";
     EvmWallets["COINBASE"] = "coinbase";
     EvmWallets["BRAVEWALLET"] = "braveWallet";
+    EvmWallets["TORUS"] = "torus";
 })(exports.EvmWallets || (exports.EvmWallets = {}));
 
 exports.SuiWallets = void 0;
@@ -761,6 +764,20 @@ const useEvm = () => {
         provider.on("disconnect", deactivate);
         yield provider.enable();
     });
+    const activateTorus = () => __awaiter(void 0, void 0, void 0, function* () {
+        const torus = new Torus__default["default"]();
+        try {
+            yield torus.init({ network: { host: "mainnet" } });
+            const addresses = yield torus.login();
+            const provider = new ethers__namespace.providers.Web3Provider(torus.provider);
+            setData(addresses[0], 1, provider);
+            return provider;
+        }
+        catch (err) {
+            addError(err);
+            return null;
+        }
+    });
     const deactivate = React__default["default"].useCallback(() => {
         var _a, _b, _c, _d;
         setWalletData({ account: undefined });
@@ -787,6 +804,7 @@ const useEvm = () => {
         activateCoinbaseWallet,
         activateWalletConnect,
         activateShabakatWallet,
+        activateTorus,
         deactivate,
         errors,
     };

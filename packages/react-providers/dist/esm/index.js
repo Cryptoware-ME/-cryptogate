@@ -6,6 +6,7 @@ import { SlopeWalletAdapter, SolflareWalletAdapter, SolletExtensionWalletAdapter
 import { WalletAdapterNetwork, WalletReadyState } from '@solana/wallet-adapter-base';
 import { clusterApiUrl } from '@solana/web3.js';
 import { WalletProvider as WalletProvider$2, useWallet as useWallet$2, useAccountBalance, useCoinBalance, useChain, useSuiProvider } from '@suiet/wallet-kit';
+import Torus from '@toruslabs/torus-embed';
 import CoinbaseWalletSDK from '@coinbase/wallet-sdk';
 import { EthereumProvider } from '@walletconnect/ethereum-provider';
 
@@ -536,6 +537,7 @@ var EvmWallets;
     EvmWallets["WALLETCONNECT"] = "walletconnect";
     EvmWallets["COINBASE"] = "coinbase";
     EvmWallets["BRAVEWALLET"] = "braveWallet";
+    EvmWallets["TORUS"] = "torus";
 })(EvmWallets || (EvmWallets = {}));
 
 var SuiWallets;
@@ -734,6 +736,20 @@ const useEvm = () => {
         provider.on("disconnect", deactivate);
         yield provider.enable();
     });
+    const activateTorus = () => __awaiter(void 0, void 0, void 0, function* () {
+        const torus = new Torus();
+        try {
+            yield torus.init({ network: { host: "mainnet" } });
+            const addresses = yield torus.login();
+            const provider = new ethers.providers.Web3Provider(torus.provider);
+            setData(addresses[0], 1, provider);
+            return provider;
+        }
+        catch (err) {
+            addError(err);
+            return null;
+        }
+    });
     const deactivate = React.useCallback(() => {
         var _a, _b, _c, _d;
         setWalletData({ account: undefined });
@@ -760,6 +776,7 @@ const useEvm = () => {
         activateCoinbaseWallet,
         activateWalletConnect,
         activateShabakatWallet,
+        activateTorus,
         deactivate,
         errors,
     };

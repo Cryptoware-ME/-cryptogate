@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import { ContractABIUnit, EvmAddress } from "@cryptogate/react-providers";
 export declare const AbiToUi: ({ contract, address, abi, methodData, gasPrice, gasLimit, }: {
     contract?: string | undefined;
