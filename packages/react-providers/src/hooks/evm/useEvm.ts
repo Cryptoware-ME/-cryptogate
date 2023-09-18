@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import * as ethers from "ethers";
+import Torus from "@toruslabs/torus-embed";
 import CoinbaseWalletSDK from "@coinbase/wallet-sdk";
 import { EthereumProvider } from "@walletconnect/ethereum-provider";
 import {
@@ -123,6 +124,22 @@ export const useEvm = () => {
     await provider.enable();
   };
 
+  const activateTorus = async () => {
+    const torus = new Torus();
+    try {
+      await torus.init({ network: { host: "mainnet" } });
+
+      const addresses = await torus.login();
+      const provider = new ethers.providers.Web3Provider(torus.provider);
+
+      setData(addresses[0] as EvmAddress, 1, provider);
+      return provider;
+    } catch (err) {
+      addError(err);
+      return null;
+    }
+  };
+
   const deactivate = React.useCallback(() => {
     setWalletData({ account: undefined });
     if (ethConfig) {
@@ -152,6 +169,7 @@ export const useEvm = () => {
     activateCoinbaseWallet,
     activateWalletConnect,
     activateShabakatWallet,
+    activateTorus,
     deactivate,
     errors,
   };

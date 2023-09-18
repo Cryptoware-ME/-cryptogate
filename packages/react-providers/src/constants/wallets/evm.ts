@@ -1,8 +1,9 @@
 export enum EvmWallets {
-    ALL = "all",
-    SHABAKAT = "shabakat",
-    METAMASK = "metamask",
-    WALLETCONNECT = "walletconnect",
-    COINBASE = "coinbase",
-    BRAVEWALLET = "braveWallet",
+  ALL = "all",
+  SHABAKAT = "shabakat",
+  METAMASK = "metamask",
+  WALLETCONNECT = "walletconnect",
+  COINBASE = "coinbase",
+  BRAVEWALLET = "braveWallet",
+  TORUS = "torus",
 }

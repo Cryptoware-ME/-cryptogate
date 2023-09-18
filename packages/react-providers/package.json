@@ -32,7 +32,8 @@
     "@suiet/wallet-kit": "^0.2.15",
     "@walletconnect/ethereum-provider": "^2.9.2",
     "@walletconnect/modal": "^2.6.1",
-    "ethers": "^5.7.1"
+    "ethers": "^5.7.1",
+    "@toruslabs/torus-embed": "2.2.9"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^21.1.0",
